@@ -5,6 +5,8 @@
  */
 package com.atuservicio.atuservicio.controllers;
 
+import com.atuservicio.atuservicio.dtos.UserDTO;
+import com.atuservicio.atuservicio.entities.Role;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -33,12 +36,15 @@ public class UserController {
     
     @PostMapping("/register")
     public String registro(@RequestParam String name, @RequestParam String email, 
-            @RequestParam String password, String password2,@RequestParam String rol,
-            @RequestParam String calle,@RequestParam long numero,@RequestParam String codPostal,
-            @RequestParam String ciudad,@RequestParam String pais, ModelMap modelo) throws MyException {
+            @RequestParam String password, String password2,@RequestParam Role role,MultipartFile image,
+            @RequestParam String address,@RequestParam long address_number,@RequestParam String postal_code,
+            @RequestParam String city,@RequestParam String province, @RequestParam String country, ModelMap modelo) throws MyException {
+            
         
 //        try {
-//            userService.registrar(name, email, password, password2, rol, calle, numero, codPostal, ciudad, pais);
+            UserDTO user = new UserDTO(name, email, role, image, address, address_number,city,province, country, postal_code);
+
+//            userService.registrar(user);
             modelo.put("exito", "usuario registrado correctamente");
             return "redirect:/login";
         
