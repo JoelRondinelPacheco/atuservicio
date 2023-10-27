@@ -9,6 +9,6 @@ import java.util.List;
 public class Role extends Base {
     @Column(unique = true)
     private String role;
-    @ManyToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private List<User> users;
 }

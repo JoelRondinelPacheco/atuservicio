@@ -6,7 +6,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 @MappedSuperclass
 @Getter
