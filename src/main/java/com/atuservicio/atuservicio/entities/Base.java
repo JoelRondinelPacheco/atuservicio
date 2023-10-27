@@ -1,25 +1,24 @@
 package com.atuservicio.atuservicio.entities;
 
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
-
+@MappedSuperclass
+@Getter
 public class Base {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name="uuid", strategy = "uuid2")
     private String id;
     @CreationTimestamp
-    @Temporal(TemporalType.TIME)
-    private LocalDate createdAt;
+    @Temporal(TemporalType.DATE)
+    private Date createdAt;
     @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDate updatedAt;
+    @Temporal(TemporalType.DATE)
+    private Date updatedAt;
 }

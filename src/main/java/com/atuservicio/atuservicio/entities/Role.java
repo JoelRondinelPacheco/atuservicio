@@ -1,13 +1,14 @@
 package com.atuservicio.atuservicio.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.naming.Name;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "roles")
 public class Role extends Base {
-    @Id
-    String id;
-    @ManyToOne
-    String role;
+    @Column(unique = true)
+    private String role;
+    @ManyToMany(mappedBy = "role")
+    private List<User> users;
 }
