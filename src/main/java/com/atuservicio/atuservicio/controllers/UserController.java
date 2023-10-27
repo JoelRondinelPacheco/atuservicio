@@ -35,7 +35,7 @@ public class UserController {
     public String registro(@RequestParam String name, @RequestParam String email, 
             @RequestParam String password, String password2,@RequestParam String rol,
             @RequestParam String calle,@RequestParam long numero,@RequestParam String codPostal,
-            @RequestParam String ciudad,@RequestParam String pais, ModelMap modelo) throws MyException{
+            @RequestParam String ciudad,@RequestParam String pais, ModelMap modelo) throws MyException {
         
         try {
             userService.registrar(name, email, password, password2, rol, calle, numero, codPostal, ciudad, pais);
@@ -43,6 +43,7 @@ public class UserController {
             return "redirect:/login";
         
         } catch (MyException ex){
+            
             modelo.put("error", ex.getMessage());
             modelo.put("name", name);
             modelo.put("email", email);
