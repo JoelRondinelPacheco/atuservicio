@@ -5,7 +5,8 @@
  */
 package com.atuservicio.atuservicio.controllers;
 
-import com.atuservicio.atuservicio.dtos.UserInfoDTO;
+
+import com.atuservicio.atuservicio.dtos.UserDTO;
 import com.atuservicio.atuservicio.entities.Role;
 import com.atuservicio.atuservicio.exceptions.MyException;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -38,35 +40,26 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registro(@RequestParam String name, @RequestParam String email,
-            @RequestParam String password, String password2, @RequestParam String rol,
-            @RequestParam String calle, @RequestParam long numero, @RequestParam String codPostal,
-            @RequestParam String ciudad, @RequestParam String pais, ModelMap modelo) throws MyException {
+    public String registro(@RequestParam String name, @RequestParam String email, 
+            @RequestParam String password, String password2,@RequestParam Role role,MultipartFile image,
+            @RequestParam String address,@RequestParam long address_number,@RequestParam String postal_code,
+            @RequestParam String city,@RequestParam String province, @RequestParam String country, ModelMap modelo) throws MyException {
+            
+        
+//        try {
+            UserDTO user = new UserDTO(name, email, role, image, address, address_number,city,province, country, postal_code);
 
-        // try {
-        // userService.registrar(name, email, password, password2, rol, calle, numero,
-        // codPostal, ciudad, pais);
-        modelo.put("exito", "usuario registrado correctamente");
-        return "redirect:/login";
-
-        // } catch (MyException ex){
-        //
-        // modelo.put("error", ex.getMessage());
-        // modelo.put("name", name);
-        // modelo.put("email", email);
-        // return "register.html";
-        // }
-    }
-
-    @GetMapping("/list")
-    public String list(ModelMap model) {
-
-        // List<UserInfoDTO> users = userService.listUsers(); //esto deberia retornar una lista userInfoDTO.
-
-        // model.addAttribute("users", users);
-
-        return "user_list.html";
-
+//            userService.registrar(user);
+            modelo.put("exito", "usuario registrado correctamente");
+            return "redirect:/login";
+        
+//        } catch (MyException ex){
+//            
+//            modelo.put("error", ex.getMessage());
+//            modelo.put("name", name);
+//            modelo.put("email", email);
+//            return "register.html";
+//        }
     }
 
     @GetMapping("/modify/{id}")
