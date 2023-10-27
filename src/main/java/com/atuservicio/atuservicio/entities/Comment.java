@@ -7,11 +7,11 @@ import java.util.Date;
 @Table(name = "comments")
 public class Comment extends Base {
     @ManyToOne
-    @JoinColumn(name = "autor_id")
-    private User emisor;
+    @JoinColumn(name = "author_id")
+    private User author;
     @ManyToOne
-    @JoinColumn(name = "receptor_id")
-    private User receptor;
+    @JoinColumn(name = "receiver_id")
+    private User receiver;
     private Date date;
-    private Double puntaje;
+    private Double score;
 }
