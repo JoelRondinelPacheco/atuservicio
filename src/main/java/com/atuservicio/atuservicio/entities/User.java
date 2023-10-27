@@ -12,12 +12,19 @@ public class User extends Base {
     @Column(unique = true)
     private String email;
     private String password;
-    Boolean active;
-    @ManyToMany
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> role;
-    @OneToMany(mappedBy = "emisor", cascade = CascadeType.ALL)
+    private Boolean active;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+    private String image;
+    private String address;
+    private Long address_number;
+    private String city;
+    private String province;
+    private String country;
+    private String postal_code;
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Comment> comments;
-    @OneToMany(mappedBy = "receptor", cascade = CascadeType.ALL)
-    private List<Comment> comentarios_recibidos;
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+    private List<Comment> comments_received;
 }
