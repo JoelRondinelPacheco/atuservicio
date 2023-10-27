@@ -1,0 +1,5 @@
+com\atuservicio\atuservicio\entities\Base.class
+com\atuservicio\atuservicio\entities\Comment.class
+com\atuservicio\atuservicio\entities\Role.class
+com\atuservicio\atuservicio\AtuservicioApplication.class
+com\atuservicio\atuservicio\entities\User.class
