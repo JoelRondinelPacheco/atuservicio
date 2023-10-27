@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
     
     @Autowired
-    UserService userService;
+//    UserService userService;
     
     @GetMapping("/register")
     public String register(){
@@ -37,18 +37,18 @@ public class UserController {
             @RequestParam String calle,@RequestParam long numero,@RequestParam String codPostal,
             @RequestParam String ciudad,@RequestParam String pais, ModelMap modelo) throws MyException {
         
-        try {
-            userService.registrar(name, email, password, password2, rol, calle, numero, codPostal, ciudad, pais);
+//        try {
+//            userService.registrar(name, email, password, password2, rol, calle, numero, codPostal, ciudad, pais);
             modelo.put("exito", "usuario registrado correctamente");
             return "redirect:/login";
         
-        } catch (MyException ex){
-            
-            modelo.put("error", ex.getMessage());
-            modelo.put("name", name);
-            modelo.put("email", email);
-            return "register.html";
-        }
+//        } catch (MyException ex){
+//            
+//            modelo.put("error", ex.getMessage());
+//            modelo.put("name", name);
+//            modelo.put("email", email);
+//            return "register.html";
+//        }
     }
     
     
