@@ -9,6 +9,6 @@ package com.atuservicio.atuservicio.controllers;
  *
  * @author dario
  */
-public class ProviderController {
+public class SupplierController {
     
 }
