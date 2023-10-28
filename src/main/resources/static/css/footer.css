@@ -1,0 +1,8 @@
+   /* Estilos para el footer */
+        footer {
+            background-color: #A1D6E2;
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }

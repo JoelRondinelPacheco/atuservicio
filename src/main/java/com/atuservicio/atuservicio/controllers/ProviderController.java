@@ -30,8 +30,8 @@ import org.springframework.web.multipart.MultipartFile;
  * @author dario
  */
 @Controller
-@RequestMapping("/client")
-public class UserController {
+@RequestMapping("/provider")
+public class ProviderController {
 
     @Autowired
     UserService userService;
@@ -77,15 +77,15 @@ public class UserController {
  
     
     @GetMapping("/modify/{id}")
-    public String getModify(@PathVariable("id") String id, ModelMap model) {
+   public String getModify(@PathVariable("id") String id, ModelMap model) {
 
         // model.addAttribute("user", userService.findById(id)); // esto deberia retornar un userInfoDTO creo xD.
 
-        return "user_modify.html";
+      return "user_modify.html";
 
-    }
+  }
 
-    @PostMapping("/modify/{id}")
+  @PostMapping("/modify/{id}")
     public String postModify(@PathVariable("id") String id, String name,String email,MultipartFile image,String address, Long address_number, String city, String province,String country,String postal_code,ModelMap model) {
 
         try {
