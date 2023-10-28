@@ -1,19 +1,14 @@
 package com.atuservicio.atuservicio.services;
 
-import com.atuservicio.atuservicio.dtos.EditUserDTO;
 import com.atuservicio.atuservicio.dtos.SaveUserDTO;
 import com.atuservicio.atuservicio.dtos.UserInfoDTO;
-import com.atuservicio.atuservicio.entities.Image;
-import com.atuservicio.atuservicio.entities.Role;
 import com.atuservicio.atuservicio.entities.User;
-import com.atuservicio.atuservicio.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.atuservicio.atuservicio.exceptions.MyException;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
@@ -21,112 +16,49 @@ import java.util.Optional;
 @Service
 public class UserService implements IUserService{
     @Autowired
-    private IUserRepository userRepository;
-    @Autowired
-    private ImageService imageService;
-    @Autowired
-    private RoleService roleService;
+    private UserRepository userRepository;
 
     @Override
-    public UserInfoDTO save(SaveUserDTO userDTO) throws MyException {
-        if (!userDTO.getPassword().equals(userDTO.getPassword2())) {
-            throw new MyException("Las contraseñas no coincide");
-        }
-        User user = new User();
-        user.setName(userDTO.getName());
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
+    public UserInfoDTO save(SaveUserDTO userDTO) {
+        /*User userfinal = new User();
+        userfinal.setName(userDTO.getName());
+        userfinal.setEmail(userDTO.getEmail());
+        //...
+        User userGuardado = this.userRepository.save(userfinal);
+        UserInfoDTO userinfo = new UserInfoDTO(userGuardado.getId(), userGuardado.getName(), );
 
-        Role role = this.roleService.getById(userDTO.getRole());
-        user.setRole(role);
 
-        Image img = this.imageService.save(userDTO.getImage());
-        user.setImage(img);
-        user.setAddress(userDTO.getAddress());
-        user.setAddress_number(userDTO.getAddress_number());
-        user.setCity(userDTO.getCity());
-        user.setProvince(userDTO.getProvince());
-        user.setCountry(userDTO.getCountry());
-        user.setPostal_code(userDTO.getPostal_code());
-        User userGuardado = this.userRepository.save(user);
-        if (userGuardado == null) {
-            throw new MyException("No se puedo crear el usuario");
-        }
-        UserInfoDTO userinfo = this.createUserInfoDTO(userGuardado);
-
-        return userinfo;
+        return userinfo;*/
+        return null;
     }
 
     @Override
-    public UserInfoDTO edit(EditUserDTO userDTO) throws MyException {
-        //TODO CHECKEAR SE LA IMAGEN ES LA MISMA PARA NO HACER EL PROCESO DE GUARDA LA IMAGEN OTRA VEZ
-        Optional<User> userOptional = this.userRepository.findById(userDTO.getId());
+    public UserInfoDTO edit(UserInfoDTO userDTO) {
+      /*  Optional<User> userOptional = this.userRepository.findById(user.getId());
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             user.setName(userDTO.getName());
-            user.setEmail(userDTO.getEmail());
-            String imageId = user.getImage().getId();
-            Image image = this.imageService.update(userDTO.getImage(), imageId);
-            user.setImage(image);
-            user.setAddress(userDTO.getAddress());
-            user.setAddress_number(userDTO.getAddress_number());
-            user.setCity(userDTO.getCity());
-            user.setProvince(userDTO.getProvince());
-            user.setCountry(userDTO.getCountry());
-            user.setPostal_code(userDTO.getPostal_code());
+            user.setEmail(user.getEmail());
+            user.setRole(userDTO.getRole());
+            user.setImage(userDTO.getImage());
 
-            return this.createUserInfoDTO(user);
-
-        }
-        throw new MyException("Usuario no encontrado");
+        }*/
+        return null;
     }
 
     @Override
     public String delete(String id) throws MyException {
-        Optional<User> userOptional = this.userRepository.findById(id);
-        if (userOptional.isPresent()) {
-            this.userRepository.deleteById(id);
-            return "Usuario eliminado correctamente";
-        }
-        throw new MyException("Usuario no encontrado");
+        return null;
     }
 
     @Override
-    public UserInfoDTO getById(String id) throws MyException {
-        Optional<User> userOptional = this.userRepository.findById(id);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            UserInfoDTO userinfo = this.createUserInfoDTO(user);
-            return userinfo;
-        }
-        throw new MyException("Usuario no encontrado");
+    public UserInfoDTO getById(String id) {
+        return null;
     }
 
     @Override
     public List<UserInfoDTO> getAllUsers() {
-        List<User> users = this.userRepository.findAll();
-        List<UserInfoDTO> userInformation = new ArrayList<>();
-        for (User user : users) {
-            UserInfoDTO userInfo = this.createUserInfoDTO(user);
-            userInformation.add(userInfo);
-        }
-        return userInformation;
+        return null;
     }
 
-    private UserInfoDTO createUserInfoDTO(User user) {
-        UserInfoDTO userinfo = new UserInfoDTO(
-                user.getName(),
-                user.getEmail(),
-                user.getRole(),
-                user.getImage(),
-                user.getAddress(),
-                user.getAddress_number(),
-                user.getCity(),
-                user.getProvince(),
-                user.getCountry(),
-                user.getPostal_code(),
-                user.getId()
-        );
-        return userinfo;
-    }
 }

@@ -7,7 +7,6 @@ package com.atuservicio.atuservicio.controllers;
 
 
 
-import com.atuservicio.atuservicio.dtos.EditUserDTO;
 import com.atuservicio.atuservicio.dtos.SaveUserDTO;
 import com.atuservicio.atuservicio.dtos.UserInfoDTO;
 import com.atuservicio.atuservicio.entities.Role;
@@ -44,20 +43,15 @@ public class UserController {
     }
 
     @PostMapping("/register")
-<<<<<<< HEAD
-    public String registro(@RequestParam String name, @RequestParam String email, 
-            @RequestParam String password, String password2, String role, MultipartFile image,
-=======
     public String register(@RequestParam String name, @RequestParam String email, 
             @RequestParam String password, String password2, Role role, MultipartFile image,
->>>>>>> developer
             @RequestParam String address,@RequestParam Long address_number,@RequestParam String postal_code,
             @RequestParam String city,@RequestParam String province, @RequestParam String country, ModelMap model) throws MyException {
             
             
             
         try {
-            SaveUserDTO user = new SaveUserDTO(image, password, password2, role);
+            SaveUserDTO user = new SaveUserDTO(password, password2);
             user.setName(name);
             user.setEmail(email);
             user.setImage(image);
@@ -95,10 +89,8 @@ public class UserController {
     public String postModify(@PathVariable("id") String id, String name,String email,MultipartFile image,String address, Long address_number, String city, String province,String country,String postal_code,ModelMap model) {
 
         try {
-            /*
-            EDITO JOEL
-            El metodo edit ya verifica que el usuario con el id exista
-            UserInfoDTO userInfoDTO = userService.getById(id);
+            
+            UserInfoDTO userInfoDTO = userService.getById(id); // cambiar null por: userService.findById(id); 
             userInfoDTO.setName(name);
             userInfoDTO.setEmail(email);
             userInfoDTO.setImage(image);
@@ -109,10 +101,6 @@ public class UserController {
             userInfoDTO.setCountry(country);
             userInfoDTO.setPostal_code(postal_code);
             userService.edit(userInfoDTO);
-            */
-            EditUserDTO editUser = new EditUserDTO(name, email, image, address, address_number, city, province, country, postal_code, id);
-            userService.edit(editUser);
-
             model.put("exito", "Se actualizó el usuario correctamente");
 
         } catch (MyException ex) { //error de compilacion de la exception porque la funcion modifyUser deberia lanzar la MyException(con eso deberia arreglarse).
