@@ -46,7 +46,7 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@RequestParam String name, @RequestParam String email, 
-            @RequestParam String password, String password2, MultipartFile image,
+            @RequestParam String password, @RequestParam String password2, @RequestParam MultipartFile image,
             @RequestParam String address,@RequestParam Long address_number,@RequestParam String postal_code,
             @RequestParam String city,@RequestParam String province, @RequestParam String country, ModelMap model) throws MyException {
             
@@ -54,7 +54,7 @@ public class UserController {
             
         try {
             SaveUserDTO user = new SaveUserDTO(name, email, address, address_number, city,
-                    province, country, postal_code, password, password2);
+                    province, country, postal_code, password, password2, image);
 //            user.setName(name);
 //            user.setEmail(email);
 //            user.setAddress(address);
@@ -71,7 +71,7 @@ public class UserController {
            model.put("error", ex.getMessage());
            model.put("name", name);
            model.put("email", email);
-           return "register.html";  
+           return "register_client.html";
         }            
 
     }
