@@ -6,6 +6,9 @@ import com.atuservicio.atuservicio.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.atuservicio.atuservicio.exceptions.MyException;
+
+
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +46,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public String delete(String id) {
+    public String delete(String id) throws MyException {
         return null;
     }
 
