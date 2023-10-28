@@ -1,14 +1,60 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace= "/fragments/head :: head"> </head>
 <body>
     <nav th:replace="fragments/navbar :: navbar" ></nav>
+=======
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Título</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+    
+        .navbar {
+            background-color: #A1D6E2;
+        }
+    
+        footer {
+            background-color: #A1D6E2;
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="services.html">Servicios</a></li>
+            <li class="nav-item"><a class="nav-link" href="provider.html">Proveedores</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contacto</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+            <li class="nav-item"><a class="nav-link" href="/client/register">Regístrate Cliente</a></li>
+            <li class="nav-item"><a class="nav-link" href="/provider/register">Regístrate Proveedor</a></li>
+        </ul>
+    </nav>
+>>>>>>> developer
     <div style="max-width: 800px; margin: 0 auto; text-align: left;">
         <p>
             ¡Bienvenido a atuservicio! Somos tu solución integral para todas tus necesidades en plomería, gas, electricidad y una amplia gama de servicios relacionados. Con años de experiencia en el sector, estamos comprometidos en ofrecer servicios confiables y de alta calidad a nuestros clientes.
     
+<<<<<<< HEAD
             Eocer más sobre nuestros servicios, tarifas competitivas y testimonios de clientes satisfechos. No dudes en contactarnos en cualquier momento para programar una cita o para recibir asesoramiento personalizado.
+=======
+            En atuservicio, entendemos que los problemas en tu hogar o negocio pueden surgir en cualquier momento, y es por eso que estamos disponibles las 24 horas del día, los 7 días de la semana, para brindarte asistencia inmediata. Nuestro equipo de expertos altamente capacitados y certificados está listo para abordar cualquier desafío, desde una simple reparación hasta proyectos de instalación complejos.
+    
+            Lo que nos distingue es nuestro compromiso con la satisfacción del cliente. Siempre ponemos tus necesidades en primer lugar, brindando soluciones eficaces, transparentes y asequibles. Puedes confiar en nosotros para resolver tus problemas de manera oportuna y profesional.
+    
+            Explora nuestro sitio web para conocer más sobre nuestros servicios, tarifas competitivas y testimonios de clientes satisfechos. No dudes en contactarnos en cualquier momento para programar una cita o para recibir asesoramiento personalizado.
+>>>>>>> developer
     
             En atuservicio, estamos aquí para hacer tu vida más fácil. ¡Déjanos ocuparnos de tus necesidades de plomería, gas y electricidad para que puedas disfrutar de un hogar o negocio en pleno funcionamiento!
         </p>
@@ -20,10 +66,29 @@
     
 
 </body>
+<<<<<<< HEAD
 <footer th:replace="fragments/footer :: footer" ></footer>
 
 <script>
 
+=======
+<footer class="text-center text-muted">
+    <p>® a tu servicio - <span id="fecha-hora"></span> <a href="contacto.html">Contacto</a></p>
+</footer>
+
+<script>
+    // JavaScript para obtener la fecha y hora actual y mostrarla en el elemento "fecha-hora"
+    function mostrarFechaYHora() {
+        const fechaHoraElement = document.getElementById("fecha-hora");
+        const fechaActual = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        const fechaHoraFormateada = fechaActual.toLocaleDateString('es-ES', options);
+        fechaHoraElement.textContent = fechaHoraFormateada;
+    }
+
+    // Llama a la función para mostrar la fecha y hora cuando se carga la página
+    mostrarFechaYHora();
+>>>>>>> developer
 </script>
 
 

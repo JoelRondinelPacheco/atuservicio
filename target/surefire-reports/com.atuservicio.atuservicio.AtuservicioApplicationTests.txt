@@ -1,6 +1,7 @@
 -------------------------------------------------------------------------------
 Test set: com.atuservicio.atuservicio.AtuservicioApplicationTests
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 20.212 s <<< FAILURE! - in com.atuservicio.atuservicio.AtuservicioApplicationTests
 contextLoads  Time elapsed: 0.026 s  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
@@ -9,3 +10,6 @@ Caused by: org.springframework.beans.factory.BeanCreationException: Error creati
 Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class
 Caused by: org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class
 
+=======
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 16.037 s - in com.atuservicio.atuservicio.AtuservicioApplicationTests
+>>>>>>> developer

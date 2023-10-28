@@ -7,9 +7,14 @@ package com.atuservicio.atuservicio.controllers;
 
 
 
+<<<<<<< HEAD
+=======
+import com.atuservicio.atuservicio.dtos.EditUserDTO;
+>>>>>>> developer
 import com.atuservicio.atuservicio.dtos.SaveUserDTO;
 import com.atuservicio.atuservicio.dtos.UserInfoDTO;
 import com.atuservicio.atuservicio.entities.Role;
+import com.atuservicio.atuservicio.entities.User;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.UserService;
 
@@ -43,14 +48,22 @@ public class UserController {
     }
 
     @PostMapping("/register")
+<<<<<<< HEAD
     public String registro(@RequestParam String name, @RequestParam String email, 
             @RequestParam String password, String password2, Role role, MultipartFile image,
             @RequestParam String address,@RequestParam Long address_number,@RequestParam String postal_code,
             @RequestParam String city,@RequestParam String province, @RequestParam String country, ModelMap modelo) throws MyException {
+=======
+    public String register(@RequestParam String name, @RequestParam String email, 
+            @RequestParam String password, String password2, MultipartFile image,
+            @RequestParam String address,@RequestParam Long address_number,@RequestParam String postal_code,
+            @RequestParam String city,@RequestParam String province, @RequestParam String country, ModelMap model) throws MyException {
+>>>>>>> developer
             
             
             
         try {
+<<<<<<< HEAD
             SaveUserDTO user = new SaveUserDTO(password, password2);
             user.setName(name);
             user.setEmail(email);
@@ -69,6 +82,26 @@ public class UserController {
            modelo.put("error", ex.getMessage());
            modelo.put("name", name);
            modelo.put("email", email);
+=======
+            SaveUserDTO user = new SaveUserDTO(name, email, address, address_number, city,
+                    province, country, postal_code, password, password2);
+//            user.setName(name);
+//            user.setEmail(email);
+//            user.setAddress(address);
+//            user.setAddress_number(address_number);
+//            user.setCity(city);
+//            user.setCountry(country);
+//            user.setProvince(province);
+//            user.setPostal_code(postal_code);
+            userService.save(user);
+            model.put("exito", "usuario registrado correctamente");
+            return "redirect:/login";
+        
+        } catch (MyException ex){
+           model.put("error", ex.getMessage());
+           model.put("name", name);
+           model.put("email", email);
+>>>>>>> developer
            return "register.html";  
         }            
 
@@ -90,6 +123,7 @@ public class UserController {
 
         try {
             
+<<<<<<< HEAD
             UserInfoDTO userInfoDTO = userService.getById(id); // cambiar null por: userService.findById(id); 
             userInfoDTO.setName(name);
             userInfoDTO.setEmail(email);
@@ -100,10 +134,14 @@ public class UserController {
             userInfoDTO.setProvince(province);
             userInfoDTO.setCountry(country);
             userInfoDTO.setPostal_code(postal_code);
+=======
+            EditUserDTO userInfoDTO = new EditUserDTO(name,  email,  image,  address, address_number, city,province,country, postal_code,id); 
+            
+>>>>>>> developer
             userService.edit(userInfoDTO);
             model.put("exito", "Se actualizó el usuario correctamente");
 
-        } catch (MyException ex) { //error de compilacion de la exception porque la funcion modifyUser deberia lanzar la MyException(con eso deberia arreglarse).
+        } catch (MyException ex) { //error de compilacion de la exception psssorque la funcion modifyUser deberia lanzar la MyException(con eso deberia arreglarse).
 
             model.put("error", ex.getMessage());
 
@@ -112,5 +150,14 @@ public class UserController {
 
         return "index.html";
     }
-
+    @GetMapping("/list")
+    public String list(ModelMap model){
+        
+        List<UserInfoDTO> users = userService.getAllUsers();
+        
+        model.addAttribute("users", users);
+       
+        return "users_list.html";
+        
+    }
 }

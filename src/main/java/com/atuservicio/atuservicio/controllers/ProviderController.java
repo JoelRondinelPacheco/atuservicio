@@ -5,6 +5,7 @@
  */
 package com.atuservicio.atuservicio.controllers;
 
+<<<<<<< HEAD
 
 
 import com.atuservicio.atuservicio.dtos.SaveUserDTO;
@@ -25,10 +26,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+=======
+>>>>>>> developer
 /**
  *
  * @author dario
  */
+<<<<<<< HEAD
 @Controller
 @RequestMapping("/provider")
 public class ProviderController {
@@ -76,6 +80,16 @@ public class ProviderController {
 
  
     
+=======
+<<<<<<< HEAD
+@Controller
+@RequestMapping("/provider")
+=======
+>>>>>>> developer
+public class ProviderController {
+    
+<<<<<<< HEAD
+>>>>>>> developer
     @GetMapping("/modify/{id}")
    public String getModify(@PathVariable("id") String id, ModelMap model) {
 
@@ -110,7 +124,15 @@ public class ProviderController {
             return "user_modify.html";
         }
 
+<<<<<<< HEAD
         return "index.html";
     }
 
+=======
+        return "/l";
+    }
+
+=======
+>>>>>>> developer
+>>>>>>> developer
 }
