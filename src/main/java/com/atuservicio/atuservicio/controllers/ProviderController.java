@@ -3,17 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.atuservicio.atuservicio.entities;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
+package com.atuservicio.atuservicio.controllers;
 
 /**
  *
  * @author dario
  */
-@Entity
-@Table(name = "users")
-public class Provider extends User{
-    private String category;
+public class ProviderController {
+    
 }
