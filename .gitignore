@@ -23,6 +23,8 @@
 hs_err_pid*
 replay_pid*
 
+=======
 application.properties
+
 /target/
 */target/**

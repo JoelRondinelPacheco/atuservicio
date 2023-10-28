@@ -1,9 +1,13 @@
 package com.atuservicio.atuservicio.entities;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)    //crea dos tablas separadas ('users' y 'suppliers')
