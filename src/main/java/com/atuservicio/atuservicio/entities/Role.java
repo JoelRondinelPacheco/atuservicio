@@ -11,8 +11,4 @@ public class Role extends Base {
     private String role;
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private List<User> users;
-
-    public Role(String role) {
-        this.role = role;
-    }
 }

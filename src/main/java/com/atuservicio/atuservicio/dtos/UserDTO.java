@@ -15,6 +15,8 @@ public class UserDTO {
     // Solo esta creada como clase padre, para que heredan las demas y no repetir codigo
     private String name;
     private String email;
+    private Role role;
+    private MultipartFile image;
     private String address;
     private Long address_number;
     private String city;
