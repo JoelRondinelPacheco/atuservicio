@@ -7,6 +7,7 @@ package com.atuservicio.atuservicio.controllers;
 
 
 
+import com.atuservicio.atuservicio.dtos.EditUserDTO;
 import com.atuservicio.atuservicio.dtos.SaveUserDTO;
 import com.atuservicio.atuservicio.dtos.UserInfoDTO;
 import com.atuservicio.atuservicio.entities.Role;
@@ -52,15 +53,16 @@ public class UserController {
             
             
         try {
-            SaveUserDTO user = new SaveUserDTO(password, password2, image);
-            user.setName(name);
-            user.setEmail(email);
-            user.setAddress(address);
-            user.setAddress_number(address_number);
-            user.setCity(city);
-            user.setCountry(country);
-            user.setProvince(province);
-            user.setPostal_code(postal_code);
+            SaveUserDTO user = new SaveUserDTO(name, email, address, address_number, city,
+                    province, country, postal_code, password, password2);
+//            user.setName(name);
+//            user.setEmail(email);
+//            user.setAddress(address);
+//            user.setAddress_number(address_number);
+//            user.setCity(city);
+//            user.setCountry(country);
+//            user.setProvince(province);
+//            user.setPostal_code(postal_code);
             userService.save(user);
             model.put("exito", "usuario registrado correctamente");
             return "redirect:/login";
@@ -90,20 +92,12 @@ public class UserController {
 
         try {
             
-            UserInfoDTO userInfoDTO = userService.getById(id); // cambiar null por: userService.findById(id); 
-            userInfoDTO.setName(name);
-            userInfoDTO.setEmail(email);
-            userInfoDTO.setImage(image);
-            userInfoDTO.setAddress(address);
-            userInfoDTO.setAddress_number(address_number);
-            userInfoDTO.setCity(city);
-            userInfoDTO.setProvince(province);
-            userInfoDTO.setCountry(country);
-            userInfoDTO.setPostal_code(postal_code);
+            EditUserDTO userInfoDTO = new EditUserDTO(name,  email,  image,  address, address_number, city,province,country, postal_code,id); 
+            
             userService.edit(userInfoDTO);
             model.put("exito", "Se actualizó el usuario correctamente");
 
-        } catch (MyException ex) { //error de compilacion de la exception porque la funcion modifyUser deberia lanzar la MyException(con eso deberia arreglarse).
+        } catch (MyException ex) { //error de compilacion de la exception psssorque la funcion modifyUser deberia lanzar la MyException(con eso deberia arreglarse).
 
             model.put("error", ex.getMessage());
 
