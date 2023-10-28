@@ -15,6 +15,7 @@ import com.atuservicio.atuservicio.exceptions.MyException;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
