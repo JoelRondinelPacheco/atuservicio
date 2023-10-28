@@ -43,10 +43,10 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registro(@RequestParam String name, @RequestParam String email, 
+    public String register(@RequestParam String name, @RequestParam String email, 
             @RequestParam String password, String password2, Role role, MultipartFile image,
             @RequestParam String address,@RequestParam Long address_number,@RequestParam String postal_code,
-            @RequestParam String city,@RequestParam String province, @RequestParam String country, ModelMap modelo) throws MyException {
+            @RequestParam String city,@RequestParam String province, @RequestParam String country, ModelMap model) throws MyException {
             
             
             
@@ -62,13 +62,13 @@ public class UserController {
             user.setProvince(province);
             user.setPostal_code(postal_code);
             userService.save(user);
-            modelo.put("exito", "usuario registrado correctamente");
+            model.put("exito", "usuario registrado correctamente");
             return "redirect:/login";
         
         } catch (MyException ex){
-           modelo.put("error", ex.getMessage());
-           modelo.put("name", name);
-           modelo.put("email", email);
+           model.put("error", ex.getMessage());
+           model.put("name", name);
+           model.put("email", email);
            return "register.html";  
         }            
 
