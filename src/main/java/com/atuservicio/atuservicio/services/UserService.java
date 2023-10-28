@@ -16,8 +16,11 @@ import com.atuservicio.atuservicio.repositories.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
+<<<<<<< HEAD
+=======
 import java.util.Optional;
 
+>>>>>>> developer
 @Service
 public class UserService implements IUserService{
     @Autowired
