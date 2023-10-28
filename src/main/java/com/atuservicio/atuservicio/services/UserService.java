@@ -5,7 +5,9 @@ import com.atuservicio.atuservicio.dtos.UserInfoDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
 
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserService implements IUserService{
     @Override
     public UserInfoDTO save(SaveUserDTO user) throws MyException{
