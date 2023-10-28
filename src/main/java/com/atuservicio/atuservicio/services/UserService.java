@@ -3,6 +3,7 @@ package com.atuservicio.atuservicio.services;
 import com.atuservicio.atuservicio.dtos.EditUserDTO;
 import com.atuservicio.atuservicio.dtos.SaveUserDTO;
 import com.atuservicio.atuservicio.dtos.UserInfoDTO;
+import com.atuservicio.atuservicio.dtos.UserSearchDTO;
 import com.atuservicio.atuservicio.entities.Image;
 import com.atuservicio.atuservicio.entities.Role;
 import com.atuservicio.atuservicio.entities.User;
@@ -109,6 +110,19 @@ public class UserService implements IUserService{
             userInformation.add(userInfo);
         }
         return userInformation;
+    }
+
+    public List<UserInfoDTO> searchUsers(UserSearchDTO search) throws MyException {
+        if (!search.getCountry().equals("seleccionar") && search.getProvince().equals("seleccionar") && search.getProvince().equals("seleccionar")){
+            //TODO SEARCH SOLO PAIS LLAMAR AL METODO findUsersByCountry
+        } else if (!search.getCountry().equals("seleccionar") && !search.getProvince().equals("seleccionar") && search.getCity().equals("seleccionar")) {
+            //TODO SEARCH POR PAIS Y PROVINCIA LLAMAR METODO findUsersByCountryCity
+        } else if (!search.getCountry().equals("seleccionar") && !search.getProvince().equals("seleccionar") && !search.getCity().equals("seleccionar")) {
+            //TODO SEARCH POR PAIS Y PROVINCIA Y CIUDAD LLAMAR METODO findUsersByCountryCityProvince
+        } else {
+            throw new MyException("Ingrese una busqueda valida");
+        }
+        return null;
     }
 
     private UserInfoDTO createUserInfoDTO(User user) {

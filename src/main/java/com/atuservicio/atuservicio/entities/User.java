@@ -55,4 +55,5 @@ public class User extends Base {
     cascade = CascadeType.ALL --> al eliminar un 'User', automáticamente se 
     eliminan todos los 'Comments' asociados.
     */
+    //TODO PREPERSIST ACTIVE
 }
