@@ -20,7 +20,9 @@ public class User extends Base {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
-    private String image;
+    @OneToOne
+    @JoinColumn(name="image_id", referencedColumnName = "id")
+    private Image image;
     private String address;
     private Long address_number;
     private String city;

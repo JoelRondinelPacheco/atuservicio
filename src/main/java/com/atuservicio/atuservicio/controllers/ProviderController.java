@@ -31,8 +31,8 @@ import org.springframework.web.multipart.MultipartFile;
  * @author dario
  */
 @Controller
-@RequestMapping("/client")
-public class UserController {
+@RequestMapping("/provider")
+public class ProviderController {
 
     @Autowired
     UserService userService;
@@ -44,15 +44,10 @@ public class UserController {
     }
 
     @PostMapping("/register")
-<<<<<<< HEAD
     public String registro(@RequestParam String name, @RequestParam String email, 
             @RequestParam String password, String password2, String role, MultipartFile image,
-=======
-    public String register(@RequestParam String name, @RequestParam String email, 
-            @RequestParam String password, String password2, Role role, MultipartFile image,
->>>>>>> developer
             @RequestParam String address,@RequestParam Long address_number,@RequestParam String postal_code,
-            @RequestParam String city,@RequestParam String province, @RequestParam String country, ModelMap model) throws MyException {
+            @RequestParam String city,@RequestParam String province, @RequestParam String country, ModelMap modelo) throws MyException {
             
             
             
@@ -60,7 +55,6 @@ public class UserController {
             SaveUserDTO user = new SaveUserDTO(image, password, password2, role);
             user.setName(name);
             user.setEmail(email);
-            user.setImage(image);
             user.setAddress(address);
             user.setAddress_number(address_number);
             user.setCity(city);
@@ -68,13 +62,13 @@ public class UserController {
             user.setProvince(province);
             user.setPostal_code(postal_code);
             userService.save(user);
-            model.put("exito", "usuario registrado correctamente");
+            modelo.put("exito", "usuario registrado correctamente");
             return "redirect:/login";
         
         } catch (MyException ex){
-           model.put("error", ex.getMessage());
-           model.put("name", name);
-           model.put("email", email);
+           modelo.put("error", ex.getMessage());
+           modelo.put("name", name);
+           modelo.put("email", email);
            return "register.html";  
         }            
 
@@ -95,10 +89,10 @@ public class UserController {
     public String postModify(@PathVariable("id") String id, String name,String email,MultipartFile image,String address, Long address_number, String city, String province,String country,String postal_code,ModelMap model) {
 
         try {
+            
+            UserInfoDTO userInfoDTO = userService.getById(id); // cambiar null por: userService.findById(id); 
             /*
-            EDITO JOEL
-            El metodo edit ya verifica que el usuario con el id exista
-            UserInfoDTO userInfoDTO = userService.getById(id);
+            Edito Joel
             userInfoDTO.setName(name);
             userInfoDTO.setEmail(email);
             userInfoDTO.setImage(image);
@@ -108,11 +102,9 @@ public class UserController {
             userInfoDTO.setProvince(province);
             userInfoDTO.setCountry(country);
             userInfoDTO.setPostal_code(postal_code);
-            userService.edit(userInfoDTO);
-            */
+            userService.edit(userInfoDTO);*/
             EditUserDTO editUser = new EditUserDTO(name, email, image, address, address_number, city, province, country, postal_code, id);
             userService.edit(editUser);
-
             model.put("exito", "Se actualizó el usuario correctamente");
 
         } catch (MyException ex) { //error de compilacion de la exception porque la funcion modifyUser deberia lanzar la MyException(con eso deberia arreglarse).
