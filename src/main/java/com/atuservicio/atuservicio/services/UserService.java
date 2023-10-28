@@ -2,22 +2,23 @@ package com.atuservicio.atuservicio.services;
 
 import com.atuservicio.atuservicio.dtos.SaveUserDTO;
 import com.atuservicio.atuservicio.dtos.UserInfoDTO;
+import com.atuservicio.atuservicio.exceptions.MyException;
 
 import java.util.List;
 
 public class UserService implements IUserService{
     @Override
-    public UserInfoDTO save(SaveUserDTO user) {
+    public UserInfoDTO save(SaveUserDTO user) throws MyException{
         return null;
     }
 
     @Override
-    public UserInfoDTO edit(UserInfoDTO user) {
+    public UserInfoDTO edit(UserInfoDTO user) throws MyException {
         return null;
     }
 
     @Override
-    public String delete(String id) {
+    public String delete(String id) throws MyException {
         return null;
     }
 
