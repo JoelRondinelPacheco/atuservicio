@@ -9,11 +9,20 @@ package com.atuservicio.atuservicio.controllers;
  *
  * @author dario
  */
-@Controller
-public class ProviderController {
 
-//     @GetMapping("/modify/{id}")
-//    public String getModify(@PathVariable("id") String id, ModelMap model) {
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+@Controller
+@RequestMapping("/provider")
+
+public class ProviderController {
+/*
+    @GetMapping("/modify/{id}")
+   public String getModify(@PathVariable("id") String id, ModelMap model) {
 
 //         // model.addAttribute("user", userService.findById(id)); // esto deberia retornar un userInfoDTO creo xD.
 
@@ -21,8 +30,8 @@ public class ProviderController {
 
 //   }
 
-//   @PostMapping("/modify/{id}")
-//     public String postModify(@PathVariable("id") String id, String name,String email,MultipartFile image,String address, Long address_number, String city, String province,String country,String postal_code,ModelMap model) {
+  @PostMapping("/modify/{id}")
+    public String postModify(@PathVariable("id") String id, String name, String email, MultipartFile image, String address, Long address_number, String city, String province, String country, String postal_code, ModelMap model) {
 
 //         try {
             
@@ -49,5 +58,6 @@ public class ProviderController {
 //         return "/l";
 //     }
 
-
+=======
+>>>>>>> developer*/
 }
