@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 com\atuservicio\atuservicio\controllers\ProviderController.class
+=======
+<<<<<<< HEAD
+=======
+com\atuservicio\atuservicio\entities\Provider.class
+>>>>>>> developer
 com\atuservicio\atuservicio\entities\User.class
 com\atuservicio\atuservicio\dtos\LoginPassDTO.class
 com\atuservicio\atuservicio\entities\Comment.class
@@ -13,3 +19,7 @@ com\atuservicio\atuservicio\exceptions\MyException.class
 com\atuservicio\atuservicio\services\IUserService.class
 com\atuservicio\atuservicio\controllers\HomeController.class
 com\atuservicio\atuservicio\controllers\UserController.class
+<<<<<<< HEAD
+=======
+>>>>>>> fc942d6c631e898c3addee989250f1f105357f66
+>>>>>>> developer

@@ -5,77 +5,18 @@
  */
 package com.atuservicio.atuservicio.controllers;
 
-
-
-import com.atuservicio.atuservicio.dtos.SaveUserDTO;
-import com.atuservicio.atuservicio.dtos.UserInfoDTO;
-import com.atuservicio.atuservicio.entities.Role;
-import com.atuservicio.atuservicio.exceptions.MyException;
-import com.atuservicio.atuservicio.services.UserService;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
 /**
  *
  * @author dario
  */
+<<<<<<< HEAD
 @Controller
 @RequestMapping("/provider")
+=======
+>>>>>>> developer
 public class ProviderController {
-
-    @Autowired
-    UserService userService;
-
-    @GetMapping("/register")
-    public String register() {
-
-        return "register_client.html";
-    }
-
-    @PostMapping("/register")
-    public String registro(@RequestParam String name, @RequestParam String email, 
-            @RequestParam String password, String password2, Role role, MultipartFile image,
-            @RequestParam String address,@RequestParam Long address_number,@RequestParam String postal_code,
-            @RequestParam String city,@RequestParam String province, @RequestParam String country, ModelMap modelo) throws MyException {
-            
-            
-            
-        try {
-            SaveUserDTO user = new SaveUserDTO(password, password2);
-            user.setName(name);
-            user.setEmail(email);
-            user.setImage(image);
-            user.setAddress(address);
-            user.setAddress_number(address_number);
-            user.setCity(city);
-            user.setCountry(country);
-            user.setProvince(province);
-            user.setPostal_code(postal_code);
-            userService.save(user);
-            modelo.put("exito", "usuario registrado correctamente");
-            return "redirect:/login";
-        
-        } catch (MyException ex){
-           modelo.put("error", ex.getMessage());
-           modelo.put("name", name);
-           modelo.put("email", email);
-           return "register.html";  
-        }            
-
-    }
-
- 
     
+<<<<<<< HEAD
     @GetMapping("/modify/{id}")
    public String getModify(@PathVariable("id") String id, ModelMap model) {
 
@@ -113,4 +54,6 @@ public class ProviderController {
         return "/l";
     }
 
+=======
+>>>>>>> developer
 }

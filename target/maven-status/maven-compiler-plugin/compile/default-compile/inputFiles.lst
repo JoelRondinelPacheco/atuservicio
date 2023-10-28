@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\Angel\Desktop\proyecto final git\atuservicio\src\main\java\com\atuservicio\atuservicio\services\IUserService.java
 C:\Users\Angel\Desktop\proyecto final git\atuservicio\src\main\java\com\atuservicio\atuservicio\controllers\HomeController.java
 C:\Users\Angel\Desktop\proyecto final git\atuservicio\src\main\java\com\atuservicio\atuservicio\exceptions\MyException.java
@@ -12,4 +13,24 @@ C:\Users\Angel\Desktop\proyecto final git\atuservicio\src\main\java\com\atuservi
 C:\Users\Angel\Desktop\proyecto final git\atuservicio\src\main\java\com\atuservicio\atuservicio\entities\Role.java
 C:\Users\Angel\Desktop\proyecto final git\atuservicio\src\main\java\com\atuservicio\atuservicio\entities\User.java
 C:\Users\Angel\Desktop\proyecto final git\atuservicio\src\main\java\com\atuservicio\atuservicio\AtuservicioApplication.java
+<<<<<<< HEAD
 C:\Users\Angel\Desktop\proyecto final git\atuservicio\src\main\java\com\atuservicio\atuservicio\controllers\ProviderController.java
+=======
+=======
+E:\programacion\Java\ProyectoFinal\atuservicio\src\main\java\com\atuservicio\atuservicio\services\IUserService.java
+E:\programacion\Java\ProyectoFinal\atuservicio\src\main\java\com\atuservicio\atuservicio\entities\Provider.java
+E:\programacion\Java\ProyectoFinal\atuservicio\src\main\java\com\atuservicio\atuservicio\controllers\HomeController.java
+E:\programacion\Java\ProyectoFinal\atuservicio\src\main\java\com\atuservicio\atuservicio\controllers\UserController.java
+E:\programacion\Java\ProyectoFinal\atuservicio\src\main\java\com\atuservicio\atuservicio\entities\Base.java
+E:\programacion\Java\ProyectoFinal\atuservicio\src\main\java\com\atuservicio\atuservicio\dtos\SaveUserDTO.java
+E:\programacion\Java\ProyectoFinal\atuservicio\src\main\java\com\atuservicio\atuservicio\exceptions\MyException.java
+E:\programacion\Java\ProyectoFinal\atuservicio\src\main\java\com\atuservicio\atuservicio\dtos\LoginPassDTO.java
+E:\programacion\Java\ProyectoFinal\atuservicio\src\main\java\com\atuservicio\atuservicio\dtos\UserInfoDTO.java
+E:\programacion\Java\ProyectoFinal\atuservicio\src\main\java\com\atuservicio\atuservicio\entities\Role.java
+E:\programacion\Java\ProyectoFinal\atuservicio\src\main\java\com\atuservicio\atuservicio\entities\User.java
+E:\programacion\Java\ProyectoFinal\atuservicio\src\main\java\com\atuservicio\atuservicio\AtuservicioApplication.java
+E:\programacion\Java\ProyectoFinal\atuservicio\src\main\java\com\atuservicio\atuservicio\dtos\UserDTO.java
+E:\programacion\Java\ProyectoFinal\atuservicio\src\main\java\com\atuservicio\atuservicio\entities\Comment.java
+E:\programacion\Java\ProyectoFinal\atuservicio\src\main\java\com\atuservicio\atuservicio\services\UserService.java
+>>>>>>> fc942d6c631e898c3addee989250f1f105357f66
+>>>>>>> developer
