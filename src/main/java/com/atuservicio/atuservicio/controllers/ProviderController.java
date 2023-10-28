@@ -31,7 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Controller
 @RequestMapping("/client")
-public class UserController {
+public class ProviderController {
 
     @Autowired
     UserService userService;
