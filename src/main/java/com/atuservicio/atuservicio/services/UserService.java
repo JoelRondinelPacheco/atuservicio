@@ -7,26 +7,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserService implements IUserService{
     @Autowired
     private UserRepository userRepository;
 
     @Override
-    public UserInfoDTO save(SaveUserDTO user) {
-        User userfinal = new User();
-        userfinal.setName(user.getName());
-        userfinal.setEmail(user.getEmail());
+    public UserInfoDTO save(SaveUserDTO userDTO) {
+        /*User userfinal = new User();
+        userfinal.setName(userDTO.getName());
+        userfinal.setEmail(userDTO.getEmail());
         //...
         User userGuardado = this.userRepository.save(userfinal);
         UserInfoDTO userinfo = new UserInfoDTO(userGuardado.getId(), userGuardado.getName(), );
 
 
-        return userinfo;
+        return userinfo;*/
+        return null;
     }
 
     @Override
-    public UserInfoDTO edit(UserInfoDTO user) {
+    public UserInfoDTO edit(UserInfoDTO userDTO) {
+      /*  Optional<User> userOptional = this.userRepository.findById(user.getId());
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setName(userDTO.getName());
+            user.setEmail(user.getEmail());
+            user.setRole(userDTO.getRole());
+            user.setImage(userDTO.getImage());
+
+        }*/
         return null;
     }
 
