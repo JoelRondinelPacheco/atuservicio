@@ -10,6 +10,7 @@ package com.atuservicio.atuservicio.controllers;
 import com.atuservicio.atuservicio.dtos.SaveUserDTO;
 import com.atuservicio.atuservicio.dtos.UserInfoDTO;
 import com.atuservicio.atuservicio.entities.Role;
+import com.atuservicio.atuservicio.entities.User;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.UserService;
 
@@ -112,5 +113,14 @@ public class UserController {
 
         return "index.html";
     }
-
+    @GetMapping("/list")
+    public String list(ModelMap model){
+        
+        List<UserInfoDTO> users = userService.getAllUsers();
+        
+        model.addAttribute("users", users);
+       
+        return "users_list.html";
+        
+    }
 }
