@@ -7,6 +7,7 @@ package com.atuservicio.atuservicio.controllers;
 
 
 
+import com.atuservicio.atuservicio.dtos.EditUserDTO;
 import com.atuservicio.atuservicio.dtos.SaveUserDTO;
 import com.atuservicio.atuservicio.dtos.UserInfoDTO;
 import com.atuservicio.atuservicio.entities.Role;
@@ -30,7 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author dario
  */
 @Controller
-@RequestMapping("/client")
+@RequestMapping("/provider")
 public class ProviderController {
 
     @Autowired
@@ -44,17 +45,16 @@ public class ProviderController {
 
     @PostMapping("/register")
     public String registro(@RequestParam String name, @RequestParam String email, 
-            @RequestParam String password, String password2, Role role, MultipartFile image,
+            @RequestParam String password, String password2, String role, MultipartFile image,
             @RequestParam String address,@RequestParam Long address_number,@RequestParam String postal_code,
             @RequestParam String city,@RequestParam String province, @RequestParam String country, ModelMap modelo) throws MyException {
             
             
             
         try {
-            SaveUserDTO user = new SaveUserDTO(password, password2);
+            SaveUserDTO user = new SaveUserDTO(image, password, password2, role);
             user.setName(name);
             user.setEmail(email);
-            user.setImage(image);
             user.setAddress(address);
             user.setAddress_number(address_number);
             user.setCity(city);
@@ -91,6 +91,8 @@ public class ProviderController {
         try {
             
             UserInfoDTO userInfoDTO = userService.getById(id); // cambiar null por: userService.findById(id); 
+            /*
+            Edito Joel
             userInfoDTO.setName(name);
             userInfoDTO.setEmail(email);
             userInfoDTO.setImage(image);
@@ -100,7 +102,9 @@ public class ProviderController {
             userInfoDTO.setProvince(province);
             userInfoDTO.setCountry(country);
             userInfoDTO.setPostal_code(postal_code);
-            userService.edit(userInfoDTO);
+            userService.edit(userInfoDTO);*/
+            EditUserDTO editUser = new EditUserDTO(name, email, image, address, address_number, city, province, country, postal_code, id);
+            userService.edit(editUser);
             model.put("exito", "Se actualizó el usuario correctamente");
 
         } catch (MyException ex) { //error de compilacion de la exception porque la funcion modifyUser deberia lanzar la MyException(con eso deberia arreglarse).
