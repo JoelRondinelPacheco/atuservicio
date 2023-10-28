@@ -1,5 +1,7 @@
 package com.atuservicio.atuservicio.entities;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -7,6 +9,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
 public class User extends Base {
     private String name;
     @Column(unique = true)
