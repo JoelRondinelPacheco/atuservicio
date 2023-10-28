@@ -25,8 +25,10 @@ public class User extends Base {
     @ManyToOne                      //Relación 'muchos a uno' --> muchos usuarios pueden tener un mismo rol
     @JoinColumn(name = "role_id")   //el campo 'role_id' de la tabla 'users' almacenará la clave foránea referenciando al id de la tabla 'roles'
     private Role role;
-    
-    private String image;
+
+    @OneToOne
+    @JoinColumn(name="image_id", referencedColumnName = "id")
+    private Image image;
     
     private String address;
     

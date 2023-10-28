@@ -44,17 +44,16 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@RequestParam String name, @RequestParam String email, 
-            @RequestParam String password, String password2, Role role, MultipartFile image,
+            @RequestParam String password, String password2, MultipartFile image,
             @RequestParam String address,@RequestParam Long address_number,@RequestParam String postal_code,
             @RequestParam String city,@RequestParam String province, @RequestParam String country, ModelMap model) throws MyException {
             
             
             
         try {
-            SaveUserDTO user = new SaveUserDTO(password, password2);
+            SaveUserDTO user = new SaveUserDTO(password, password2, image);
             user.setName(name);
             user.setEmail(email);
-            user.setImage(image);
             user.setAddress(address);
             user.setAddress_number(address_number);
             user.setCity(city);
