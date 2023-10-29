@@ -3,6 +3,7 @@ package com.atuservicio.atuservicio.services;
 import com.atuservicio.atuservicio.dtos.EditUserDTO;
 import com.atuservicio.atuservicio.dtos.SaveUserDTO;
 import com.atuservicio.atuservicio.dtos.UserInfoDTO;
+import com.atuservicio.atuservicio.dtos.UserSearchDTO;
 import com.atuservicio.atuservicio.entities.Image;
 import com.atuservicio.atuservicio.entities.Role;
 import com.atuservicio.atuservicio.entities.User;
@@ -111,6 +112,16 @@ public class UserService implements IUserService{
         return userInformation;
     }
 
+    public List<UserInfoDTO> getSearchUsers(UserSearchDTO userSearch) {
+        List<User> users = this.userRepository.findByCityProvinceCountry(userSearch.getCity(), userSearch.getProvince(), userSearch.getCountry());
+        List<UserInfoDTO> userInformation = new ArrayList<>();
+        for (User user : users) {
+            UserInfoDTO userInfo = this.createUserInfoDTO(user);
+            userInformation.add(userInfo);
+        }
+        return userInformation;
+    }
+    
     private UserInfoDTO createUserInfoDTO(User user) {
         UserInfoDTO userinfo = new UserInfoDTO(
                 user.getName(),
