@@ -22,15 +22,20 @@
                 <label for="city" class="form-label">Localidad:</label>
                 <input type="text" class="form-control" id="city" name="city" >
             </div>
+            <div class="col-md-4">
+                <label for="city" class="form-label">Email:</label>
+                <input type="text" class="form-control" id="email" name="email" >
+            </div>
             <div class="col-12 mt-3">
                 <button type="submit" class="btn btn-primary">Buscar</button>
             </div>
+            
         </form>
         
         <div class="mt-4">
             
             <h2>Resultado de la búsqueda:</h2>
-            <div th:if="${ubicacionEncontrada}" class="alert alert-success" role="alert">
+            <div th:if="${locationFound}" class="alert alert-success" role="alert">
                 <table class="table table-dark">
                     <thead>
                         <tr>
@@ -53,6 +58,39 @@
                         </tr>
                     </tbody>
                 </table>
+
+            </div>
+            <div th:if="${userFound}" class="alert alert-success" role="alert">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id de Usurio</th>
+                            <th scope="col">Nombre del Usurio</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col">Ciudad</th>
+                            <th scope="col">Provincia</th>
+                            <th scope="col">País</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" th:text="${user.id}"></th>
+                            <td th:text="${user.name}"></td>
+                            <td th:text="${user.role.role}"></td>
+                            <td th:text="${user.city}"></td>
+                            <td th:text="${user.province}"></td>
+                            <td th:text="${user.country}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+
+            <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
+                <div class="card-body">
+                    <h5 class="card-title"> Error </h5>
+                    <p class="card-text" th:text = "${error}"></p>
+                </div>
             </div>
         </div>
     </div>
