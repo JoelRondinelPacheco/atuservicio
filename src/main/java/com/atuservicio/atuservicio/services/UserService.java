@@ -1,6 +1,7 @@
 package com.atuservicio.atuservicio.services;
 
 import com.atuservicio.atuservicio.dtos.EditUserDTO;
+import com.atuservicio.atuservicio.dtos.LoginPassDTO;
 import com.atuservicio.atuservicio.dtos.SaveUserDTO;
 import com.atuservicio.atuservicio.dtos.UserInfoDTO;
 import com.atuservicio.atuservicio.dtos.UserSearchDTO;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.repositories.UserRepository;
-
+import java.util.Optional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,6 +121,22 @@ public class UserService implements IUserService{
             userInformation.add(userInfo);
         }
         return userInformation;
+    }
+    
+    public UserInfoDTO getSearchEmailUser(LoginPassDTO userSearch) throws MyException{
+        
+        User user = this.userRepository.findByEmailUser(userSearch.getEmail());
+        
+        if (user != null){
+        
+            UserInfoDTO userInfo = this.createUserInfoDTO(user);
+        
+            return userInfo;
+            
+        } else {
+            
+            throw new MyException("el email no se encontró");
+        }
     }
     
     private UserInfoDTO createUserInfoDTO(User user) {

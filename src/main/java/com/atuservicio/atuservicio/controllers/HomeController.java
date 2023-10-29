@@ -11,8 +11,11 @@ package com.atuservicio.atuservicio.controllers;
  */
 
 
+import com.atuservicio.atuservicio.dtos.LoginPassDTO;
 import com.atuservicio.atuservicio.dtos.UserInfoDTO;
 import com.atuservicio.atuservicio.dtos.UserSearchDTO;
+import com.atuservicio.atuservicio.entities.User;
+import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,15 +52,34 @@ public class HomeController {
     }
     
     @PostMapping("/search")
-    public String resultSearch(@RequestParam(required = false) String country, @RequestParam(required = false) String province,@RequestParam(required = false) String city, ModelMap model){
+    public String resultSearch(@RequestParam(required = false) String country, @RequestParam(required = false) String province,@RequestParam(required = false) String city,@RequestParam(required = false) String email, ModelMap model){
         
-        UserSearchDTO userSearch = new UserSearchDTO(city, province, country);
+        if(email.isEmpty()){
+            UserSearchDTO userSearch = new UserSearchDTO(city, province, country);
         
-        List <UserInfoDTO> users = userService.getSearchUsers(userSearch);
+            List <UserInfoDTO> users = userService.getSearchUsers(userSearch);
         
-        model.addAttribute("ubicacionEncontrada", true);
-        model.addAttribute("users",users);
+            model.addAttribute("locationFound", true);
+            model.addAttribute("users",users);
         
-        return "search.html";
+            return "search.html";
+        } else{
+            String password="";
+            LoginPassDTO userSearch = new LoginPassDTO(email, password);
+            try {
+                UserInfoDTO user = userService.getSearchEmailUser(userSearch);
+           
+                model.addAttribute("userFound", true);
+                model.addAttribute("user",user); 
+                
+                return "search.html";
+                
+            } catch (MyException ex){
+             
+                model.put("error", ex.getMessage());
+           
+                return "search.html";
+            }            
+        }
     }
 }
