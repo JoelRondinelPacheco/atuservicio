@@ -3,7 +3,12 @@ package com.atuservicio.atuservicio.entities;
 import javax.naming.Name;
 import javax.persistence.*;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
+
+@Getter
+@Setter
 @Entity
 @Table(name = "roles")
 public class Role extends Base {
@@ -11,8 +16,8 @@ public class Role extends Base {
     @Column(unique = true)    //los valores del campo 'role' en la tabla 'roles' deben ser únicos
     private String role;
     
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)   //Relación 'uno a muchos' -->  un rol puede ser asignado a muchos usuarios
-    private List<User> users;
+  //  @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)   //Relación 'uno a muchos' -->  un rol puede ser asignado a muchos usuarios
+  //  private List<User> users;
     
     /*
     El mappedBy = "role" es necesario si deseas establecer una relación 
@@ -31,5 +36,10 @@ public class Role extends Base {
     también a los User asociados. Por ejemplo, si eliminas un Role, todos los 
     User asociados a ese Role también se eliminarán.
     */
+
+    @Override
+    public String toString() {
+        return "Role{" + "role=" + role + '}';
+    }
     
 }

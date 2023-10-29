@@ -21,6 +21,7 @@ com\atuservicio\atuservicio\enums\State.class
 com\atuservicio\atuservicio\services\IImageService.class
 com\atuservicio\atuservicio\entities\Qualification.class
 com\atuservicio\atuservicio\entities\Comment.class
+com\atuservicio\atuservicio\dtos\UserSearchDTO.class
 com\atuservicio\atuservicio\entities\Supplier.class
 com\atuservicio\atuservicio\dtos\UserInfoDTO.class
 com\atuservicio\atuservicio\repositories\SupplierRepository.class

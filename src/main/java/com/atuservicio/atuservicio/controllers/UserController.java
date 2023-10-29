@@ -40,7 +40,7 @@ public class UserController {
 
     @GetMapping("/register")
     public String register() {
-
+        
         return "register_client.html";
     }
 

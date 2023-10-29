@@ -9,10 +9,10 @@
 <body>
     <div class="container mt-5">
         <h1 class="mb-4">Búsqueda por Ubicación</h1>
-        <form th:action="@{/buscar}" method="post" class="row g-3">
+        <form th:action="@{/search}" method="post" class="row g-3">
             <div class="col-md-4">
                 <label for="country" class="form-label">País:</label>
-                <input type="text" class="form-control" id="country" name="country" required>
+                <input type="text" class="form-control" id="country" name="country" >
             </div>
             <div class="col-md-4">
                 <label for="province" class="form-label">Provincia:</label>
@@ -31,7 +31,28 @@
             
             <h2>Resultado de la búsqueda:</h2>
             <div th:if="${ubicacionEncontrada}" class="alert alert-success" role="alert">
-                <p th:text="${ubicacionEncontrada}"></p>
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id de Usurio</th>
+                            <th scope="col">Nombre del Usurio</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col">Ciudad</th>
+                            <th scope="col">Provincia</th>
+                            <th scope="col">País</th>
+                        </tr>
+                    </thead>
+                    <tbody th:each="user : ${users}">
+                        <tr>
+                            <th scope="row" th:text="${user.id}"></th>
+                            <td th:text="${user.name}"></td>
+                            <td th:text="${user.role.role}"></td>
+                            <td th:text="${user.city}"></td>
+                            <td th:text="${user.province}"></td>
+                            <td th:text="${user.country}"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
