@@ -32,5 +32,13 @@ public class HomeController {
 
         return "login.html";
     }
+    
+    
+    
+    @GetMapping("/search")
+    public String search(){
+
+        return "search.html";
+    }
 
 }
