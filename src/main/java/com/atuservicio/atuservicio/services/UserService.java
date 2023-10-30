@@ -1,6 +1,7 @@
 package com.atuservicio.atuservicio.services;
 
 import com.atuservicio.atuservicio.dtos.EditUserDTO;
+import com.atuservicio.atuservicio.dtos.LoginPassDTO;
 import com.atuservicio.atuservicio.dtos.SaveUserDTO;
 import com.atuservicio.atuservicio.dtos.UserInfoDTO;
 import com.atuservicio.atuservicio.dtos.UserSearchDTO;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.repositories.UserRepository;
-
+import java.util.Optional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,6 +113,7 @@ public class UserService implements IUserService{
         return userInformation;
     }
 
+<<<<<<< HEAD
     public List<UserInfoDTO> searchUsers(UserSearchDTO search) throws MyException {
         if (!search.getCountry().equals("seleccionar") && search.getProvince().equals("seleccionar") && search.getProvince().equals("seleccionar")){
             //TODO SEARCH SOLO PAIS LLAMAR AL METODO findUsersByCountry
@@ -125,6 +127,34 @@ public class UserService implements IUserService{
         return null;
     }
 
+=======
+    public List<UserInfoDTO> getSearchUsers(UserSearchDTO userSearch) {
+        List<User> users = this.userRepository.findByCityProvinceCountry(userSearch.getCity(), userSearch.getProvince(), userSearch.getCountry());
+        List<UserInfoDTO> userInformation = new ArrayList<>();
+        for (User user : users) {
+            UserInfoDTO userInfo = this.createUserInfoDTO(user);
+            userInformation.add(userInfo);
+        }
+        return userInformation;
+    }
+    
+    public UserInfoDTO getSearchEmailUser(LoginPassDTO userSearch) throws MyException{
+        
+        User user = this.userRepository.findByEmailUser(userSearch.getEmail());
+        
+        if (user != null){
+        
+            UserInfoDTO userInfo = this.createUserInfoDTO(user);
+        
+            return userInfo;
+            
+        } else {
+            
+            throw new MyException("el email no se encontró");
+        }
+    }
+    
+>>>>>>> developer-sprint1
     private UserInfoDTO createUserInfoDTO(User user) {
         UserInfoDTO userinfo = new UserInfoDTO(
                 user.getName(),
