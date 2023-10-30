@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,18 +23,7 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="/services">Servicios</a></li>
-            <li class="nav-item"><a class="nav-link" href="/supplier">Proveedores</a></li>
-            <li class="nav-item"><a class="nav-link" href="/contact">Contacto</a></li>
-            <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-            <li class="nav-item"><a class="nav-link" href="/search">Consulta</a></li>
-            <li class="nav-item"><a class="nav-link" href="/client/register">Regístrate Cliente</a></li>
-            <li class="nav-item"><a class="nav-link" href="/provider/register">Regístrate Proveedor</a></li>
-        </ul>
-    </nav>
+    <div th:replace="~{fragments/header :: header}"></div>
     <div style="max-width: 800px; margin: 0 auto; text-align: left;">
         <p>
             ¡Bienvenido a atuservicio! Somos tu solución integral para todas tus necesidades en plomería, gas, electricidad y una amplia gama de servicios relacionados. Con años de experiencia en el sector, estamos comprometidos en ofrecer servicios confiables y de alta calidad a nuestros clientes.
@@ -48,16 +37,13 @@
             En atuservicio, estamos aquí para hacer tu vida más fácil. ¡Déjanos ocuparnos de tus necesidades de plomería, gas y electricidad para que puedas disfrutar de un hogar o negocio en pleno funcionamiento!
         </p>
     </div>
-    
-        
-     
 
-    
 
+
+
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
-<footer class="text-center text-muted">
-    <p>® a tu servicio - <span id="fecha-hora"></span> <a href="contacto.html">Contacto</a></p>
-</footer>
 
 <script>
     // JavaScript para obtener la fecha y hora actual y mostrarla en el elemento "fecha-hora"
