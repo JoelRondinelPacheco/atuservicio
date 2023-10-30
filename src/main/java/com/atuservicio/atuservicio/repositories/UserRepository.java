@@ -13,7 +13,6 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String>{
-<<<<<<< HEAD
 
     @Query("SELECT u FROM User u WHERE u.email = :email")
     public User findByEmail(@Param("email")String email);
@@ -29,7 +28,6 @@ public interface UserRepository extends JpaRepository<User, String>{
 
     @Query("SELECT u FROM User u WHERE u.postal_code = :userPostal")
     List<User> findUsersByPostalCode(@Param("userPostal") String userPostal);
-=======
     
     @Query("SELECT u FROM User u WHERE u.email = :email")
     public User findByEmailUser(@Param("email") String email);
@@ -39,7 +37,5 @@ public interface UserRepository extends JpaRepository<User, String>{
                                                 @Param("province") String province,
                                                 @Param("country") String country);
 
-    
->>>>>>> developer-sprint1
 
 }
