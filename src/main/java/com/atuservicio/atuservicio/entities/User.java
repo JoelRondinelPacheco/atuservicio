@@ -41,6 +41,11 @@ public class User extends Base {
     private String country;
     
     private String postal_code;
+
+    @PrePersist
+    private void prePersistActive(){
+        this.active = true;
+    }
     
     @OneToMany(mappedBy = "customer")
     private List<Contract> contracts;
