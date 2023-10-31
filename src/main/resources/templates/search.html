@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="fragments/head :: head"></head>
+  <body>
+    <header>
+      <nav th:replace="fragments/navbar :: navbar"></nav>
+    </header>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Búsqueda por Ubicación</h1>
+        <form th:action="@{/search}" method="post" class="row g-3">
+            <div class="col-md-4">
+                <label for="country" class="form-label">País:</label>
+                <input type="text" class="form-control" id="country" name="country" >
+            </div>
+            <div class="col-md-4">
+                <label for="province" class="form-label">Provincia:</label>
+                <input type="text" class="form-control" id="province" name="province" >
+            </div>
+            <div class="col-md-4">
+                <label for="city" class="form-label">Localidad:</label>
+                <input type="text" class="form-control" id="city" name="city" >
+            </div>
+            <div class="col-md-4">
+                <label for="city" class="form-label">Email:</label>
+                <input type="text" class="form-control" id="email" name="email" >
+            </div>
+            <div class="col-12 mt-3">
+                <button type="submit" class="btn btn-primary boton-buscar ">Buscar</button>
+            </div>
+            
+        </form>
+        
+        <div class="mt-4">
+            
+            <h2>Resultado de la búsqueda:</h2>
+            <div th:if="${locationFound}" class="alert alert-success" role="alert">
+                <table class="table yellow-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id de Usurio</th>
+                            <th scope="col">Nombre del Usurio</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col">Ciudad</th>
+                            <th scope="col">Provincia</th>
+                            <th scope="col">País</th>
+                        </tr>
+                    </thead>
+                    <tbody th:each="user : ${users}">
+                        <tr>
+                            <th scope="row" th:text="${user.id}"></th>
+                            <td th:text="${user.name}"></td>
+                            <td th:text="${user.role.role}"></td>
+                            <td th:text="${user.city}"></td>
+                            <td th:text="${user.province}"></td>
+                            <td th:text="${user.country}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+           <div th:if="${userFound}" class="alert alert-success" role="alert">
+    <table class="table yellow-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id de Usurio</th>
+                            <th scope="col">Nombre del Usurio</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col">Ciudad</th>
+                            <th scope="col">Provincia</th>
+                            <th scope="col">País</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" th:text="${user.id}"></th>
+                            <td th:text="${user.name}"></td>
+                            <td th:text="${user.role.role}"></td>
+                            <td th:text="${user.city}"></td>
+                            <td th:text="${user.province}"></td>
+                            <td th:text="${user.country}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+
+            <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
+                <div class="card-body">
+                    <h5 class="card-title"> Error </h5>
+                    <p class="card-text" th:text = "${error}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>
