@@ -40,6 +40,7 @@
   text-decoration: none;
   color: #413e3e; /* Color predeterminado */
   transition: color 0.2s; /* Agregar una transición suave para cambiar el color */
+  cursor: pointer; /* Agregar esta línea para mostrar el cursor como una mano */
 }
 
 .custom-nav-item a:hover {
@@ -49,6 +50,7 @@
 .custom-nav-item a:active {
   color: #bcbabf; /* Cambiar el color al hacer clic en el enlace */
 }
+
 
 /* Estilos para dispositivos pequeños (responsive) */
 @media (max-width: 768px) {
@@ -76,6 +78,8 @@
 /* menu despleggable */
 .custom-nav-item.dropdown {
   position: relative;
+  font-family: "Kanit", sans-serif;
+  font-size: 1.3rem;
 }
 
 .dropdown-menu {
