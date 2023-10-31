@@ -1,6 +1,6 @@
 <nav class="custom-navbar" th:fragment="navbar" xmlns:th="http://www.thymeleaf.org">
   <div class="logo-navbar">
-    <img th:src="@{/img/logo.png}" alt="Tu Logo" />
+    <img th:src="@{/img/logo.jpeg}" alt="Tu Logo" />
   </div>
   <button class="custom-navbar-toggler" aria-label="Toggle navigation">
     |||
@@ -26,10 +26,10 @@
       }
     </style>
     <li class="custom-nav-item">
-      <a class="nav-link" href="/"> <i class="fas fa-home"></i> Home </a>
+      <a class="nav-link" th:href="@{/}"> <i class="fas fa-home"></i> Home </a>
     </li>
     <li class="custom-nav-item">
-      <a class="nav-link" href="services.html">
+      <a class="nav-link" th:href="@{/services}">
         <i class="fas fa-cogs"></i> Servicios
       </a>
     </li>
@@ -44,7 +44,7 @@
       </a>
     </li>
     <li class="custom-nav-item">
-      <a class="nav-link" th:value="@{/supplier/register}">
+      <a class="nav-link" th:href="@{/search}">
         <i class="fas fa-search"></i> Busqueda
       </a>
     </li>

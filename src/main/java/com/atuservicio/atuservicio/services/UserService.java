@@ -113,20 +113,8 @@ public class UserService implements IUserService{
         return userInformation;
     }
 
-/*
-    public List<UserInfoDTO> getSearchUsers(UserSearchDTO search) {
-       // TODO SOLO INGRESA PAIS
-       if (search.getProvince().isEmpty())
-        // TODO SOLO INGRESA PROVINCIA
-        // TODO SOLO INGRESA CIUDAD
-        // TODO INGRESA PAIS Y PROVINCIA
-        // TODO INGRESA PAIS Y PROVINCIA Y CIUDAD
-        // TODO INGRESA PAIS Y CIUDAD
-        // TODO INGRESA PROVINCIA Y CIUDAD
-        return null;
-    }*/
 
-
+    @Override
     public List<UserInfoDTO> getSearchUsers(UserSearchDTO userSearch) {
         List<User> users = this.userRepository.findByCityProvinceCountry(userSearch.getCity(), userSearch.getProvince(), userSearch.getCountry());
         List<UserInfoDTO> userInformation = new ArrayList<>();
@@ -137,6 +125,7 @@ public class UserService implements IUserService{
         return userInformation;
     }
 
+    @Override
     public UserInfoDTO getSearchEmailUser(LoginPassDTO userSearch) throws MyException{
         
         User user = this.userRepository.findByEmailUser(userSearch.getEmail());
