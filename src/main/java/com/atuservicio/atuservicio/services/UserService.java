@@ -113,6 +113,8 @@ public class UserService implements IUserService{
         return userInformation;
     }
 
+
+    @Override
     public List<UserInfoDTO> getSearchUsers(UserSearchDTO userSearch) {
         List<User> users = this.userRepository.findByCityProvinceCountry(userSearch.getCity(), userSearch.getProvince(), userSearch.getCountry());
         List<UserInfoDTO> userInformation = new ArrayList<>();
@@ -122,7 +124,8 @@ public class UserService implements IUserService{
         }
         return userInformation;
     }
-    
+
+    @Override
     public UserInfoDTO getSearchEmailUser(LoginPassDTO userSearch) throws MyException{
         
         User user = this.userRepository.findByEmailUser(userSearch.getEmail());
@@ -138,7 +141,7 @@ public class UserService implements IUserService{
             throw new MyException("el email no se encontró");
         }
     }
-    
+
     private UserInfoDTO createUserInfoDTO(User user) {
         UserInfoDTO userinfo = new UserInfoDTO(
                 user.getName(),

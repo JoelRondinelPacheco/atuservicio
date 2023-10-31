@@ -1,0 +1,72 @@
+<nav class="custom-navbar" th:fragment="navbar" xmlns:th="http://www.thymeleaf.org">
+  <div class="logo-navbar">
+    <img th:src="@{/img/logo.jpeg}" alt="Tu Logo" />
+  </div>
+  <button class="custom-navbar-toggler" aria-label="Toggle navigation">
+    |||
+  </button>
+  <ul class="custom-navbar-nav">
+    <style>
+      .nav-link {
+        display: flex;
+        align-items: center;
+      }
+      .nav-link i {
+        margin-right: 5px; /* Espacio entre el icono y el texto (ajusta según tu preferencia) */
+      }
+      select.form-select.custom-select {
+        background-color: #ffc107; /* Color de fondo amarillo más fuerte */
+      }
+      select.form-select.custom-select option {
+        background-color: #ffffff; /* Color de fondo para las opciones en el select */
+      }
+      /* Estilo para las opciones del select desplegado */
+      select.form-select.custom-select:not([multiple]):focus option {
+        background-color: #ffc107; /* Color de fondo amarillo más fuerte */
+      }
+    </style>
+    <li class="custom-nav-item">
+      <a class="nav-link" th:href="@{/}"> <i class="fas fa-home"></i> Home </a>
+    </li>
+    <li class="custom-nav-item">
+      <a class="nav-link" th:href="@{/services}">
+        <i class="fas fa-cogs"></i> Servicios
+      </a>
+    </li>
+    <li class="custom-nav-item">
+      <a class="nav-link" href="provider.html">
+        <i class="fas fa-users"></i> Proveedores
+      </a>
+    </li>
+    <li class="custom-nav-item">
+      <a class="nav-link" href="contact.html">
+        <i class="fas fa-envelope"></i> Contacto
+      </a>
+    </li>
+    <li class="custom-nav-item">
+      <a class="nav-link" th:href="@{/search}">
+        <i class="fas fa-search"></i> Busqueda
+      </a>
+    </li>
+
+    <select
+      class="form-select custom-select"
+      aria-label="Default select example"
+      onchange="window.location.href = this.value;">
+      <option value="" selected>Registro</option>
+      <option value="/client/register" th:value="@{/client/register}">
+        <i class="fas fa-user"></i> Cliente
+      </option>
+      <option value="/supplier/register" th:value="@{/supplier/register}">
+        <i class="fas fa-building"></i> Proveedor
+      </option>
+    </select>
+
+    <li class="custom-nav-item">
+      <a class="nav-link" th:href="@{/login}">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </a>
+    </li>
+  </ul>
+  <li><a th:href="@{/client/register}"> Cliente</a></li>
+</nav>
