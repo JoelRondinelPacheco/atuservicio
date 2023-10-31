@@ -1,0 +1,160 @@
+.container {
+  display: flex;
+  width: 100%;
+  margin: 0px;
+  height: 50%;
+}
+
+.left-div {
+  width: 70%;
+  height: 50%;
+  margin: 5px;
+}
+
+.right-div {
+  width: 30%;
+}
+
+/* Estilos para dispositivos con un ancho máximo de 768px (puedes ajustar este valor) */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Cambia a un diseño de columna en pantallas pequeñas */
+  }
+
+  .left-div,
+  .right-div {
+    width: 100%; /* Ocupan el 100% del ancho en pantallas pequeñas */
+  }
+}
+
+/* marquesina de tecto */
+.marquee-container {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.marquee-content {
+  display: inline-block;
+  margin-right: 50px; /* Espacio entre los párrafos */
+  animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* carrousel */
+.left-div .carousel {
+  max-width: 80%; /* Ajusta el ancho del carrusel al 70% del div izquierdo */
+
+  margin: 0 auto; /* Centra horizontalmente el carrusel */
+}
+
+/* Ajusta los estilos de las imágenes dentro del carrusel */
+.left-div .carousel img {
+  max-height: 100%; /* Limita la altura de las imágenes */
+  width: auto; /* Permite que el ancho se ajuste automáticamente */
+}
+
+/* botones */
+.btn-5 {
+  width: 130px;
+  height: 40px;
+  line-height: 42px;
+  padding: 0;
+  border: none;
+  background: rgb(255, 27, 0);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 27, 0, 1) 0%,
+    rgba(251, 75, 2, 1) 100%
+  );
+}
+.btn-5:hover {
+  color: #f0094a;
+  background: transparent;
+  box-shadow: none;
+}
+.btn-5:before,
+.btn-5:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 2px;
+  width: 0;
+  background: #f0094a;
+  box-shadow: -1px -1px 5px 0px #fff, 7px 7px 20px 0px #0003,
+    4px 4px 5px 0px #0002;
+  transition: 400ms ease all;
+}
+.btn-5:after {
+  right: inherit;
+  top: inherit;
+  left: 0;
+  bottom: 0;
+}
+.btn-5:hover:before,
+.btn-5:hover:after {
+  width: 100%;
+  transition: 800ms ease all;
+}
+button {
+  margin-bottom: 50px;
+  margin-left: 50px;
+  margin-top: 50px;
+}
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  color: #b12727;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+  <style>
+        /* Estilo para el contenedor del formulario */
+        .login-container {
+            background-color: #ffc107; /* Color amarillo */
+            border: 2px solid #ffc107; /* Borde amarillo */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Sombra pronunciada */
+            padding: 20px; /* Espacio interior */
+            max-width: 50%; /* Tamaño reducido a la mitad */
+            margin: 0 auto; /* Centrar en el medio de la pantalla */
+            text-align: center; /* Alinear al centro del contenedor */
+        }
+
+        /* Estilo para el formulario */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Estilo para el icono de email */
+        .email-icon::before {
+            content: "\f0e0"; /* Código de FontAwesome para el icono de email */
+            font-family: FontAwesome;
+            margin-right: 10px; /* Espacio entre el icono y el campo de entrada */
+        }
+
+        /* Estilo para el icono de contraseña */
+        .password-icon::before {
+            content: "\f023"; /* Código de FontAwesome para el icono de contraseña */
+            font-family: FontAwesome;
+            margin-right: 10px; /* Espacio entre el icono y el campo de entrada */
+        }

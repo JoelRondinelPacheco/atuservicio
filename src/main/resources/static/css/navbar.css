@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
+.custom-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #edb83d;
+  padding: 10px 20px;
+}
+
+.logo-navbar img {
+  height: 75px;
+  width: auto;
+}
+
+.custom-navbar-toggler {
+  display: none;
+}
+
+.custom-navbar-nav {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end; /* Alinea a la derecha */
+  gap: 20px;
+  position: absolute;
+  top: 30px; /* Ajusta la posición vertical */
+  right: 20px; /* Ajusta la posición horizontal */
+  background-color: #edb83d;
+  z-index: 1;
+  padding: 5px 0; /* Añade espaciado arriba y abajo */
+}
+
+.custom-nav-item {
+  margin: 0;
+  font-family: "Kanit", sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: -30px;
+}
+
+.custom-nav-item a {
+  text-decoration: none;
+  color: #413e3e; /* Color predeterminado */
+  transition: color 0.2s; /* Agregar una transición suave para cambiar el color */
+}
+
+.custom-nav-item a:hover {
+  color: #1995ad; /* Cambiar el color al pasar el mouse sobre el enlace */
+}
+
+.custom-nav-item a:active {
+  color: #bcbabf; /* Cambiar el color al hacer clic en el enlace */
+}
+
+/* Estilos para dispositivos pequeños (responsive) */
+@media (max-width: 768px) {
+  .custom-navbar-nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: #edb83d;
+    z-index: 1;
+  }
+
+  .custom-navbar-toggler {
+    display: block;
+    cursor: pointer;
+  }
+
+  .custom-navbar.show-nav .custom-navbar-nav {
+    display: flex;
+  }
+}
+
+/* menu despleggable */
+.custom-nav-item.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #edb83d;
+  padding: 10px;
+  font-family: "Kanit", sans-serif;
+  font-size: 1.3rem;
+}
+
+.custom-nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/*estilos del select*/
+.custom-select {
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #333;
+}
+
+.custom-select:hover {
+  background-color: #eee;
+}
+
+.custom-select:focus {
+  border: 1px solid #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
