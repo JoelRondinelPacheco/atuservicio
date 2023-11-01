@@ -6,67 +6,28 @@
       <nav th:replace="fragments/navbar :: navbar"></nav>
     </header>
     <div class="container">
-      <div class="left-div">
-        <!-- Contenido del div izquierdo -->
-        <div
-          id="carouselExampleInterval"
-          class="carousel slide carousel-retoque"
-          data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="10000">
-              <img
-                src="/img/imagenes_index/albaniles-en-caba.jpg"
-                class="d-block w-100"
-                alt="..." />
-            </div>
-            <div class="carousel-item" data-bs-interval="2000">
-              <img
-                src="/img/imagenes_index/electricista.jpg"
-                class="d-block w-100"
-                alt="..." />
-            </div>
-            <div class="carousel-item">
-              <img
-                src="/img/imagenes_index/gasista.jpg"
-                class="d-block w-100"
-                alt="..." />
-            </div>
-            <div class="carousel-item">
-              <img
-                src="/img/imagenes_index/jardinero.jpg"
-                class="d-block w-100"
-                alt="..." />
-            </div>
-            <div class="carousel-item">
-              <img
-                src="/img/imagenes_index/plomero.jpg"
-                class="d-block w-100"
-                alt="..." />
-            </div>
+        <div class="left-div">
+            <!-- Contenido del div izquierdo -->
+            <video autoplay loop muted style="width: 80%;">
+                <source src="/img/intro.mp4" type="video/mp4">
+                Tu navegador no admite la etiqueta de video.
+            </video>
+            
+            <div class="button-container">
+              <form action="/client/register" th:action="@{/client/register}" method="GET">
+                  <button type="submit" class="boton-sesion soy-cliente">Soy Cliente - Registro</button>
+              </form>
+              <form action="/supplier/register" th:action="@{/supplier/register}" method="GET">
+                  <button type="submit" class="boton-sesion soy-proveedor">Soy Proveedor - Registro</button>
+              </form>
           </div>
-          <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleInterval"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExampleInterval"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-        <button class="boton-sesion soy-cliente">Soy Cliente</button>
-        <button class="boton-sesion soy-proveedor">Soy Proveedor</button>
+          
+          
         
+                      
+        </div>
 
-      </div>
-      <div class="right-div">
+        <div class="right-div">
 <!--       contenido derecho-->  <div class="login-container">
         <form class="login-form">
           <div class="mb-3">
@@ -81,7 +42,7 @@
           <button type="submit" class="boton-sesion">Iniciar Sesión</button>
         </form>
       </div>
-      <img src="/img/logo.png"  class="logo-index" alt="logo a tu servicio">
+      <img src="/img/logo.webp"  class="logo-index" alt="logo a tu servicio">
       </div>
     </div>
    

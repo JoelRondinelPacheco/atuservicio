@@ -99,11 +99,12 @@
 
 /*estilos del select*/
 .custom-select {
-  padding: 5px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  color: #333;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('ruta-a-tu-icono.png') no-repeat right center; /* Reemplaza 'ruta-a-tu-icono.png' con la ruta de tu propio icono */
+  padding-right: 20px; /* Ajusta el espaciado a la derecha para acomodar el icono */
+  cursor: pointer; /* Cambia el cursor al puntero al pasar por encima */
 }
 
 .custom-select:hover {
@@ -115,4 +116,3 @@
   outline: none;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
-

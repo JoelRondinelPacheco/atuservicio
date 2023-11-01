@@ -2,16 +2,9 @@
   max-width: 80%;
   margin: 0 auto;
   padding: 20px;
+  font-family: "Kanit", sans-serif;
+          font-size: 1.3rem;
 }
 .imagen-label {
   margin-top: 20px;
-}
-.logo-registro {
-  text-align: center;
-  margin-top: 20px; /* Ajusta la separación desde la parte superior según tus necesidades */
-}
-
-.logo-registro img {
-  max-height: 5%; /* Ajusta el tamaño de la imagen según tus necesidades */
-  width: auto;
 }

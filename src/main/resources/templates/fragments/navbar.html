@@ -1,6 +1,6 @@
 <nav class="custom-navbar" th:fragment="navbar">
   <div class="logo-navbar">
-    <img src="/img/logo.png" alt="Tu Logo" />
+    <img src="/img/logo.webp" alt="Tu Logo" />
   </div>
   <button class="custom-navbar-toggler" aria-label="Toggle navigation">
     |||
@@ -44,7 +44,7 @@
       </a>
     </li>
     <li class="custom-nav-item">
-      <a class="nav-link" th:value="@{/search}">
+      <a class="nav-link" th:value="@{/search}" th:href="@{/search}">
         <i class="fas fa-search"></i> Busqueda
       </a>
     </li>
