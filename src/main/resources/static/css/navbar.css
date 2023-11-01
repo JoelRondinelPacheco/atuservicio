@@ -1,3 +1,4 @@
+
 @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
 .custom-navbar {
   display: flex;
@@ -40,6 +41,7 @@
   text-decoration: none;
   color: #413e3e; /* Color predeterminado */
   transition: color 0.2s; /* Agregar una transición suave para cambiar el color */
+  cursor: pointer; /* Agregar esta línea para mostrar el cursor como una mano */
 }
 
 .custom-nav-item a:hover {
@@ -49,6 +51,7 @@
 .custom-nav-item a:active {
   color: #bcbabf; /* Cambiar el color al hacer clic en el enlace */
 }
+
 
 /* Estilos para dispositivos pequeños (responsive) */
 @media (max-width: 768px) {
@@ -76,6 +79,8 @@
 /* menu despleggable */
 .custom-nav-item.dropdown {
   position: relative;
+  font-family: "Kanit", sans-serif;
+  font-size: 1.3rem;
 }
 
 .dropdown-menu {
@@ -95,11 +100,12 @@
 
 /*estilos del select*/
 .custom-select {
-  padding: 5px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  color: #333;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('ruta-a-tu-icono.png') no-repeat right center; /* Reemplaza 'ruta-a-tu-icono.png' con la ruta de tu propio icono */
+  padding-right: 20px; /* Ajusta el espaciado a la derecha para acomodar el icono */
+  cursor: pointer; /* Cambia el cursor al puntero al pasar por encima */
 }
 
 .custom-select:hover {

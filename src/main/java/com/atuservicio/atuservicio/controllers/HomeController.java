@@ -53,12 +53,12 @@ public class HomeController {
     
     @PostMapping("/search")
     public String resultSearch(@RequestParam(required = false) String country, @RequestParam(required = false) String province,@RequestParam(required = false) String city,@RequestParam(required = false) String email, ModelMap model){
-        
+
         if(email.isEmpty()){
             UserSearchDTO userSearch = new UserSearchDTO(city, province, country);
-        
+
             List <UserInfoDTO> users = userService.getSearchUsers(userSearch);
-        
+
             model.addAttribute("locationFound", true);
             model.addAttribute("users",users);
         
