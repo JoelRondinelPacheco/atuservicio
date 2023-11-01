@@ -1,3 +1,4 @@
+
 @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
 .container {
   display: flex;
@@ -173,6 +174,7 @@ button {
           cursor: pointer;
           box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Ajusta los valores de la sombra */
           transition: background-color 0.3s, box-shadow 0.3s;
+          margin-right: 50px;
         }
         
         .boton-sesion:hover {
@@ -216,28 +218,53 @@ button {
           transition: background-color 0.3s, box-shadow 0.3s;
         }
         
-        .boton-sesion.soy-cliente {
-          background-color: blue; /* Color azul para "Soy Cliente" */
+        .button-container {
+          display: flex; /* Coloca los botones en una fila */
+          gap: 10px; /* Añade un espacio entre los botones (ajusta según tu preferencia) */
+      }
+      
+      /* Estilos para los botones (mantén tus estilos actuales) */
+      .boton-sesion {
+          font-family: "Kanit", sans-serif;
+          font-size: 1.3rem;
+          border: none;
+          border-radius: 50px;
+          padding: 10px 20px;
+          cursor: pointer;
+          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+          transition: background-color 0.3s, box-shadow 0.3s;
+      }
+      
+      .boton-sesion.soy-cliente {
+          background-color: blue;
           color: white;
-          margin-left: 205px;
-        }
-        
-        .boton-sesion.soy-proveedor {
-          background-color: rgb(189, 32, 32); /* Color rojo para "Soy Proveedor" */
+          margin-left: 120px;
+      }
+      
+      .boton-sesion.soy-proveedor {
+          background-color: rgb(189, 32, 32);
           color: white;
-          margin-left: 180px;
+          margin-left: 80px;
+      }
+      
+      .boton-sesion.soy-cliente:hover,
+      .boton-sesion.soy-proveedor:hover {
+          box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4);
+      }
+      
+      .boton-sesion.soy-cliente:active,
+      .boton-sesion.soy-proveedor:active {
+          background-color: rgba(47, 47, 173, 0.666);
+          background-color: darkred;
+          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      
+
+        /* Tu archivo CSS externo */
+        video {
+          margin-top: 20px;
+            width: 10%;
+            margin-left: 90px;
+
         }
-        
-        .boton-sesion.soy-cliente:hover,
-        .boton-sesion.soy-proveedor:hover {
-          box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4); /* Ajusta la sombra en el hover */
-          
-        }
-        
-        .boton-sesion.soy-cliente:active,
-        .boton-sesion.soy-proveedor:active {
-          background-color: rgba(47, 47, 173, 0.666); /* Cambia el color a azul oscuro al hacer clic en "Soy Cliente" */
-          background-color: darkred; /* Cambia el color a rojo oscuro al hacer clic en "Soy Proveedor" */
-          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Restaura la sombra al hacer clic */
-        }
-        
+

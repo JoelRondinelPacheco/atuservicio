@@ -27,4 +27,4 @@ replay_pid*
 application.properties
 
 /target/
-*/target/**
+

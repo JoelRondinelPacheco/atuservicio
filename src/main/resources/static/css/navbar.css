@@ -1,3 +1,4 @@
+
 @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
 .custom-navbar {
   display: flex;
@@ -99,11 +100,12 @@
 
 /*estilos del select*/
 .custom-select {
-  padding: 5px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  color: #333;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('ruta-a-tu-icono.png') no-repeat right center; /* Reemplaza 'ruta-a-tu-icono.png' con la ruta de tu propio icono */
+  padding-right: 20px; /* Ajusta el espaciado a la derecha para acomodar el icono */
+  cursor: pointer; /* Cambia el cursor al puntero al pasar por encima */
 }
 
 .custom-select:hover {
