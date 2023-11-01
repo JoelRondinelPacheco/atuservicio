@@ -6,9 +6,10 @@ import com.atuservicio.atuservicio.dtos.SaveUserDTO;
 import com.atuservicio.atuservicio.dtos.UserInfoDTO;
 import com.atuservicio.atuservicio.dtos.UserSearchDTO;
 import com.atuservicio.atuservicio.entities.Image;
-import com.atuservicio.atuservicio.entities.Role;
 import com.atuservicio.atuservicio.entities.User;
+import com.atuservicio.atuservicio.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.atuservicio.atuservicio.exceptions.MyException;
@@ -24,8 +25,6 @@ public class UserService implements IUserService{
     @Autowired
     private UserRepository userRepository;
     @Autowired ImageService imageService;
-    @Autowired
-    private RoleService roleService;
 
     @Override
     public UserInfoDTO save(SaveUserDTO userDTO) throws MyException {
@@ -35,10 +34,10 @@ public class UserService implements IUserService{
         User user = new User();
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
+        String pass = new BCryptPasswordEncoder().encode(userDTO.getPassword());
+        user.setPassword(pass);
 
-        Role role = this.roleService.findByRole("CLIENT");
-        user.setRole(role);
+        user.setRole(Role.CLIENT);
         Image img = this.imageService.save(userDTO.getImage());
         user.setImage(img);
         user.setAddress(userDTO.getAddress());

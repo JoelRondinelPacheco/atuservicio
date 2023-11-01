@@ -1,7 +1,7 @@
 package com.atuservicio.atuservicio.dtos;
 
 import com.atuservicio.atuservicio.entities.Image;
-import com.atuservicio.atuservicio.entities.Role;
+import com.atuservicio.atuservicio.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

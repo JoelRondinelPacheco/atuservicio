@@ -1,17 +1,24 @@
 package com.atuservicio.atuservicio.entities;
 
+import com.atuservicio.atuservicio.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)    //crea dos tablas separadas ('users' y 'suppliers')
-public class User extends Base {
+public class User extends Base implements UserDetails {
     
     private String name;
     
@@ -21,10 +28,9 @@ public class User extends Base {
     private String password;
     
     private Boolean active;
-    
-    @ManyToOne                      //Relación 'muchos a uno' --> muchos usuarios pueden tener un mismo rol
-    @JoinColumn(name = "role_id")   //el campo 'role_id' de la tabla 'users' almacenará la clave foránea referenciando al id de la tabla 'roles'
-    private Role role;
+
+    @Enumerated(EnumType.STRING)
+   private Role role;
 
     @OneToOne
     @JoinColumn(name="image_id", referencedColumnName = "id")
@@ -55,10 +61,46 @@ public class User extends Base {
     
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)  //Relación 'uno a muchos' --> un usuario puede recibir muchos comentarios
     private List<Comment> comments_received;
-    
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + this.role.toString());
+
+        authorities.add(p);
+
+        return authorities;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+
     /*
     cascade = CascadeType.ALL --> al eliminar un 'User', automáticamente se 
     eliminan todos los 'Comments' asociados.
     */
-    //TODO PREPERSIST ACTIVE
 }
