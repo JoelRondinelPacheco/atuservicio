@@ -57,3 +57,15 @@ footer a {
   font-size: 1rem;
 }
 
+
+/* Estilos para los iconos en el estado normal (sin hover) */
+.redes-sociales a i {
+  font-size: 24px;
+  color: #333; /* Color normal de los iconos */
+  transition: color 0.3s; /* Transición suave de color en 0.3 segundos */
+}
+
+/* Estilos para los iconos en el estado hover */
+.redes-sociales a:hover i {
+  color: #0000FF;
+}
