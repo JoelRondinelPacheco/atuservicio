@@ -8,20 +8,23 @@
     </header>
     <div class="container">
       <div class="split left">
+        <h2 class="inicio-sesion-login" >Inicio de Sesión</h2>
           <form class="full-width-form" th:action="@{/perform_login}" method="post">
               <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Email address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
-                  <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                  <label for="exampleInputEmail1" class="form-label text-input-login ">Email</label>
+                  <input type="email" class="form-control label-login-login " id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
               </div>
               <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                  <label for="exampleInputPassword1" class="form-label text-input-login ">Contraseña</label>
+                  <input type="password" class="form-control label-login-login " id="exampleInputPassword1" name="password">
               </div>
-              <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+              <div class="login-contenedor" >
               <button type="submit" class="boton-sesion-login">Iniciar Sesion</button>
-
+            </div>
           </form>
+          <div class="contenedor-img-login">
+            <img src="/img/login.webp" alt="imagen resgistro" class="img-login" >
+          </div>
       </div>
       <div class="split right">
           <!-- Contenido de la otra mitad -->
@@ -43,6 +46,8 @@
       });
     </script>
     <footer th:replace="fragments/footer :: footer"></footer>
+    <link th:href="@{/css/login.css}" rel="stylesheet" />
+
   </body>
 </html>
 

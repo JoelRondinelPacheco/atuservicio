@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
+
+
 .container {
     display: flex;
     flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
@@ -59,11 +62,57 @@
 }
 
 .boton-sesion-login:hover {
-    background-color: rgb(126, 125, 199); /* Cambia el color a rojo en el hover */
+    background-color: rgb(161, 160, 247); /* Cambia el color a rojo en el hover */
     box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4); /* Ajusta la sombra en el hover */
 }
 
 .boton-sesion-login:active {
-    background-color: rgb(0, 60, 139); /* Cambia el color cuando se hace clic */
+    background-color: #1995AD; /* Cambia el color cuando se hace clic */
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Restaura la sombra al hacer clic */
 }
+.login-contenedor{
+
+    width: 35%;
+}
+
+.label-login-login{
+    background-color: #EDB83D;
+  }
+
+  .inicio-sesion-login{
+justify-content: center;
+text-align: center;
+font-family: "Kanit", sans-serif;
+    font-size: 1.7rem;
+    margin-top: 25px;
+    color: #1995AD;
+  }
+
+  .text-input-login{
+    font-family: "Kanit", sans-serif;
+    font-size: 1.3rem;
+    color: #1995AD;
+    text-align: center;
+
+  }
+
+  .contenedor-img-login {
+    justify-content: center;
+    align-content: center;
+    display: flex;
+    width: 90px;
+    height: auto;
+    margin: 0 auto; /* Nueva propiedad */
+    margin-top: 25px;
+  }
+  
+  .img-login {
+    width: 120px; /* Nueva propiedad */
+    height: 100px; /* Nueva propiedad */
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 25px;
+    object-fit: contain;
+    margin: 0 auto; /* Nueva propiedad */
+  }
