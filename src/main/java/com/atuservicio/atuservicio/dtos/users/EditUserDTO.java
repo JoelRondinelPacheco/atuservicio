@@ -1,4 +1,4 @@
-package com.atuservicio.atuservicio.dtos;
+package com.atuservicio.atuservicio.dtos.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EditUserDTO extends UserDTO{
+public class EditUserDTO extends UserDTO {
     private MultipartFile image;
     private String id;
     public EditUserDTO(String name, String email, MultipartFile image, String address, Long address_number, String city, String province, String country, String postal_code, String id) {

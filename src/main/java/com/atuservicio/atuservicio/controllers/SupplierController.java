@@ -5,7 +5,13 @@
  */
 package com.atuservicio.atuservicio.controllers;
 
+import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
+import com.atuservicio.atuservicio.dtos.suppliers.EditSupplierDTO;
+import com.atuservicio.atuservicio.dtos.suppliers.SaveSupplierDTO;
+import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
+import com.atuservicio.atuservicio.services.CategoryService;
+import com.atuservicio.atuservicio.services.SupplierService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -76,11 +82,11 @@ public class SupplierController {
     }
     
     @PostMapping("/modify/{id}")
-    public String modify(@PathVariable("id") String id, String name, String email, MultipartFile image, String address, Long address_number, String city, String province, String country, String postal_code, String Category, ModelMap model) {
+    public String modify(@PathVariable("id") String id, String name, String email, MultipartFile image, String address, Long address_number, String city, String province, String country, String postal_code, String categoryId, ModelMap model) {
 
         try {
 
-            EditSupplierDTO supplierInfoDTO = new EditSupplierDTO(id, name, email, image, address, address_number, city, province, country, postal_code, Category);
+            EditSupplierDTO supplierInfoDTO = new EditSupplierDTO(name, email, image, address, address_number, city, province, country, postal_code, id, categoryId);
             supplierService.edit(supplierInfoDTO);
             model.put("exito", "Se actualizaron los datos correctamente");
 

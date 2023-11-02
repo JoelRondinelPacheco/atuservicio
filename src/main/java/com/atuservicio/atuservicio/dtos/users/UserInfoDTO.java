@@ -1,5 +1,6 @@
-package com.atuservicio.atuservicio.dtos;
+package com.atuservicio.atuservicio.dtos.users;
 
+import com.atuservicio.atuservicio.dtos.users.UserDTO;
 import com.atuservicio.atuservicio.entities.Image;
 import com.atuservicio.atuservicio.enums.Role;
 import lombok.AllArgsConstructor;
