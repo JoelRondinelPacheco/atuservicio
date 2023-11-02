@@ -1,4 +1,4 @@
-package com.atuservicio.atuservicio.dtos;
+package com.atuservicio.atuservicio.dtos.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
