@@ -33,6 +33,12 @@
                     <td th:text="${user.province}"></td>
                     <td th:text="${user.country}"></td>
                     <td th:text="${user.postal_code}"></td>
+                     <td>
+                        <a href="/editarUser?id=${user.id}">Editar</a>
+                    </td>
+                    <td>
+                        <a href="/darDeBajaUser?id=${user.id}">Dar de Baja</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -44,4 +50,3 @@
     <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>
->>>>>>> developer
