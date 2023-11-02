@@ -126,7 +126,7 @@ public class UserService implements IUserService{
     @Override
     public UserInfoDTO getSearchEmailUser(LoginPassDTO userSearch) throws MyException{
         
-        User user = this.userRepository.findByEmailUser(userSearch.getEmail());
+        User user = this.userRepository.findByEmail(userSearch.getEmail());
         
         if (user != null){
         
