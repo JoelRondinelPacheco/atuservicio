@@ -7,51 +7,36 @@
       <nav th:replace="fragments/navbar :: navbar"></nav>
     </header>
     <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <h2 class="mt-5">Iniciar Sesión</h2>
-          <div th:if="${error != null}"><h1>Error</h1></div>
-          <form id="login-form" th:action="@{/perform_login}" method="post">
-            <div class="form-group">
-              <label for="username">Nombre de usuario:</label>
-              <input
-                type="text"
-                class="form-control"
-                id="username"
-                name="username"
-                required />
+      <div class="split left">
+        <h2 class="inicio-sesion-login" >Inicio de Sesión</h2>
+          <form class="full-width-form" th:action="@{/perform_login}" method="post">
+              <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label text-input-login ">Email</label>
+                  <input type="email" class="form-control label-login-login " id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+              </div>
+              <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label text-input-login ">Contraseña</label>
+                  <input type="password" class="form-control label-login-login " id="exampleInputPassword1" name="password">
+              </div>
+              <div class="login-contenedor" >
+              <button type="submit" class="boton-sesion-login">Iniciar Sesion</button>
             </div>
-            <div class="form-group">
-              <label for="password">Contraseña:</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-                required />
-            </div>
-            <button type="submit" class="btn btn-primary">
-              Iniciar Sesión
-            </button>
           </form>
-        </div>
+          <div class="contenedor-img-login">
+            <img src="/img/login.webp" alt="imagen resgistro" class="img-login" >
+          </div>
       </div>
-      <form class="container w-50" th:action="@{/perform_login}" method="post">
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
-          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" name="password">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
+      <div class="split right">
+          <!-- Contenido de la otra mitad -->
+      </div>
+  </div>
+  
+
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <script>
       $(document).ready(function () {
@@ -61,6 +46,8 @@
       });
     </script>
     <footer th:replace="fragments/footer :: footer"></footer>
+    <link th:href="@{/css/login.css}" rel="stylesheet" />
+
   </body>
 </html>
 

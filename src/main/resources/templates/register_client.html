@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head th:replace="fragments/head :: head"></head>
@@ -11,7 +10,8 @@
       th:action="@{/client/register}"
       method="POST"
       enctype="multipart/form-data"
-      class="formulario-registro">
+      class="formulario-registro"
+    >
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
@@ -21,7 +21,8 @@
               class="form-control"
               id="name"
               name="name"
-              required />
+              required
+            />
           </div>
           <div class="form-group">
             <label for="email">Correo Electrónico:</label>
@@ -30,7 +31,8 @@
               class="form-control"
               id="email"
               name="email"
-              required />
+              required
+            />
           </div>
           <div class="form-group">
             <label for="password">Contraseña:</label>
@@ -39,7 +41,8 @@
               class="form-control"
               id="password"
               name="password"
-              required />
+              required
+            />
           </div>
           <div class="form-group">
             <label for="password2">Repetir Contraseña:</label>
@@ -48,15 +51,34 @@
               class="form-control"
               id="password2"
               name="password2"
-              required />
+              required
+            />
           </div>
           <div class="form-group">
-            <label for="image">Imagen de Perfil</label>
+            <!-- <label for="image">Imagen de Perfil</label>
             <input
               type="file"
               class="boton-sesion"
               id="image"
-              name="image" />
+              name="image" /> -->
+            <div class="file-up"> 
+              <div class="file is-medium has-name">
+                <label class="file-label">
+                  <input class="file-input" type="file" name="image" id="image">
+                  <span class="file-cta">
+                    <span class="file-icon color-fondo-boton ">
+                      <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label ">
+                      Cargar
+                    </span>
+                  </span>
+                  <span class="file-name color-fondo-boton ">
+                    Imagen de Perfil
+                  </span>
+                </label>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-md-6">
@@ -66,7 +88,8 @@
               type="text"
               class="form-control"
               id="address"
-              name="address" />
+              name="address"
+            />
           </div>
           <div class="form-group">
             <label for="address_number">Número:</label>
@@ -74,7 +97,8 @@
               type="text"
               class="form-control"
               id="address_number"
-              name="address_number" />
+              name="address_number"
+            />
           </div>
           <div class="form-group">
             <label for="city">Ciudad:</label>
@@ -86,7 +110,8 @@
               type="text"
               class="form-control"
               id="province"
-              name="province" />
+              name="province"
+            />
           </div>
           <div class="form-group">
             <label for="country">País:</label>
@@ -94,7 +119,8 @@
               type="text"
               class="form-control"
               id="country"
-              name="country" />
+              name="country"
+            />
           </div>
           <div class="form-group">
             <label for="postal_code">Código Postal:</label>
@@ -102,11 +128,12 @@
               type="text"
               class="form-control"
               id="postal_code"
-              name="postal_code" />
+              name="postal_code"
+            />
           </div>
         </div>
       </div>
-      <button type="submit" class="boton-sesion">Registrarse</button>
+      <button type="submit" class="boton-sesion-registro">Registrarse</button>
     </form>
     <div class="logo-registro">
       <!-- <img src="/img/registro.webp" alt="Tu Logo" /> -->
@@ -114,7 +141,8 @@
 
     <footer
       th:replace="fragments/footer :: footer"
-      class="fixed-footer"></footer>
+      class="fixed-footer"
+    ></footer>
+    <link th:href="@{/css/register_client.css}" rel="stylesheet" />
   </body>
 </html>
-
