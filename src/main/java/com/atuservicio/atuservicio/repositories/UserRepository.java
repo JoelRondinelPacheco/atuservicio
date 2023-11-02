@@ -12,9 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, String>{
 
-    @Query("SELECT u FROM User u WHERE u.email = :email")
-    public User findByEmail(@Param("email")String email);
-
     @Query("SELECT u FROM User u WHERE u.country = :userCountry")
     List<User> findUsersByCountry(@Param("userCountry") String userCountry);
 
@@ -22,13 +19,15 @@ public interface UserRepository extends JpaRepository<User, String>{
     List<User> findUsersByCountryCity(@Param("userCountry") String userCountry, @Param("userCity") String userCity);
 
     @Query("SELECT u FROM User u WHERE u.country = :userCountry AND u.city = :userCity AND u.province = :userProvince")
-    List<User> findUsersByCountryCityProvince(@Param("userCountry") String userCountry, @Param("userCity") String userCity, @Param("userProvince") String userProvince);
+    List<User> findUsersByCountryCityProvince(@Param("userCountry") String userCountry, 
+                                              @Param("userCity") String userCity,
+                                              @Param("userProvince") String userProvince);  //Nombre de método similar (consultar)
 
     @Query("SELECT u FROM User u WHERE u.postal_code = :userPostal")
     List<User> findUsersByPostalCode(@Param("userPostal") String userPostal);
     
     @Query("SELECT u FROM User u WHERE u.email = :email")
-    public User findByEmailUser(@Param("email") String email);
+    public User findByEmail(@Param("email") String email);
     
     @Query("SELECT u FROM User u WHERE u.city = :city OR u.province = :province OR u.country = :country")
     public List<User> findByCityProvinceCountry(@Param("city") String city,
