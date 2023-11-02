@@ -9,7 +9,7 @@ import java.util.Date;
 
 @MappedSuperclass         //superclase: no se mapea a una tabla en BBDD
 @Getter
-public class Base {
+public abstract class Base {
     
     @Id
     @GeneratedValue(generator = "uuid")
