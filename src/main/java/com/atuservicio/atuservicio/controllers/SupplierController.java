@@ -5,10 +5,13 @@
  */
 package com.atuservicio.atuservicio.controllers;
 
+import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.EditSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SaveSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
+import com.atuservicio.atuservicio.services.CategoryService;
+import com.atuservicio.atuservicio.services.SupplierService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
