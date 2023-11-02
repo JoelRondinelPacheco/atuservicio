@@ -7,9 +7,9 @@ package com.atuservicio.atuservicio.controllers;
 
 
 
-import com.atuservicio.atuservicio.dtos.EditUserDTO;
-import com.atuservicio.atuservicio.dtos.SaveUserDTO;
-import com.atuservicio.atuservicio.dtos.UserInfoDTO;
+import com.atuservicio.atuservicio.dtos.users.EditUserDTO;
+import com.atuservicio.atuservicio.dtos.users.SaveUserDTO;
+import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.UserService;
 

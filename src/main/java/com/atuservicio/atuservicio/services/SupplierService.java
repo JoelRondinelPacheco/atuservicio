@@ -8,6 +8,6 @@ package com.atuservicio.atuservicio.services;
  *
  * @author PC
  */
-public class ProviderService {
+public class SupplierService {
     
 }
