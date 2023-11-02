@@ -3,6 +3,7 @@ package com.atuservicio.atuservicio.services;
 import com.atuservicio.atuservicio.entities.Image;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.repositories.IImageRepository;
+import com.atuservicio.atuservicio.services.interfaces.IImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Optional;
 
 @Service
-public class ImageService implements IImageService{
+public class ImageService implements IImageService {
     @Autowired
     private IImageRepository imageRepository;
 
@@ -30,6 +31,15 @@ public class ImageService implements IImageService{
 
             throw new MyException("La imagen no pudo ser creada");
         }
+    }
+
+    @Override
+    public Image getById(String id) throws MyException {
+        Optional<Image> image = this.imageRepository.findById(id);
+        if (image.isPresent()) {
+            return image.get();
+        }
+        throw new MyException("Imagen no encontrada");
     }
 
     @Override
@@ -54,15 +64,6 @@ public class ImageService implements IImageService{
         } catch (Exception e) {
             throw new MyException("La imagen no pudo ser creada");
         }
-    }
-
-    @Override
-    public Image getById(String id) throws MyException {
-        Optional<Image> image = this.imageRepository.findById(id);
-        if (image.isPresent()) {
-            return image.get();
-        }
-        throw new MyException("Imagen no encontrada");
     }
 
 }
