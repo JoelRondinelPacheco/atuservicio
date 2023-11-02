@@ -10,8 +10,8 @@ import com.atuservicio.atuservicio.dtos.suppliers.EditSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SaveSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
-import com.atuservicio.atuservicio.services.CategoryService;
-import com.atuservicio.atuservicio.services.SupplierService;
+import com.atuservicio.atuservicio.services.interfaces.ICategoryService;
+import com.atuservicio.atuservicio.services.interfaces.ISupplierService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,10 +32,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class SupplierController {
     
     @Autowired
-    SupplierService supplierService;
+    ISupplierService supplierService;
     
     @Autowired
-    CategoryService categoryService;
+    ICategoryService categoryService;
 
     @GetMapping("/register")
     public String register(ModelMap model) {
@@ -43,7 +43,7 @@ public class SupplierController {
         List <CategoryInfoDTO> categories = categoryService.listAll();
         
         model.addAttribute("categories", categories);
-        
+
         return "register_supplier.html";
     }
     
@@ -55,7 +55,7 @@ public class SupplierController {
             @RequestParam String city,@RequestParam String province, @RequestParam String country, @RequestParam String categoryId, ModelMap model) throws MyException {
             
             
-            
+
         try {
             SaveSupplierDTO user = new SaveSupplierDTO(name, email, address, address_number, city,
                     province, country, postal_code, password, password2, image, categoryId);
@@ -69,13 +69,13 @@ public class SupplierController {
            model.put("name", name);
            model.put("email", email);
            return "register_supplier.html";
-        }            
+        }
 
     }
     
     @GetMapping("/modify/{id}")
-    public String modify(@PathVariable("id") String id, ModelMap model) {
-
+    public String modify(@PathVariable("id") String id, ModelMap model) throws MyException {
+        //TODO Manejar excepcion si no hay usuario con el id proporcionado
         model.addAttribute("supplier", supplierService.getById(id));
 
         return "supplier_modify.html";
@@ -124,7 +124,7 @@ public class SupplierController {
     @GetMapping("/list")
     public String list(ModelMap model){
         
-        List<SupplierInfoDTO> users = SupplierService.getAllUsers();
+        List<SupplierInfoDTO> users = supplierService.getAllSuppliers();
         
         model.addAttribute("users", users);
        
@@ -138,7 +138,7 @@ public class SupplierController {
         
         SupplierInfoDTO user = supplierService.getById(id);
         
-        model.addAttribute("user", user);
+       model.addAttribute("user", user);
        
         return "supplier_detail.html";
         
