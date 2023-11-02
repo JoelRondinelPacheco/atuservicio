@@ -199,7 +199,7 @@ button {
           align-items: center;
           justify-content: center;
           margin: 0 auto;
-          margin-top: 20px;
+          margin-top:  5px;
         }
         
         .left-div .carousel {
@@ -238,13 +238,13 @@ button {
       .boton-sesion.soy-cliente {
           background-color: blue;
           color: white;
-          margin-left: 120px;
+          margin-left: 90px;
       }
       
       .boton-sesion.soy-proveedor {
           background-color: rgb(189, 32, 32);
           color: white;
-          margin-left: 80px;
+          margin-left: 23px;
       }
       
       .boton-sesion.soy-cliente:hover,
@@ -261,10 +261,27 @@ button {
       
 
         /* Tu archivo CSS externo */
-        video {
-          margin-top: 20px;
-            width: 10%;
-            margin-left: 90px;
+      
 
+        .label-login-index{
+          background-color: #EDB83D;
         }
 
+        .video-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 80vh;
+          height: 50vh;
+          margin-left: 80px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Agrega una sombra al video */
+          border-radius: 10px; /* Redondea las esquinas del video */
+          overflow: hidden; /* Evita que el video se salga del contenedor redondeado */
+        }
+      
+        video {
+          width: 100%; /* El video ocupa todo el ancho disponible */
+          height: 100%; /* El video ocupa toda la altura disponible */
+          object-fit: cover; /* Ajusta el video para que se vea completo dentro del contenedor */
+          border-radius: 10px; /* Redondea las esquinas del video */
+        }
