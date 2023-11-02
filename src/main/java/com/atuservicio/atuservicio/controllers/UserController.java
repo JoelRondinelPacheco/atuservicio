@@ -7,9 +7,9 @@ package com.atuservicio.atuservicio.controllers;
 
 
 
-import com.atuservicio.atuservicio.dtos.EditUserDTO;
-import com.atuservicio.atuservicio.dtos.SaveUserDTO;
-import com.atuservicio.atuservicio.dtos.UserInfoDTO;
+import com.atuservicio.atuservicio.dtos.users.EditUserDTO;
+import com.atuservicio.atuservicio.dtos.users.SaveUserDTO;
+import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.UserService;
 
@@ -53,14 +53,7 @@ public class UserController {
         try {
             SaveUserDTO user = new SaveUserDTO(name, email, address, address_number, city,
                     province, country, postal_code, password, password2, image);
-//            user.setName(name);
-//            user.setEmail(email);
-//            user.setAddress(address);
-//            user.setAddress_number(address_number);
-//            user.setCity(city);
-//            user.setCountry(country);
-//            user.setProvince(province);
-//            user.setPostal_code(postal_code);
+            
             userService.save(user);
             model.put("exito", "usuario registrado correctamente");
             return "redirect:/login";
@@ -74,12 +67,13 @@ public class UserController {
 
     }
 
- 
     
     @GetMapping("/modify/{id}")
-    public String getModify(@PathVariable("id") String id, ModelMap model) {
-
-        // model.addAttribute("user", userService.findById(id)); // esto deberia retornar un userInfoDTO creo xD.
+    public String getModify(@PathVariable("id") String id, ModelMap model) throws MyException {
+        
+        UserInfoDTO user = userService.getById(id);
+        
+        model.addAttribute("user", user);
 
         return "user_modify.html";
 
@@ -95,7 +89,7 @@ public class UserController {
             userService.edit(userInfoDTO);
             model.put("exito", "Se actualizó el usuario correctamente");
 
-        } catch (MyException ex) { //error de compilacion de la exception psssorque la funcion modifyUser deberia lanzar la MyException(con eso deberia arreglarse).
+        } catch (MyException ex) { 
 
             model.put("error", ex.getMessage());
 
@@ -104,6 +98,27 @@ public class UserController {
 
         return "index.html";
     }
+    
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") String id, ModelMap model) {
+
+        try {
+                
+            userService.delete(id);
+            
+            model.put("exito", "Se eliminó el usuario correctamente");
+
+        } catch (MyException ex) { 
+
+            model.put("error", ex.getMessage());
+
+            return "user_modify.html";
+        }
+
+        return "users_list.html";
+    }
+    
+    
     @GetMapping("/list")
     public String list(ModelMap model){
         
@@ -111,7 +126,19 @@ public class UserController {
         
         model.addAttribute("users", users);
        
-        return "users_list.html";
+        return "user_list.html";
         
     }
+    
+    @GetMapping("/profile/{id}")
+    public String profile(@PathVariable("id") String id, ModelMap model) throws MyException{
+        
+        UserInfoDTO user = userService.getById(id);
+        
+        model.addAttribute("user", user);
+       
+        return "user_detail.html";
+        
+    }
+    
 }
