@@ -1,10 +1,10 @@
 package com.atuservicio.atuservicio.services;
 
-import com.atuservicio.atuservicio.dtos.EditUserDTO;
+import com.atuservicio.atuservicio.dtos.users.EditUserDTO;
 import com.atuservicio.atuservicio.dtos.LoginPassDTO;
-import com.atuservicio.atuservicio.dtos.SaveUserDTO;
-import com.atuservicio.atuservicio.dtos.UserInfoDTO;
-import com.atuservicio.atuservicio.dtos.UserSearchDTO;
+import com.atuservicio.atuservicio.dtos.users.SaveUserDTO;
+import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
+import com.atuservicio.atuservicio.dtos.users.UserSearchDTO;
 import com.atuservicio.atuservicio.entities.Image;
 import com.atuservicio.atuservicio.entities.User;
 import com.atuservicio.atuservicio.enums.Role;
@@ -18,8 +18,7 @@ import java.util.Optional;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Service;
-import java.util.Optional;
+
 @Service
 public class UserService implements IUserService{
     @Autowired
@@ -127,7 +126,7 @@ public class UserService implements IUserService{
     @Override
     public UserInfoDTO getSearchEmailUser(LoginPassDTO userSearch) throws MyException{
         
-        User user = this.userRepository.findByEmailUser(userSearch.getEmail());
+        User user = this.userRepository.findByEmail(userSearch.getEmail());
         
         if (user != null){
         

@@ -12,9 +12,8 @@ package com.atuservicio.atuservicio.controllers;
 
 
 import com.atuservicio.atuservicio.dtos.LoginPassDTO;
-import com.atuservicio.atuservicio.dtos.UserInfoDTO;
-import com.atuservicio.atuservicio.dtos.UserSearchDTO;
-import com.atuservicio.atuservicio.entities.User;
+import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
+import com.atuservicio.atuservicio.dtos.users.UserSearchDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.UserService;
 import java.util.List;
@@ -36,15 +35,7 @@ public class HomeController {
 
         return "index.html";
     }
-
-    @GetMapping("/login")
-    public String login(){
-
-        return "login.html";
-    }
-    
-    
-    
+     
     @GetMapping("/search")
     public String search(){
 
