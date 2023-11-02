@@ -30,40 +30,6 @@
   }
 }
 
-/* marquesina de tecto */
-.marquee-container {
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.marquee-content {
-  display: inline-block;
-  margin-right: 50px; /* Espacio entre los párrafos */
-  animation: marquee 15s linear infinite;
-}
-
-@keyframes marquee {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-/* carrousel */
-.left-div .carousel {
-  max-width: 80%; /* Ajusta el ancho del carrusel al 70% del div izquierdo */
-
-  margin: 0 auto; /* Centra horizontalmente el carrusel */
-}
-
-/* Ajusta los estilos de las imágenes dentro del carrusel */
-.left-div .carousel img {
-  max-height: 100%; /* Limita la altura de las imágenes */
-  width: auto; /* Permite que el ancho se ajuste automáticamente */
-  border-radius: 50px;
-}
 
 /* botones */
 .btn-5 {
@@ -131,8 +97,8 @@ button {
   outline: none;
 }
 
-  <style>
-        /* Estilo para el contenedor del formulario */
+  
+        Estilo para el contenedor del formulario
         .login-container {
             background-color: #ffc107; /* Color amarillo */
             border: 2px solid #ffc107; /* Borde amarillo */
