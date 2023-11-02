@@ -8,11 +8,12 @@
     </header>
     <div class="container">
         <div class="left-div">
-            <!-- Contenido del div izquierdo -->
-            <video autoplay loop muted style="width: 80%;">
-                <source src="/img/intro.mp4" type="video/mp4">
-                Tu navegador no admite la etiqueta de video.
+          <div class="video-container">
+            <video autoplay loop muted>
+              <source src="/img/intro.mp4" type="video/mp4">
+              Tu navegador no soporta la etiqueta de video.
             </video>
+          </div>
             
             <div class="button-container">
               <form action="/client/register" th:action="@{/client/register}" method="GET">
@@ -31,14 +32,15 @@
         <div class="right-div">
 <!--       contenido derecho-->  <div class="login-container">
         <form class="login-form">
+          <div id="emailHelp" class="letras-login">Acceso Rápido</div>
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="letras-login email-icon">Email</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            <div id="emailHelp" class="letras-login">Acceso Rápido</div>
+            <label for="exampleInputEmail1" class=" letras-login email-icon">Email</label>
+            <input type="email" class="form-control label-login-index  " id="exampleInputEmail1" aria-describedby="emailHelp">
+            
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="letras-login password-icon">Contraseña</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <input type="password" class="form-control label-login-index  " id="exampleInputPassword1">
           </div>
           <button type="submit" class="boton-sesion">Iniciar Sesión</button>
         </form>
@@ -50,6 +52,7 @@
 
     <!-- Agregado el cierre de la etiqueta div -->
     <footer th:replace="fragments/footer :: footer"></footer>
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
   </body>
 </html>
 

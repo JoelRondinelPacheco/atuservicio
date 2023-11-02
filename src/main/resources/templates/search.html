@@ -67,6 +67,7 @@
                             <th scope="col">Id de Usurio</th>
                             <th scope="col">Nombre del Usurio</th>
                             <th scope="col">Rol</th>
+                            <th scope="col">Email</th>
                             <th scope="col">Ciudad</th>
                             <th scope="col">Provincia</th>
                             <th scope="col">País</th>
@@ -77,6 +78,7 @@
                             <th scope="row" th:text="${user.id}"></th>
                             <td th:text="${user.name}"></td>
                             <td th:text="${user.role}"></td>
+                            <td th:text="${user.email}"></td>
                             <td th:text="${user.city}"></td>
                             <td th:text="${user.province}"></td>
                             <td th:text="${user.country}"></td>
@@ -95,6 +97,8 @@
         </div>
     </div>
     <footer th:replace="fragments/footer :: footer"></footer>
+    <link th:href="@{/css/search.css}" rel="stylesheet" />
+
 </body>
 </html>
 

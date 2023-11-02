@@ -8,6 +8,7 @@ import com.atuservicio.atuservicio.dtos.users.UserSearchDTO;
 import com.atuservicio.atuservicio.entities.Image;
 import com.atuservicio.atuservicio.entities.User;
 import com.atuservicio.atuservicio.enums.Role;
+import com.atuservicio.atuservicio.services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService implements IUserService{
+public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
-    @Autowired ImageService imageService;
+    @Autowired
+    private ImageService imageService;
 
     @Override
     public UserInfoDTO save(SaveUserDTO userDTO) throws MyException {
@@ -53,6 +55,29 @@ public class UserService implements IUserService{
 
         return userinfo;
     }
+
+    @Override
+    public UserInfoDTO getById(String id) throws MyException {
+        Optional<User> userOptional = this.userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            UserInfoDTO userinfo = this.createUserInfoDTO(user);
+            return userinfo;
+        }
+        throw new MyException("Usuario no encontrado");
+    }
+
+    @Override
+    public List<UserInfoDTO> getAllUsers() {
+        List<User> users = this.userRepository.findAll();
+        List<UserInfoDTO> userInformation = new ArrayList<>();
+        for (User user : users) {
+            UserInfoDTO userInfo = this.createUserInfoDTO(user);
+            userInformation.add(userInfo);
+        }
+        return userInformation;
+    }
+
 
     @Override
     public UserInfoDTO edit(EditUserDTO userDTO) throws MyException {
@@ -89,28 +114,6 @@ public class UserService implements IUserService{
         throw new MyException("Usuario no encontrado");
     }
 
-    @Override
-    public UserInfoDTO getById(String id) throws MyException {
-        Optional<User> userOptional = this.userRepository.findById(id);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            UserInfoDTO userinfo = this.createUserInfoDTO(user);
-            return userinfo;
-        }
-        throw new MyException("Usuario no encontrado");
-    }
-
-    @Override
-    public List<UserInfoDTO> getAllUsers() {
-        List<User> users = this.userRepository.findAll();
-        List<UserInfoDTO> userInformation = new ArrayList<>();
-        for (User user : users) {
-            UserInfoDTO userInfo = this.createUserInfoDTO(user);
-            userInformation.add(userInfo);
-        }
-        return userInformation;
-    }
-
 
     @Override
     public List<UserInfoDTO> getSearchUsers(UserSearchDTO userSearch) {
@@ -126,7 +129,7 @@ public class UserService implements IUserService{
     @Override
     public UserInfoDTO getSearchEmailUser(LoginPassDTO userSearch) throws MyException{
         
-        User user = this.userRepository.findByEmailUser(userSearch.getEmail());
+        User user = this.userRepository.findByEmail(userSearch.getEmail());
         
         if (user != null){
         

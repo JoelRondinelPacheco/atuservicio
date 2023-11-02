@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Setter
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.JOINED)    //crea dos tablas separadas ('users' y 'suppliers')
+@Inheritance(strategy = InheritanceType.JOINED)    //la clase hija 'Supplier' debe tener su propia tabla en la BBDD
 public class User extends Base implements UserDetails {
     
     private String name;

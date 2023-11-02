@@ -1,5 +1,6 @@
-
 @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+
 .custom-navbar {
   display: flex;
   justify-content: space-between;
@@ -56,27 +57,20 @@
 /* Estilos para dispositivos pequeños (responsive) */
 @media (max-width: 768px) {
   .custom-navbar-nav {
-    display: none;
     flex-direction: column;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    right: 0;
-    background-color: #edb83d;
-    z-index: 1;
+    align-items: center;
   }
 
-  .custom-navbar-toggler {
-    display: block;
-    cursor: pointer;
+  .logo-navbar {
+    display: none;
   }
 
-  .custom-navbar.show-nav .custom-navbar-nav {
-    display: flex;
+  .custom-nav-item a {
+    font-size: 1.5rem;
   }
 }
 
-/* menu despleggable */
+/* menu desplegable */
 .custom-nav-item.dropdown {
   position: relative;
   font-family: "Kanit", sans-serif;
@@ -87,34 +81,19 @@
   display: none;
   position: absolute;
   top: 100%;
-  left: 0;
-  background-color: #edb83d;
-  padding: 10px;
+}
+
+
+.select {
+  display: flex;
+  align-items: center;
+  margin-right: 10px; /* Ajusta el margen derecho según tus necesidades */
+  flex-direction: column; /* Coloca los elementos en columnas */
+}
+
+.boton-registrar-nabvar {
+  margin: 0;
+  padding: 0;
   font-family: "Kanit", sans-serif;
-  font-size: 1.3rem;
+  font-size: 16px; /* Ajusta el tamaño del botón según tus necesidades */
 }
-
-.custom-nav-item.dropdown:hover .dropdown-menu {
-  display: block;
-}
-
-/*estilos del select*/
-.custom-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: url('ruta-a-tu-icono.png') no-repeat right center; /* Reemplaza 'ruta-a-tu-icono.png' con la ruta de tu propio icono */
-  padding-right: 20px; /* Ajusta el espaciado a la derecha para acomodar el icono */
-  cursor: pointer; /* Cambia el cursor al puntero al pasar por encima */
-}
-
-.custom-select:hover {
-  background-color: #eee;
-}
-
-.custom-select:focus {
-  border: 1px solid #007bff;
-  outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-

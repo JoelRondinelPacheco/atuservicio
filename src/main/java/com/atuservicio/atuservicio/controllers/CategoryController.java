@@ -5,8 +5,11 @@
  */
 package com.atuservicio.atuservicio.controllers;
 
+import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
-import com.atuservicio.atuservicio.services.CategoryService;
+
+import com.atuservicio.atuservicio.services.interfaces.ICategoryService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,10 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
-    
+
     @Autowired
-    CategoryService categoryService;
-    
+    ICategoryService categoryService;
+
     @GetMapping("/search/{category_id}")
     public String findCategoryById(@PathVariable("id") String id, ModelMap model) throws MyException{
         
@@ -34,7 +37,7 @@ public class CategoryController {
        
         return "search_category.html";
         
-    }    
+    }
    
     
 }

@@ -126,7 +126,7 @@ public class UserController {
         
         model.addAttribute("users", users);
        
-        return "users_list.html";
+        return "user_list.html";
         
     }
     
