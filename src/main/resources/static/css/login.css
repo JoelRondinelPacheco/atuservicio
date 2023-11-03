@@ -6,7 +6,7 @@
     flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
     justify-content: center; /* Centra los elementos horizontalmente */
     align-items: stretch; /* Los elementos se estiran verticalmente para llenar la altura */
-    height: 100vh; /* Toma el 100% de la altura de la ventana */
+    height: 90vh; /* Toma el 100% de la altura de la ventana */
 }
 
 .split {
@@ -107,12 +107,17 @@ font-family: "Kanit", sans-serif;
   }
   
   .img-login {
-    width: 120px; /* Nueva propiedad */
-    height: 100px; /* Nueva propiedad */
+    width: 350px; /* Nueva propiedad */
+   height: auto;
     display: flex;
     justify-content: center;
     align-content: center;
-    margin-top: 25px;
+    margin-top: 90px;
     object-fit: contain;
     margin: 0 auto; /* Nueva propiedad */
+  }
+
+  #margen-imagen{
+margin-top: 60px;
+
   }

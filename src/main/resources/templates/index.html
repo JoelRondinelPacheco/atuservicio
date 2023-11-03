@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head th:replace="fragments/head :: head"></head>
+  <link th:href="@{/css/index.css}" rel="stylesheet" />
+
   <body>
     <header>
       <nav th:replace="fragments/navbar :: navbar"></nav>
@@ -10,7 +12,7 @@
         <div class="left-div">
           <div class="video-container">
             <video autoplay loop muted>
-              <source src="/img/intro.mp4" type="video/mp4">
+              <source class="video-format" src="/img/intro.mp4" type="video/mp4">
               Tu navegador no soporta la etiqueta de video.
             </video>
           </div>
@@ -51,8 +53,8 @@
    
 
     <!-- Agregado el cierre de la etiqueta div -->
+
     <footer th:replace="fragments/footer :: footer"></footer>
-    <link th:href="@{/css/index.css}" rel="stylesheet" />
   </body>
 </html>
 

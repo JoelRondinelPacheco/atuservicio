@@ -1,94 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
 
-.custom-navbar {
+.container-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  background-color: #edb83d;
-  padding: 10px 20px;
+  width: 50px;
+  height: 50px;
+
 }
 
-.logo-navbar img {
-  height: 75px;
-  width: auto;
-}
+.img-navbar{
+width: 50px;
+margin-left: 35px;
+  
 
-.custom-navbar-toggler {
-  display: none;
-}
-
-.custom-navbar-nav {
-  list-style: none;
-  display: flex;
-  justify-content: flex-end; /* Alinea a la derecha */
-  gap: 20px;
-  position: absolute;
-  top: 30px; /* Ajusta la posición vertical */
-  right: 20px; /* Ajusta la posición horizontal */
-  background-color: #edb83d;
-  z-index: 1;
-  padding: 5px 0; /* Añade espaciado arriba y abajo */
-}
-
-.custom-nav-item {
-  margin: 0;
-  font-family: "Kanit", sans-serif;
-  font-size: 1.3rem;
-  margin-bottom: -30px;
-}
-
-.custom-nav-item a {
-  text-decoration: none;
-  color: #413e3e; /* Color predeterminado */
-  transition: color 0.2s; /* Agregar una transición suave para cambiar el color */
-  cursor: pointer; /* Agregar esta línea para mostrar el cursor como una mano */
-}
-
-.custom-nav-item a:hover {
-  color: #1995ad; /* Cambiar el color al pasar el mouse sobre el enlace */
-}
-
-.custom-nav-item a:active {
-  color: #bcbabf; /* Cambiar el color al hacer clic en el enlace */
-}
-
-
-/* Estilos para dispositivos pequeños (responsive) */
-@media (max-width: 768px) {
-  .custom-navbar-nav {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .logo-navbar {
-    display: none;
-  }
-
-  .custom-nav-item a {
-    font-size: 1.5rem;
-  }
-}
-
-/* menu desplegable */
-.custom-nav-item.dropdown {
-  position: relative;
-  font-family: "Kanit", sans-serif;
-  font-size: 1.3rem;
-}
-
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-}
-
-
-.select {
-  display: flex;
-  align-items: center;
-  margin-right: 10px; /* Ajusta el margen derecho según tus necesidades */
-  flex-direction: column; /* Coloca los elementos en columnas */
 }
 
 .boton-registrar-nabvar {
@@ -107,4 +34,15 @@
   flex-direction: column; /* Alinea los elementos en columna (verticalmente) */
   justify-content: center; /* Alinea verticalmente en el centro */
   align-items: center; /* Alinea horizontalmente en el centro */
+}
+
+.color-nabvar{
+  background-color: #edb83d;
+
+  font-family: "Kanit", sans-serif;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+
+
 }
