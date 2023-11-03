@@ -83,18 +83,38 @@ public class SupplierService implements ISupplierService {
     }
 
     @Override
-    public SupplierInfoDTO edit(EditSupplierDTO supplier) throws MyException {
-        return null;
+    public SupplierInfoDTO edit(EditSupplierDTO supplierDTO) throws MyException {
+        Optional<Supplier> supplierOptional = this.supplierRepository.findById(supplierDTO.getId());
+        if (supplierOptional.isPresent()) {
+            Supplier supplier = supplierOptional.get();
+            supplier.setName(supplierDTO.getName());
+            supplier.setEmail(supplierDTO.getEmail());
+            String imageId = supplier.getImage().getId();
+            this.imageService.update(supplierDTO.getImage(), imageId);
+            supplier.setAddress(supplierDTO.getAddress());
+            supplier.setAddress_number(supplierDTO.getAddress_number());
+            supplier.setCity(supplierDTO.getCity());
+            supplier.setProvince(supplierDTO.getProvince());
+            supplier.setCountry(supplierDTO.getCountry());
+            supplier.setPostal_code(supplierDTO.getPostal_code());
+            Category category = this.categoryRepository.findById(supplierDTO.getCategoryId()).get();
+            supplier.setCategory(category);
+            Supplier supplierSaved = this.supplierRepository.save(supplier);
+            return this.createSupplierInfoDTO(supplierSaved);
+        }
+        throw new MyException("Supplier no encontrado");
     }
 
     @Override
     public String delete(String id) throws MyException {
-        try {
-            this.supplierRepository.deleteById(id);
-            return "Supplier eliminado";
-        } catch (Exception ex) {
-        throw new MyException(ex.getMessage());
+        Optional<Supplier> supplierOptional = this.supplierRepository.findById(id);
+        if (supplierOptional.isPresent()) {
+            Supplier supplier = supplierOptional.get();
+            supplier.setActive(false);
+            this.supplierRepository.save(supplier);
+            return "Supplier dado de baja correctamente";
         }
+        throw new MyException("Supplier no encontrado");
     }
 
     private SupplierInfoDTO createSupplierInfoDTO(Supplier supplier) {
