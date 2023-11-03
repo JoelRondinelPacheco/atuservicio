@@ -1,35 +1,30 @@
 
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    
-  <head th:replace="fragments/head :: head" ></head>
+  <head th:replace="fragments/head :: head"></head>
   <body>
     <header>
       <nav th:replace="fragments/navbar :: navbar"></nav>
     </header>
 <body>
     <div class="container mt-5">
-        <h1 class="mb-4">Búsqueda de Proveedores</h1>
+        <h1 class="mb-4">Búsqueda por Ubicación</h1>
         <form th:action="@{/search}" method="post" class="row g-3">
             <div class="col-md-4">
                 <label for="country" class="form-label">País:</label>
-                <select type="text" class="form-control" id="country" name="country" > 
-                    <option>Argentina</option>
-                              </select>
-                
+                <input type="text" class="form-control" id="country" name="country" >
             </div>
             <div class="col-md-4">
                 <label for="province" class="form-label">Provincia:</label>
-                <select class="form-control" id="province" name="province" > </select>
-                    
+                <input type="text" class="form-control" id="province" name="province" >
             </div>
             <div class="col-md-4">
                 <label for="city" class="form-label">Localidad:</label>
-                <select class="form-control" id="city" name="city" > </select>
+                <input type="text" class="form-control" id="city" name="city" >
             </div>
             <div class="col-md-4">
                 <label for="city" class="form-label">Email:</label>
-                <input class="form-control" id="email" name="email" >
+                <input type="text" class="form-control" id="email" name="email" >
             </div>
             <div class="col-12 mt-3">
                 <button type="submit" class="btn btn-primary boton-buscar ">Buscar</button>
@@ -103,7 +98,7 @@
     </div>
     <footer th:replace="fragments/footer :: footer"></footer>
     <link th:href="@{/css/search.css}" rel="stylesheet" />
-     <script src="/js/search.js" type="text/javascript"></script>
+
 </body>
 </html>
 
