@@ -7,11 +7,21 @@ package com.atuservicio.atuservicio.services;
 import com.atuservicio.atuservicio.dtos.suppliers.EditSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SaveSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
+import com.atuservicio.atuservicio.entities.Category;
+import com.atuservicio.atuservicio.entities.Image;
+import com.atuservicio.atuservicio.entities.Supplier;
+import com.atuservicio.atuservicio.enums.Role;
 import com.atuservicio.atuservicio.exceptions.MyException;
+import com.atuservicio.atuservicio.repositories.CategoryRepository;
+import com.atuservicio.atuservicio.repositories.SupplierRepository;
 import com.atuservicio.atuservicio.services.interfaces.ISupplierService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -20,19 +30,56 @@ import java.util.List;
 @Service
 public class SupplierService implements ISupplierService {
 
+    @Autowired
+    private SupplierRepository supplierRepository;
+    @Autowired
+    private ImageService imageService;
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
-    public SupplierInfoDTO save(SaveSupplierDTO supplier) throws MyException {
-        return null;
+    public SupplierInfoDTO save(SaveSupplierDTO supplierDTO) throws MyException {
+        if (!supplierDTO.getPassword().equals(supplierDTO.getPassword2())) {
+            throw new MyException("Las contraseñas no son iguales");
+        }
+        Supplier supplier = new Supplier();
+        supplier.setName(supplierDTO.getName());
+        supplier.setEmail(supplierDTO.getEmail());
+        String password = new BCryptPasswordEncoder().encode(supplierDTO.getPassword());
+        supplier.setPassword(password);
+        supplier.setRole(Role.SUPPLIER);
+        Image image = this.imageService.save(supplierDTO.getImage());
+        supplier.setImage(image);
+        supplier.setAddress(supplierDTO.getAddress());
+        supplier.setAddress_number(supplierDTO.getAddress_number());
+        supplier.setCity(supplierDTO.getCity());
+        supplier.setProvince(supplierDTO.getProvince());
+        supplier.setCountry(supplierDTO.getCountry());
+        supplier.setPostal_code(supplierDTO.getPostal_code());
+        Category category = this.categoryRepository.findById(supplierDTO.getCategoryId()).get();
+        supplier.setCategory(category);
+
+        Supplier supplierSaved = this.supplierRepository.save(supplier);
+        return this.createSupplierInfoDTO(supplierSaved);
     }
 
     @Override
     public SupplierInfoDTO getById(String id) throws MyException {
-        return null;
+        Optional<Supplier> supplierOptional = this.supplierRepository.findById(id);
+        if (supplierOptional.isPresent()) {
+            return this.createSupplierInfoDTO(supplierOptional.get());
+        }
+        throw new MyException("Supplier no encontrado");
     }
 
     @Override
     public List<SupplierInfoDTO> getAllSuppliers() {
-        return null;
+        List<Supplier> suppliers = this.supplierRepository.findAll();
+        List<SupplierInfoDTO> suppliersDTO = new ArrayList<>();
+        for (Supplier s : suppliers) {
+            suppliersDTO.add(this.createSupplierInfoDTO(s));
+        }
+        return suppliersDTO;
     }
 
     @Override
@@ -42,6 +89,28 @@ public class SupplierService implements ISupplierService {
 
     @Override
     public String delete(String id) throws MyException {
-        return null;
+        try {
+            this.supplierRepository.deleteById(id);
+            return "Supplier eliminado";
+        } catch (Exception ex) {
+        throw new MyException(ex.getMessage());
+        }
+    }
+
+    private SupplierInfoDTO createSupplierInfoDTO(Supplier supplier) {
+        return new SupplierInfoDTO(
+                supplier.getName(),
+                supplier.getEmail(),
+                supplier.getRole(),
+                supplier.getImage(),
+                supplier.getAddress(),
+                supplier.getAddress_number(),
+                supplier.getCity(),
+                supplier.getProvince(),
+                supplier.getCountry(),
+                supplier.getPostal_code(),
+                supplier.getId(),
+                supplier.getCategory()
+        );
     }
 }
