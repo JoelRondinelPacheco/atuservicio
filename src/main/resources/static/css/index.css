@@ -10,6 +10,7 @@
 .left-div {
   width: 70%;
   height: 30%;
+  margin-top: 35px;
   margin: 5px;
 }
 
@@ -22,6 +23,7 @@
 @media (max-width: 768px) {
   .container {
     flex-direction: column; /* Cambia a un diseño de columna en pantallas pequeñas */
+  margin-top: 0;
   }
 
   .left-div,
@@ -250,4 +252,8 @@ button {
           height: 100%; /* El video ocupa toda la altura disponible */
           object-fit: cover; /* Ajusta el video para que se vea completo dentro del contenedor */
           border-radius: 10px; /* Redondea las esquinas del video */
+          
         }
+.video-format{
+  margin-top: 35px;
+}
