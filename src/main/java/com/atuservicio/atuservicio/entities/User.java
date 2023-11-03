@@ -30,7 +30,7 @@ public class User extends Base implements UserDetails {
     private Boolean active;
 
     @Enumerated(EnumType.STRING)
-   private Role role;
+    private Role role;
 
     @OneToOne
     @JoinColumn(name="image_id", referencedColumnName = "id")

@@ -8,7 +8,9 @@ import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
 import com.atuservicio.atuservicio.dtos.categories.EditCategoryDTO;
 import com.atuservicio.atuservicio.dtos.categories.SaveCategoryDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
+import com.atuservicio.atuservicio.repositories.CategoryRepository;
 import com.atuservicio.atuservicio.services.interfaces.ICategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,8 @@ import java.util.List;
  */
 @Service
 public class CategoryService implements ICategoryService {
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public CategoryInfoDTO save(SaveCategoryDTO category) {
