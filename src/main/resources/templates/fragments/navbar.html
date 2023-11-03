@@ -1,70 +1,83 @@
-<nav th:fragment="navbar" class="custom-navbar">
-  <div class="logo-navbar">
-    <img src="/img/logo.webp" alt="Tu Logo" />
-  </div>
-
-  <ul class="custom-navbar-nav">
-    <li class="custom-nav-item">
-      <a class="nav-link" href="/">
-        <i class="fas fa-home"></i>
-        Inicio
+<nav th:fragment="navbar" class=" color-nabvar navbar navbar-expand-lg bg-body-tertiary">
+ 
+ 
+    <div class="container-fluid color-nabvar ">
+      <div class="image-container">
+        <a class="navbar-brand" href="#">
+          <img class="img-navbar" src="/img/logo.webp" alt="Tu Logo" />
       </a>
-    </li>
-    <li class="custom-nav-item">
-      <a class="nav-link" href="services.html">
-        <i class="fas fa-cogs"></i>
-        Servicios
-      </a>
-    </li>
-    <li class="custom-nav-item">
-      <a class="nav-link" href="provider.html">
-        <i class="fas fa-users"></i>
-        Proveedores
-      </a>
-    </li>
-    <li class="custom-nav-item">
-      <a class="nav-link" href="contact.html">
-        <i class="fas fa-envelope"></i>
-        Contacto
-      </a>
-    </li>
-    <li class="custom-nav-item">
-      <a class="nav-link" href="/search">
-        <i class="fas fa-search"></i>
-        Búsqueda
-      </a>
-    </li>
-    <div class="select is-warning">
-      <select class="custom-select" id="registrationSelect" >
-        <option >Registro</option>
-        <option value="/client/register" th:value="@{/client/register}">Cliente</option>
-        <option value="/supplier/register" th:value="@{/supplier/register}">Proveedor</option>
-      </select>
-    
+      
     </div>
-    <script>
-      document.getElementById("registrationSelect").onchange = function() {
-        var selectedValue = this.value;
-        if (selectedValue) {
-          window.location.href = selectedValue;
-        }
-      };
-    </script>
-    
-    <li class="custom-nav-item">
-      <a class="nav-link" href="/login">
-        <i class="fas fa-sign-in-alt"></i>
-        Login
-      </a>
-    </li>
-    <li class="custom-nav-item">
-      <a class="nav-link" href="/logout">
-        <i class="fas fa-sign-out-alt"></i>
-        Cerrar Sesión
-      </a>
-    </li>
-    
-  </ul>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            
+            <li class="nav-item">
+              <a class="nav-link active" th:href="@{/}">
+                  <i class="fas fa-home"></i>
+                  Inicio
+              </a>
+          </li>
+          <li class="nav-item">
+            
+            <li class="custom-nav-item">
+              <a class="nav-link active" href="services.html">
+                <i class="fas fa-cogs"></i>
+                Servicios
+              </a>
+            </li>
+            <li class="custom-nav-item">
+              <a class="nav-link active" href="provider.html">
+                <i class="fas fa-users"></i>
+                Proveedores
+              </a>
+            </li>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="contact.html">
+              <i class="fas fa-envelope"></i>
+              Contacto
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/search">
+              <i class="fas fa-search"></i>
+              Búsqueda
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Registro
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" th:href="@{/client/register}">Cliente</a></li>
+              <li><a class="dropdown-item" th:href="@{/supplier/register}">Proveedor</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <!-- <li><a class="dropdown-item" href="#">Registro</a></li> -->
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/login">
+              <i class="fas fa-sign-in-alt"></i>
+              Login
+            </a>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">
+                <i class="fas fa-sign-out-alt"></i>
+                Cerrar Sesión
+              </a>
+         
+        </ul>
+        <!-- <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form> -->
+      </div>
+    </div>
+  
 
  
   
