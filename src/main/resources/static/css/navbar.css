@@ -97,3 +97,14 @@
   font-family: "Kanit", sans-serif;
   font-size: 16px; /* Ajusta el tamaño del botón según tus necesidades */
 }
+
+.card-login {
+  width: 350px;
+  height: auto;
+  margin-left: 120px;
+  margin-top: 28px;
+  display: flex; /* Convierte el contenedor en un contenedor flexible */
+  flex-direction: column; /* Alinea los elementos en columna (verticalmente) */
+  justify-content: center; /* Alinea verticalmente en el centro */
+  align-items: center; /* Alinea horizontalmente en el centro */
+}
