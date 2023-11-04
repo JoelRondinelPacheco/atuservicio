@@ -117,6 +117,16 @@ public class SupplierService implements ISupplierService {
         throw new MyException("Supplier no encontrado");
     }
 
+    public String activate(String id) throws MyException {
+        Optional<Supplier> supplierOptional = this.supplierRepository.findById(id);
+        if (supplierOptional.isPresent()) {
+            Supplier supplier = supplierOptional.get();
+            supplier.setActive(true);
+            this.supplierRepository.save(supplier);
+            return "Supplier dado de alta correctamente";
+        }
+        throw new MyException("Supplier no encontrado");
+    }
     private SupplierInfoDTO createSupplierInfoDTO(Supplier supplier) {
         return new SupplierInfoDTO(
                 supplier.getName(),

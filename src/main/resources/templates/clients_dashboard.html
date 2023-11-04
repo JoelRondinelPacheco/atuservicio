@@ -23,20 +23,26 @@
         </thead>
         <tbody>
 
-        <tr th:each="user : ${users}">
-            <td th:text="${user.name}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.address}"></td>
-            <td th:text="${user.city}"></td>
-            <td th:text="${user.province}"></td>
-            <td th:text="${user.country}"></td>
-            <td th:text="${user.active}"></td>
+        <tr th:each="client : ${clients}">
+            <td th:text="${client.name}"></td>
+            <td th:text="${client.email}"></td>
+            <td th:text="${client.address}"></td>
+            <td th:text="${client.city}"></td>
+            <td th:text="${client.province}"></td>
+            <td th:text="${client.country}"></td>
+            <td th:text="${client.active}"></td>
             <td>
-                <a th:href="@{/editarUser?id={userId}(userId=${user.id})}">Editar</a>
+
+                <a th:href="@{/admin/activate?clientId={clientId}(clientId=${client.id})}">Editar</a>
 
             </td>
             <td>
-                <a th:href="@{/darDeBajaUser?id={userId}(userId=${user.id})}">Dar de Baja</a>
+                <div th:unless="${client.active}">
+                    <a th:href="@{/admin/clients/activate?clientId={clientId}(clientId=${client.id})}">Dar de alta</a>
+                </div>
+                <div th:if="${user.active}">
+                <a th:href="@{/admin/clients/delete?clientId={clientId}(clientId=${client.id})}">Dar de Baja</a>
+                </div>
             </td>
         </tr>
         </tbody>
