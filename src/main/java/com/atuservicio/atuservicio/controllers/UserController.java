@@ -10,9 +10,11 @@ package com.atuservicio.atuservicio.controllers;
 import com.atuservicio.atuservicio.dtos.users.EditUserDTO;
 import com.atuservicio.atuservicio.dtos.users.SaveUserDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
+import com.atuservicio.atuservicio.dtos.users.UserRegisterErrorDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.hql.internal.ast.tree.IsNullLogicOperatorNode;
 
@@ -46,27 +48,30 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestParam String name, @RequestParam String email, 
-            @RequestParam String password, @RequestParam String password2, @RequestParam(required = false) MultipartFile image,
-            @RequestParam String address,@RequestParam Long address_number,@RequestParam String postal_code,
-            @RequestParam String city,@RequestParam String province, @RequestParam String country, ModelMap model) throws MyException {
+    public String register(@RequestParam(required = false) String name, @RequestParam(required = false) String email,
+            @RequestParam(required = false) String password, @RequestParam(required = false) String password2, @RequestParam(required = false) MultipartFile image,
+            @RequestParam(required = false) String address,@RequestParam(required = false) Long address_number,@RequestParam(required = false) String postal_code,
+            @RequestParam(required = false) String city,@RequestParam(required = false) String province, @RequestParam(required = false) String country, ModelMap model) throws MyException {
 
-        try {
+            try {
+                List<UserRegisterErrorDTO> errors = validar(name, email);
+                if (!errors.isEmpty()) {
+                    model.addAttribute("errors", errors);
+                    return "register_client.html";
+                }
 
-            SaveUserDTO user = new SaveUserDTO(name, email, address, address_number, city,
-                    province, country, postal_code, password, password2, image);
+                SaveUserDTO user = new SaveUserDTO(name, email, address, address_number, city,
+                        province, country, postal_code, password, password2, image);
 
-            UserInfoDTO u = this.userService.save(user);
-            model.put("exito", "usuario registrado correctamente");
-            return "redirect:/login";
+                UserInfoDTO u = this.userService.save(user);
+                model.put("exito", "usuario registrado correctamente");
+                return "redirect:/login";
 
-        } catch (MyException ex) {
-            model.put("error", ex.getMessage());
-            model.put("name", name);
-            model.put("email", email);
-            return "register_client.html";
-        }
-
+            } catch (MyException ex) {
+                model.put("name", name);
+                model.put("email", email);
+                return "register_client.html";
+            }
     }
 
 
@@ -154,5 +159,23 @@ public class UserController {
        model.put("updated", "Usuario actualizado");
        model.addAttribute("user", user);
         return "client_panel.html";
+    }
+
+
+    private List<UserRegisterErrorDTO> validar(String name,String email/*
+                        String password, String password2,
+                       String address, Long address_number,  String postal_code,
+                         String city, String province, String country*/){
+        List<UserRegisterErrorDTO> errors = new ArrayList<>();
+
+        if (name.isEmpty() || name == null) {
+
+errors.add(new UserRegisterErrorDTO("name", "Nombre requerido"));
+        }
+        if (email.isEmpty() || email == null) {
+            errors.add(new UserRegisterErrorDTO("email", "Email requerido"));
+        }
+        return errors;
+
     }
 }

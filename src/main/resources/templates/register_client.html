@@ -21,8 +21,19 @@
               class="form-control"
               id="name"
               name="name"
-              required
             />
+          </div>
+          <div th:if="${errors != null}">
+            <div th:each="error : ${errors}">
+              <div th:if="${error.name == 'name'}">
+
+                <div class="card text-white bg-danger mb-3">
+                  <div class="card-body">
+                    <p class="card-text" th:text="${error.nameMsg}"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label for="email">Correo Electrónico:</label>
@@ -86,6 +97,7 @@
               name="address"
             />
           </div>
+
           <div class="form-group">
             <label for="address_number">Número:</label>
             <input
@@ -124,6 +136,7 @@
         </div>
       </div>
       <button type="submit" class="boton-sesion-registro">Registrarse</button>
+
     </form>
     <div class="logo-registro">
       <!-- <img src="/img/registro.webp" alt="Tu Logo" /> -->
