@@ -5,8 +5,10 @@
         <title>Servicios</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <nav th:replace="fragments/navbar :: navbar"></nav>
     </head>
     <body>
+        <br>
         
         <div class="container-fluid">
         <div class="row row-cols-4 px-5">                    
@@ -16,8 +18,10 @@
                     <div class="card-body">
                         <h5 class="card-title text-truncate" th:text="${user.name}">Nombre</h5>
                         <p class="card-text text-truncate" th:text="${user.category.name}">Categoria</p>
-                        <a th:href="@{'/user/' + ${user.id}}" class="btn btn-outline-secondary">Ver mas Datos...</a>
-                    </div>
+                        <form class= "d-flex justify-content-center" sec:authorize="isAuthenticated()" th:action="@{'/user/' + ${user.id}}">
+                        <button  class="boton-card-detail">Ver mas...</button>
+                   </form> 
+                </div>
                     <div class="card-footer d-flex justify-content-between">
                                                  
                     </div>
@@ -30,4 +34,5 @@
         
     </body>
      <footer th:replace="fragments/footer :: footer"></footer>
+     <link th:href="@{/css/services.css}" rel="stylesheet" />
 </html>
