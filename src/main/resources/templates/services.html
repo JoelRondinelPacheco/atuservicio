@@ -18,7 +18,7 @@
                     <div class="card-body">
                         <h5 class="card-title text-truncate" th:text="${user.name}">Nombre</h5>
                         <p class="card-text text-truncate" th:text="${user.category.name}">Categoria</p>
-                        <form class= "d-flex justify-content-center" sec:authorize="isAuthenticated()" th:action="@{'/user/' + ${user.id}}">
+                        <form class= "d-flex justify-content-center" sec:authorize="isAuthenticated()" th:action="@{'/supplier/profile/' + ${user.id}}">
                         <button  class="boton-card-detail">Ver mas...</button>
                    </form> 
                 </div>
