@@ -19,11 +19,17 @@ import lombok.Setter;
 @Table(name = "suppliers")
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Supplier extends User {
-    
+
+    @OneToOne
+    @JoinColumn(name="imageCard_id", referencedColumnName = "id")
+    private Image imageCard;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;  //rubro
     
     @OneToMany(mappedBy = "supplier")
     private List<Contract> contractsAsSupplier;
+
+    // TODO PREPERSIST IMAGE
 }

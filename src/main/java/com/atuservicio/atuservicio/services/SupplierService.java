@@ -117,6 +117,7 @@ public class SupplierService implements ISupplierService {
         throw new MyException("Supplier no encontrado");
     }
 
+    @Override
     public String activate(String id) throws MyException {
         Optional<Supplier> supplierOptional = this.supplierRepository.findById(id);
         if (supplierOptional.isPresent()) {
@@ -127,6 +128,15 @@ public class SupplierService implements ISupplierService {
         }
         throw new MyException("Supplier no encontrado");
     }
+    @Override
+    public SupplierInfoDTO getByEmail(String email) throws MyException {
+        Optional<Supplier> supplierOptional = this.supplierRepository.findByEmailSupplier(email);
+        if (supplierOptional.isPresent()) {
+            return this.createSupplierInfoDTO(supplierOptional.get());
+        }
+        throw new MyException("Supplier no encontrado");
+    }
+
     private SupplierInfoDTO createSupplierInfoDTO(Supplier supplier) {
         return new SupplierInfoDTO(
                 supplier.getName(),

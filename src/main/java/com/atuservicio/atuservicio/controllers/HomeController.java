@@ -12,12 +12,18 @@ package com.atuservicio.atuservicio.controllers;
 
 
 import com.atuservicio.atuservicio.dtos.LoginPassDTO;
+import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserSearchDTO;
+import com.atuservicio.atuservicio.enums.Role;
 import com.atuservicio.atuservicio.exceptions.MyException;
+import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +35,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HomeController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private SupplierService supplierService;
     
     @GetMapping("/")
     public String index(){
@@ -71,6 +79,27 @@ public class HomeController {
            
                 return "search.html";
             }            
+        }
+    }
+
+    @GetMapping("/profile")
+    public String profile(ModelMap model) throws MyException{
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        String role = auth.getAuthorities().toString();
+        System.out.println("admin: " + role.equals("[ROLE_ADMIN]"));
+
+        if (role.equals("[ROLE_SUPPLIER]")) {
+            SupplierInfoDTO supplier = this.supplierService.getByEmail(email);
+            model.addAttribute("supplier", supplier);
+            return "supplier_panel";
+        } else if (role.equals("[ROLE_CLIENT]") || role.equals("[ROLE_MODERATOR]") || role.equals("[ROLE_ADMIN]")) {
+            UserInfoDTO user = this.userService.getSearchEmailUser(new LoginPassDTO(email, ""));
+            model.addAttribute("user", user);
+            return "client_panel";
+
+        } else {
+            return "index.html";
         }
     }
 }
