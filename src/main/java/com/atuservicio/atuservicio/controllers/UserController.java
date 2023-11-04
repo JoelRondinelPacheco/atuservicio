@@ -7,6 +7,7 @@ package com.atuservicio.atuservicio.controllers;
 
 
 
+import com.atuservicio.atuservicio.dtos.LoginPassDTO;
 import com.atuservicio.atuservicio.dtos.users.EditUserDTO;
 import com.atuservicio.atuservicio.dtos.users.SaveUserDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
@@ -52,11 +53,26 @@ public class UserController {
             @RequestParam(required = false) String password, @RequestParam(required = false) String password2, @RequestParam(required = false) MultipartFile image,
             @RequestParam(required = false) String address,@RequestParam(required = false) Long address_number,@RequestParam(required = false) String postal_code,
             @RequestParam(required = false) String city,@RequestParam(required = false) String province, @RequestParam(required = false) String country, ModelMap model) throws MyException {
-
+        
+            if(city ==null){
+                city="";
+            }
             try {
-                List<UserRegisterErrorDTO> errors = validar(name, email);
+                List<UserRegisterErrorDTO> errors = validar(name, email, password,
+                        password2, address, address_number, postal_code, city, province,
+                        country);
+                
                 if (!errors.isEmpty()) {
                     model.addAttribute("errors", errors);
+                    model.put("name", name);
+                    model.put("email", email);
+                    model.put("address", address);
+                    model.put("address_number", address_number);
+                    model.put("postal_code", postal_code);
+                    model.put("city", city);
+                    model.put("province", province);
+                    model.put("country", country);
+                    
                     return "register_client.html";
                 }
 
@@ -162,19 +178,59 @@ public class UserController {
     }
 
 
-    private List<UserRegisterErrorDTO> validar(String name,String email/*
+    private List<UserRegisterErrorDTO> validar(String name,String email,
                         String password, String password2,
                        String address, Long address_number,  String postal_code,
-                         String city, String province, String country*/){
+                         String city, String province, String country) throws MyException{
         List<UserRegisterErrorDTO> errors = new ArrayList<>();
-
+        
         if (name.isEmpty() || name == null) {
 
-errors.add(new UserRegisterErrorDTO("name", "Nombre requerido"));
+            errors.add(new UserRegisterErrorDTO("name", "Nombre requerido"));
         }
         if (email.isEmpty() || email == null) {
+            
             errors.add(new UserRegisterErrorDTO("email", "Email requerido"));
+        } else {
+            
+            LoginPassDTO userSearch = new LoginPassDTO(email, password);
+            UserInfoDTO user = userService.getSearchEmailUser(userSearch);
+            if(user!=null){
+                errors.add(new UserRegisterErrorDTO("email", "El usuario ya está registardo"));
+            }
         }
+       
+        if (password.isEmpty() || password == null || password.length() <= 5) {
+            errors.add(new UserRegisterErrorDTO("password", "La contraseña no puede estar vacía y deber tener mas de 5 caracteres"));
+        }
+        
+        if (!password.equals(password2)) {
+            errors.add(new UserRegisterErrorDTO("password2", "Las contraseñas ingresadas deben ser iguales"));
+        }
+        if (address.isEmpty() || address == null) {
+
+            errors.add(new UserRegisterErrorDTO("address", "Dirección requerida"));
+        }
+        if (address_number == null) {
+
+            errors.add(new UserRegisterErrorDTO("address_number", "Altura de dirección requerida"));
+        } 
+        if (postal_code.isEmpty() || postal_code == null) {
+
+            errors.add(new UserRegisterErrorDTO("postal_code", "Codigo postal requerido"));
+        } 
+        if (city.isEmpty() || city == null) {
+        
+            errors.add(new UserRegisterErrorDTO("city" , "Localidad requerida"));
+        }
+        if (province.isEmpty() || province == null) {
+
+            errors.add(new UserRegisterErrorDTO("province" , "Provincia requerida"));
+        } 
+        if (country.isEmpty() || country == null) {
+
+            errors.add(new UserRegisterErrorDTO("country" , "País requerido"));
+        } 
         return errors;
 
     }
