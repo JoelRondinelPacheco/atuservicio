@@ -129,10 +129,19 @@ public class SupplierController {
         model.addAttribute("users", users);
        
         return "supplier_list.html";
-        
-    }	
+    }
 
-    
+    @GetMapping("/service")
+    public String listServices(ModelMap model){
+
+        List<SupplierInfoDTO> users = supplierService.getAllSuppliers();
+
+        model.addAttribute("users", users);
+
+        return "services.html";
+    }
+
+
     @GetMapping("/profile/{id}")
     public String profile(@PathVariable("id") String id, ModelMap model) throws MyException{
         

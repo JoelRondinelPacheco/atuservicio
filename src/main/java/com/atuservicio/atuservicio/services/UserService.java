@@ -108,8 +108,10 @@ public class UserService implements IUserService {
     public String delete(String id) throws MyException {
         Optional<User> userOptional = this.userRepository.findById(id);
         if (userOptional.isPresent()) {
-            this.userRepository.deleteById(id);
-            return "Usuario eliminado correctamente";
+            User user = userOptional.get();
+            user.setActive(false);
+            this.userRepository.save(user);
+            return "Supplier dado de baja correctamente";
         }
         throw new MyException("Usuario no encontrado");
     }
@@ -155,7 +157,8 @@ public class UserService implements IUserService {
                 user.getProvince(),
                 user.getCountry(),
                 user.getPostal_code(),
-                user.getId()
+                user.getId(),
+                user.getActive()
         );
         return userinfo;
     }
