@@ -14,7 +14,7 @@ public class AtuservicioApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AtuservicioApplication.class, args);
-		/*
+
 		System.out.println(UUID.randomUUID().toString());
 		System.out.println(UUID.randomUUID().toString());
 		System.out.println(UUID.randomUUID().toString());
@@ -26,7 +26,7 @@ public class AtuservicioApplication {
 		System.out.println(UUID.randomUUID().toString());
 		System.out.println(UUID.randomUUID().toString());
 		System.out.println(UUID.randomUUID().toString());
-*/
+
 
 
 	}
