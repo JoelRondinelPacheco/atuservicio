@@ -93,6 +93,28 @@
                 
             </div>
 
+             <div class="container-fluid">
+        <div class="row row-cols-4 px-5">                    
+            <div class="col" th:each="supplier : ${suppliers}">
+                <div class="card">
+                    <img src="https://random.imagecdn.app/300/250" class="card-img-top" alt="Servicio"/>
+                    <div class="card-body">
+                        <h5 class="card-title text-truncate" th:text="${supplier.name}">Nombre</h5>
+                        <p class="card-text text-truncate" th:text="${supplier.category}">Categoria</p>
+                        <a th:href="@{'/supplier/' + ${supplier.id}}" class="btn btn-outline-secondary">Leer más...</a>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <div th:text="${supplier.createdAt}">Fecha de ultima modificación-</div>                             
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            
+            
+            
+            
             <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
                 <div class="card-body">
                     <h5 class="card-title"> Error </h5>

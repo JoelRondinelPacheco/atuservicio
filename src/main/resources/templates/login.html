@@ -26,6 +26,25 @@
               <div class="login-contenedor" >
               <button type="submit" class="boton-sesion-login">Iniciar Sesion</button>
             </div>
+                 <div class="container">
+      <div
+        th:if="${param.error}"
+        class="card text-white bg-danger mb-3 mensajeError">
+        <div class="card-body">
+          <h5 class="card-title">Error</h5>
+          <p class="card-text"></p>
+        </div>
+      </div>
+
+      <div
+        th:if="${exito != null}"
+        class="card text-white bg-success mb-3 mensajeExito">
+        <div class="card-body">
+          <h5 class="card-title">Éxito!</h5>
+          <p class="card-text" th:text="${exito}"></p>
+        </div>
+      </div>
+    </div>
           </form>
           <div class="contenedor-img-login">
             <img src="/img/login.webp" alt="imagen resgistro" class="img-login" >
