@@ -50,7 +50,7 @@ public class SupplierController {
     
     @PostMapping("/register")
     public String register(@RequestParam String name, @RequestParam String email, 
-            @RequestParam String password, @RequestParam String password2, @RequestParam MultipartFile image,
+            @RequestParam String password, @RequestParam String password2, @RequestParam(required = false) MultipartFile image,
             @RequestParam String address,@RequestParam Long address_number,@RequestParam String postal_code,
             @RequestParam String city,@RequestParam String province, @RequestParam String country, @RequestParam String categoryId, ModelMap model) throws MyException {
             
@@ -86,7 +86,7 @@ public class SupplierController {
 
         try {
 
-            EditSupplierDTO supplierInfoDTO = new EditSupplierDTO(name, email, image, address, address_number, city, province, country, postal_code, id, categoryId);
+            EditSupplierDTO supplierInfoDTO = new EditSupplierDTO(id, name, image, address, address_number, country, province, city, postal_code, categoryId);
             supplierService.edit(supplierInfoDTO);
             model.put("exito", "Se actualizaron los datos correctamente");
 

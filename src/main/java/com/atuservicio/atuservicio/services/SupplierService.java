@@ -48,8 +48,14 @@ public class SupplierService implements ISupplierService {
         String password = new BCryptPasswordEncoder().encode(supplierDTO.getPassword());
         supplier.setPassword(password);
         supplier.setRole(Role.SUPPLIER);
-        Image image = this.imageService.save(supplierDTO.getImage());
-        supplier.setImage(image);
+        if (supplierDTO.getImage() != null) {
+            Image img = this.imageService.save(supplierDTO.getImage());
+            supplier.setImage(img);
+        } else {
+            Image img = this.imageService.getById("d4fe09fd-56f6-4b55-a1b9-58671d68f1f1");
+            Image imgUser = this.imageService.saveDefaultImage(img);
+            supplier.setImage(imgUser);
+        }
         supplier.setAddress(supplierDTO.getAddress());
         supplier.setAddress_number(supplierDTO.getAddress_number());
         supplier.setCity(supplierDTO.getCity());
@@ -88,7 +94,6 @@ public class SupplierService implements ISupplierService {
         if (supplierOptional.isPresent()) {
             Supplier supplier = supplierOptional.get();
             supplier.setName(supplierDTO.getName());
-            supplier.setEmail(supplierDTO.getEmail());
             String imageId = supplier.getImage().getId();
             this.imageService.update(supplierDTO.getImage(), imageId);
             supplier.setAddress(supplierDTO.getAddress());

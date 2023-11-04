@@ -12,8 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 public class EditSupplierDTO extends EditUserDTO {
     private String categoryId;
-    public EditSupplierDTO(String name, String email, MultipartFile image, String address, Long address_number, String city, String province, String country, String postal_code, String id, String categoryId) {
-        super(name, email, image, address, address_number, city, province, country, postal_code, id);
+    public EditSupplierDTO(String id, String name, MultipartFile image, String address, Long address_number, String country, String province, String city, String postal_code, String categoryId) {
+        super(id, name, image, address, address_number, city, province, country, postal_code);
         this.categoryId = categoryId;
     }
 }

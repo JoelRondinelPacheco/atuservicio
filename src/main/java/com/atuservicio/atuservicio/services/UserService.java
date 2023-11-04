@@ -1,7 +1,7 @@
 package com.atuservicio.atuservicio.services;
 
-import com.atuservicio.atuservicio.dtos.users.*;
 import com.atuservicio.atuservicio.dtos.LoginPassDTO;
+import com.atuservicio.atuservicio.dtos.users.*;
 import com.atuservicio.atuservicio.entities.Image;
 import com.atuservicio.atuservicio.entities.User;
 import com.atuservicio.atuservicio.enums.Role;
@@ -15,6 +15,11 @@ import org.springframework.stereotype.Service;
 
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.repositories.UserRepository;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Optional;
 
 import java.util.ArrayList;
@@ -39,8 +44,14 @@ public class UserService implements IUserService {
         user.setPassword(pass);
 
         user.setRole(Role.CLIENT);
-        Image img = this.imageService.save(userDTO.getImage());
-        user.setImage(img);
+        if (userDTO.getImage() != null) {
+            Image img = this.imageService.save(userDTO.getImage());
+            user.setImage(img);
+        } else {
+            Image img = this.imageService.getById("d4fe09fd-56f6-4b55-a1b9-58671d68f1f1");
+            Image imgUser = this.imageService.saveDefaultImage(img);
+            user.setImage(imgUser);
+        }
         user.setAddress(userDTO.getAddress());
         user.setAddress_number(userDTO.getAddress_number());
         user.setCity(userDTO.getCity());
@@ -86,17 +97,18 @@ public class UserService implements IUserService {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             user.setName(userDTO.getName());
-            user.setEmail(userDTO.getEmail());
-            String imageId = user.getImage().getId();
-            Image image = this.imageService.update(userDTO.getImage(), imageId);
+            if (user.getImage() != null) {
+                String imageId = user.getImage().getId();
+                this.imageService.update(userDTO.getImage(), imageId);
+            }
             user.setAddress(userDTO.getAddress());
             user.setAddress_number(userDTO.getAddress_number());
             user.setCity(userDTO.getCity());
             user.setProvince(userDTO.getProvince());
             user.setCountry(userDTO.getCountry());
             user.setPostal_code(userDTO.getPostal_code());
-
-            return this.createUserInfoDTO(user);
+            User userSaved = this.userRepository.save(user);
+            return this.createUserInfoDTO(userSaved);
 
         }
         throw new MyException("Usuario no encontrado");
