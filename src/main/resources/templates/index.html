@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <head th:replace="fragments/head :: head"></head>
   <link th:href="@{/css/index.css}" rel="stylesheet" />
 
@@ -33,16 +33,18 @@
 
         <div class="right-div">
 <!--       contenido derecho-->  <div class="login-container">
-        <form class="login-form">
+ 
+    
+    <form class="login-form " sec:authorize="not isAuthenticated()" th:action="@{/perform_login}" method="POST">
           <div id="emailHelp" class="letras-login">Acceso Rápido</div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class=" letras-login email-icon">Email</label>
-            <input type="email" class="form-control label-login-index  " id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input type="email" name="email" class="form-control label-login-index  " id="exampleInputEmail1" aria-describedby="emailHelp">
             
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="letras-login password-icon">Contraseña</label>
-            <input type="password" class="form-control label-login-index  " id="exampleInputPassword1">
+            <input type="password" name="password" class="form-control label-login-index  " id="exampleInputPassword1">
           </div>
           <button type="submit" class="boton-sesion">Iniciar Sesión</button>
         </form>

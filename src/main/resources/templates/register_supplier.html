@@ -122,13 +122,12 @@
                     </div>
                     <div class="form-group">
                         <label for="rubro">Rubro:</label>
-                        <select class="form-control" id="rubro" name="rubro">
-                            <option value="">Selecciona un rubro</option>
-                            
-                            <!-- <th:each="rubro : ${rubros}">
-                                <option th:value="${rubro.id}" th:text="${rubro.name}"></option>
-                            </th:each> -->
-                        </select>
+                        <select class="form-control" id="rubro" name="categoryId">
+                        <option>Selecciona un rubro</option>
+                        <option th:each="category : ${categories}"
+                                th:value="${category.id}"
+                                th:text="${category.name}"/>
+                    </select>
                     </div>
 
                 </div>
