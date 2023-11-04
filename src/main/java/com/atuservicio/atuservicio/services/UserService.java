@@ -1,15 +1,15 @@
 package com.atuservicio.atuservicio.services;
 
-import com.atuservicio.atuservicio.dtos.users.EditUserDTO;
+import com.atuservicio.atuservicio.dtos.users.*;
 import com.atuservicio.atuservicio.dtos.LoginPassDTO;
-import com.atuservicio.atuservicio.dtos.users.SaveUserDTO;
-import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
-import com.atuservicio.atuservicio.dtos.users.UserSearchDTO;
 import com.atuservicio.atuservicio.entities.Image;
 import com.atuservicio.atuservicio.entities.User;
 import com.atuservicio.atuservicio.enums.Role;
 import com.atuservicio.atuservicio.services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -129,22 +129,23 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserInfoDTO getSearchEmailUser(LoginPassDTO userSearch) throws MyException{
-        
+    public UserInfoDTO getSearchEmailUser(LoginPassDTO userSearch) throws MyException {
+
         User user = this.userRepository.findByEmail(userSearch.getEmail());
-        
-        if (user != null){
-        
+
+        if (user != null) {
+
             UserInfoDTO userInfo = this.createUserInfoDTO(user);
-        
+
             return userInfo;
-            
+
         } else {
-            
+
             throw new MyException("el email no se encontró");
         }
     }
 
+    @Override
     public String activate(String id) throws MyException {
         Optional<User> userOptional = this.userRepository.findById(id);
         if (userOptional.isPresent()) {
@@ -155,6 +156,20 @@ public class UserService implements IUserService {
         }
         throw new MyException("Usuario no encontrado");
     }
+
+    @Override
+    public UserPaginatedDTO findPaginated(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+        Page<User> users = this.userRepository.findAll(pageable);
+        List<UserInfoDTO> usersInfo = new ArrayList<>();
+        for (User user : users) {
+            usersInfo.add(this.createUserInfoDTO(user));
+        }
+        return new UserPaginatedDTO(usersInfo, users.getTotalPages(), users.getTotalElements());
+    }
+
+
+
 
     private UserInfoDTO createUserInfoDTO(User user) {
         UserInfoDTO userinfo = new UserInfoDTO(

@@ -2,13 +2,16 @@ package com.atuservicio.atuservicio.controllers;
 
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
+import com.atuservicio.atuservicio.dtos.users.UserPaginatedDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,8 +27,22 @@ public class AdminController {
 
     @GetMapping("/clients")
     public String clientsDashboard(ModelMap model) {
-        List<UserInfoDTO> clients = this.userService.getAllUsers();
+     /*List<UserInfoDTO> clients = this.userService.getAllUsers();
         model.addAttribute("clients", clients);
+        return "clients_dashboard";
+        */
+      return this.clientsPaginated(1, model);
+    }
+    // TODO Agergar page size desde la vista
+    @GetMapping("/clients/{pageNumber}")
+    public String clientsPaginated(@PathVariable int pageNumber, ModelMap model) {
+        int pageSize = 5;
+        UserPaginatedDTO clients = this.userService.findPaginated(pageNumber, pageSize);
+
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", clients.getTotalPages());
+        model.addAttribute("totalItems", clients.getTotalElements());
+        model.addAttribute("clients", clients.getClients());
         return "clients_dashboard";
     }
 
