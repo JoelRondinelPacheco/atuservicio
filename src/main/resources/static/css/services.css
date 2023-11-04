@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
+
+.boton-card-detail {
+    margin-top: 15px;
+    background-color: #ffc107;
+    font-family: "Kanit", sans-serif;
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 50px; /* Ajusta el valor para redondear más o menos */
+    padding: 10px 10px; /* Ajusta el relleno para reducir el ancho */
+    cursor: pointer;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Ajusta los valores de la sombra */
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.boton-card-detail:hover {
+    background-color: rgb(255, 27, 0); /* Cambia el color a rojo en el hover */
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4); /* Ajusta la sombra en el hover */
+}
+
+.boton-card-detail:active {
+    background-color: #1995AD; /* Cambia el color cuando se hace clic */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Restaura la sombra al hacer clic */
+}
+.contenedorTarjeta{
+
+justify-content: center;
+
+}

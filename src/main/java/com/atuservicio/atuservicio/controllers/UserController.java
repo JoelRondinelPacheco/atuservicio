@@ -14,6 +14,7 @@ import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.UserService;
 
 import java.util.List;
+import org.hibernate.hql.internal.ast.tree.IsNullLogicOperatorNode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,11 +45,11 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@RequestParam String name, @RequestParam String email, 
-            @RequestParam String password, @RequestParam String password2, @RequestParam MultipartFile image,
+            @RequestParam String password, @RequestParam String password2, @RequestParam(required = false) MultipartFile image,
             @RequestParam String address,@RequestParam Long address_number,@RequestParam String postal_code,
             @RequestParam String city,@RequestParam String province, @RequestParam String country, ModelMap model) throws MyException {
             
-            
+           
             
         try {
             SaveUserDTO user = new SaveUserDTO(name, email, address, address_number, city,

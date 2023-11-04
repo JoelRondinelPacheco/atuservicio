@@ -40,15 +40,15 @@
   line-height: 42px;
   padding: 0;
   border: none;
-  background: rgb(255, 27, 0);
+  background: darkred;
   background: linear-gradient(
     0deg,
-    rgba(255, 27, 0, 1) 0%,
+    darkred 0%,
     rgba(251, 75, 2, 1) 100%
   );
 }
 .btn-5:hover {
-  color: #f0094a;
+  color: darkred;
   background: transparent;
   box-shadow: none;
 }
@@ -60,7 +60,7 @@
   right: 0;
   height: 2px;
   width: 0;
-  background: #f0094a;
+  background: darkred;
   box-shadow: -1px -1px 5px 0px #fff, 7px 7px 20px 0px #0003,
     4px 4px 5px 0px #0002;
   transition: 400ms ease all;
@@ -84,7 +84,7 @@ button {
 .custom-btn {
   width: 130px;
   height: 40px;
-  color: #b12727;
+  color: darkred;
   border-radius: 5px;
   padding: 10px 25px;
   font-family: "Lato", sans-serif;
@@ -146,7 +146,7 @@ button {
         }
         
         .boton-sesion:hover {
-          background-color: red; /* Cambia el color a rojo en el hover */
+          background-color: darkred; /* Cambia el color a rojo en el hover */
           box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4); /* Ajusta la sombra en el hover */
         }
         
@@ -204,13 +204,13 @@ button {
       }
       
       .boton-sesion.soy-cliente {
-          background-color: blue;
+          background-color: rgb(48, 61, 248);
           color: white;
           margin-left: 90px;
       }
       
       .boton-sesion.soy-proveedor {
-          background-color: rgb(189, 32, 32);
+          background-color: darkred;
           color: white;
           margin-left: 23px;
       }
@@ -222,7 +222,7 @@ button {
       
       .boton-sesion.soy-cliente:active,
       .boton-sesion.soy-proveedor:active {
-          background-color: rgba(47, 47, 173, 0.666);
+          background-color: rgb(48, 61, 248);
           background-color: darkred;
           box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
       }

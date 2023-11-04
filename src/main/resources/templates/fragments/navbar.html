@@ -59,11 +59,11 @@
                     <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Registro
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/client/register}">Cliente</a></li>
-                        <li><a class="dropdown-item" th:href="@{/supplier/register}">Proveedor</a></li>
-                        <li><hr class="dropdown-divider"></li>
-
+                    <ul class="dropdown-menu color-nabvar">
+                        <li><a class="dropdown-item bg-warning" th:href="@{/client/register}">Cliente</a></li>
+                          
+                        <li><a class="dropdown-item bg-warning" th:href="@{/supplier/register}">Proveedor</a></li>
+                     
                     </ul>
                 </li>
                 <li class="nav-item" sec:authorize="not isAuthenticated()">
