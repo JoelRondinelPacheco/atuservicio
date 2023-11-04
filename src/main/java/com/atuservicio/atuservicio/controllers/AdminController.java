@@ -26,7 +26,7 @@ public class AdminController {
     public String clientsDashboard(ModelMap model) {
         List<UserInfoDTO> clients = this.userService.getAllUsers();
         model.addAttribute("clients", clients);
-        return "admin_dashboard";
+        return "clients_dashboard";
     }
 
     @GetMapping("/clients/delete")
@@ -42,7 +42,7 @@ public class AdminController {
     }
 
     @GetMapping("/clients/activate")
-    public String activateUser(@RequestParam String clientId, ModelMap model) {
+    public String activateClient(@RequestParam String clientId, ModelMap model) {
         try {
             this.userService.activate(clientId);
             List<UserInfoDTO> clients = this.userService.getAllUsers();
@@ -50,6 +50,17 @@ public class AdminController {
             return "clients_dashboard";
         } catch (MyException ex) {
             return "clients_dashboard";
+        }
+    }
+
+    @GetMapping("/clients/edit")
+    public String editUser(@RequestParam String clientId, ModelMap model) {
+        try {
+            UserInfoDTO client = this.userService.getById(clientId);
+            model.addAttribute("client", client);
+            return "client_panel";
+        } catch (MyException ex) {
+            return "client_panel";
         }
     }
 
@@ -81,6 +92,17 @@ public class AdminController {
             return "suppliers_dashboard";
         } catch (MyException ex) {
             return "suppliers_dashboard";
+        }
+    }
+
+    @GetMapping("/suppliers/edit")
+    public String editSupplier(@RequestParam String supplierId, ModelMap model) {
+        try {
+            SupplierInfoDTO supplier = this.supplierService.getById(supplierId);
+            model.addAttribute("supplier", supplier);
+            return "supplier_panel";
+        } catch (MyException ex) {
+            return "supplier_panel";
         }
     }
 

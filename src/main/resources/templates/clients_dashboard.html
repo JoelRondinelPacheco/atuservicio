@@ -32,15 +32,13 @@
             <td th:text="${client.country}"></td>
             <td th:text="${client.active}"></td>
             <td>
-
-                <a th:href="@{/admin/activate?clientId={clientId}(clientId=${client.id})}">Editar</a>
-
+                <a th:href="@{/admin/clients/edit?clientId={clientId}(clientId=${client.id})}">Editar</a>
             </td>
             <td>
                 <div th:unless="${client.active}">
                     <a th:href="@{/admin/clients/activate?clientId={clientId}(clientId=${client.id})}">Dar de alta</a>
                 </div>
-                <div th:if="${user.active}">
+                <div th:if="${client.active}">
                 <a th:href="@{/admin/clients/delete?clientId={clientId}(clientId=${client.id})}">Dar de Baja</a>
                 </div>
             </td>

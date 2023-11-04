@@ -35,14 +35,14 @@
             <td th:text="${supplier.active}"></td>
             <td>
 
-                <a th:href="@{/admin/activate?supplierId={supplierId}(supplierId=${supplier.id})}">Editar</a>
+                <a th:href="@{/admin/suppliers/edit?supplierId={supplierId}(supplierId=${supplier.id})}">Editar</a>
 
             </td>
             <td>
                 <div th:unless="${supplier.active}">
                     <a th:href="@{/admin/suppliers/activate?supplierId={supplierId}(supplierId=${supplier.id})}">Dar de alta</a>
                 </div>
-                <div th:if="${user.active}">
+                <div th:if="${supplier.active}">
                     <a th:href="@{/admin/suppliers/delete?supplierId={supplierId}(supplierId=${supplier.id})}">Dar de Baja</a>
                 </div>
             </td>
