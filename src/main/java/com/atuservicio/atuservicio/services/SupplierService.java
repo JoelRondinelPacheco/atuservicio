@@ -130,7 +130,8 @@ public class SupplierService implements ISupplierService {
                 supplier.getCountry(),
                 supplier.getPostal_code(),
                 supplier.getId(),
-                supplier.getCategory()
+                supplier.getCategory(),
+                supplier.getActive()
         );
     }
 }

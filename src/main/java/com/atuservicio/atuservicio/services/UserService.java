@@ -157,7 +157,8 @@ public class UserService implements IUserService {
                 user.getProvince(),
                 user.getCountry(),
                 user.getPostal_code(),
-                user.getId()
+                user.getId(),
+                user.getActive()
         );
         return userinfo;
     }
