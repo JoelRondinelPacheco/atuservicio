@@ -66,4 +66,12 @@ public class ImageService implements IImageService {
         }
     }
 
+    public Image saveDefaultImage(Image image) {
+        Image img = new Image();
+        img.setMime(image.getMime());
+        img.setName(image.getName());
+        img.setContent(image.getContent());
+        return this.imageRepository.save(img);
+    }
+
 }

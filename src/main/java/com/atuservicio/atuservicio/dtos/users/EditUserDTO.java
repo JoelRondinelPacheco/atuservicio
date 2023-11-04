@@ -10,12 +10,14 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EditUserDTO extends UserDTO {
-    private MultipartFile image;
+public class EditUserDTO {
     private String id;
-    public EditUserDTO(String name, String email, MultipartFile image, String address, Long address_number, String city, String province, String country, String postal_code, String id) {
-        super(name, email, address, address_number, city, province, country, postal_code);
-        this.image = image;
-        this.id = id;
-    }
+    private String name;
+    private MultipartFile image;
+    private String address;
+    private Long address_number;
+    private String country;
+    private String province;
+    private String city;
+    private String postal_code;
 }
