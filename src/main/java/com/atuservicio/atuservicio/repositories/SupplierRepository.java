@@ -4,6 +4,8 @@ package com.atuservicio.atuservicio.repositories;
 
 import com.atuservicio.atuservicio.entities.Supplier;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,7 +24,7 @@ public interface SupplierRepository extends JpaRepository<Supplier, String>{
     */
     
     @Query("SELECT s FROM Supplier s WHERE s.email = :email")
-    public Supplier findByEmailSupplier(@Param("email") String email);
+    public Optional<Supplier> findByEmailSupplier(@Param("email") String email);
     
     @Query("SELECT s FROM Supplier s WHERE s.category = :idCategory")
     public List<Supplier> findByCategorySupplier(@Param("idCategory") String idCategory);

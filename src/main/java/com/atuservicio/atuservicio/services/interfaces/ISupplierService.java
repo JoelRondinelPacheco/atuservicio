@@ -13,4 +13,6 @@ public interface ISupplierService {
     List<SupplierInfoDTO> getAllSuppliers();
     SupplierInfoDTO edit(EditSupplierDTO supplier) throws MyException;
     String delete(String id) throws MyException;
+    String activate(String id) throws MyException;
+    SupplierInfoDTO getByEmail(String email) throws MyException;
 }

@@ -89,8 +89,6 @@ public class UserService implements IUserService {
             user.setEmail(userDTO.getEmail());
             String imageId = user.getImage().getId();
             Image image = this.imageService.update(userDTO.getImage(), imageId);
-            //TODO REVISAR SI NO FUNCIONA
-            user.setImage(image);
             user.setAddress(userDTO.getAddress());
             user.setAddress_number(userDTO.getAddress_number());
             user.setCity(userDTO.getCity());
