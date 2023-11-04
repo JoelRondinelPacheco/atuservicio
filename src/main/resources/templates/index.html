@@ -17,7 +17,7 @@
             </video>
           </div>
             
-            <div class="button-container">
+            <div class="button-container" sec:authorize="not isAuthenticated()">
               <form action="/client/register" th:action="@{/client/register}" method="GET">
                   <button type="submit" class="boton-sesion soy-cliente">Soy Cliente - Registro</button>
               </form>

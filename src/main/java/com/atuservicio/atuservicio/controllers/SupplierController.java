@@ -131,7 +131,7 @@ public class SupplierController {
         return "supplier_list.html";
     }
 
-    @GetMapping("/service")
+    @GetMapping("/services")
     public String listServices(ModelMap model){
 
         List<SupplierInfoDTO> users = supplierService.getAllSuppliers();

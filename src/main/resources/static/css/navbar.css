@@ -38,11 +38,16 @@ margin-left: 35px;
 
 .color-nabvar{
   background-color: #edb83d;
-
   font-family: "Kanit", sans-serif;
   font-size: 1rem;
   margin: 0;
   padding: 0;
+
+
+}
+
+.colorfont{
+color: black;
 
 
 }
