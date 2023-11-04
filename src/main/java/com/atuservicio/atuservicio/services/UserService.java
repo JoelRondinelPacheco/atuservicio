@@ -111,7 +111,7 @@ public class UserService implements IUserService {
             User user = userOptional.get();
             user.setActive(false);
             this.userRepository.save(user);
-            return "Supplier dado de baja correctamente";
+            return "Usuario dado de baja correctamente";
         }
         throw new MyException("Usuario no encontrado");
     }
@@ -143,6 +143,17 @@ public class UserService implements IUserService {
             
             throw new MyException("el email no se encontró");
         }
+    }
+
+    public String activate(String id) throws MyException {
+        Optional<User> userOptional = this.userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setActive(true);
+            this.userRepository.save(user);
+            return "Usuario dado de baja correctamente";
+        }
+        throw new MyException("Usuario no encontrado");
     }
 
     private UserInfoDTO createUserInfoDTO(User user) {

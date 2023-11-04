@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<header>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+</header>
+<body>
+<div class="container">
+    <h1>Lista de Usuarios</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Correo Electrónico</th>
+            <th>Dirección</th>
+            <th>Ciudad</th>
+            <th>Provincia</th>
+            <th>País</th>
+            <th>Categoria</th>
+            <th>Usuario activo</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="supplier : ${suppliers}">
+            <td th:text="${supplier.name}"></td>
+            <td th:text="${supplier.email}"></td>
+            <td th:text="${supplier.address}"></td>
+            <td th:text="${supplier.city}"></td>
+            <td th:text="${supplier.province}"></td>
+            <td th:text="${supplier.country}"></td>
+            <td th:text="${supplier.category.name}"></td>
+            <td th:text="${supplier.active}"></td>
+            <td>
+
+                <a th:href="@{/admin/suppliers/edit?supplierId={supplierId}(supplierId=${supplier.id})}">Editar</a>
+
+            </td>
+            <td>
+                <div th:unless="${supplier.active}">
+                    <a th:href="@{/admin/suppliers/activate?supplierId={supplierId}(supplierId=${supplier.id})}">Dar de alta</a>
+                </div>
+                <div th:if="${supplier.active}">
+                    <a th:href="@{/admin/suppliers/delete?supplierId={supplierId}(supplierId=${supplier.id})}">Dar de Baja</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>
