@@ -61,6 +61,9 @@ public class HomeController {
             @RequestParam(required = false) String email, ModelMap model) {
 
         if (email.isEmpty()) {
+            System.out.println(province);
+            System.out.println(country);
+            System.out.println(city);
             UserSearchDTO userSearch = new UserSearchDTO(city, province, country);
 
             List<UserInfoDTO> users = userService.getSearchUsers(userSearch);
@@ -101,6 +104,8 @@ public class HomeController {
             List<CategoryInfoDTO> categories = this.categoryService.listAll();
             model.addAttribute("categories", categories);
             model.addAttribute("supplier", supplier);
+            CategoryInfoDTO category = categoryService.getById(supplier.getCategory().getId());
+            model.put("category", category);
             return "supplier_panel";
         } else if (role.equals("[ROLE_CLIENT]") || role.equals("[ROLE_MODERATOR]") || role.equals("[ROLE_ADMIN]")) {
             UserInfoDTO user = this.userService.getSearchEmailUser(new LoginPassDTO(email, ""));

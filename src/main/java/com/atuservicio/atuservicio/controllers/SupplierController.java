@@ -116,12 +116,16 @@ public class SupplierController {
         // TODO Manejar excepcion si no hay usuario con el id proporcionado
         model.addAttribute("supplier", supplierService.getById(id));
         model.addAttribute("categories", categoryService.listAll());
+        CategoryInfoDTO category = categoryService.getById(supplierService.getById(id).getCategory().getId());
+        model.put("category", category);
         return "supplier_panel.html";
     }
 
     @PostMapping("/modify/{id}")
-    public String modify(@PathVariable("id") String id, String name, String email, MultipartFile image, String address,
-            Long address_number, String city, String province, String country, String postal_code, String categoryId,
+    public String modify(@PathVariable("id") String id, @RequestParam String name, @RequestParam MultipartFile image,
+            @RequestParam String address,
+            @RequestParam Long address_number, @RequestParam String city, @RequestParam String province,
+            @RequestParam String country, @RequestParam String postal_code, @RequestParam String categoryId,
             ModelMap model) {
 
         try {
@@ -129,9 +133,12 @@ public class SupplierController {
             EditSupplierDTO supplierInfoDTO = new EditSupplierDTO(id, name, image, address, address_number, country,
                     province, city, postal_code, categoryId);
             supplierService.edit(supplierInfoDTO);
-
-            model.put("exito", "Se actualizaron los datos correctamente");
-
+            List<CategoryInfoDTO> categories = categoryService.listAll();
+            CategoryInfoDTO category = categoryService.getById(categoryId);
+            model.put("category", category);
+            model.addAttribute("categories", categories);
+            model.put("updated", "Se actualizaron los datos correctamente");
+            model.addAttribute("supplier", supplierInfoDTO);
         } catch (MyException ex) {
 
             model.put("error", ex.getMessage());
@@ -140,7 +147,7 @@ public class SupplierController {
 
         }
 
-        return "index.html";
+        return "supplier_panel.html";
     }
 
     @PostMapping("/delete/{id}")
@@ -211,7 +218,8 @@ public class SupplierController {
             // LoginPassDTO userSearch = new LoginPassDTO(email, password);
             // UserInfoDTO user = userService.getSearchEmailUser(userSearch);
             // if (user != null) {
-            //     errors.add(new UserRegisterErrorDTO("email", "El usuario ya está registardo"));
+            // errors.add(new UserRegisterErrorDTO("email", "El usuario ya está
+            // registardo"));
             // }
         }
 
