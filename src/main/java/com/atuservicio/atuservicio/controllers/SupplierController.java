@@ -10,6 +10,7 @@ import com.atuservicio.atuservicio.dtos.suppliers.EditSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SaveSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
+import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.interfaces.ICategoryService;
 import com.atuservicio.atuservicio.services.interfaces.ISupplierService;
 import java.util.List;
@@ -32,7 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class SupplierController {
     
     @Autowired
-    ISupplierService supplierService;
+    SupplierService supplierService;
     
     @Autowired
     ICategoryService categoryService;
@@ -78,7 +79,7 @@ public class SupplierController {
         //TODO Manejar excepcion si no hay usuario con el id proporcionado
         model.addAttribute("supplier", supplierService.getById(id));
 
-        return "supplier_modify.html";
+        return "supplier_panel.html";
     }
     
     @PostMapping("/modify/{id}")
@@ -149,9 +150,11 @@ public class SupplierController {
         
        model.addAttribute("user", user);
        
-        return "supplier_detail.html";
+        return "supplier_profile.html";
         
     }
     
+    
+
 
 }

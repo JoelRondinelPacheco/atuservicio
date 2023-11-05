@@ -73,9 +73,12 @@ public class SupplierService implements ISupplierService {
     public SupplierInfoDTO getById(String id) throws MyException {
         Optional<Supplier> supplierOptional = this.supplierRepository.findById(id);
         if (supplierOptional.isPresent()) {
+            System.out.println("Encuentra el supplier y lo retorna");
             return this.createSupplierInfoDTO(supplierOptional.get());
+        } else {
+            throw new MyException("Supplier no encontrado");
         }
-        throw new MyException("Supplier no encontrado");
+        
     }
 
     @Override
