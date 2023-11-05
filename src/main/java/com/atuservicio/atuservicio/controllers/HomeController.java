@@ -65,6 +65,9 @@ public class HomeController {
             @RequestParam(required = false) String email, ModelMap model) {
 
         if (email.isEmpty()) {
+            System.out.println(province);
+            System.out.println(country);
+            System.out.println(city);
             UserSearchDTO userSearch = new UserSearchDTO(city, province, country);
 
             List<UserInfoDTO> users = userService.getSearchUsers(userSearch);

@@ -89,10 +89,10 @@ public class UserService implements IUserService {
         return userInformation;
     }
 
-
     @Override
     public UserInfoDTO edit(EditUserDTO userDTO) throws MyException {
-        //TODO CHECKEAR SE LA IMAGEN ES LA MISMA PARA NO HACER EL PROCESO DE GUARDA LA IMAGEN OTRA VEZ
+        // TODO CHECKEAR SE LA IMAGEN ES LA MISMA PARA NO HACER EL PROCESO DE GUARDA LA
+        // IMAGEN OTRA VEZ
         Optional<User> userOptional = this.userRepository.findById(userDTO.getId());
         if (userOptional.isPresent()) {
             User user = userOptional.get();
@@ -126,15 +126,30 @@ public class UserService implements IUserService {
         throw new MyException("Usuario no encontrado");
     }
 
-
     @Override
     public List<UserInfoDTO> getSearchUsers(UserSearchDTO userSearch) {
-        List<User> users = this.userRepository.findByCityProvinceCountry(userSearch.getCity(), userSearch.getProvince(), userSearch.getCountry());
         List<UserInfoDTO> userInformation = new ArrayList<>();
-        for (User user : users) {
-            UserInfoDTO userInfo = this.createUserInfoDTO(user);
-            userInformation.add(userInfo);
+        System.out.println(userSearch.getCountry());
+        if (userSearch.getCity() == null) {
+            userSearch.setCity("");
         }
+        if (!userSearch.getCity().isEmpty()) {
+
+            List<User> users = userRepository.findUsersByCity(userSearch.getCity());
+            return userInformation = getListUserInfoDTO(users);
+
+        } else if (!userSearch.getProvince().isEmpty()) {
+
+            List<User> users = userRepository.findUsersByProvince(userSearch.getProvince());
+            return userInformation = getListUserInfoDTO(users);
+
+        } else if (!userSearch.getCountry().isEmpty()) {
+
+            List<User> users = userRepository.findUsersByCountry(userSearch.getCountry());
+            return userInformation = getListUserInfoDTO(users);
+
+        }
+
         return userInformation;
     }
 
@@ -178,9 +193,6 @@ public class UserService implements IUserService {
         return new UserPaginatedDTO(usersInfo, users.getTotalPages(), users.getTotalElements());
     }
 
-
-
-
     private UserInfoDTO createUserInfoDTO(User user) {
         UserInfoDTO userinfo = new UserInfoDTO(
                 user.getName(),
@@ -194,8 +206,19 @@ public class UserService implements IUserService {
                 user.getCountry(),
                 user.getPostal_code(),
                 user.getId(),
-                user.getActive()
-        );
+                user.getActive());
         return userinfo;
     }
+
+    public List<UserInfoDTO> getListUserInfoDTO(List<User> users) {
+
+        List<UserInfoDTO> userInformation = new ArrayList<>();
+        for (User user : users) {
+            System.out.println(user);
+            UserInfoDTO userInfo = this.createUserInfoDTO(user);
+            userInformation.add(userInfo);
+        }
+        return userInformation;
+    }
+
 }
