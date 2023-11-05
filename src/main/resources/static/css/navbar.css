@@ -37,7 +37,7 @@ margin-left: 35px;
 }
 
 .color-nabvar{
-  background-color: #edb83d;
+  background-color: #000B29;
   font-family: "Kanit", sans-serif;
   font-size: 1rem;
   margin: 0;
@@ -47,7 +47,22 @@ margin-left: 35px;
 }
 
 .colorfont{
-color: black;
+color: #F8F5F2 !important; 
 
 
+}
+
+.margen-retoque{
+
+  margin-right: 50px;
+}
+
+/* Estilos para el menú desplegable */
+.dropdown-menu {
+  background-color: #000B29; /* Color de fondo deseado */
+}
+
+/* Estilos para el texto en el menú desplegable */
+.dropdown-menu .dropdown-item {
+  color: #F8F5F2; /* Color de texto deseado */
 }

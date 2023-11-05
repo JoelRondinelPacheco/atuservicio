@@ -13,6 +13,7 @@ import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserRegisterErrorDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
+import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.interfaces.ICategoryService;
 import com.atuservicio.atuservicio.services.interfaces.ISupplierService;
 import com.atuservicio.atuservicio.services.interfaces.IUserService;
@@ -37,7 +38,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class SupplierController {
     
     @Autowired
-    ISupplierService supplierService;
+    SupplierService supplierService;
     
     @Autowired
     IUserService userService;
@@ -114,7 +115,7 @@ public class SupplierController {
         //TODO Manejar excepcion si no hay usuario con el id proporcionado
         model.addAttribute("supplier", supplierService.getById(id));
 
-        return "supplier_modify.html";
+        return "supplier_panel.html";
     }
     
     @PostMapping("/modify/{id}")
@@ -185,9 +186,10 @@ public class SupplierController {
         
        model.addAttribute("user", user);
        
-        return "supplier_detail.html";
+        return "supplier_profile.html";
         
     }
+
    private List<UserRegisterErrorDTO> validar(String name,String email,
                         String password, String password2,
                        String address, Long address_number,  String postal_code,
@@ -249,5 +251,6 @@ public class SupplierController {
         return errors;
 
     }    
+
 
 }
