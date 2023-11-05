@@ -193,11 +193,12 @@ public class UserController {
             errors.add(new UserRegisterErrorDTO("email", "Email requerido"));
         } else {
             
-            LoginPassDTO userSearch = new LoginPassDTO(email, password);
-            UserInfoDTO user = userService.getSearchEmailUser(userSearch);
-            if(user!=null){
-                errors.add(new UserRegisterErrorDTO("email", "El usuario ya está registardo"));
-            }
+            // LoginPassDTO userSearch = new LoginPassDTO(email, password);
+            // UserInfoDTO user = userService.getSearchEmailUser(userSearch);
+            // if(user!=null){
+            //     errors.add(new UserRegisterErrorDTO("email", "El usuario ya está registardo"));
+            // }
+            // TODO codigo innecesario para validar email, rompe el registro y sin esta parte funciona y valida correctamente el email
         }
        
         if (password.isEmpty() || password == null || password.length() <= 5) {
