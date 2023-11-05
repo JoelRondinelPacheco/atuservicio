@@ -24,7 +24,8 @@ public class Image {
     private String name;
 
     @Lob
-    @Column(name = "content", columnDefinition="MEDIUMBLOB")
+    @Column(name = "content", length = 16777215)
+    //@Column(name = "content", columnDefinition="MEDIUMBLOB")
     @Basic(fetch = FetchType.LAZY)
     private byte[] content;
 }

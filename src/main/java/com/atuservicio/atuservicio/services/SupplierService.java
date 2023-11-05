@@ -66,6 +66,7 @@ public class SupplierService implements ISupplierService {
         supplier.setCategory(category);
 
         Supplier supplierSaved = this.supplierRepository.save(supplier);
+        System.out.println(supplierSaved.toString());
         return this.createSupplierInfoDTO(supplierSaved);
     }
 

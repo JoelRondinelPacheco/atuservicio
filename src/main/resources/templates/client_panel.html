@@ -12,16 +12,6 @@
         enctype="multipart/form-data"
         class="formulario-registro"
 >
-    <div class="row">
-        <div
-                th:if="${updated != null}"
-                class="card text-white bg-success mb-3 mensajeExito">
-            <div class="card-body">
-                <h5 class="card-title">Éxito!</h5>
-                <p class="card-text" th:text="${updated}"></p>
-            </div>
-        </div>
-    </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="name">Nombre:</label>

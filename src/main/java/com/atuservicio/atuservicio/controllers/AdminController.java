@@ -1,11 +1,13 @@
 package com.atuservicio.atuservicio.controllers;
 
+import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserPaginatedDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.UserService;
+import com.atuservicio.atuservicio.services.interfaces.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ public class AdminController {
     private UserService userService;
     @Autowired
     private SupplierService supplierService;
+    @Autowired
+    private ICategoryService categoryService;
 
     @GetMapping("/clients")
     public String clientsDashboard(ModelMap model) {

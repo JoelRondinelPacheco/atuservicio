@@ -92,7 +92,6 @@ public class HomeController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         String role = auth.getAuthorities().toString();
-        System.out.println("admin: " + role.equals("[ROLE_ADMIN]"));
 
         if (role.equals("[ROLE_SUPPLIER]")) {
             SupplierInfoDTO supplier = this.supplierService.getByEmail(email);
@@ -103,8 +102,36 @@ public class HomeController {
         } else if (role.equals("[ROLE_CLIENT]") || role.equals("[ROLE_MODERATOR]") || role.equals("[ROLE_ADMIN]")) {
             UserInfoDTO user = this.userService.getSearchEmailUser(new LoginPassDTO(email, ""));
             model.addAttribute("user", user);
-            return "client_panel";
+            return "user_profile";
 
+        } else {
+            return "index.html";
+        }
+    }
+
+    @GetMapping("/editUser")
+    public String editUser(@RequestParam String id, ModelMap model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String role = auth.getAuthorities().toString();
+
+        if (role.equals("[ROLE_SUPPLIER]")) {
+            try {
+                SupplierInfoDTO supplier = this.supplierService.getById(id);
+                List<CategoryInfoDTO> categories = this.categoryService.listAll();
+                model.addAttribute("categories", categories);
+                model.addAttribute("user", supplier);
+                return "supplier_panel";
+            } catch (MyException ex) {
+                return "index.html";
+            }
+        } else if (role.equals("[ROLE_CLIENT]") || role.equals("[ROLE_MODERATOR]") || role.equals("[ROLE_ADMIN]")) {
+            try {
+                UserInfoDTO user = this.userService.getById(id);
+                model.addAttribute("user", user);
+                return "client_panel";
+            } catch (MyException e) {
+                throw new RuntimeException(e);
+            }
         } else {
             return "index.html";
         }
