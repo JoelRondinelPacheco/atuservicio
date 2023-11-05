@@ -1,123 +1,35 @@
 @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
 
+.img-login{
 
-.container {
+    margin-top: 50px;
+    height: 350px;
+    width: auto;
     display: flex;
-    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
-    justify-content: center; /* Centra los elementos horizontalmente */
-    align-items: stretch; /* Los elementos se estiran verticalmente para llenar la altura */
-    height: 90vh; /* Toma el 100% de la altura de la ventana */
 }
 
-.split {
-    flex: 1; /* Hace que cada mitad ocupe el mismo espacio horizontal */
-}
-
-.full-width-form {
-    width: 100%;
-    max-width: 100%;
-    display: flex;
-    flex-direction: column; /* Apila los elementos verticalmente */
-    align-items: center; /* Centra los elementos horizontalmente */
-}
-
-.full-width-form .mb-3 {
-    width: 50%; /* Achica el ancho de los inputs y labels a la mitad */
-    max-width: none; /* Restablece el máximo ancho para que los elementos no se superpongan */
-    margin-bottom: 15px; /* Espacio entre elementos */
-}
-
-.full-width-form input[type="email"],
-.full-width-form input[type="password"],
-.full-width-form button {
-    width: 100%;
-    max-width: 100%;
-}
-
-
-
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column; /* En pantallas pequeñas, apila los elementos verticalmente */
-        align-items: center; /* Centra los elementos verticalmente */
-    }
-
-    .split {
-        width: 100%; /* Toma todo el ancho en pantallas pequeñas */
-    }
-}
-
-
-.boton-sesion-login {
-    background-color: #ffc107;
+.narrow-login-form {
+    max-width: 300px; /* Ajusta el ancho máximo según tus preferencias */
+    margin: 50px auto; /* Centra el formulario horizontalmente */
     font-family: "Kanit", sans-serif;
-    font-size: 1.3rem;
-    border: none;
-    border-radius: 50px; /* Ajusta el valor para redondear más o menos */
-    padding: 10px 10px; /* Ajusta el relleno para reducir el ancho */
-    cursor: pointer;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Ajusta los valores de la sombra */
-    transition: background-color 0.3s, box-shadow 0.3s;
-    margin-right: 50px;
+    font-size: 1rem;
 }
 
-.boton-sesion-login:hover {
-    background-color: rgb(161, 160, 247); /* Cambia el color a rojo en el hover */
-    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4); /* Ajusta la sombra en el hover */
-}
+.inicio-sesion-login{
 
-.boton-sesion-login:active {
-    background-color: #1995AD; /* Cambia el color cuando se hace clic */
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Restaura la sombra al hacer clic */
-}
-.login-contenedor{
-
-    width: 35%;
-}
-
-.label-login-login{
-    background-color: #EDB83D;
-  }
-
-  .inicio-sesion-login{
-justify-content: center;
-text-align: center;
-font-family: "Kanit", sans-serif;
+    font-family: "Kanit", sans-serif;
     font-size: 1.7rem;
-    margin-top: 25px;
-    color: #1995AD;
-  }
+    color: black;
+    margin-bottom: 15px;
+}
 
-  .text-input-login{
-    font-family: "Kanit", sans-serif;
-    font-size: 1.3rem;
-    color: #1995AD;
-    text-align: center;
-
-  }
-
-  .contenedor-img-login {
-    justify-content: center;
-    align-content: center;
-    display: flex;
-    width: 90px;
-    height: auto;
-    margin: 0 auto; /* Nueva propiedad */
-    margin-top: 25px;
-  }
-  
-  .img-login {
-    width: 350px; /* Nueva propiedad */
-   height: auto;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    margin-top: 90px;
-    object-fit: contain;
-    margin: 0 auto; /* Nueva propiedad */
-  }
-
-  #margen-imagen{
-margin-top: 60px;
-
+/* Estilos para el video de fondo */
+video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5; /* Ajusta la transparencia aquí (1 es opaco, 0 es completamente transparente) */
   }
