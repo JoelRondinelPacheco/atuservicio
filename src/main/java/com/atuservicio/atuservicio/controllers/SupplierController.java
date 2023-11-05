@@ -36,95 +36,100 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/supplier")
 public class SupplierController {
-    
+
     @Autowired
     SupplierService supplierService;
-    
+
     @Autowired
     IUserService userService;
-    
+
     @Autowired
     ICategoryService categoryService;
 
     @GetMapping("/register")
     public String register(ModelMap model) {
-        
-        List <CategoryInfoDTO> categories = categoryService.listAll();
-        
+
+        List<CategoryInfoDTO> categories = categoryService.listAll();
+
         model.addAttribute("categories", categories);
 
         return "register_supplier.html";
     }
-    
-    
+
     @PostMapping("/register")
-    public String register(@RequestParam(required = false) String name, @RequestParam(required = false) String email, 
-            @RequestParam(required = false) String password, @RequestParam(required = false) String password2, 
-            @RequestParam(required = false) MultipartFile image,@RequestParam(required = false) String address,
-            @RequestParam(required = false) Long address_number,@RequestParam(required = false) String postal_code,
-            @RequestParam(required = false) String city,@RequestParam(required = false) String province, 
-            @RequestParam(required = false) String country, @RequestParam(required = false) String categoryId, ModelMap model) throws MyException {
-            
-            if(city ==null){
-                city="";
-            }    
+    public String register(@RequestParam(required = false) String name, @RequestParam(required = false) String email,
+            @RequestParam(required = false) String password, @RequestParam(required = false) String password2,
+            @RequestParam(required = false) MultipartFile image, @RequestParam(required = false) String address,
+            @RequestParam(required = false) Long address_number, @RequestParam(required = false) String postal_code,
+            @RequestParam(required = false) String city, @RequestParam(required = false) String province,
+            @RequestParam(required = false) String country, @RequestParam(required = false) String categoryId,
+            ModelMap model) throws MyException {
+
+        if (city == null) {
+            city = "";
+        }
 
         try {
-            
-                 List<UserRegisterErrorDTO> errors = validar(name, email, password,
+
+            List<UserRegisterErrorDTO> errors = validar(name, email, password,
                     password2, address, address_number, postal_code, city, province,
                     country, categoryId);
-                
-                if (!errors.isEmpty()) {
-                    model.addAttribute("errors", errors);
-                    model.put("name", name);
-                    model.put("email", email);
-                    model.put("address", address);
-                    model.put("address_number", address_number);
-                    model.put("postal_code", postal_code);
-                    model.put("city", city);
-                    model.put("province", province);
-                    model.put("country", country);
-                    model.put("categoryId", categoryId);
-                    
-                    List <CategoryInfoDTO> categories = categoryService.listAll();
-        
-                    model.addAttribute("categories", categories);
-                    
-                    return "register_supplier.html";
-                }
-            
+
+            if (!errors.isEmpty()) {
+                model.addAttribute("errors", errors);
+                model.put("name", name);
+                model.put("email", email);
+                model.put("address", address);
+                model.put("address_number", address_number);
+                model.put("postal_code", postal_code);
+                model.put("city", city);
+                model.put("province", province);
+                model.put("country", country);
+                model.put("categoryId", categoryId);
+
+                List<CategoryInfoDTO> categories = categoryService.listAll();
+
+                model.addAttribute("categories", categories);
+
+                return "register_supplier.html";
+            }
+
             SaveSupplierDTO user = new SaveSupplierDTO(name, email, address, address_number, city,
                     province, country, postal_code, password, password2, image, categoryId);
-            
+
             supplierService.save(user);
             model.put("exito", "usuario registrado correctamente");
             return "redirect:/login";
-        
-        } catch (MyException ex){
-           model.put("error", ex.getMessage());
-           model.put("name", name);
-           model.put("email", email);
-           return "register_supplier.html";
+
+        } catch (MyException ex) {
+            System.out.println(ex);
+            model.put("error", ex.getMessage());
+            model.put("name", name);
+            model.put("email", email);
+            return "register_supplier.html";
         }
 
     }
-    
+
     @GetMapping("/modify/{id}")
     public String modify(@PathVariable("id") String id, ModelMap model) throws MyException {
-        //TODO Manejar excepcion si no hay usuario con el id proporcionado
+        // TODO Manejar excepcion si no hay usuario con el id proporcionado
         model.addAttribute("supplier", supplierService.getById(id));
-
+        model.addAttribute("categories", categoryService.listAll());
         return "supplier_panel.html";
     }
-    
+
     @PostMapping("/modify/{id}")
-    public String modify(@PathVariable("id") String id, String name, String email, MultipartFile image, String address, Long address_number, String city, String province, String country, String postal_code, String categoryId, ModelMap model) {
+    public String modify(@PathVariable("id") String id, String name, String email, MultipartFile image, String address,
+            Long address_number, String city, String province, String country, String postal_code, String categoryId,
+            ModelMap model) {
 
         try {
 
-            EditSupplierDTO supplierInfoDTO = new EditSupplierDTO(id, name, image, address, address_number, country, province, city, postal_code, categoryId);
+            EditSupplierDTO supplierInfoDTO = new EditSupplierDTO(id, name, image, address, address_number, country,
+                    province, city, postal_code, categoryId);
             supplierService.edit(supplierInfoDTO);
+
             model.put("exito", "Se actualizaron los datos correctamente");
 
         } catch (MyException ex) {
@@ -137,7 +142,7 @@ public class SupplierController {
 
         return "index.html";
     }
-    
+
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") String id, ModelMap model) {
 
@@ -156,20 +161,19 @@ public class SupplierController {
 
         return "suppler_list.html";
     }
-    
-    
+
     @GetMapping("/list")
-    public String list(ModelMap model){
-        
+    public String list(ModelMap model) {
+
         List<SupplierInfoDTO> users = supplierService.getAllSuppliers();
-        
+
         model.addAttribute("users", users);
-       
+
         return "supplier_list.html";
     }
 
     @GetMapping("/services")
-    public String listServices(ModelMap model){
+    public String listServices(ModelMap model) {
 
         List<SupplierInfoDTO> users = supplierService.getAllSuppliers();
 
@@ -178,44 +182,44 @@ public class SupplierController {
         return "services.html";
     }
 
-
     @GetMapping("/profile/{id}")
-    public String profile(@PathVariable("id") String id, ModelMap model) throws MyException{
-        
+    public String profile(@PathVariable("id") String id, ModelMap model) throws MyException {
+
         SupplierInfoDTO user = supplierService.getById(id);
-        
-       model.addAttribute("user", user);
-       
+
+        model.addAttribute("user", user);
+
         return "supplier_profile.html";
-        
+
     }
 
-   private List<UserRegisterErrorDTO> validar(String name,String email,
-                        String password, String password2,
-                       String address, Long address_number,  String postal_code,
-                         String city, String province, String country, String categoryId) throws MyException{
+    private List<UserRegisterErrorDTO> validar(String name, String email,
+            String password, String password2,
+            String address, Long address_number, String postal_code,
+            String city, String province, String country, String categoryId) throws MyException {
         List<UserRegisterErrorDTO> errors = new ArrayList<>();
-        
+
         if (name.isEmpty() || name == null) {
 
             errors.add(new UserRegisterErrorDTO("name", "Nombre requerido"));
         }
         if (email.isEmpty() || email == null) {
-            
+
             errors.add(new UserRegisterErrorDTO("email", "Email requerido"));
         } else {
-            
-            LoginPassDTO userSearch = new LoginPassDTO(email, password);
-            UserInfoDTO user = userService.getSearchEmailUser(userSearch);
-            if(user!=null){
-                errors.add(new UserRegisterErrorDTO("email", "El usuario ya está registardo"));
-            }
+
+            // LoginPassDTO userSearch = new LoginPassDTO(email, password);
+            // UserInfoDTO user = userService.getSearchEmailUser(userSearch);
+            // if (user != null) {
+            //     errors.add(new UserRegisterErrorDTO("email", "El usuario ya está registardo"));
+            // }
         }
-       
+
         if (password.isEmpty() || password == null || password.length() <= 5) {
-            errors.add(new UserRegisterErrorDTO("password", "La contraseña no puede estar vacía y deber tener mas de 5 caracteres"));
+            errors.add(new UserRegisterErrorDTO("password",
+                    "La contraseña no puede estar vacía y deber tener mas de 5 caracteres"));
         }
-        
+
         if (!password.equals(password2)) {
             errors.add(new UserRegisterErrorDTO("password2", "Las contraseñas ingresadas deben ser iguales"));
         }
@@ -226,31 +230,30 @@ public class SupplierController {
         if (address_number == null) {
 
             errors.add(new UserRegisterErrorDTO("address_number", "Altura de dirección requerida"));
-        } 
+        }
         if (postal_code.isEmpty() || postal_code == null) {
 
             errors.add(new UserRegisterErrorDTO("postal_code", "Codigo postal requerido"));
-        } 
+        }
         if (city.isEmpty() || city == null) {
-   
-            errors.add(new UserRegisterErrorDTO("city" , "Localidad requerida"));
+
+            errors.add(new UserRegisterErrorDTO("city", "Localidad requerida"));
         }
         if (province.isEmpty() || province == null) {
 
-            errors.add(new UserRegisterErrorDTO("province" , "Provincia requerida"));
-        } 
+            errors.add(new UserRegisterErrorDTO("province", "Provincia requerida"));
+        }
         if (country.isEmpty() || country == null) {
 
-            errors.add(new UserRegisterErrorDTO("country" , "País requerido"));
+            errors.add(new UserRegisterErrorDTO("country", "País requerido"));
         }
         if (categoryId.isEmpty() || categoryId == null) {
 
-            errors.add(new UserRegisterErrorDTO("categoryId" , "Rubro requerido"));
-        } 
-        
+            errors.add(new UserRegisterErrorDTO("categoryId", "Rubro requerido"));
+        }
+
         return errors;
 
-    }    
-
+    }
 
 }
