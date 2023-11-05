@@ -1,259 +1,145 @@
-
-@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
-.container {
-  display: flex;
-  width: 100%;
-  margin: 0px;
-  height: 40%;
-}
-
-.left-div {
-  width: 70%;
-  height: 30%;
-  margin-top: 35px;
-  margin: 5px;
-}
-
-.right-div {
-  width: 30%;
-  margin-top: 25px;
-}
-
-/* Estilos para dispositivos con un ancho máximo de 768px (puedes ajustar este valor) */
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column; /* Cambia a un diseño de columna en pantallas pequeñas */
-  margin-top: 0;
-  }
-
-  .left-div,
-  .right-div {
-    width: 100%; /* Ocupan el 100% del ancho en pantallas pequeñas */
-  }
-}
-
-
-/* botones */
-.btn-5 {
-  width: 130px;
-  height: 40px;
-  line-height: 42px;
+/* Reset de márgenes y relleno */
+* {
+  margin: 0;
   padding: 0;
-  border: none;
-  background: darkred;
-  background: linear-gradient(
-    0deg,
-    darkred 0%,
-    rgba(251, 75, 2, 1) 100%
-  );
 }
-.btn-5:hover {
-  color: darkred;
-  background: transparent;
-  box-shadow: none;
-}
-.btn-5:before,
-.btn-5:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 2px;
-  width: 0;
-  background: darkred;
-  box-shadow: -1px -1px 5px 0px #fff, 7px 7px 20px 0px #0003,
-    4px 4px 5px 0px #0002;
-  transition: 400ms ease all;
-}
-.btn-5:after {
-  right: inherit;
-  top: inherit;
-  left: 0;
-  bottom: 0;
-}
-.btn-5:hover:before,
-.btn-5:hover:after {
+
+/* Estilo general para el contenedor de la página */
+.container {
   width: 100%;
-  transition: 800ms ease all;
+  height: 100%;
 }
-button {
-  margin-bottom: 50px;
-  margin-left: 50px;
-  margin-top: 50px;
-}
-.custom-btn {
-  width: 130px;
-  height: 40px;
-  color: darkred;
-  border-radius: 5px;
-  padding: 10px 25px;
-  font-family: "Lato", sans-serif;
-  font-weight: 500;
-  background: transparent;
+
+/* Estilos para los botones (ajusta los estilos según tus preferencias) */
+.boton-sesion {
+  width: 200px;
+  height:auto;
+  color: #EDB83D;
+  font-size: 1.3rem;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-  outline: none;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s;
+  background-color: #EDB83D;
+  color: #000B29;
 }
 
+.boton-sesion:hover {
+  background-color: #FFD700; /* Amarillo más oscuro en hover */
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+.boton-sesion:active {
+  background-color: #FFD700; /* Amarillo más oscuro cuando se hace clic */
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para el contenedor del formulario */
+.login-container {
   
-        Estilo para el contenedor del formulario
-        .login-container {
-            background-color: #ffc107; /* Color amarillo */
-            border: 2px solid #ffc107; /* Borde amarillo */
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Sombra pronunciada */
-            padding: 20px; /* Espacio interior */
-            max-width: 50%; /* Tamaño reducido a la mitad */
-            margin: 0 auto; /* Centrar en el medio de la pantalla */
-            text-align: center; /* Alinear al centro del contenedor */
-        }
-
-        /* Estilo para el formulario */
-        .login-form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Estilo para el icono de email */
-        .email-icon::before {
-            content: "\f0e0"; /* Código de FontAwesome para el icono de email */
-            font-family: FontAwesome;
-            margin-right: 10px; /* Espacio entre el icono y el campo de entrada */
-        }
-
-        /* Estilo para el icono de contraseña */
-        .password-icon::before {
-            content: "\f023"; /* Código de FontAwesome para el icono de contraseña */
-            font-family: FontAwesome;
-            margin-right: 10px; /* Espacio entre el icono y el campo de entrada */
-        }
-        /*boton inicia sesion*/
-
-        .boton-sesion {
-          background-color: #ffc107;
-          font-family: "Kanit", sans-serif;
-          font-size: 1.3rem;
-          border: none;
-          border-radius: 50px; /* Ajusta el valor para redondear más o menos */
-          padding: 10px 20px; /* Ajusta el relleno según tus preferencias */
-          cursor: pointer;
-          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Ajusta los valores de la sombra */
-          transition: background-color 0.3s, box-shadow 0.3s;
-          margin-right: 50px;
-        }
-        
-        .boton-sesion:hover {
-          background-color: darkred; /* Cambia el color a rojo en el hover */
-          box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4); /* Ajusta la sombra en el hover */
-        }
-        
-        .boton-sesion:active {
-          background-color: darkred; /* Cambia el color cuando se hace clic */
-          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Restaura la sombra al hacer clic */
-        }
-        
-        .letras-login{
-          font-family: "Kanit", sans-serif;
-          font-size: 1.3rem;
-        }
-
-        .logo-index {
-          display: flex;
-          width: 140px;
-          height: auto;
-          align-items: center;
-          justify-content: center;
-          margin: 0 auto;
-          margin-top:  5px;
-        }
-        
-        .left-div .carousel {
-          max-width: 60%; /* Ajusta el ancho del carrusel al 70% del div izquierdo */
-          margin: 0 auto; /* Centra horizontalmente el carrusel */
-        }
-        
-        .boton-sesion {
-          font-family: "Kanit", sans-serif;
-          font-size: 1.3rem;
-          border: none;
-          border-radius: 50px; /* Ajusta el valor para redondear más o menos */
-          padding: 10px 20px; /* Ajusta el relleno según tus preferencias */
-          cursor: pointer;
-          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Ajusta los valores de la sombra */
-          transition: background-color 0.3s, box-shadow 0.3s;
-        }
-        
-        .button-container {
-          display: flex; /* Coloca los botones en una fila */
-          gap: 10px; /* Añade un espacio entre los botones (ajusta según tu preferencia) */
-      }
-      
-      /* Estilos para los botones (mantén tus estilos actuales) */
-      .boton-sesion {
-          font-family: "Kanit", sans-serif;
-          font-size: 1.3rem;
-          border: none;
-          border-radius: 50px;
-          padding: 10px 20px;
-          cursor: pointer;
-          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-          transition: background-color 0.3s, box-shadow 0.3s;
-      }
-      
-      .boton-sesion.soy-cliente {
-          background-color: rgb(48, 61, 248);
-          color: white;
-          margin-left: 90px;
-      }
-      
-      .boton-sesion.soy-proveedor {
-          background-color: darkred;
-          color: white;
-          margin-left: 23px;
-      }
-      
-      .boton-sesion.soy-cliente:hover,
-      .boton-sesion.soy-proveedor:hover {
-          box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4);
-      }
-      
-      .boton-sesion.soy-cliente:active,
-      .boton-sesion.soy-proveedor:active {
-          background-color: rgb(48, 61, 248);
-          background-color: darkred;
-          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-      }
-      
-
-        /* Tu archivo CSS externo */
-      
-
-        .label-login-index{
-          background-color: #EDB83D;
-        }
-
-        .video-container {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 80vh;
-          height: 50vh;
-          margin-left: 80px;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Agrega una sombra al video */
-          border-radius: 10px; /* Redondea las esquinas del video */
-          overflow: hidden; /* Evita que el video se salga del contenedor redondeado */
-        }
-      
-        video {
-          width: 100%; /* El video ocupa todo el ancho disponible */
-          height: 100%; /* El video ocupa toda la altura disponible */
-          object-fit: cover; /* Ajusta el video para que se vea completo dentro del contenedor */
-          border-radius: 10px; /* Redondea las esquinas del video */
-          
-        }
-.video-format{
-  margin-top: 35px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Sombra pronunciada */
+  padding: 20px; /* Espacio interior */
+  max-width: 50%;
+  max-width: 35%; /* Tamaño reducido a la mitad */
+  margin: 25px auto; /* Centrar en el medio de la pantalla */
+  text-align: center; /* Alinear al centro del contenedor */
 }
+
+/* Estilo para el formulario */
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilo para el icono de email */
+.email-icon::before {
+  content: "\f0e0"; /* Código de FontAwesome para el icono de email */
+  font-family: FontAwesome;
+  margin-right: 10px; /* Espacio entre el icono y el campo de entrada */
+}
+
+/* Estilo para el icono de contraseña */
+.password-icon::before {
+  content: "\f023"; /* Código de FontAwesome para el icono de contraseña */
+  font-family: FontAwesome;
+  margin-right: 10px; /* Espacio entre el icono y el campo de entrada */
+}
+
+/* Estilo para el texto "Acceso Rápido" */
+.letras-login {
+  font-family: "Kanit", sans-serif;
+  font-size: 1.3rem;
+}
+
+/* Estilo para el logo */
+.logo-index {
+  display: flex;
+  width: 140px;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 10 px;
+}
+
+/* Estilos para el video de fondo */
+video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5; /* Ajusta la transparencia aquí (1 es opaco, 0 es completamente transparente) */
+}
+
+/* Estilos para los botones en la sección de acceso rápido */
+.button-container {
+  margin-top: 25px;
+  overflow: hidden; /* Añade clearfix para evitar problemas de diseño */
+  margin-bottom: 35px;
+  display: flex;
+  flex-direction: row; /* Cambiar la dirección del eje principal a horizontal */
+  justify-content: center; /* Centra el contenido horizontalmente */
+  /* Otras propiedades de estilo según sea necesario */
+}
+
+
+
+.boton-sesion.soy-proveedor {
+  background-color: #EDB83D;
+  color: rgb(71, 66, 66);
+  margin-left: 23px;
+}
+
+.boton-sesion.soy-cliente:hover,
+.boton-sesion.soy-proveedor:hover {
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+.boton-sesion.soy-cliente:active,
+.boton-sesion.soy-proveedor:active {
+  background-color: #EDB83D(48, 61, 248);
+  background-color: darkred;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para el botón izquierdo */
+.left-button {
+  float: left; /* Alinea el botón a la izquierda */
+}
+
+/* Estilo para el botón derecho */
+.right-button {
+  float: right; /* Alinea el botón a la derecha */
+}
+
+/* Añade un clearfix para evitar problemas de diseño */
+.button-container::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+

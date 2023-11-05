@@ -1,26 +1,33 @@
-
 @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
+
 body {
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
-.content {
-  min-height: calc(100% - 60px); /* La altura del footer */
-  padding-bottom: 60px;
-  box-sizing: border-box;
-}
-
+/* Elimina las clases de Bootstrap en el fragmento de footer */
 footer {
-  background-color: #edb83d;
+  background-color: #000B29;
   padding: 10px 0;
   position: fixed;
   bottom: 0;
+  color: #F8F5F2;
   width: 100%;
   font-family: "Kanit", sans-serif;
   font-size: 1rem;
 }
+
+/* Estilo personalizado para las redes sociales a la derecha */
+.redes-sociales {
+  text-align: right;
+}
+
+/* Estilo personalizado para el texto de copyright y fecha a la izquierda */
+#changing-color-text {
+  text-align: left;
+}
+
 /* Estilo para el cambio de color del texto en el footer */
 #changing-color-text {
   animation: changeColor 6s infinite;
@@ -30,42 +37,35 @@ footer {
 footer a {
   text-decoration: none; /* Elimina el subrayado */
   font-weight: bold; /* Texto en negrita */
-  color: #000000; /* Cambio de color al pasar el mouse */
+  color: #EDB83D; /* Cambio de color al pasar el mouse */
 }
 
 /* Animación de cambio de color */
 @keyframes changeColor {
   0% {
-    color: #000b29; /* Color 1 */
+    color: #EDB83D; /* Color 1 */
   }
   50% {
-    color: #d70026; /* Color 2 */
+    color: #EDB83D; /* Color 2 */
   }
   100% {
-    color: #000b29; /* Color 3 */
+    color: #EDB83D; /* Color 3 */
   }
 }
-
-/* Estilos para el pie de página fijo */
-.fixed-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-
-  text-align: center;
-  font-family: "Kanit", sans-serif;
-  font-size: 1rem;
-}
-
 
 /* Estilos para los iconos en el estado normal (sin hover) */
 .redes-sociales a i {
   font-size: 24px;
-  color: #333; /* Color normal de los iconos */
+  color: #EDB83D; /* Color normal de los iconos */
   transition: color 0.3s; /* Transición suave de color en 0.3 segundos */
 }
 
 /* Estilos para los iconos en el estado hover */
 .redes-sociales a:hover i {
-  color: #0000FF;
+  color: #F8F5F2; /* Cambia el color del icono al pasar el mouse */
+}
+
+/* Cambia el color del texto al pasar el mouse */
+.redes-sociales a:hover {
+  color: #F8F5F2; /* Cambia el color del texto al pasar el mouse */
 }
