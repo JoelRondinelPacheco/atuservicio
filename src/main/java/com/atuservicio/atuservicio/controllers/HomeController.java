@@ -19,6 +19,7 @@ import com.atuservicio.atuservicio.entities.Category;
 import com.atuservicio.atuservicio.enums.Role;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.CategoryService;
+import com.atuservicio.atuservicio.services.ImageService;
 import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.UserService;
 import java.util.List;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/")
@@ -42,6 +44,8 @@ public class HomeController {
     private SupplierService supplierService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private ImageService imageService;
 
     @GetMapping("/")
     public String index() {
@@ -143,4 +147,5 @@ public class HomeController {
 
         return "contact.html";
     }
+
 }
