@@ -98,8 +98,8 @@ public class HomeController {
             SupplierInfoDTO supplier = this.supplierService.getByEmail(email);
             List<CategoryInfoDTO> categories = this.categoryService.listAll();
             model.addAttribute("categories", categories);
-            model.addAttribute("supplier", supplier);
-            return "supplier_panel";
+            model.addAttribute("user", supplier);
+            return "supplier_profile";
         } else if (role.equals("[ROLE_CLIENT]") || role.equals("[ROLE_MODERATOR]") || role.equals("[ROLE_ADMIN]")) {
             UserInfoDTO user = this.userService.getSearchEmailUser(new LoginPassDTO(email, ""));
             model.addAttribute("user", user);
