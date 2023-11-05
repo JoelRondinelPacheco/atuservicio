@@ -10,7 +10,6 @@ package com.atuservicio.atuservicio.controllers;
  * @author dario
  */
 
-
 import com.atuservicio.atuservicio.dtos.LoginPassDTO;
 import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
@@ -33,6 +32,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 @Controller
 @RequestMapping("/")
 public class HomeController {
@@ -42,53 +42,55 @@ public class HomeController {
     private SupplierService supplierService;
     @Autowired
     private CategoryService categoryService;
-    
+
     @GetMapping("/")
-    public String index(){
+    public String index() {
 
         return "index.html";
     }
-     
+
     @GetMapping("/search")
-    public String search(){
+    public String search() {
 
         return "search.html";
     }
-    
-    @PostMapping("/search")
-    public String resultSearch(@RequestParam(required = false) String country, @RequestParam(required = false) String province,@RequestParam(required = false) String city,@RequestParam(required = false) String email, ModelMap model){
 
-        if(email.isEmpty()){
+    @PostMapping("/search")
+    public String resultSearch(@RequestParam(required = false) String country,
+            @RequestParam(required = false) String province, @RequestParam(required = false) String city,
+            @RequestParam(required = false) String email, ModelMap model) {
+
+        if (email.isEmpty()) {
             UserSearchDTO userSearch = new UserSearchDTO(city, province, country);
 
-            List <UserInfoDTO> users = userService.getSearchUsers(userSearch);
+            List<UserInfoDTO> users = userService.getSearchUsers(userSearch);
 
             model.addAttribute("locationFound", true);
-            model.addAttribute("users",users);
-        
+            model.addAttribute("users", users);
+
             return "search.html";
-        } else{
-            String password="";
+        } else {
+            String password = "";
             LoginPassDTO userSearch = new LoginPassDTO(email, password);
             try {
                 UserInfoDTO user = userService.getSearchEmailUser(userSearch);
-           
+
                 model.addAttribute("userFound", true);
-                model.addAttribute("user",user); 
-                
+                model.addAttribute("user", user);
+
                 return "search.html";
-                
-            } catch (MyException ex){
-             
+
+            } catch (MyException ex) {
+
                 model.put("error", ex.getMessage());
-           
+
                 return "search.html";
-            }            
+            }
         }
     }
 
     @GetMapping("/profile")
-    public String profile(ModelMap model) throws MyException{
+    public String profile(ModelMap model) throws MyException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         String role = auth.getAuthorities().toString();
@@ -135,5 +137,10 @@ public class HomeController {
         } else {
             return "index.html";
         }
+    }
+    @GetMapping("/contact")
+    public String contact() {
+
+        return "contact.html";
     }
 }
