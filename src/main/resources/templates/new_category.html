@@ -11,7 +11,7 @@
 </div>
 
 <form
-        th:action="@{/admin/category/edit/{categoryId}(categoryId=${category.id})}"
+        th:action="@{/admin/category/create}"
         method="POST"
         enctype="multipart/form-data"
         class="formulario-registro"
@@ -46,7 +46,6 @@
                     class="form-control"
                     id="name"
                     name="name"
-                    th:value="${category.name}"
                     required
             />
         </div>

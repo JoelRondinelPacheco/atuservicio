@@ -32,19 +32,41 @@ public class AdminController {
     public String adminDashboard(ModelMap model) {
         return this.clientsPaginated(1, model);
     }
-
-    // TODO Agergar page size desde la vista
+    /*
+    @GetMapping("/dashboard")
+    public String adminDashboard(ModelMap model) {
+        return this.clientsPaginated(1, "name", "asc", model);
+    }
+*/
     @GetMapping("/clients/{pageNumber}")
-    public String clientsPaginated(@PathVariable int pageNumber, ModelMap model) {
+    public String clientsPaginated(@PathVariable int pageNumber, ModelMap model){
+            int pageSize = 5;
+            UserPaginatedDTO clients = this.userService.findPaginated(pageNumber, pageSize);
+
+            model.addAttribute("currentPage", pageNumber);
+            model.addAttribute("totalPages", clients.getTotalPages());
+            model.addAttribute("totalItems", clients.getTotalElements());
+            model.addAttribute("clients", clients.getClients());
+            return "clients_dashboard";
+        }
+    // TODO Agergar page size desde la vista
+    // /clients/pageNumber?sortField=name&sortDir=asc
+   /* @GetMapping("/clients/{pageNumber}")
+    public String clientsPaginated(@PathVariable int pageNumber, @RequestParam String sortField, @RequestParam String sortDir, ModelMap model) {
         int pageSize = 5;
-        UserPaginatedDTO clients = this.userService.findPaginated(pageNumber, pageSize);
+        UserPaginatedDTO clients = this.userService.findPaginated(pageNumber, pageSize, sortField, sortDir);
 
         model.addAttribute("currentPage", pageNumber);
         model.addAttribute("totalPages", clients.getTotalPages());
         model.addAttribute("totalItems", clients.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         model.addAttribute("clients", clients.getClients());
         return "clients_dashboard";
-    }
+    }*/
 
     @GetMapping("/clients/delete")
     public String deleteUser(@RequestParam String clientId, ModelMap model) {

@@ -41,13 +41,10 @@ public class SupplierController {
 
     @Autowired
     SupplierService supplierService;
-
     @Autowired
     IUserService userService;
-
     @Autowired
     ICategoryService categoryService;
-
     @Autowired
     private PasswordValidator passwordValidator;
 
@@ -135,15 +132,19 @@ public class SupplierController {
 
         try {
 
-            EditSupplierDTO supplierInfoDTO = new EditSupplierDTO(id, name, image, address, address_number, country,
-                    province, city, postal_code, categoryId);
-            supplierService.edit(supplierInfoDTO);
+            EditSupplierDTO supplierInfoDTO = new EditSupplierDTO(id, name, image, address, address_number, city,
+                    province, country, postal_code, categoryId);
+            SupplierInfoDTO supplier = this.supplierService.edit(supplierInfoDTO);
+            model.addAttribute("exito", "Datos actualizados");
+            model.addAttribute("user", supplier);
+            return "supplier_profile";
+            /*
             List<CategoryInfoDTO> categories = categoryService.listAll();
             CategoryInfoDTO category = categoryService.getById(categoryId);
             model.put("category", category);
             model.addAttribute("categories", categories);
             model.put("updated", "Se actualizaron los datos correctamente");
-            model.addAttribute("supplier", supplierInfoDTO);
+            model.addAttribute("supplier", supplierInfoDTO);*/
         } catch (MyException ex) {
 
             model.put("error", ex.getMessage());
@@ -151,8 +152,6 @@ public class SupplierController {
             return "supplier_modify.html";
 
         }
-
-        return "supplier_panel.html";
     }
 
     @PostMapping("/delete/{id}")

@@ -36,6 +36,7 @@ public class ImageService implements IImageService {
 
 
     @Override
+    @Transactional
     public Image getById(String id) throws MyException {
         Optional<Image> image = this.imageRepository.findById(id);
         if (image.isPresent()) {
@@ -45,6 +46,7 @@ public class ImageService implements IImageService {
     }
 
     @Override
+    @Transactional
     public Image update(MultipartFile archive, String id) throws MyException {
         try {
             Image image = new Image();
@@ -68,6 +70,7 @@ public class ImageService implements IImageService {
         }
     }
 //@Transactional
+    @Transactional
     public Image saveDefaultImage(Image image) {
         Image img = new Image();
         img.setMime(image.getMime());
