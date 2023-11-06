@@ -1,5 +1,6 @@
 package com.atuservicio.atuservicio.services;
 
+import com.atuservicio.atuservicio.dtos.categories.CategoryExtendedInfoDTO;
 import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
 import com.atuservicio.atuservicio.dtos.categories.EditCategoryDTO;
 import com.atuservicio.atuservicio.dtos.categories.SaveCategoryDTO;
@@ -73,5 +74,15 @@ public class CategoryService implements ICategoryService {
         categoryRepository.deleteById(categoryId);
         return "Categoria eliminada";
     }
-    
+
+    @Override
+    public CategoryExtendedInfoDTO getFullInfoById(String categoryId) throws MyException {
+        Optional<Category> respuesta = categoryRepository.findById(categoryId);
+        if(respuesta.isPresent()){
+            Category categoria = respuesta.get();
+            return new CategoryExtendedInfoDTO(categoria.getId(), categoria.getName(), categoria.getImage().getId());
+        }
+        throw new MyException("Categoria no encontrada");
+    }
+
 }

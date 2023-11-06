@@ -44,13 +44,13 @@ public class UserService implements IUserService {
         user.setPassword(pass);
 
         user.setRole(Role.CLIENT);
-        if (userDTO.getImage() != null) {
-            Image img = this.imageService.save(userDTO.getImage());
-            user.setImage(img);
-        } else {
+        if (userDTO.getImage().isEmpty()) {
             Image img = this.imageService.getById("d4fe09fd-56f6-4b55-a1b9-58671d68f1f1");
             Image imgUser = this.imageService.saveDefaultImage(img);
             user.setImage(imgUser);
+        } else {
+            Image img = this.imageService.save(userDTO.getImage());
+            user.setImage(img);
         }
         user.setAddress(userDTO.getAddress());
         user.setAddress_number(userDTO.getAddress_number());
@@ -154,13 +154,12 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserInfoDTO getSearchEmailUser(LoginPassDTO userSearch) throws MyException {
+    public UserInfoDTO getSearchEmailUser(String email) throws MyException {
+        Optional<User> userOptional = this.userRepository.findByEmail(email);
 
-        User user = this.userRepository.findByEmail(userSearch.getEmail());
+        if (userOptional.isPresent()) {
 
-        if (user != null) {
-
-            UserInfoDTO userInfo = this.createUserInfoDTO(user);
+            UserInfoDTO userInfo = this.createUserInfoDTO(userOptional.get());
 
             return userInfo;
 
@@ -198,7 +197,7 @@ public class UserService implements IUserService {
                 user.getName(),
                 user.getEmail(),
                 user.getRole(),
-                user.getImage(),
+                user.getImage().getId(),
                 user.getAddress(),
                 user.getAddress_number(),
                 user.getCity(),

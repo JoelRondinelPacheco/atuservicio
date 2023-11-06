@@ -161,7 +161,7 @@ public class UserController {
     public String profile(ModelMap model) throws MyException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        UserInfoDTO user = userService.getSearchEmailUser(new LoginPassDTO(auth.getName(), ""));
+        UserInfoDTO user = userService.getSearchEmailUser(auth.getName());
 
         model.addAttribute("user", user);
 

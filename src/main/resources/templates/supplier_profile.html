@@ -3,7 +3,7 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <title>Mi Perfil</title>
@@ -16,7 +16,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </header>
     <div class="profile">
         <h1>Mi Perfil</h1>
-        <img src="" alt="Mi Foto de Perfil"> 
+        <img th:src="@{/image/{imageId}(imageId=${user.image})}" alt="">
         <div class="profile">
 
             <h1>Mi Perfil</h1>

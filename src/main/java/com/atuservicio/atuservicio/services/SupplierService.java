@@ -10,10 +10,12 @@ import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.entities.Category;
 import com.atuservicio.atuservicio.entities.Image;
 import com.atuservicio.atuservicio.entities.Supplier;
+import com.atuservicio.atuservicio.entities.User;
 import com.atuservicio.atuservicio.enums.Role;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.repositories.CategoryRepository;
 import com.atuservicio.atuservicio.repositories.SupplierRepository;
+import com.atuservicio.atuservicio.repositories.UserRepository;
 import com.atuservicio.atuservicio.services.interfaces.ISupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,6 +38,8 @@ public class SupplierService implements ISupplierService {
     private ImageService imageService;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public SupplierInfoDTO save(SaveSupplierDTO supplierDTO) throws MyException {
@@ -48,13 +52,13 @@ public class SupplierService implements ISupplierService {
         String password = new BCryptPasswordEncoder().encode(supplierDTO.getPassword());
         supplier.setPassword(password);
         supplier.setRole(Role.SUPPLIER);
-        if (supplierDTO.getImage() != null) {
-            Image img = this.imageService.save(supplierDTO.getImage());
-            supplier.setImage(img);
-        } else {
+        if (supplierDTO.getImage().isEmpty()) {
             Image img = this.imageService.getById("d4fe09fd-56f6-4b55-a1b9-58671d68f1f1");
             Image imgUser = this.imageService.saveDefaultImage(img);
             supplier.setImage(imgUser);
+        } else {
+            Image img = this.imageService.save(supplierDTO.getImage());
+            supplier.setImage(img);
         }
         supplier.setAddress(supplierDTO.getAddress());
         supplier.setAddress_number(supplierDTO.getAddress_number());
@@ -64,6 +68,7 @@ public class SupplierService implements ISupplierService {
         supplier.setPostal_code(supplierDTO.getPostal_code());
         Category category = this.categoryRepository.findById(supplierDTO.getCategoryId()).get();
         supplier.setCategory(category);
+        supplier.setImageCard(category.getImage());
 
         Supplier supplierSaved = this.supplierRepository.save(supplier);
         System.out.println(supplierSaved.toString());
@@ -139,9 +144,15 @@ public class SupplierService implements ISupplierService {
     }
     @Override
     public SupplierInfoDTO getByEmail(String email) throws MyException {
-        Optional<Supplier> supplierOptional = this.supplierRepository.findByEmailSupplier(email);
-        if (supplierOptional.isPresent()) {
-            return this.createSupplierInfoDTO(supplierOptional.get());
+        Optional<User> userOptional = this.userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            System.out.println("Encontro user");
+            User user = userOptional.get();
+            Optional<Supplier> supplierOptional = this.supplierRepository.findById(user.getId());
+            if (supplierOptional.isPresent()) {
+                System.out.println("encontro supp");
+                return this.createSupplierInfoDTO(supplierOptional.get());
+            }
         }
         throw new MyException("Supplier no encontrado");
     }
@@ -151,7 +162,7 @@ public class SupplierService implements ISupplierService {
                 supplier.getName(),
                 supplier.getEmail(),
                 supplier.getRole(),
-                supplier.getImage(),
+                supplier.getImage().getId(),
                 supplier.getAddress(),
                 supplier.getAddress_number(),
                 supplier.getCity(),
@@ -160,7 +171,9 @@ public class SupplierService implements ISupplierService {
                 supplier.getPostal_code(),
                 supplier.getId(),
                 supplier.getCategory(),
-                supplier.getActive()
+                supplier.getActive(),
+                supplier.getImageCard().getId()
+
         );
     }
 }

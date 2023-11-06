@@ -77,10 +77,8 @@ public class HomeController {
 
             return "search.html";
         } else {
-            String password = "";
-            LoginPassDTO userSearch = new LoginPassDTO(email, password);
             try {
-                UserInfoDTO user = userService.getSearchEmailUser(userSearch);
+                UserInfoDTO user = userService.getSearchEmailUser(email);
 
                 model.addAttribute("userFound", true);
                 model.addAttribute("user", user);
@@ -100,16 +98,15 @@ public class HomeController {
     public String profile(ModelMap model) throws MyException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
+        System.out.println(email);
         String role = auth.getAuthorities().toString();
 
         if (role.equals("[ROLE_SUPPLIER]")) {
             SupplierInfoDTO supplier = this.supplierService.getByEmail(email);
-            List<CategoryInfoDTO> categories = this.categoryService.listAll();
-            model.addAttribute("categories", categories);
             model.addAttribute("user", supplier);
             return "supplier_profile";
         } else if (role.equals("[ROLE_CLIENT]") || role.equals("[ROLE_MODERATOR]") || role.equals("[ROLE_ADMIN]")) {
-            UserInfoDTO user = this.userService.getSearchEmailUser(new LoginPassDTO(email, ""));
+            UserInfoDTO user = this.userService.getSearchEmailUser(email);
             model.addAttribute("user", user);
             return "user_profile";
 

@@ -3,7 +3,7 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
     <title>Mi Perfil</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -14,7 +14,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </header>
     <div class="profile">
         <h1>Mi Perfil</h1>
-        <img src="ruta-a-tu-imagen-de-perfil.jpg" alt="Mi Foto de Perfil">
+        <img th:src="@{/image/{imageId}(imageId=${user.image})}" alt="">
        <div class="profile">
            
         <h1>Mi Perfil</h1>
@@ -34,8 +34,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
           <h1 class="card-header" style="background-color:#EDB83D ; color: black;">Mi Perfil</h1>
 
             <div class="card-body">
-                
-                
+
                 <h5 class="card-title"><strong>Nombre:</strong> <span th:text="${user.name}"></span></h5>
                 <p class="card-text"><strong>Correo Electrónico:</strong> <span th:text="${user.email}"></span></p>
                 <p class="card-text"><strong>Dirección:</strong> <span th:text="${user.address}"></span></p>

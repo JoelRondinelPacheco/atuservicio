@@ -10,8 +10,7 @@
 <div class="container">
     <h1>Lista de Usuarios</h1>
 
-    <h3><a th:href="@{/admin/clients}">Clients</a></h3>
-    <h3><a th:href="@{/admin/suppliers}">Suppliers</a></h3>
+    <div th:replace="fragments/adminbtns :: adminbtns"></div>
     <table class="table">
         <thead>
         <tr>

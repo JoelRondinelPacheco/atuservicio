@@ -15,7 +15,7 @@ public interface IUserService {
     UserInfoDTO edit(EditUserDTO user) throws MyException;
     String delete(String id) throws MyException;
     List<UserInfoDTO> getSearchUsers(UserSearchDTO userSearch);
-    UserInfoDTO getSearchEmailUser(LoginPassDTO userSearch) throws MyException;
+    UserInfoDTO getSearchEmailUser(String userSearch) throws MyException;
     String activate(String id) throws MyException;
     UserPaginatedDTO findPaginated(int pageNumber, int pageSize);
 

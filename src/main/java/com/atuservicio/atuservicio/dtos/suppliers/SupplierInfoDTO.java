@@ -15,8 +15,10 @@ import lombok.Setter;
 @Setter
 public class SupplierInfoDTO extends UserInfoDTO {
     private Category category;
-    public SupplierInfoDTO(String name, String email, Role role, Image image, String address, Long address_number, String city, String province, String country, String postal_code, String id, Category category, Boolean active) {
+    private String imageCard;
+    public SupplierInfoDTO(String name, String email, Role role, String image, String address, Long address_number, String city, String province, String country, String postal_code, String id, Category category, Boolean active, String imageCard) {
         super(name, email, role, image, address, address_number, city, province, country, postal_code, id, active);
         this.category = category;
+        this.imageCard = imageCard;
     }
 }

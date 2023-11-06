@@ -2,9 +2,8 @@
 
 package com.atuservicio.atuservicio.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,4 +18,7 @@ import lombok.Setter;
 public class Category extends Base{  //rubro
     
     private String name;
+    @OneToOne
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private Image image;
 }
