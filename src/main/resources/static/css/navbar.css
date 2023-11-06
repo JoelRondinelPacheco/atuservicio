@@ -47,7 +47,7 @@ margin-left: 35px;
 }
 
 .colorfont{
-color: #F8F5F2 !important; 
+color: #EDB83D !important;
 
 
 }
@@ -64,5 +64,5 @@ color: #F8F5F2 !important;
 
 /* Estilos para el texto en el menú desplegable */
 .dropdown-menu .dropdown-item {
-  color: #F8F5F2; /* Color de texto deseado */
+  color: #052270; /* Color de texto deseado */
 }

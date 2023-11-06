@@ -22,8 +22,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getAuthorities());
+            //return user;
         }
-        System.out.println("No encontro");
         throw new UsernameNotFoundException("User not found");
     }
 }
