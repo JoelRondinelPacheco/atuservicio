@@ -4,6 +4,7 @@ package com.atuservicio.atuservicio.repositories;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.entities.User;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,7 +31,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     List<User> findUsersByPostalCode(@Param("userPostal") String userPostal);
 
     @Query("SELECT u FROM User u WHERE u.email = :email")
-    public User findByEmail(@Param("email") String email);
+    public Optional<User> findByEmail(@Param("email") String email);
 
     @Query("SELECT u FROM User u WHERE u.city = :city OR u.province = :province OR u.country = :country")
     public List<User> findByCityProvinceCountry(@Param("city") String city,

@@ -16,6 +16,7 @@ public class AtuservicioApplication {
 		SpringApplication.run(AtuservicioApplication.class, args);
 
 		System.out.println(UUID.randomUUID().toString());
+		/*System.out.println(UUID.randomUUID().toString());
 		System.out.println(UUID.randomUUID().toString());
 		System.out.println(UUID.randomUUID().toString());
 		System.out.println(UUID.randomUUID().toString());
@@ -24,8 +25,7 @@ public class AtuservicioApplication {
 		System.out.println(UUID.randomUUID().toString());
 		System.out.println(UUID.randomUUID().toString());
 		System.out.println(UUID.randomUUID().toString());
-		System.out.println(UUID.randomUUID().toString());
-		System.out.println(UUID.randomUUID().toString());
+		System.out.println(UUID.randomUUID().toString());*/
 
 
 
@@ -36,13 +36,27 @@ public class AtuservicioApplication {
 	@Bean
 	public CommandLineRunner createPasswordCommand(){
 		return args -> {
-			System.out.println(passwordEncoder.encode("pass123"));
-			System.out.println(passwordEncoder.encode("pass123"));
-			System.out.println(passwordEncoder.encode("pass123"));
-			System.out.println(passwordEncoder.encode("pass123"));
-			System.out.println(passwordEncoder.encode("pass123"));
-			System.out.println(passwordEncoder.encode("pass123"));
-			System.out.println(passwordEncoder.encode("pass123"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			/*System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));
+			System.out.println(passwordEncoder.encode("Pass123456"));*/
 		};
 	}
 

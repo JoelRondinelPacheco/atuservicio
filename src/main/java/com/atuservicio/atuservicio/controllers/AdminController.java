@@ -1,13 +1,15 @@
 package com.atuservicio.atuservicio.controllers;
 
+import com.atuservicio.atuservicio.dtos.categories.CategoryExtendedInfoDTO;
+import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserPaginatedDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.UserService;
+import com.atuservicio.atuservicio.services.interfaces.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,15 +26,14 @@ public class AdminController {
     private UserService userService;
     @Autowired
     private SupplierService supplierService;
+    @Autowired
+    private ICategoryService categoryService;
 
-    @GetMapping("/clients")
-    public String clientsDashboard(ModelMap model) {
-     /*List<UserInfoDTO> clients = this.userService.getAllUsers();
-        model.addAttribute("clients", clients);
-        return "clients_dashboard";
-        */
-      return this.clientsPaginated(1, model);
+    @GetMapping("/dashboard")
+    public String adminDashboard(ModelMap model) {
+        return this.clientsPaginated(1, model);
     }
+
     // TODO Agergar page size desde la vista
     @GetMapping("/clients/{pageNumber}")
     public String clientsPaginated(@PathVariable int pageNumber, ModelMap model) {
@@ -120,6 +121,25 @@ public class AdminController {
             return "supplier_panel";
         } catch (MyException ex) {
             return "supplier_panel";
+        }
+    }
+
+    @GetMapping("/categories")
+    public String categories(ModelMap model) {
+        List<CategoryInfoDTO> categories = this.categoryService.listAll();
+        model.addAttribute("categories", categories);
+        return "categories_dashboard";
+    }
+
+    @GetMapping("/category/edit")
+    public String editCategory(@RequestParam String categoryId, ModelMap model) {
+        try {
+            CategoryExtendedInfoDTO categoryInfo = this.categoryService.getFullInfoById(categoryId);
+            model.addAttribute("category", categoryInfo);
+            return null;
+
+        } catch (MyException e) {
+            throw new RuntimeException(e);
         }
     }
 

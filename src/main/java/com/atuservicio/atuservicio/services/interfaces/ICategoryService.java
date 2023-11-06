@@ -1,5 +1,6 @@
 package com.atuservicio.atuservicio.services.interfaces;
 
+import com.atuservicio.atuservicio.dtos.categories.CategoryExtendedInfoDTO;
 import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
 import com.atuservicio.atuservicio.dtos.categories.EditCategoryDTO;
 import com.atuservicio.atuservicio.dtos.categories.SaveCategoryDTO;
@@ -13,4 +14,5 @@ public interface ICategoryService {
     List<CategoryInfoDTO> listAll();
     CategoryInfoDTO edit(EditCategoryDTO category) throws MyException;
     String delete(String categoryId) throws MyException;
+    CategoryExtendedInfoDTO getFullInfoById(String categoryId) throws MyException;
 }

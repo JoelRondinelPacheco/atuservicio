@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 @Service
@@ -23,7 +24,7 @@ public class ImageService implements IImageService {
         try {
             Image image = new Image();
             image.setMime(archive.getContentType());
-            image.setName(archive.getName());
+            image.setName(archive.getOriginalFilename());
             image.setContent(archive.getBytes());
             return this.imageRepository.save(image);
 
@@ -32,6 +33,7 @@ public class ImageService implements IImageService {
             throw new MyException("La imagen no pudo ser creada");
         }
     }
+
 
     @Override
     public Image getById(String id) throws MyException {
@@ -65,7 +67,7 @@ public class ImageService implements IImageService {
             throw new MyException("La imagen no pudo ser creada");
         }
     }
-
+//@Transactional
     public Image saveDefaultImage(Image image) {
         Image img = new Image();
         img.setMime(image.getMime());
@@ -73,5 +75,9 @@ public class ImageService implements IImageService {
         img.setContent(image.getContent());
         return this.imageRepository.save(img);
     }
+
+
+
+
 
 }

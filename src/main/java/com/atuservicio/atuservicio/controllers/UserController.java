@@ -17,6 +17,8 @@ import com.atuservicio.atuservicio.services.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.atuservicio.atuservicio.utils.PasswordValidator;
 import org.hibernate.hql.internal.ast.tree.IsNullLogicOperatorNode;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,8 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    private PasswordValidator passwordValidator;
 
     @GetMapping("/register")
     public String register() {
@@ -154,14 +158,14 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String profile(@PathVariable("id") String id, ModelMap model) throws MyException {
+    public String profile(ModelMap model) throws MyException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        UserInfoDTO user = userService.getById(id);
+        UserInfoDTO user = userService.getSearchEmailUser(auth.getName());
 
         model.addAttribute("user", user);
 
-        return "user_detail.html";
+        return "user_profile.html";
 
     }
 
@@ -174,7 +178,7 @@ public class UserController {
 
        model.put("updated", "Usuario actualizado");
        model.addAttribute("user", user);
-        return "client_panel.html";
+        return "user_profile.html";
     }
 
 
@@ -201,8 +205,12 @@ public class UserController {
             // TODO codigo innecesario para validar email, rompe el registro y sin esta parte funciona y valida correctamente el email
         }
        
-        if (password.isEmpty() || password == null || password.length() <= 5) {
-            errors.add(new UserRegisterErrorDTO("password", "La contraseña no puede estar vacía y deber tener mas de 5 caracteres"));
+        if (password.isEmpty() || password == null) {
+            errors.add(new UserRegisterErrorDTO("password", "La contraseña no puede estar vacía"));
+        } else {
+            if (!this.passwordValidator.isValid(password)) {
+                errors.add(new UserRegisterErrorDTO("password", "La contraseña debe contener numeros del 0 al 9, mayusculas y minusculas, y tener entre 5 y 15 caracteres"));
+            }
         }
         
         if (!password.equals(password2)) {

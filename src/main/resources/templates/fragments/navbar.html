@@ -51,15 +51,9 @@
           </a>
         </li>
         <li class="nav-item colorfont" sec:authorize="hasRole('ADMIN')">
-          <a class="nav-link active colorfont" th:href="@{/admin/clients}">
+          <a class="nav-link active colorfont" th:href="@{/admin/dashboard}">
             <i class="fas fa-search colorfont"></i>
-            Panel Clientes
-          </a>
-        </li>
-        <li class="nav-item colorfont" sec:authorize="hasRole('ADMIN')">
-          <a class="nav-link active colorfont" th:href="@{/admin/suppliers}">
-            <i class="fas fa-search colorfont"></i>
-            Panel Clientes
+            Dashboard
           </a>
         </li>
         <li
@@ -87,10 +81,11 @@
           </ul>
         </li>
         <li class="nav-item colorfont" sec:authorize="isAuthenticated()">
-          <a class="nav-link active colorfont" th:href="@{/profile}">
-            <i class="fas fa-sign-in-alt colorfont"></i>
-            Mi Perfil
-          </a>
+            <a class="nav-link active colorfont" th:href="@{/profile}">
+              <i class="fas fa-sign-in-alt colorfont"></i>
+              Mi Perfil
+            </a>
+
         </li>
         <li class="nav-item colorfont" sec:authorize="not isAuthenticated()">
           <a class="nav-link active colorfont" th:href="@{/login}">

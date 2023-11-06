@@ -19,6 +19,7 @@ import com.atuservicio.atuservicio.entities.Category;
 import com.atuservicio.atuservicio.enums.Role;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.CategoryService;
+import com.atuservicio.atuservicio.services.ImageService;
 import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.UserService;
 import java.util.List;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/")
@@ -42,6 +44,8 @@ public class HomeController {
     private SupplierService supplierService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private ImageService imageService;
 
     @GetMapping("/")
     public String index() {
@@ -73,10 +77,8 @@ public class HomeController {
 
             return "search.html";
         } else {
-            String password = "";
-            LoginPassDTO userSearch = new LoginPassDTO(email, password);
             try {
-                UserInfoDTO user = userService.getSearchEmailUser(userSearch);
+                UserInfoDTO user = userService.getSearchEmailUser(email);
 
                 model.addAttribute("userFound", true);
                 model.addAttribute("user", user);
@@ -96,27 +98,50 @@ public class HomeController {
     public String profile(ModelMap model) throws MyException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
+        System.out.println(email);
         String role = auth.getAuthorities().toString();
-        System.out.println("admin: " + role.equals("[ROLE_ADMIN]"));
 
         if (role.equals("[ROLE_SUPPLIER]")) {
             SupplierInfoDTO supplier = this.supplierService.getByEmail(email);
-            List<CategoryInfoDTO> categories = this.categoryService.listAll();
-            model.addAttribute("categories", categories);
-            model.addAttribute("supplier", supplier);
-            CategoryInfoDTO category = categoryService.getById(supplier.getCategory().getId());
-            model.put("category", category);
-            return "supplier_panel";
+            model.addAttribute("user", supplier);
+            return "supplier_profile";
         } else if (role.equals("[ROLE_CLIENT]") || role.equals("[ROLE_MODERATOR]") || role.equals("[ROLE_ADMIN]")) {
-            UserInfoDTO user = this.userService.getSearchEmailUser(new LoginPassDTO(email, ""));
+            UserInfoDTO user = this.userService.getSearchEmailUser(email);
             model.addAttribute("user", user);
-            return "client_panel";
+            return "user_profile";
 
         } else {
             return "index.html";
         }
     }
 
+    @GetMapping("/editUser")
+    public String editUser(@RequestParam String id, ModelMap model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String role = auth.getAuthorities().toString();
+
+        if (role.equals("[ROLE_SUPPLIER]")) {
+            try {
+                SupplierInfoDTO supplier = this.supplierService.getById(id);
+                List<CategoryInfoDTO> categories = this.categoryService.listAll();
+                model.addAttribute("categories", categories);
+                model.addAttribute("user", supplier);
+                return "supplier_panel";
+            } catch (MyException ex) {
+                return "index.html";
+            }
+        } else if (role.equals("[ROLE_CLIENT]") || role.equals("[ROLE_MODERATOR]") || role.equals("[ROLE_ADMIN]")) {
+            try {
+                UserInfoDTO user = this.userService.getById(id);
+                model.addAttribute("user", user);
+                return "client_panel";
+            } catch (MyException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            return "index.html";
+        }
+    }
     @GetMapping("/contact")
     public String contact() {
 

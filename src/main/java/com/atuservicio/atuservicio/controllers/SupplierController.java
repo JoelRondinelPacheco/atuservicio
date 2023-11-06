@@ -19,6 +19,8 @@ import com.atuservicio.atuservicio.services.interfaces.ISupplierService;
 import com.atuservicio.atuservicio.services.interfaces.IUserService;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.atuservicio.atuservicio.utils.PasswordValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -45,6 +47,9 @@ public class SupplierController {
 
     @Autowired
     ICategoryService categoryService;
+
+    @Autowired
+    private PasswordValidator passwordValidator;
 
     @GetMapping("/register")
     public String register(ModelMap model) {
@@ -223,10 +228,13 @@ public class SupplierController {
             // }
         }
 
-        if (password.isEmpty() || password == null || password.length() <= 5) {
-            errors.add(new UserRegisterErrorDTO("password",
-                    "La contraseña no puede estar vacía y deber tener mas de 5 caracteres"));
-        }
+       if (password.isEmpty() || password == null) {
+           errors.add(new UserRegisterErrorDTO("password", "La contraseña no puede estar vacía"));
+       } else {
+           if (!this.passwordValidator.isValid(password)) {
+               errors.add(new UserRegisterErrorDTO("password", "La contraseña debe contener numeros del 0 al 9, mayusculas y minusculas, y tener entre 5 y 15 caracteres"));
+           }
+       }
 
         if (!password.equals(password2)) {
             errors.add(new UserRegisterErrorDTO("password2", "Las contraseñas ingresadas deben ser iguales"));

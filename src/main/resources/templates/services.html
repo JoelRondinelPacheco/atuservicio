@@ -14,7 +14,7 @@
         <div class="row row-cols-4 px-5">                    
             <div class="col" th:each="user : ${users}">
                 <div class="card">
-                    <img src="https://random.imagecdn.app/300/250" class="card-img-top" alt="Servicio"/>
+                    <img th:src="@{/image/{imageCard}(imageCard=${user.imageCard})}" class="card-img-top" alt="Servicio"/>
                     <div class="card-body">
                         <h5 class="card-title text-truncate" th:text="${user.name}">Nombre</h5>
                         <p class="card-text text-truncate" th:text="${user.category.name}">Categoria</p>

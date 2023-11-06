@@ -8,7 +8,7 @@
 </header>
 <body>
 <div class="container">
-    <h1>Lista de Usuarios</h1>
+    <h1>Lista de Categorias</h1>
     <h3 th:text="${currentPage}"></h3>
     <h3 th:text="${totalPages}"></h3>
     <h3 th:text="${totalItems}"></h3>
@@ -20,34 +20,14 @@
         <thead>
         <tr>
             <th>Nombre</th>
-            <th>Correo Electrónico</th>
-            <th>Dirección</th>
-            <th>Ciudad</th>
-            <th>Provincia</th>
-            <th>País</th>
-             <th>Usuario activo</th>
         </tr>
         </thead>
         <tbody>
 
-        <tr th:each="client : ${clients}">
-            <td th:text="${client.name}"></td>
-            <td th:text="${client.email}"></td>
-            <td th:text="${client.address}"></td>
-            <td th:text="${client.city}"></td>
-            <td th:text="${client.province}"></td>
-            <td th:text="${client.country}"></td>
-            <td th:text="${client.active}"></td>
+        <tr th:each="category : ${categories}">
+            <td th:text="${category.name}"></td>
             <td>
-                <a th:href="@{/admin/clients/edit?clientId={clientId}(clientId=${client.id})}">Editar</a>
-            </td>
-            <td>
-                <div th:unless="${client.active}">
-                    <a th:href="@{/admin/clients/activate?clientId={clientId}(clientId=${client.id})}">Dar de alta</a>
-                </div>
-                <div th:if="${client.active}">
-                <a th:href="@{/admin/clients/delete?clientId={clientId}(clientId=${client.id})}">Dar de Baja</a>
-                </div>
+                <a th:href="@{/admin/category/edit?categoryId={categoryId}(categoryId=${category.id})}">Editar</a>
             </td>
         </tr>
         </tbody>
@@ -57,10 +37,10 @@
             <div class="col-sm-2">
                 Total Rows: [[${totalItems}]]
             </div>
-           <!-- <div class="col-sm-1">
-                <a th:if="${currentPage < totalPages}" th:href="@{'/admin/clients/' + ${currentPage + 1}}">Anterior</a>
-                <span th:unless="${currentPage < totalPages}">Anterior</span>
-            </div> -->
+            <!-- <div class="col-sm-1">
+                 <a th:if="${currentPage < totalPages}" th:href="@{'/admin/clients/' + ${currentPage + 1}}">Anterior</a>
+                 <span th:unless="${currentPage < totalPages}">Anterior</span>
+             </div> -->
             <div class="col-sm-1">
                 <span th:each="i: ${#numbers.sequence(1, totalPages)}">
                     <a th:if="${currentPage != i}" th:href="@{'/admin/clients/' + ${i}}">[[${i}]]</a>
