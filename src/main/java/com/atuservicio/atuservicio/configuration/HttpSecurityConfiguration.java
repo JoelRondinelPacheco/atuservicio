@@ -30,7 +30,7 @@ public class HttpSecurityConfiguration {
                         .loginProcessingUrl("/perform_login")
                         .usernameParameter("email")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/supplier/services")
                         .failureUrl("/login?error"))
                         // TODO agregar mensaje de error en la pagina
                 .logout(logout -> logout
