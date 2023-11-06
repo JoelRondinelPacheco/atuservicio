@@ -6,6 +6,10 @@
     <nav th:replace="fragments/navbar :: navbar"></nav>
 </header>
 
+<div th:if="${error != null}">
+    <h3 th:text="${error}"></h3>
+</div>
+
 <form
         th:action="@{/admin/category/edit/{categoryId}(categoryId=${category.id})}"
         method="POST"
@@ -13,11 +17,6 @@
         class="formulario-registro"
 >
     <div class="col-md-6">
-
-        <div class="form-group">
-            <img th:src="@{/image/{imageId}(imageId=${category.image_id})}" alt="">
-        </div>
-
         <div class="form-group">
 
             <div class="file-up">
@@ -53,7 +52,7 @@
         </div>
     </div>
 
-    <button type="submit" class="boton-sesion-registro">Actualizar</button>
+    <button type="submit" class="boton-sesion-registro">Crear</button>
 </form>
 
 <footer

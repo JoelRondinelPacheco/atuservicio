@@ -21,7 +21,6 @@ public class ImageController {
     @GetMapping("/{imageId}")
     public ResponseEntity<byte[]> getImageById (@PathVariable String imageId) throws MyException {
         byte[] imagen= this.imageService.getById(imageId).getContent();
-        System.out.println(imagen.toString());
 
 
         HttpHeaders headers = new HttpHeaders();

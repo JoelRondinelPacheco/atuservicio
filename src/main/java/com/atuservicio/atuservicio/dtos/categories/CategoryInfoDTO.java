@@ -14,5 +14,6 @@ public class CategoryInfoDTO {
     
     private String id;
     private String name;
+    private String image_id;
     
 }
