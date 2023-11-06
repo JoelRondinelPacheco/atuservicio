@@ -99,20 +99,30 @@ public class SupplierService implements ISupplierService {
 
     @Override
     public SupplierInfoDTO edit(EditSupplierDTO supplierDTO) throws MyException {
+        System.out.println(supplierDTO.getId());
         Optional<Supplier> supplierOptional = this.supplierRepository.findById(supplierDTO.getId());
         if (supplierOptional.isPresent()) {
             Supplier supplier = supplierOptional.get();
             supplier.setName(supplierDTO.getName());
-            String imageId = supplier.getImage().getId();
-            this.imageService.update(supplierDTO.getImage(), imageId);
+            if (!supplierDTO.getImage().isEmpty()) {
+                System.out.println("si imagen");
+                String imageId = supplier.getImage().getId();
+                this.imageService.update(supplierDTO.getImage(), imageId);
+            }
+            System.out.println("NO imagen");
             supplier.setAddress(supplierDTO.getAddress());
             supplier.setAddress_number(supplierDTO.getAddress_number());
             supplier.setCity(supplierDTO.getCity());
+            System.out.println(supplier.getCity());
             supplier.setProvince(supplierDTO.getProvince());
             supplier.setCountry(supplierDTO.getCountry());
             supplier.setPostal_code(supplierDTO.getPostal_code());
-            Category category = this.categoryRepository.findById(supplierDTO.getCategoryId()).get();
-            supplier.setCategory(category);
+            if (!supplierDTO.getCategoryId().equals(supplier.getCategory().getId())){
+                System.out.println("Distinta categoria");
+                Category category = this.categoryRepository.findById(supplierDTO.getCategoryId()).get();
+                supplier.setCategory(category);
+            }
+            System.out.println("Misma categoria");
             Supplier supplierSaved = this.supplierRepository.save(supplier);
             return this.createSupplierInfoDTO(supplierSaved);
         }

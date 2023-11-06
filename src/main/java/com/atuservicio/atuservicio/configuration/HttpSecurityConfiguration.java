@@ -1,7 +1,9 @@
 package com.atuservicio.atuservicio.configuration;
 
+import com.atuservicio.atuservicio.enums.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -14,8 +16,15 @@ public class HttpSecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrfConfig -> csrfConfig.disable())
-                .authorizeRequests(auth -> auth.
-                        anyRequest().permitAll())
+                .authorizeHttpRequests(auth -> auth
+                        .mvcMatchers("/css/*", "/js/*", "/img/*").permitAll()
+                        .mvcMatchers("/", "/search", "/contact", "/login", "/error", "/perform_login" ,
+                                    "/client/register", "/supplier/register", "/supplier/services", "/image/**").permitAll()
+                        .mvcMatchers("/profile", "/editUser", "/client/edit/**").authenticated()
+                        .mvcMatchers("/supplier/modify/**").hasRole(Role.SUPPLIER.name())
+                        .mvcMatchers("/admin/dashboard", "/admin/clients/**",
+                                    "/admin/suppliers/**", "/admin/categories", "admin/category/**").hasRole(Role.ADMIN.name())
+                        .anyRequest().denyAll())
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/perform_login")

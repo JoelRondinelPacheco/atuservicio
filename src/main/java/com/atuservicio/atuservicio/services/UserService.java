@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +46,7 @@ public class UserService implements IUserService {
 
         user.setRole(Role.CLIENT);
         if (userDTO.getImage().isEmpty()) {
+            System.out.println("imagen vacia");
             Image img = this.imageService.getById("d4fe09fd-56f6-4b55-a1b9-58671d68f1f1");
             Image imgUser = this.imageService.saveDefaultImage(img);
             user.setImage(imgUser);
@@ -91,13 +93,11 @@ public class UserService implements IUserService {
 
     @Override
     public UserInfoDTO edit(EditUserDTO userDTO) throws MyException {
-        // TODO CHECKEAR SE LA IMAGEN ES LA MISMA PARA NO HACER EL PROCESO DE GUARDA LA
-        // IMAGEN OTRA VEZ
         Optional<User> userOptional = this.userRepository.findById(userDTO.getId());
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             user.setName(userDTO.getName());
-            if (user.getImage() != null) {
+            if (!userDTO.getImage().isEmpty()) {
                 String imageId = user.getImage().getId();
                 this.imageService.update(userDTO.getImage(), imageId);
             }
@@ -180,7 +180,6 @@ public class UserService implements IUserService {
         }
         throw new MyException("Usuario no encontrado");
     }
-
     @Override
     public UserPaginatedDTO findPaginated(int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
@@ -191,7 +190,21 @@ public class UserService implements IUserService {
         }
         return new UserPaginatedDTO(usersInfo, users.getTotalPages(), users.getTotalElements());
     }
-
+/*
+    @Override
+    public UserPaginatedDTO findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(sortField).ascending()
+                : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        Page<User> users = this.userRepository.findAll(pageable);
+        List<UserInfoDTO> usersInfo = new ArrayList<>();
+        for (User user : users) {
+            usersInfo.add(this.createUserInfoDTO(user));
+        }
+        return new UserPaginatedDTO(usersInfo, users.getTotalPages(), users.getTotalElements());
+    }
+*/
     private UserInfoDTO createUserInfoDTO(User user) {
         UserInfoDTO userinfo = new UserInfoDTO(
                 user.getName(),
