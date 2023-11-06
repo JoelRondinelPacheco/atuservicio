@@ -1,7 +1,8 @@
 package com.atuservicio.atuservicio.controllers;
 
-import com.atuservicio.atuservicio.dtos.categories.CategoryExtendedInfoDTO;
 import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
+import com.atuservicio.atuservicio.dtos.categories.EditCategoryDTO;
+import com.atuservicio.atuservicio.dtos.categories.SaveCategoryDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserPaginatedDTO;
@@ -12,10 +13,8 @@ import com.atuservicio.atuservicio.services.interfaces.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -132,16 +131,44 @@ public class AdminController {
     }
 
     @GetMapping("/category/edit")
-    public String editCategory(@RequestParam String categoryId, ModelMap model) {
+    public String getEditCategory(@RequestParam String categoryId, ModelMap model) {
         try {
-            CategoryExtendedInfoDTO categoryInfo = this.categoryService.getFullInfoById(categoryId);
+            CategoryInfoDTO categoryInfo = this.categoryService.getById(categoryId);
             model.addAttribute("category", categoryInfo);
-            return null;
+            return "edit_category";
 
         } catch (MyException e) {
             throw new RuntimeException(e);
         }
     }
 
+    @PostMapping("/category/edit/{categoryId}")
+    public String postEditCategory(@PathVariable String categoryId, @RequestParam String name, @RequestParam(required = false) MultipartFile image, ModelMap model) {
+        try {
+            CategoryInfoDTO categoryInfo = this.categoryService.edit(new EditCategoryDTO(categoryId, name, image));
+            /*model.addAttribute("category", categoryInfo);
+            return "edit_category";*/
+            return this.categories(model);
 
+        } catch (MyException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @GetMapping("/category/create")
+    public String getCreateCategory(){
+        return "new_category";
+    }
+
+    @PostMapping("/category/create")
+    public String postCreateCategory(@RequestParam String name, @RequestParam MultipartFile image, ModelMap model) {
+        try {
+            CategoryInfoDTO category = this.categoryService.save(new SaveCategoryDTO(name, image));
+            return this.categories(model);
+        } catch (MyException e) {
+            model.put("error", e.getMessage());
+            return "new_category";
+        }
+
+    }
 }
