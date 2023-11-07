@@ -218,16 +218,16 @@ public class SupplierController {
 
             errors.add(new UserRegisterErrorDTO("email", "Email requerido"));
         } else {
+            try {
+                UserInfoDTO user = userService.getSearchEmailUser(email);
+                errors.add(new UserRegisterErrorDTO("email", "El usuario ya está registardo"));
+            } catch (MyException ex) {
 
-            // LoginPassDTO userSearch = new LoginPassDTO(email, password);
-            // UserInfoDTO user = userService.getSearchEmailUser(userSearch);
-            // if (user != null) {
-            // errors.add(new UserRegisterErrorDTO("email", "El usuario ya está
-            // registardo"));
-            // }
+            }
+            // TODO codigo innecesario para validar email, rompe el registro y sin esta parte funciona y valida correctamente el email
         }
 
-       if (password.isEmpty() || password == null) {
+        if (password.isEmpty() || password == null) {
            errors.add(new UserRegisterErrorDTO("password", "La contraseña no puede estar vacía"));
        } else {
            if (!this.passwordValidator.isValid(password)) {
