@@ -81,11 +81,10 @@
           </ul>
         </li>
         <li class="nav-item colorfont" sec:authorize="isAuthenticated()">
-            <a class="nav-link active colorfont" th:href="@{/profile}">
-              <i class="fas fa-sign-in-alt colorfont"></i>
-              Mi Perfil
-            </a>
-
+          <a class="nav-link active colorfont" th:href="@{/profile}">
+            <i class="fas fa-sign-in-alt colorfont"></i>
+            Mi Perfil
+          </a>
         </li>
         <li class="nav-item colorfont" sec:authorize="not isAuthenticated()">
           <a class="nav-link active colorfont" th:href="@{/login}">
