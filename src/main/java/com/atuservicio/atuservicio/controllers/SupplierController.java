@@ -70,7 +70,7 @@ public class SupplierController {
         if (city == null) {
             city = "";
         }
-
+        System.out.println("rubro:" + categoryId);
         try {
 
             List<UserRegisterErrorDTO> errors = validar(name, email, password,
@@ -262,7 +262,7 @@ public class SupplierController {
 
             errors.add(new UserRegisterErrorDTO("country", "País requerido"));
         }
-        if (categoryId.isEmpty() || categoryId == null) {
+        if (categoryId.isEmpty() || categoryId == null || categoryId.equals("Selecciona un rubro")) {
 
             errors.add(new UserRegisterErrorDTO("categoryId", "Rubro requerido"));
         }
