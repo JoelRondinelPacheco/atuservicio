@@ -1,104 +1,122 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="fragments/head :: head"></head>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 
-<head th:replace="fragments/head :: head"></head>
-
-<body>
+  <body>
     <header>
-        <nav th:replace="fragments/navbar :: navbar"></nav>
+      <nav th:replace="fragments/navbar :: navbar"></nav>
     </header>
-    <form th:action="@{/supplier/register}" method="POST" enctype="multipart/form-data" class="formulario-registro">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="name">Nombre:</label>
-                    <input type="text" class="form-control" id="name" name="name" th:value="${name}">
+    <div th:if="${not session.getAttribute('user')}">
+        <form th:action="@{/supplier/register}" method="POST" enctype="multipart/form-data" class="formulario-registro" th:if="${not session.getAttribute('user')}">
+            <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              th:value="${name}" />
+          </div>
+          <div th:if="${errors != null}">
+            <div th:each="error : ${errors}">
+              <div th:if="${error.name == 'name'}">
+                <div class="card text-white bg-danger mb-1">
+                  <div class="card-body">
+                    <p class="card-text" th:text="${error.nameMsg}"></p>
+                  </div>
                 </div>
-                <div th:if="${errors != null}">
-                    <div th:each="error : ${errors}">
-                        <div th:if="${error.name == 'name'}">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Correo Electrónico:</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              th:value="${email}" />
+          </div>
+          <div th:if="${errors != null}">
+            <div th:each="error : ${errors}">
+              <div th:if="${error.name == 'email'}">
+                <div class="card text-white bg-danger mb-3">
+                  <div class="card-body">
+                    <p class="card-text" th:text="${error.nameMsg}"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                            <div class="card text-white bg-danger mb-1">
-                                <div class="card-body">
-                                    <p class="card-text" th:text="${error.nameMsg}"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+          <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password" />
+          </div>
+          <div th:if="${errors != null}">
+            <div th:each="error : ${errors}">
+              <div th:if="${error.name == 'password'}">
+                <div class="card text-white bg-danger mb-3">
+                  <div class="card-body">
+                    <p class="card-text" th:text="${error.nameMsg}"></p>
+                  </div>
                 </div>
-                <div class="form-group">
-                    <label for="email">Correo Electrónico:</label>
-                    <input type="email" class="form-control" id="email" name="email" th:value="${email}">
-                </div>
-                <div th:if="${errors != null}">
-                    <div th:each="error : ${errors}">
-                        <div th:if="${error.name == 'email'}">
+              </div>
+            </div>
+          </div>
 
-                            <div class="card text-white bg-danger mb-3">
-                                <div class="card-body">
-                                    <p class="card-text" th:text="${error.nameMsg}"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+          <div class="form-group">
+            <label for="password2">Repetir Contraseña:</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password2"
+              name="password2" />
+          </div>
+          <div th:if="${errors != null}">
+            <div th:each="error : ${errors}">
+              <div th:if="${error.name == 'password2'}">
+                <div class="card text-white bg-danger mb-3">
+                  <div class="card-body">
+                    <p class="card-text" th:text="${error.nameMsg}"></p>
+                  </div>
                 </div>
+              </div>
+            </div>
+          </div>
 
-                <div class="form-group">
-                    <label for="password">Contraseña:</label>
-                    <input type="password" class="form-control" id="password" name="password" >
-                </div>
-                <div th:if="${errors != null}">
-                    <div th:each="error : ${errors}">
-                        <div th:if="${error.name == 'password'}">
-
-                            <div class="card text-white bg-danger mb-3">
-                                <div class="card-body">
-                                    <p class="card-text" th:text="${error.nameMsg}"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="password2">Repetir Contraseña:</label>
-                    <input type="password" class="form-control" id="password2" name="password2" >
-                </div>
-                <div th:if="${errors != null}">
-                    <div th:each="error : ${errors}">
-                        <div th:if="${error.name == 'password2'}">
-
-                            <div class="card text-white bg-danger mb-3">
-                                <div class="card-body">
-                                    <p class="card-text" th:text="${error.nameMsg}"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-
-                    <div class="file-up">
-                        <div class="file is-medium has-name">
-                            <label class="file-label">
-                                <input class="file-input" type="file" accept="image/jpeg" name="image" id="image">
-                                <span class="file-cta">
-                                    <span class="file-icon color-fondo-boton ">
-                                        <i class="fas fa-upload"></i>
-                                    </span>
-                                    <span class="file-label ">
-                                        Cargar
-                                    </span>
-                                </span>
-                                <span class="file-name color-fondo-boton ">
-                                    Imagen de Perfil
-                                </span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="form-group">
+          <div class="form-group">
+            <div class="file-up">
+              <div class="file is-medium has-name">
+                <label class="file-label">
+                  <input
+                    class="file-input"
+                    type="file"
+                    accept="image/jpeg"
+                    name="image"
+                    id="image" />
+                  <span class="file-cta">
+                    <span class="file-icon color-fondo-boton">
+                      <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label"> Cargar </span>
+                  </span>
+                  <span class="file-name color-fondo-boton">
+                    Imagen de Perfil
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="form-group">
                         <label for="image">Imagen de Perfil</label>
                         <input
                             type="file"
@@ -106,143 +124,171 @@
                             id="image"
                             name="image" />
                     </div> -->
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="address">Calle:</label>
-                    <input type="text" class="form-control" id="address" name="address" th:value="${address}">
-                </div>
-                <div th:if="${errors != null}">
-                    <div th:each="error : ${errors}">
-                        <div th:if="${error.name == 'address'}">
 
-                            <div class="card text-white bg-danger mb-3">
-                                <div class="card-body">
-                                    <p class="card-text" th:text="${error.nameMsg}"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="address_number">Número:</label>
-                    <input type="text" class="form-control" id="address_number" name="address_number" th:value="${address_number}">
-                </div>
-                <div th:if="${errors != null}">
-                    <div th:each="error : ${errors}">
-                        <div th:if="${error.name == 'address_number'}">
-
-                            <div class="card text-white bg-danger mb-3">
-                                <div class="card-body">
-                                    <p class="card-text" th:text="${error.nameMsg}"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="country">País:</label>
-                    <select type="text" class="form-control" id="country" name="country" th:value="${country}">
-                        <option value="Argentina" selected>Argentina</option>
-                    </select>
-                </div>
-                <div th:if="${errors != null}">
-                    <div th:each="error : ${errors}">
-                        <div th:if="${error.name == 'country'}">
-
-                            <div class="card text-white bg-danger mb-3">
-                                <div class="card-body">
-                                    <p class="card-text" th:text="${error.nameMsg}"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="province">Provincia:</label>
-                    <select class="form-control" id="province" name="province" th:value="${province}"> </select>
-                </div>
-                <div th:if="${errors != null}">
-                    <div th:each="error : ${errors}">
-                        <div th:if="${error.name == 'province'}">
-
-                            <div class="card text-white bg-danger mb-3">
-                                <div class="card-body">
-                                    <p class="card-text" th:text="${error.nameMsg}"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="city">Ciudad:</label>
-                    <select class="form-control" id="city" name="city" th:value="${city}"> </select>
-                </div>
-                <div th:if="${errors != null}">
-                    <div th:each="error : ${errors}">
-                        <div th:if="${error.name == 'city'}">
-
-                            <div class="card text-white bg-danger mb-3">
-                                <div class="card-body">
-                                    <p class="card-text" th:text="${error.nameMsg}"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="postal_code">Código Postal:</label>
-                    <input type="text" class="form-control" id="postal_code" name="postal_code" th:value="${postal_code}">
-                </div>
-                <div th:if="${errors != null}">
-                    <div th:each="error : ${errors}">
-                        <div th:if="${error.name == 'postal_code'}">
-
-                            <div class="card text-white bg-danger mb-3">
-                                <div class="card-body">
-                                    <p class="card-text" th:text="${error.nameMsg}"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="rubro">Rubro:</label>
-                    <select class="form-control" id="rubro" name="categoryId" th:value="${categoryId}">
-                        <option value="">Selecciona un rubro</option>
-                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
-                    </select>
-                </div>
-                <div th:if="${errors != null}">
-                    <div th:each="error : ${errors}">
-                        <div th:if="${error.name == 'categoryId'}">
-
-                            <div class="card text-white bg-danger mb-3">
-                                <div class="card-body">
-                                    <p class="card-text" th:text="${error.nameMsg}"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-        <button type="submit" class="boton-sesion-registro">Registrarse</button>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="address">Calle:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="address"
+              name="address"
+              th:value="${address}" />
+          </div>
+          <div th:if="${errors != null}">
+            <div th:each="error : ${errors}">
+              <div th:if="${error.name == 'address'}">
+                <div class="card text-white bg-danger mb-3">
+                  <div class="card-body">
+                    <p class="card-text" th:text="${error.nameMsg}"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="address_number">Número:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="address_number"
+              name="address_number"
+              th:value="${address_number}" />
+          </div>
+          <div th:if="${errors != null}">
+            <div th:each="error : ${errors}">
+              <div th:if="${error.name == 'address_number'}">
+                <div class="card text-white bg-danger mb-3">
+                  <div class="card-body">
+                    <p class="card-text" th:text="${error.nameMsg}"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="country">País:</label>
+            <select
+              type="text"
+              class="form-control"
+              id="country"
+              name="country"
+              th:value="${country}">
+              <option value="Argentina" selected>Argentina</option>
+            </select>
+          </div>
+          <div th:if="${errors != null}">
+            <div th:each="error : ${errors}">
+              <div th:if="${error.name == 'country'}">
+                <div class="card text-white bg-danger mb-3">
+                  <div class="card-body">
+                    <p class="card-text" th:text="${error.nameMsg}"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="province">Provincia:</label>
+            <select
+              class="form-control"
+              id="province"
+              name="province"
+              th:value="${province}"></select>
+          </div>
+          <div th:if="${errors != null}">
+            <div th:each="error : ${errors}">
+              <div th:if="${error.name == 'province'}">
+                <div class="card text-white bg-danger mb-3">
+                  <div class="card-body">
+                    <p class="card-text" th:text="${error.nameMsg}"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="city">Ciudad:</label>
+            <select
+              class="form-control"
+              id="city"
+              name="city"
+              th:value="${city}"></select>
+          </div>
+          <div th:if="${errors != null}">
+            <div th:each="error : ${errors}">
+              <div th:if="${error.name == 'city'}">
+                <div class="card text-white bg-danger mb-3">
+                  <div class="card-body">
+                    <p class="card-text" th:text="${error.nameMsg}"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="postal_code">Código Postal:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="postal_code"
+              name="postal_code"
+              th:value="${postal_code}" />
+          </div>
+          <div th:if="${errors != null}">
+            <div th:each="error : ${errors}">
+              <div th:if="${error.name == 'postal_code'}">
+                <div class="card text-white bg-danger mb-3">
+                  <div class="card-body">
+                    <p class="card-text" th:text="${error.nameMsg}"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="rubro">Rubro:</label>
+            <select
+              class="form-control"
+              id="rubro"
+              name="categoryId"
+              th:value="${categoryId}">
+              <option>Selecciona un rubro</option>
+              <option
+                th:each="category : ${categories}"
+                th:value="${category.id}"
+                th:text="${category.name}"></option>
+            </select>
+          </div>
+          <div th:if="${errors != null}">
+            <div th:each="error : ${errors}">
+              <div th:if="${error.name == 'categoryId'}">
+                <div class="card text-white bg-danger mb-3">
+                  <div class="card-body">
+                    <p class="card-text" th:text="${error.nameMsg}"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="boton-sesion-registro">Registrarse</button>
     </form>
     <div class="logo-registro">
-        <!-- <img src="/img/registro.webp" alt="Tu Logo" /> -->
+      <!-- <img src="/img/registro.webp" alt="Tu Logo" /> -->
     </div>
-    <footer th:replace="fragments/footer :: footer" class="fixed-footer">
-    </footer>
+    <footer
+      th:replace="fragments/footer :: footer"
+      class="fixed-footer"></footer>
     <script src="/js/search.js" type="text/javascript"></script>
 
     <link th:href="@{/css/register_client.css}" rel="stylesheet" />
-
-</body>
-
+  </body>
 </html>
