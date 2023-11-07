@@ -8,8 +8,7 @@
     <header>
       <nav th:replace="fragments/navbar :: navbar"></nav>
     </header>
-    <div th:if="${not session.getAttribute('user')}">
-        <form th:action="@{/supplier/register}" method="POST" enctype="multipart/form-data" class="formulario-registro" th:if="${not session.getAttribute('user')}">
+        <form th:action="@{/supplier/register}" method="POST" enctype="multipart/form-data" class="formulario-registro">
             <div class="row">
         <div class="col-md-6">
           <div class="form-group">
