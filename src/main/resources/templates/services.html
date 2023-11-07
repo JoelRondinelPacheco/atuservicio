@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/head :: head"></head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head th:replace="fragments/head :: head"></head>
+ <head>
+        <title>Servicios</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <nav th:replace="fragments/navbar :: navbar"></nav>
+    </head>
+    <body>
+        <br>
+        
+        <div class="container-fluid">
+        <div class="row row-cols-4 px-5">                    
 
-<head>
-    <title>Servicios</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <nav th:replace="fragments/navbar :: navbar"></nav>
-</head>
-
-<body>
-    <br>
-
-    <div class="container-fluid">
-        <div class="row row-cols-4 px-5">
             <div class="col" th:each="user : ${users}">
                 <div class="card">
                     <img th:src="@{/image/{imageCard}(imageCard=${user.imageCard})}" class="card-img-top"

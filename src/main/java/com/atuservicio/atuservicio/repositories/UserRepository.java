@@ -16,8 +16,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 
-    @Query("SELECT u FROM User u WHERE u.country = :country")
-    List<User> findUsersByCountry(@Param("country") String country);
 
     @Query("SELECT u FROM User u WHERE u.country = :userCountry AND u.city = :userCity")
     List<User> findUsersByCountryCity(@Param("userCountry") String userCountry, @Param("userCity") String userCity);
@@ -39,8 +37,10 @@ public interface UserRepository extends JpaRepository<User, String> {
             @Param("country") String country);
 
 
-    @Query("SELECT u FROM User u WHERE u.city = :city")
+    @Query("SELECT u FROM User u WHERE u.city = :city AND u.role = 'SUPPLIER'")
     public List<User> findUsersByCity(@Param("city")String city);
-    @Query("SELECT u FROM User u WHERE u.province = :province")
+    @Query("SELECT u FROM User u WHERE u.province = :province  AND u.role = 'SUPPLIER'")
     public List<User> findUsersByProvince(@Param("province") String province);
+    @Query("SELECT u FROM User u WHERE u.country = :country  AND u.role = 'SUPPLIER'")
+    List<User> findUsersByCountry(@Param("country") String country);
 }

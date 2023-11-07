@@ -1,47 +1,58 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="fragments/head :: head"></head>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto - Atuservicio</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
+
+
+
+  <body>
+
     <header>
-        <nav th:replace="fragments/navbar :: navbar"></nav>
-      </header>
+      <nav th:replace="fragments/navbar :: navbar"></nav>
+    </header>
     <div class="container mt-5">
-        <h1>Contacto</h1>
-        <p>¡Conéctate con nosotros a través de nuestras redes sociales o envíanos un correo electrónico!</p>
-        
-        <div class="redes-sociales mt-4">
-            <a href="https://www.instagram.com/atuservicioteam" target="_blank" class="mr-3">
-                <img src="instagram.png" alt="Instagram">
-            </a>
-            <a href="https://www.facebook.com/people/Atuservicio/61553224941936/" target="_blank" class="mr-3">
-                <img src="facebook.png" alt="Facebook">
-            </a>
-            <a href="mailto:atuservicioteam@gmail.com">
-                <img src="email.png" alt="Correo Electrónico">
-            </a>
-        </div>
-        <br>
-        
-        <h3>Miembros del Equipo C</h3>
-        <h4>Randinel Pacheco Joel</h4>
-        <h4>Verdini Juan</h4>
-        <h4>Hernández Darío</h4>
-        <h4>Vallejos Facundo</h4>
-        <h4>Rameri Javier</h4>
-        <h4>Macharette Sebastián</h4>
-        <h4>Müller Kevin</h4>
-        <h4>Steklein Roberto</h4>
-        
-        
+      <h1>Contacto</h1>
+      <p>
+        ¡Conéctate con nosotros a través de nuestras redes sociales o envíanos
+        un correo electrónico!
+      </p>
+
+      <div class="redes-sociales mt-4">
+        <a
+          href="https://www.instagram.com/atuservicioteam"
+          target="_blank"
+          class="mr-3">
+          <img src="instagram.png" alt="Instagram" />
+        </a>
+        <a
+          href="https://www.facebook.com/people/Atuservicio/61553224941936/"
+          target="_blank"
+          class="mr-3">
+          <img src="facebook.png" alt="Facebook" />
+        </a>
+        <a href="mailto:atuservicioteam@gmail.com">
+          <img src="email.png" alt="Correo Electrónico" />
+        </a>
+      </div>
+      <br />
+
+      <h3>Miembros del Equipo C</h3>
+      <h4>Randinel Pacheco Joel</h4>
+      <h4>Verdini Juan</h4>
+      <h4>Hernández Darío</h4>
+      <h4>Vallejos Facundo</h4>
+      <h4>Rameri Javier</h4>
+      <h4>Macharette Sebastián</h4>
+      <h4>Müller Kevin</h4>
+      <h4>Steklein Roberto</h4>
     </div>
     <footer th:replace="fragments/footer :: footer"></footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+  </body>
 </html>

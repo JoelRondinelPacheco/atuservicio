@@ -18,6 +18,7 @@ import com.atuservicio.atuservicio.services.UserService;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.atuservicio.atuservicio.services.interfaces.IUserService;
 import com.atuservicio.atuservicio.utils.PasswordValidator;
 import org.hibernate.hql.internal.ast.tree.IsNullLogicOperatorNode;
 
@@ -42,7 +43,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    IUserService userService;
     @Autowired
     private PasswordValidator passwordValidator;
 
@@ -196,12 +197,12 @@ public class UserController {
             
             errors.add(new UserRegisterErrorDTO("email", "Email requerido"));
         } else {
-            
-            // LoginPassDTO userSearch = new LoginPassDTO(email, password);
-            // UserInfoDTO user = userService.getSearchEmailUser(userSearch);
-            // if(user!=null){
-            //     errors.add(new UserRegisterErrorDTO("email", "El usuario ya está registardo"));
-            // }
+            try {
+                UserInfoDTO user = userService.getSearchEmailUser(email);
+                errors.add(new UserRegisterErrorDTO("email", "El usuario ya está registardo"));
+            } catch (MyException ex) {
+
+            }
             // TODO codigo innecesario para validar email, rompe el registro y sin esta parte funciona y valida correctamente el email
         }
        
