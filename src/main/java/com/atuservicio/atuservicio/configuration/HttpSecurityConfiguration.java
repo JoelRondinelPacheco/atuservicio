@@ -25,7 +25,7 @@ public class HttpSecurityConfiguration {
                         .mvcMatchers("/supplier/modify/**").hasRole(Role.SUPPLIER.name())
                         .mvcMatchers("/admin/dashboard", "/admin/clients/**",
                                     "/admin/suppliers/**", "/admin/categories", "admin/category/**").hasRole(Role.ADMIN.name())
-                        .anyRequest().denyAll())
+                        .anyRequest().permitAll())
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/perform_login")
