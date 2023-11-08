@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<head>
+    <title>Servicios</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+</head>
+<body>
+<header>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+</header>
+
+<form>
+    <div class="mb-3">
+        <label for="descripcion" class="form-label">Descripcion</label>
+        <textarea class="form-control" id="descripcion" name="comment"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="tarifa" class="form-label">Tarifa</label>
+        <input type="text" class="form-control" id="tarifa">
+    </div>
+    <div class="mb-3 form-check">
+        <!--
+         Corrousel de imagenes
+         Cada una con un boton de editar, o eliminar, y agregar
+         Implementarlo con JS y guardar cambios al enviar solicitud
+         -->
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Las imagenes cargadas</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Editar</button>
+</form>
+</body>
+<footer th:replace="fragments/footer :: footer"></footer>
+<link th:href="@{/css/services.css}" rel="stylesheet" />
+</html>

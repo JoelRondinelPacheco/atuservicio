@@ -36,5 +36,7 @@ public class Contract extends Base{
     private Date date;
     
     private State state;
+
+    private String details;
     
 }
