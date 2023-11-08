@@ -13,32 +13,38 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class HttpSecurityConfiguration {
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrfConfig -> csrfConfig.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .mvcMatchers("/css/*", "/js/*", "/img/*").permitAll()
-                        .mvcMatchers("/", "/search", "/contact", "/login", "/error", "/perform_login" ,
-                                    "/client/register", "/supplier/register", "/supplier/services", "/image/**").permitAll()
-                        .mvcMatchers("/profile", "/editUser", "/client/edit/**", "/supplier/profile/**").authenticated()
-                        .mvcMatchers("/supplier/modify/**").hasRole(Role.SUPPLIER.name())
-                        .mvcMatchers("/admin/dashboard", "/admin/clients/**",
-                                    "/admin/suppliers/**", "/admin/categories", "admin/category/**").hasRole(Role.ADMIN.name())
-                        .anyRequest().permitAll())
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .loginProcessingUrl("/perform_login")
-                        .usernameParameter("email")
-                        .passwordParameter("password")
-                        .defaultSuccessUrl("/supplier/services")
-                        .failureUrl("/login?error"))
-                .logout(logout -> logout
-                                .logoutUrl("/perform_logout")
-                                .logoutSuccessUrl("/")
-                                .deleteCookies("JSESSIONID")
-                );
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+                http
+                                .csrf(csrfConfig -> csrfConfig.disable())
+                                .authorizeHttpRequests(auth -> auth
+                                                .mvcMatchers("/css/*", "/js/*", "/img/*").permitAll()
+                                                .mvcMatchers("/", "/search", "/contact", "/login", "/error",
+                                                                "/perform_login",
+                                                                "/client/register", "/supplier/register",
+                                                                "/supplier/services", "/image/**")
+                                                .permitAll()
+                                                .mvcMatchers("/profile", "/editUser", "/client/edit/**",
+                                                                "/supplier/profile/** , \"/supplier/workPreview/**\"")
+                                                .authenticated()
+                                                .mvcMatchers("/supplier/modify/**").hasRole(Role.SUPPLIER.name())
+                                                .mvcMatchers("/admin/dashboard", "/admin/clients/**",
+                                                                "/admin/suppliers/**", "/admin/categories",
+                                                                "admin/category/**")
+                                                .hasRole(Role.ADMIN.name())
+                                                .anyRequest().permitAll())
+                                .formLogin(form -> form
+                                                .loginPage("/login")
+                                                .loginProcessingUrl("/perform_login")
+                                                .usernameParameter("email")
+                                                .passwordParameter("password")
+                                                .defaultSuccessUrl("/supplier/services")
+                                                .failureUrl("/login?error"))
+                                .logout(logout -> logout
+                                                .logoutUrl("/perform_logout")
+                                                .logoutSuccessUrl("/")
+                                                .deleteCookies("JSESSIONID"));
 
-        return http.build();
-    }
+                return http.build();
+        }
 }
