@@ -25,7 +25,7 @@ public class HttpSecurityConfiguration {
                                                                 "/supplier/services", "/image/**")
                                                 .permitAll()
                                                 .mvcMatchers("/profile", "/editUser", "/client/edit/**",
-                                                                "/supplier/profile/** , \"/supplier/workPreview/**\"")
+                                                                "/supplier/profile/**")
                                                 .authenticated()
                                                 .mvcMatchers("/supplier/modify/**").hasRole(Role.SUPPLIER.name())
                                                 .mvcMatchers("/admin/dashboard", "/admin/clients/**",
