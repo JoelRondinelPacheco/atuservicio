@@ -7,6 +7,8 @@ package com.atuservicio.atuservicio.controllers;
 
 import com.atuservicio.atuservicio.dtos.LoginPassDTO;
 import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
+import com.atuservicio.atuservicio.dtos.services.EditServiceInfoDTO;
+import com.atuservicio.atuservicio.dtos.services.ServiceInfoDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.EditSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SaveSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
@@ -250,9 +252,8 @@ public class SupplierController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
 
-        SupplierInfoDTO user = supplierService.getByEmail(email);
-
-        model.addAttribute("user", user);
+        ServiceInfoDTO service = this.supplierService.getServiceInfo(email);
+        model.addAttribute("service", service);
 
         return "work.html";
 
@@ -264,11 +265,28 @@ public class SupplierController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
 
-        SupplierInfoDTO user = supplierService.getByEmail(email);
+        ServiceInfoDTO service = this.supplierService.getServiceInfo(email);
 
-        model.addAttribute("user", user);
+        model.addAttribute("service", service);
 
         return "work_edit.html";
+
+    }
+
+    @PostMapping("/workEdit")
+    public String postWorkInfo(@RequestParam String description, @RequestParam Double priceHour, @RequestParam(required = false) List<MultipartFile> images, @RequestParam(required = false) List<String> delete,  ModelMap model) throws MyException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        try {
+            System.out.println(images);
+            ServiceInfoDTO service = this.supplierService.editServiceInfo(new EditServiceInfoDTO(email, description, priceHour, images, delete));
+            model.addAttribute("service", service);
+            model.addAttribute("exito", "Servicio actualizado correctamente");
+            return "work";
+        } catch (MyException e) {
+            model.addAttribute("error", "Algo salio mal");
+            return this.workEdit(model);
+        }
 
     }
 

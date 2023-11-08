@@ -3,13 +3,8 @@
 package com.atuservicio.atuservicio.entities;
 
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,5 +36,9 @@ public class Supplier extends User {
     
     private Double priceHour;
     
-    // TODO PREPERSIST IMAGE
+    @PrePersist
+    private void prePersist() {
+        this.priceHour = 0D;
+        this.description = "";
+    }
 }

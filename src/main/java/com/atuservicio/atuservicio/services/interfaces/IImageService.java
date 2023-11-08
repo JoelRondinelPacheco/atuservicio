@@ -11,4 +11,5 @@ public interface IImageService {
     Image getById(String id) throws MyException;
     Image update(MultipartFile archive, String id) throws MyException;
 
+    void delete(String imageId) throws MyException;
 }

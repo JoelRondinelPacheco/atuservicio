@@ -64,17 +64,11 @@
         id="myCarousel"
         class="carousel carousel-static slide"
         data-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="imagen1.jpg" class="d-block w-100" alt="Imagen 1" />
+        <div class="carousel-inner" th:each="image, imageStart : ${service.imageGallery}">
+          <div th:attr="class=${imageStart.index == 0 ? 'carousel-item active' : 'carousel-item'}">
+            <img th:src="'/image/' + ${image}" class="d-block w-100" alt="Imagen 1" />
           </div>
-          <div class="carousel-item">
-            <img src="imagen2.jpg" class="d-block w-100" alt="Imagen 2" />
           </div>
-          <div class="carousel-item">
-            <img src="imagen3.jpg" class="d-block w-100" alt="Imagen 3" />
-          </div>
-        </div>
         <a
           class="carousel-control-prev"
           href="#myCarousel"
@@ -93,6 +87,8 @@
         </a>
       </div>
     </div>
+    <a th:href="@{/supplier/workEdit}">edit</a>
+
 
     <footer th:replace="fragments/footer :: footer"></footer>
     <script

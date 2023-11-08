@@ -4,6 +4,9 @@
  */
 package com.atuservicio.atuservicio.services;
 
+import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
+import com.atuservicio.atuservicio.dtos.services.EditServiceInfoDTO;
+import com.atuservicio.atuservicio.dtos.services.ServiceInfoDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.EditSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SaveSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
@@ -22,6 +25,7 @@ import com.atuservicio.atuservicio.services.interfaces.ISupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +46,8 @@ public class SupplierService implements ISupplierService {
     private CategoryRepository categoryRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CategoryService categoryService;
 
     @Override
     public SupplierInfoDTO save(SaveSupplierDTO supplierDTO) throws MyException {
@@ -211,6 +217,37 @@ public class SupplierService implements ISupplierService {
         return infoSuppliers;
     }
 
+    public ServiceInfoDTO getServiceInfo(String id) throws MyException{
+        Optional<Supplier> supplierOptional = this.supplierRepository.findByEmailSupplier(id);
+        if (supplierOptional.isPresent()) {
+            Supplier supplier = supplierOptional.get();
+            return this.createServiceInfoDTO(supplier);
+        }
+        throw new MyException("Supplier no encontrado");
+    }
+
+    //TODO COMPLETE IMAGE EDITION
+    public ServiceInfoDTO editServiceInfo(EditServiceInfoDTO service) throws MyException {
+        Optional<Supplier> supplierOptional = this.supplierRepository.findByEmailSupplier(service.getEmail());
+        if (supplierOptional.isPresent()) {
+            Supplier supplier = supplierOptional.get();
+            supplier.setDescription(service.getDescription());
+            supplier.setPriceHour(service.getPriceHour());
+            List<Image> images = new ArrayList<>();
+            for (MultipartFile img : service.getImages()) {
+                Image image = this.imageService.save(img, supplier);
+                images.add(image);
+            }
+
+            for (String imageId : service.getDeletedImages()) {
+                this.imageService.delete(imageId);
+            }
+            supplier.setImageGallery(images);
+            Supplier supplierSaved = this.supplierRepository.save(supplier);
+            return this.createServiceInfoDTO(supplierSaved);
+        }
+        throw new MyException("Supplier no encontrado");
+    }
     private SupplierInfoDTO createSupplierInfoDTO(Supplier supplier) {
         return new SupplierInfoDTO(
                 supplier.getName(),
@@ -230,4 +267,21 @@ public class SupplierService implements ISupplierService {
 
         );
     }
+
+    private ServiceInfoDTO createServiceInfoDTO(Supplier supplier) throws MyException {
+        List<String> images = new ArrayList<>();
+        List<Image> imgs = supplier.getImageGallery();
+        System.out.println(imgs.size());
+        for (Image img : imgs) {
+            images.add(img.getId());
+            System.out.println("asdas");
+            System.out.println(img.getId());
+        }
+        CategoryInfoDTO category = this.categoryService.getById(supplier.getCategory().getId());
+        return new ServiceInfoDTO(supplier.getName(), supplier.getEmail(), supplier.getImageCard().getId(), category, supplier.getDescription(), supplier.getPriceHour(), images);
+    }
+
+
+
 }
+
