@@ -30,6 +30,10 @@ public class Supplier extends User {
     
     @OneToMany(mappedBy = "supplier")
     private List<Contract> contractsAsSupplier;
+    
+    @OneToMany(mappedBy = "supplier")
+    private List<Request> requests_received;
+    
 
     // TODO PREPERSIST IMAGE
 }
