@@ -17,4 +17,5 @@ public class EditServiceInfoDTO {
     private String description;
     private Double priceHour;
     private List<MultipartFile> images;
+    private List<String> deletedImages;
 }

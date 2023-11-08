@@ -194,6 +194,10 @@ public class SupplierService implements ISupplierService {
                 Image image = this.imageService.save(img, supplier);
                 images.add(image);
             }
+
+            for (String imageId : service.getDeletedImages()) {
+                this.imageService.delete(imageId);
+            }
             supplier.setImageGallery(images);
             Supplier supplierSaved = this.supplierRepository.save(supplier);
             return this.createServiceInfoDTO(supplierSaved);

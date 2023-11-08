@@ -86,7 +86,17 @@ public class ImageService implements IImageService {
             throw new MyException("La imagen no pudo ser creada");
         }
     }
-//@Transactional
+
+    @Override
+    public void delete(String imageId) throws MyException {
+        Optional<Image> imgOptional = this.imageRepository.findById(imageId);
+        if (imgOptional.isPresent()) {
+            this.imageRepository.deleteById(imageId);
+        }
+        throw new MyException("Imagen no encontrada");
+    }
+
+    //@Transactional
     @Transactional
     public Image saveDefaultImage(Image image) {
         Image img = new Image();

@@ -11,7 +11,7 @@
     <nav th:replace="fragments/navbar :: navbar"></nav>
 </header>
 
-<form th:action="@{/supplier/workEdit}" method="POST" enctype="multipart/form-data"
+<form th:action="@{/supplier/workEdit}" method="POST" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="descripcion" class="form-label">Descripcion</label>
         <textarea class="form-control" id="descripcion" name="description" th:text="${service.description}"></textarea>
@@ -21,11 +21,29 @@
         <input type="text" class="form-control" id="tarifa" name="priceHour" th:text="${service.priceHour}">
     </div>
     <div class="mb-3">
-        <label for="file-input" class="form-label">Multiple files input example</label>
-        <input class="form-control" type="file" id="file-input" accept="image/jpeg" name="images" onchange="preview()"  multiple>
-        <div id="images"></div>
+        <label for="file-input" class="form-label btn btn-primary">Examinar...</label>
+        <input class="form-control" type="file" id="file-input" accept="image/jpeg" name="images" onchange="preview()"  multiple style="display: none;">
+        <p id="num-of-files">No hay imagenes seleccionadas</p>
+        <div id="images" class="container d-flex flex-row"></div>
+        <div class="container d-flex flex-row">
+            <div th:each="image : ${service.imageGallery}">
+                <div class="card" style="width: 18rem;">
+                    <img th:src="@{'/image/' + ${image}}"  class="card-img-top" alt="">
+                        <label class="card-body">
+                        <input type="checkbox" name="delete" th:value="${image}">
+                        Eliminar
+                        </label>
+                </div>
+            </div>
+        </div>
 
     </div>
+<!-- <div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+        <a href="#" class="btn btn-primary"></a>
+    </div>
+</div> -->
 
     <button type="submit" class="btn btn-primary">Editar</button>
 </form>

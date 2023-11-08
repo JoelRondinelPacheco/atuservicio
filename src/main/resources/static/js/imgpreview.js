@@ -1,29 +1,52 @@
 let fileInput = document.getElementById("file-input");
 let imageContainer = document.getElementById("images");
+let numOfFiles = document.getElementById("num-of-files");
 
 function preview(){
     imageContainer.innerHTML = "";
+    const files = fileInput.files;
+    numOfFiles.textContent = `${fileInput.files.length} imagenes seleccionadas`;
 
-    for(i of fileInput.files){
+    for(let i = 0; i < files.length; i++){
         let reader = new FileReader();
-        let figure = document.createElement("figure");
-        let figCap = document.createElement("figcaption");
+        const file = files[i];
+
+        
+        let container = document.createElement("div");
+        container.className = 'card';
+        container.setAttribute("style", "width: 18rem;")
+
         let img = document.createElement("img");
-        let deleteButton = document.createElement("button");
+        img.className = 'card-img-top';
+      //  img.setAttribute("id", "new");
 
-        figCap.innerText = i.name;
+        let cardBody = document.createElement("div");
+        cardBody.className = 'card-body';
+        //Delete button
+        let deleteButton = document.createElement("a");
         deleteButton.innerText = "Eliminar"
-        deleteButton.addEventListener("click", () => {
-            imageContainer.removeChild(figure);
-        })
+        deleteButton.className = 'btn btn-primary';
 
-        figure.appendChild(img);
-        figure.appendChild(figCap);
-        figure.appendChild(deleteButton);
+        deleteButton.addEventListener("click", function() {
+            imageContainer.removeChild(container);
+            removeFile(file);
+        })
         reader.onload=()=>{
             img.setAttribute("src",reader.result);
+
         }
-        imageContainer.appendChild(figure);
-        reader.readAsDataURL(i);
+
+        cardBody.appendChild(deleteButton);
+        container.appendChild(img);
+        container.appendChild(cardBody);
+        imageContainer.appendChild(container);
+        reader.readAsDataURL(file);
+
     }
+    }
+function removeFile(fileToRemove) {
+    const newFiles = Array.from(fileInput.files).filter(file => file !== fileToRemove);
+    fileInput.files = new FileList(newFiles);
+    numOfFiles.textContent = `${fileInput.files.length} imagenes seleccionadas`;
+
 }

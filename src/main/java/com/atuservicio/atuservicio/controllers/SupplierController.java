@@ -236,11 +236,12 @@ public class SupplierController {
     }
 
     @PostMapping("/workEdit")
-    public String postWorkInfo(@RequestParam String description, @RequestParam Double priceHour, @RequestParam List<MultipartFile> images,  ModelMap model) throws MyException {
+    public String postWorkInfo(@RequestParam String description, @RequestParam Double priceHour, @RequestParam(required = false) List<MultipartFile> images, @RequestParam(required = false) List<String> delete,  ModelMap model) throws MyException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         try {
-            ServiceInfoDTO service = this.supplierService.editServiceInfo(new EditServiceInfoDTO(email, description, priceHour, images));
+            System.out.println(images);
+            ServiceInfoDTO service = this.supplierService.editServiceInfo(new EditServiceInfoDTO(email, description, priceHour, images, delete));
             model.addAttribute("service", service);
             model.addAttribute("exito", "Servicio actualizado correctamente");
             return "work";
