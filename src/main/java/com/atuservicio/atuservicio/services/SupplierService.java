@@ -10,6 +10,8 @@ import com.atuservicio.atuservicio.dtos.services.ServiceInfoDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.EditSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SaveSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
+import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
+import com.atuservicio.atuservicio.dtos.users.UserSearchDTO;
 import com.atuservicio.atuservicio.entities.Category;
 import com.atuservicio.atuservicio.entities.Image;
 import com.atuservicio.atuservicio.entities.Supplier;
@@ -90,7 +92,7 @@ public class SupplierService implements ISupplierService {
         } else {
             throw new MyException("Supplier no encontrado");
         }
-        
+
     }
 
     @Override
@@ -123,7 +125,7 @@ public class SupplierService implements ISupplierService {
             supplier.setProvince(supplierDTO.getProvince());
             supplier.setCountry(supplierDTO.getCountry());
             supplier.setPostal_code(supplierDTO.getPostal_code());
-            if (!supplierDTO.getCategoryId().equals(supplier.getCategory().getId())){
+            if (!supplierDTO.getCategoryId().equals(supplier.getCategory().getId())) {
                 System.out.println("Distinta categoria");
                 Category category = this.categoryRepository.findById(supplierDTO.getCategoryId()).get();
                 supplier.setCategory(category);
@@ -158,6 +160,7 @@ public class SupplierService implements ISupplierService {
         }
         throw new MyException("Supplier no encontrado");
     }
+
     @Override
     public SupplierInfoDTO getByEmail(String email) throws MyException {
         Optional<User> userOptional = this.userRepository.findByEmail(email);
@@ -170,7 +173,48 @@ public class SupplierService implements ISupplierService {
                 return this.createSupplierInfoDTO(supplierOptional.get());
             }
         }
-        throw new MyException("Supplier no encontrado");
+        throw new MyException("Proveedor no encontrado por email");
+    }
+
+    public List<SupplierInfoDTO> getSearchSuppliers(UserSearchDTO userSearch) {
+        List<SupplierInfoDTO> userInformation = new ArrayList<>();
+        System.out.println(userSearch.getCountry());
+        if (userSearch.getCity() == null) {
+            userSearch.setCity("");
+        }
+        if (!userSearch.getCity().isEmpty()) {
+
+            List<Supplier> users = supplierRepository.findSuppliersByCity(userSearch.getCity());
+            return userInformation = getListSupplierInfoDTO(users);
+
+        } else if (!userSearch.getProvince().isEmpty()) {
+
+            List<Supplier> users = supplierRepository.findSuppliersByProvince(userSearch.getProvince());
+            return userInformation = getListSupplierInfoDTO(users);
+
+        } else if (!userSearch.getCountry().isEmpty()) {
+
+            List<Supplier> users = supplierRepository.findSuppliersByCountry(userSearch.getCountry());
+            return userInformation = getListSupplierInfoDTO(users);
+
+        }
+
+        return userInformation;
+    }
+
+    private List<SupplierInfoDTO> getListSupplierInfoDTO(List<Supplier> users) {
+
+        List<SupplierInfoDTO> infoSuppliers = new ArrayList<>();
+
+        for (Supplier user : users) {
+
+            System.out.println(user);
+            SupplierInfoDTO supplierInfo = createSupplierInfoDTO(user);
+            infoSuppliers.add(supplierInfo);
+
+        }
+
+        return infoSuppliers;
     }
 
     public ServiceInfoDTO getServiceInfo(String id) throws MyException{

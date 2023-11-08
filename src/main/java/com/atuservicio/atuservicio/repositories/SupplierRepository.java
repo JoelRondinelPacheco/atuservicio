@@ -2,6 +2,8 @@
 package com.atuservicio.atuservicio.repositories;
 
 import com.atuservicio.atuservicio.entities.Supplier;
+import com.atuservicio.atuservicio.entities.User;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -34,5 +36,14 @@ public interface SupplierRepository extends JpaRepository<Supplier, String> {
             @Param("province") String province,
 
             @Param("country") String country);
+
+    @Query("SELECT u FROM Supplier u WHERE u.city = :city")
+    public List<Supplier> findSuppliersByCity(@Param("city") String city);
+
+    @Query("SELECT u FROM Supplier u WHERE u.province = :province")
+    public List<Supplier> findSuppliersByProvince(@Param("province") String province);
+
+    @Query("SELECT u FROM Supplier u WHERE u.country = :country")
+    public List<Supplier> findSuppliersByCountry(@Param("country") String country);
 
 }
