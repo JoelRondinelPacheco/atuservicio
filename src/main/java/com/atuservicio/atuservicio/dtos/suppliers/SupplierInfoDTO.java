@@ -17,17 +17,14 @@ import lombok.Setter;
 public class SupplierInfoDTO extends UserInfoDTO {
     private Category category;
     private String imageCard;
-    private List <Image> imageGallery;
+   /* private List <Image> imageGallery;
     private String description;
-    private Long priceHour;
+    private Long priceHour;*/
     
-    public SupplierInfoDTO(String name, String email, Role role, String image, String address, Long address_number, String city, String province, String country, String postal_code, String id, Category category, Boolean active, String imageCard, List <Image> imageGallery, String description, Long priceHour) {
+    public SupplierInfoDTO(String name, String email, Role role, String image, String address, Long address_number, String city, String province, String country, String postal_code, String id, Category category, Boolean active, String imageCard) {
         super(name, email, role, image, address, address_number, city, province, country, postal_code, id, active);
         this.category = category;
         this.imageCard = imageCard;
-        this.imageGallery = imageGallery;
-        this.description = description;
-        this.priceHour = priceHour;
         
     }
 }
