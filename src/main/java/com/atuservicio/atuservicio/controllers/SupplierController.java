@@ -22,6 +22,8 @@ import java.util.List;
 
 import com.atuservicio.atuservicio.utils.PasswordValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,7 +72,7 @@ public class SupplierController {
         if (city == null) {
             city = "";
         }
-
+        System.out.println("rubro:" + categoryId);
         try {
 
             List<UserRegisterErrorDTO> errors = validar(name, email, password,
@@ -204,6 +206,36 @@ public class SupplierController {
 
     }
 
+    @GetMapping("/workPreview")
+        public String workPreview( ModelMap model) throws MyException {
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        
+        SupplierInfoDTO user = supplierService.getByEmail(email);
+
+        model.addAttribute("user", user);
+
+        return "work.html";
+
+    }
+    
+        @GetMapping("/workEdit")
+        public String workEdit( ModelMap model) throws MyException {
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        
+        SupplierInfoDTO user = supplierService.getByEmail(email);
+
+        model.addAttribute("user", user);
+
+        return "work_edit.html";
+
+    }
+    
+    
+    
     private List<UserRegisterErrorDTO> validar(String name, String email,
             String password, String password2,
             String address, Long address_number, String postal_code,
@@ -262,7 +294,7 @@ public class SupplierController {
 
             errors.add(new UserRegisterErrorDTO("country", "País requerido"));
         }
-        if (categoryId.isEmpty() || categoryId == null) {
+        if (categoryId.isEmpty() || categoryId == null || categoryId.equals("Selecciona un rubro")) {
 
             errors.add(new UserRegisterErrorDTO("categoryId", "Rubro requerido"));
         }
