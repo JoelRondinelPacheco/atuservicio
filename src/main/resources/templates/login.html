@@ -36,27 +36,16 @@
                         <input type="password" class="form-control label-login-login" id="exampleInputPassword1"
                             name="password">
                     </div>
-                   
+
 
                     <div class="login-contenedor d-flex justify-content-center">
                         <button type="submit" class="btn btn-warning">Iniciar Sesión</button>
                     </div>
-                     
-                    <div class="mb-2">
+
+                    <div class="mb-2 text-center">
                         <a href="#">¿Olvidaste la contraseña?</a>
 
 
-                    </div>
-                    <div class="dropdown">
-                        <a class="btn btn-warning dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Registrate!
-                        </a>
-
-                        <ul class="dropdown-menu ">
-                            <li><a class="dropdown-item" href="client/register">Quiero ser cliente</a></li>
-                            <li><a class="dropdown-item" href="supplier/register">Quiero ser proveedor</a></li>
-                        </ul>
                     </div>
                     <div th:if="${exito != null}" class="card text-white bg-success mb-3 mensajeExito">
                         <div class="card-body">
