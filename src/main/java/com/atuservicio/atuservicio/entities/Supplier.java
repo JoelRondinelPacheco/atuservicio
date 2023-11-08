@@ -33,7 +33,8 @@ public class Supplier extends User {
     
     @OneToMany(mappedBy = "supplier")
     private List<Request> requests_received;
-    
+
+    @OneToMany(mappedBy = "supplier")
     private List<Image> imageGallery;
     
     private String description;
