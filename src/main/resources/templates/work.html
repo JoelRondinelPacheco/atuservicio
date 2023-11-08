@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<head>
+    <title>Servicios</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<header>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+</header>
+
+<div class="container">
+    <div class="mb-3">
+        <h3 th:text="${service.description}"></h3>
+        <h3 th:text="${service.priceHour}"></h3>
+    </div>
+    <div class="mb-3">
+       <div th:each="image : ${service.imageGallery}">
+           <img th:src="@{'/image/' + ${image}}" alt="">
+       </div>
+    </div>
+
+</div>
+<a th:href="@{/supplier/workEdit}">edit</a>
+<script th:src="@{/js/imgpreview.js}"></script>
+</body>
+<footer th:replace="fragments/footer :: footer"></footer>
+<link th:href="@{/css/services.css}" rel="stylesheet" />
+</html>

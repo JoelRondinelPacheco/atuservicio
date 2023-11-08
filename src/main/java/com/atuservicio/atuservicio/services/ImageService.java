@@ -1,6 +1,7 @@
 package com.atuservicio.atuservicio.services;
 
 import com.atuservicio.atuservicio.entities.Image;
+import com.atuservicio.atuservicio.entities.Supplier;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.repositories.IImageRepository;
 import com.atuservicio.atuservicio.services.interfaces.IImageService;
@@ -26,6 +27,22 @@ public class ImageService implements IImageService {
             image.setMime(archive.getContentType());
             image.setName(archive.getOriginalFilename());
             image.setContent(archive.getBytes());
+            return this.imageRepository.save(image);
+
+        } catch (Exception e) {
+
+            throw new MyException("La imagen no pudo ser creada");
+        }
+    }
+
+    public Image save(MultipartFile archive, Supplier supplier) throws MyException {
+// TODO MANEJAR EXCEPCIONES
+        try {
+            Image image = new Image();
+            image.setMime(archive.getContentType());
+            image.setName(archive.getOriginalFilename());
+            image.setContent(archive.getBytes());
+            image.setSupplier(supplier);
             return this.imageRepository.save(image);
 
         } catch (Exception e) {
