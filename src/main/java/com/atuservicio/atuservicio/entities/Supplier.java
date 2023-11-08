@@ -32,6 +32,8 @@ public class Supplier extends User {
     private List<Contract> contractsAsSupplier;
     
     @OneToMany(mappedBy = "supplier")
+    private List<Request> requests_received;
+    
     private List<Image> imageGallery;
     
     private String description;
