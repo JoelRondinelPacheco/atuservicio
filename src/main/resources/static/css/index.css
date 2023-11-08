@@ -79,7 +79,7 @@
 .logo-index {
   display: flex;
   width: 140px;
-  height: auto;
+  /* height: auto; */
   align-items: center;
   justify-content: center;
   margin: 0 auto;
