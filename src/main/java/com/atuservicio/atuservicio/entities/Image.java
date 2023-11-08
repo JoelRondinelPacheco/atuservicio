@@ -28,4 +28,8 @@ public class Image {
     //@Column(name = "content", columnDefinition="MEDIUMBLOB")
     @Basic(fetch = FetchType.LAZY)
     private byte[] content;
+
+    @ManyToOne
+    @JoinColumn(name = "supplier_id")
+    private Supplier supplier;
 }
