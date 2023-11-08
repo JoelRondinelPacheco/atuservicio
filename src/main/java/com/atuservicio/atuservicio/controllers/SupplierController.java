@@ -289,7 +289,7 @@ public class SupplierController {
         }
 
     }
-    
+
     private List<UserRegisterErrorDTO> validar(String name, String email,
             String password, String password2,
             String address, Long address_number, String postal_code,
