@@ -1,6 +1,7 @@
 package com.atuservicio.atuservicio.services;
 
 import com.atuservicio.atuservicio.entities.Image;
+import com.atuservicio.atuservicio.entities.Supplier;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.repositories.IImageRepository;
 import com.atuservicio.atuservicio.services.interfaces.IImageService;
@@ -26,6 +27,22 @@ public class ImageService implements IImageService {
             image.setMime(archive.getContentType());
             image.setName(archive.getOriginalFilename());
             image.setContent(archive.getBytes());
+            return this.imageRepository.save(image);
+
+        } catch (Exception e) {
+
+            throw new MyException("La imagen no pudo ser creada");
+        }
+    }
+
+    public Image save(MultipartFile archive, Supplier supplier) throws MyException {
+// TODO MANEJAR EXCEPCIONES
+        try {
+            Image image = new Image();
+            image.setMime(archive.getContentType());
+            image.setName(archive.getOriginalFilename());
+            image.setContent(archive.getBytes());
+            image.setSupplier(supplier);
             return this.imageRepository.save(image);
 
         } catch (Exception e) {
@@ -69,7 +86,18 @@ public class ImageService implements IImageService {
             throw new MyException("La imagen no pudo ser creada");
         }
     }
-//@Transactional
+
+    @Override
+    public void delete(String imageId) throws MyException {
+        Optional<Image> imgOptional = this.imageRepository.findById(imageId);
+        if (imgOptional.isPresent()) {
+            System.out.println(imageId);
+            this.imageRepository.deleteById(imageId);
+        }
+        throw new MyException("Imagen no encontrada");
+    }
+
+    //@Transactional
     @Transactional
     public Image saveDefaultImage(Image image) {
         Image img = new Image();

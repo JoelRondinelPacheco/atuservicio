@@ -4,9 +4,14 @@
  */
 package com.atuservicio.atuservicio.services;
 
+import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
+import com.atuservicio.atuservicio.dtos.services.EditServiceInfoDTO;
+import com.atuservicio.atuservicio.dtos.services.ServiceInfoDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.EditSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SaveSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
+import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
+import com.atuservicio.atuservicio.dtos.users.UserSearchDTO;
 import com.atuservicio.atuservicio.entities.Category;
 import com.atuservicio.atuservicio.entities.Image;
 import com.atuservicio.atuservicio.entities.Supplier;
@@ -20,6 +25,7 @@ import com.atuservicio.atuservicio.services.interfaces.ISupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +46,8 @@ public class SupplierService implements ISupplierService {
     private CategoryRepository categoryRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CategoryService categoryService;
 
     @Override
     public SupplierInfoDTO save(SaveSupplierDTO supplierDTO) throws MyException {
@@ -84,7 +92,7 @@ public class SupplierService implements ISupplierService {
         } else {
             throw new MyException("Supplier no encontrado");
         }
-        
+
     }
 
     @Override
@@ -117,7 +125,7 @@ public class SupplierService implements ISupplierService {
             supplier.setProvince(supplierDTO.getProvince());
             supplier.setCountry(supplierDTO.getCountry());
             supplier.setPostal_code(supplierDTO.getPostal_code());
-            if (!supplierDTO.getCategoryId().equals(supplier.getCategory().getId())){
+            if (!supplierDTO.getCategoryId().equals(supplier.getCategory().getId())) {
                 System.out.println("Distinta categoria");
                 Category category = this.categoryRepository.findById(supplierDTO.getCategoryId()).get();
                 supplier.setCategory(category);
@@ -152,6 +160,7 @@ public class SupplierService implements ISupplierService {
         }
         throw new MyException("Supplier no encontrado");
     }
+
     @Override
     public SupplierInfoDTO getByEmail(String email) throws MyException {
         Optional<User> userOptional = this.userRepository.findByEmail(email);
@@ -164,9 +173,81 @@ public class SupplierService implements ISupplierService {
                 return this.createSupplierInfoDTO(supplierOptional.get());
             }
         }
+        throw new MyException("Proveedor no encontrado por email");
+    }
+
+    public List<SupplierInfoDTO> getSearchSuppliers(UserSearchDTO userSearch) {
+        List<SupplierInfoDTO> userInformation = new ArrayList<>();
+        System.out.println(userSearch.getCountry());
+        if (userSearch.getCity() == null) {
+            userSearch.setCity("");
+        }
+        if (!userSearch.getCity().isEmpty()) {
+
+            List<Supplier> users = supplierRepository.findSuppliersByCity(userSearch.getCity());
+            return userInformation = getListSupplierInfoDTO(users);
+
+        } else if (!userSearch.getProvince().isEmpty()) {
+
+            List<Supplier> users = supplierRepository.findSuppliersByProvince(userSearch.getProvince());
+            return userInformation = getListSupplierInfoDTO(users);
+
+        } else if (!userSearch.getCountry().isEmpty()) {
+
+            List<Supplier> users = supplierRepository.findSuppliersByCountry(userSearch.getCountry());
+            return userInformation = getListSupplierInfoDTO(users);
+
+        }
+
+        return userInformation;
+    }
+
+    private List<SupplierInfoDTO> getListSupplierInfoDTO(List<Supplier> users) {
+
+        List<SupplierInfoDTO> infoSuppliers = new ArrayList<>();
+
+        for (Supplier user : users) {
+
+            System.out.println(user);
+            SupplierInfoDTO supplierInfo = createSupplierInfoDTO(user);
+            infoSuppliers.add(supplierInfo);
+
+        }
+
+        return infoSuppliers;
+    }
+
+    public ServiceInfoDTO getServiceInfo(String id) throws MyException{
+        Optional<Supplier> supplierOptional = this.supplierRepository.findByEmailSupplier(id);
+        if (supplierOptional.isPresent()) {
+            Supplier supplier = supplierOptional.get();
+            return this.createServiceInfoDTO(supplier);
+        }
         throw new MyException("Supplier no encontrado");
     }
 
+    //TODO COMPLETE IMAGE EDITION
+    public ServiceInfoDTO editServiceInfo(EditServiceInfoDTO service) throws MyException {
+        Optional<Supplier> supplierOptional = this.supplierRepository.findByEmailSupplier(service.getEmail());
+        if (supplierOptional.isPresent()) {
+            Supplier supplier = supplierOptional.get();
+            supplier.setDescription(service.getDescription());
+            supplier.setPriceHour(service.getPriceHour());
+            List<Image> images = new ArrayList<>();
+            for (MultipartFile img : service.getImages()) {
+                Image image = this.imageService.save(img, supplier);
+                images.add(image);
+            }
+
+            for (String imageId : service.getDeletedImages()) {
+                this.imageService.delete(imageId);
+            }
+            supplier.setImageGallery(images);
+            Supplier supplierSaved = this.supplierRepository.save(supplier);
+            return this.createServiceInfoDTO(supplierSaved);
+        }
+        throw new MyException("Supplier no encontrado");
+    }
     private SupplierInfoDTO createSupplierInfoDTO(Supplier supplier) {
         return new SupplierInfoDTO(
                 supplier.getName(),
@@ -186,4 +267,21 @@ public class SupplierService implements ISupplierService {
 
         );
     }
+
+    private ServiceInfoDTO createServiceInfoDTO(Supplier supplier) throws MyException {
+        List<String> images = new ArrayList<>();
+        List<Image> imgs = supplier.getImageGallery();
+        System.out.println(imgs.size());
+        for (Image img : imgs) {
+            images.add(img.getId());
+            System.out.println("asdas");
+            System.out.println(img.getId());
+        }
+        CategoryInfoDTO category = this.categoryService.getById(supplier.getCategory().getId());
+        return new ServiceInfoDTO(supplier.getName(), supplier.getEmail(), supplier.getImageCard().getId(), category, supplier.getDescription(), supplier.getPriceHour(), images);
+    }
+
+
+
 }
+

@@ -7,11 +7,14 @@ package com.atuservicio.atuservicio.controllers;
 
 import com.atuservicio.atuservicio.dtos.LoginPassDTO;
 import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
+import com.atuservicio.atuservicio.dtos.services.EditServiceInfoDTO;
+import com.atuservicio.atuservicio.dtos.services.ServiceInfoDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.EditSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SaveSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserRegisterErrorDTO;
+import com.atuservicio.atuservicio.dtos.users.UserSearchDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.interfaces.ICategoryService;
@@ -141,12 +144,13 @@ public class SupplierController {
             model.addAttribute("user", supplier);
             return "supplier_profile";
             /*
-            List<CategoryInfoDTO> categories = categoryService.listAll();
-            CategoryInfoDTO category = categoryService.getById(categoryId);
-            model.put("category", category);
-            model.addAttribute("categories", categories);
-            model.put("updated", "Se actualizaron los datos correctamente");
-            model.addAttribute("supplier", supplierInfoDTO);*/
+             * List<CategoryInfoDTO> categories = categoryService.listAll();
+             * CategoryInfoDTO category = categoryService.getById(categoryId);
+             * model.put("category", category);
+             * model.addAttribute("categories", categories);
+             * model.put("updated", "Se actualizaron los datos correctamente");
+             * model.addAttribute("supplier", supplierInfoDTO);
+             */
         } catch (MyException ex) {
 
             model.put("error", ex.getMessage());
@@ -191,8 +195,44 @@ public class SupplierController {
         List<SupplierInfoDTO> users = supplierService.getAllSuppliers();
 
         model.addAttribute("users", users);
+        model.addAttribute("locationFound", true);
 
         return "services.html";
+    }
+
+    @PostMapping("/services")
+    public String searchServices(@RequestParam(required = false) String country,
+            @RequestParam(required = false) String province, @RequestParam(required = false) String city,
+            @RequestParam(required = false) String email, ModelMap model) {
+
+        if (email.isEmpty()) {
+            System.out.println(province);
+            System.out.println(country);
+            System.out.println(city);
+            UserSearchDTO userSearch = new UserSearchDTO(city, province, country);
+            List<SupplierInfoDTO> users = supplierService.getSearchSuppliers(userSearch);
+
+            model.addAttribute("locationFound", true);
+            model.addAttribute("users", users);
+
+            return "services.html";
+        } else {
+            try {
+                SupplierInfoDTO user = supplierService.getByEmail(email);
+
+                model.addAttribute("userFound", true);
+                model.addAttribute("user", user);
+
+                return "services.html";
+
+            } catch (MyException ex) {
+
+                model.put("error", ex.getMessage());
+                System.out.println(ex.getMessage());
+                return "services.html";
+            }
+        }
+
     }
 
     @GetMapping("/profile/{id}")
@@ -207,35 +247,49 @@ public class SupplierController {
     }
 
     @GetMapping("/workPreview")
-        public String workPreview( ModelMap model) throws MyException {
-        
+    public String workPreview(ModelMap model) throws MyException {
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
-        
-        SupplierInfoDTO user = supplierService.getByEmail(email);
 
-        model.addAttribute("user", user);
+        ServiceInfoDTO service = this.supplierService.getServiceInfo(email);
+        model.addAttribute("service", service);
 
         return "work.html";
 
     }
-    
-        @GetMapping("/workEdit")
-        public String workEdit( ModelMap model) throws MyException {
-        
+
+    @GetMapping("/workEdit")
+    public String workEdit(ModelMap model) throws MyException {
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
-        
-        SupplierInfoDTO user = supplierService.getByEmail(email);
 
-        model.addAttribute("user", user);
+        ServiceInfoDTO service = this.supplierService.getServiceInfo(email);
+
+        model.addAttribute("service", service);
 
         return "work_edit.html";
 
     }
-    
-    
-    
+
+    @PostMapping("/workEdit")
+    public String postWorkInfo(@RequestParam String description, @RequestParam Double priceHour, @RequestParam(required = false) List<MultipartFile> images, @RequestParam(required = false) List<String> delete,  ModelMap model) throws MyException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        try {
+            System.out.println(images);
+            ServiceInfoDTO service = this.supplierService.editServiceInfo(new EditServiceInfoDTO(email, description, priceHour, images, delete));
+            model.addAttribute("service", service);
+            model.addAttribute("exito", "Servicio actualizado correctamente");
+            return "work";
+        } catch (MyException e) {
+            model.addAttribute("error", "Algo salio mal");
+            return this.workEdit(model);
+        }
+
+    }
+
     private List<UserRegisterErrorDTO> validar(String name, String email,
             String password, String password2,
             String address, Long address_number, String postal_code,
@@ -256,16 +310,18 @@ public class SupplierController {
             } catch (MyException ex) {
 
             }
-            // TODO codigo innecesario para validar email, rompe el registro y sin esta parte funciona y valida correctamente el email
+            // TODO codigo innecesario para validar email, rompe el registro y sin esta
+            // parte funciona y valida correctamente el email
         }
 
         if (password.isEmpty() || password == null) {
-           errors.add(new UserRegisterErrorDTO("password", "La contraseña no puede estar vacía"));
-       } else {
-           if (!this.passwordValidator.isValid(password)) {
-               errors.add(new UserRegisterErrorDTO("password", "La contraseña debe contener numeros del 0 al 9, mayusculas y minusculas, y tener entre 5 y 15 caracteres"));
-           }
-       }
+            errors.add(new UserRegisterErrorDTO("password", "La contraseña no puede estar vacía"));
+        } else {
+            if (!this.passwordValidator.isValid(password)) {
+                errors.add(new UserRegisterErrorDTO("password",
+                        "La contraseña debe contener numeros del 0 al 9, mayusculas y minusculas, y tener entre 5 y 15 caracteres"));
+            }
+        }
 
         if (!password.equals(password2)) {
             errors.add(new UserRegisterErrorDTO("password2", "Las contraseñas ingresadas deben ser iguales"));
