@@ -34,6 +34,11 @@ public class Supplier extends User {
     @OneToMany(mappedBy = "supplier")
     private List<Request> requests_received;
     
-
+    private List<Image> imageGallery;
+    
+    private String description;
+    
+    private Double priceHour;
+    
     // TODO PREPERSIST IMAGE
 }
