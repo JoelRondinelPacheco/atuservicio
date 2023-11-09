@@ -10,6 +10,7 @@ import com.atuservicio.atuservicio.dtos.services.ServiceInfoDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.EditSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SaveSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
+import com.atuservicio.atuservicio.dtos.suppliers.SupplierPaginatedDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserSearchDTO;
 import com.atuservicio.atuservicio.entities.Category;
@@ -104,7 +105,11 @@ public class SupplierService implements ISupplierService {
         }
         return suppliersDTO;
     }
-
+/*
+    public SupplierPaginatedDTO findPaginated(int pageNumber, int pageSize) {
+        Pageable pa
+    }
+*/
     @Override
     public SupplierInfoDTO edit(EditSupplierDTO supplierDTO) throws MyException {
         System.out.println(supplierDTO.getId());
