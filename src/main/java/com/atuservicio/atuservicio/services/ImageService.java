@@ -88,11 +88,11 @@ public class ImageService implements IImageService {
     }
 
     @Override
+    @Transactional
     public void delete(String imageId) throws MyException {
         Optional<Image> imgOptional = this.imageRepository.findById(imageId);
         if (imgOptional.isPresent()) {
-            System.out.println(imageId);
-            this.imageRepository.deleteById(imageId);
+            this.imageRepository.delete(imgOptional.get());
         }
         throw new MyException("Imagen no encontrada");
     }
