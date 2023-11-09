@@ -131,7 +131,9 @@
                 class="d-flex justify-content-center"
                 sec:authorize="isAuthenticated()"
                 th:action="@{'/supplier/profile/' + ${user.id}}">
-                <button class="boton-card-detail">Ver mas...</button>
+                <button class="boton-card-detail boton-ver-mas">
+                  Ver mas...
+                </button>
               </form>
             </div>
             <div class="card-footer d-flex justify-content-between">

@@ -79,3 +79,35 @@
     background-color: #EDB83D;
     margin-left: 10px;
 }
+
+.boton-ver-mas {
+    background-color: #EDB83D;
+    font-family: "Kanit", sans-serif !important;
+    color: #F8F5F2 !important;
+    border-radius: 25px !important;
+    margin-top: 25px;
+    border-color: #EDB83D;
+    font-size: 20px;
+    transition: all 0.3s ease; /* Agregar transición suave a todos los cambios */
+
+    /* Definir el tamaño original del botón */
+    transform: scale(1);
+}
+
+.boton-ver-mas:hover {
+    background-color: #FFD700; /* Cambiar el color al pasar el mouse sobre el botón */
+}
+
+.boton-ver-mas:active {
+    transform: scale(1.1); /* Hacer que el botón sea un 10% más grande al hacer clic */
+    animation: moveLeftRight 0.5s ease infinite; /* Agregar movimiento izquierda-derecha infinito al hacer clic */
+}
+
+@keyframes moveLeftRight {
+    0%, 100% {
+        transform: translateX(0); /* Posición inicial y final, no hay movimiento */
+    }
+    50% {
+        transform: translateX(10px); /* Mueve el botón 10px a la derecha a la mitad de la animación */
+    }
+}
