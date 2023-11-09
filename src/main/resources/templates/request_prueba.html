@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+    <head th:replace="fragments/head :: head"></head>
     <body>
-        <div>TODO write content</div>
+        <header>
+            <nav th:replace="fragments/navbar :: navbar"></nav>
+        </header>
+        
+        <form th:action="@{/request/send/ee0e8d52-6635-48e7-a6c8-6f212f984cc7}" method="POST">
+            <input type="text" name="description">
+            <button type="submit">Enviar solicitud</button>
+        </form>
+
+        <footer th:replace="fragments/footer :: footer"></footer>
     </body>
 </html>
