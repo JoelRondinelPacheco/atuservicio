@@ -205,7 +205,7 @@ public class UserService implements IUserService {
         return new UserPaginatedDTO(usersInfo, users.getTotalPages(), users.getTotalElements());
     }
 */
-    private UserInfoDTO createUserInfoDTO(User user) {
+    public UserInfoDTO createUserInfoDTO(User user) {
         UserInfoDTO userinfo = new UserInfoDTO(
                 user.getName(),
                 user.getEmail(),
