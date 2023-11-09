@@ -145,3 +145,19 @@ video {
   clear: both;
 }
 
+.registro-flecha {
+  /* Establecer un tamaño inicial */
+  width: 120px;
+  height: auto;
+  animation: agrandarDisminuir 2s ease infinite; /* Agregar la animación que se ejecuta automáticamente */
+}
+
+/* Definir el conjunto de keyframes para la animación */
+@keyframes agrandarDisminuir {
+  0%, 100% {
+      transform: scale(1); /* Tamaño inicial y final */
+  }
+  50% {
+      transform: scale(1.2); /* Agrandar la imagen al 120% a la mitad de la animación */
+  }
+}

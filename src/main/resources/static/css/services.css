@@ -83,7 +83,7 @@
 .boton-ver-mas {
     background-color: #EDB83D;
     font-family: "Kanit", sans-serif !important;
-    color: #F8F5F2 !important;
+    color: ##000B29 !important;
     border-radius: 25px !important;
     margin-top: 25px;
     border-color: #EDB83D;
@@ -96,6 +96,8 @@
 
 .boton-ver-mas:hover {
     background-color: #FFD700; /* Cambiar el color al pasar el mouse sobre el botón */
+    color: #F8F5F2!important;
+
 }
 
 .boton-ver-mas:active {
