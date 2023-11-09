@@ -1,38 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="fragments/head :: head"></head>
+<head th:replace="fragments/head :: head"></head>
+<head>
+  <title>Servicios</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<header>
+  <nav th:replace="fragments/navbar :: navbar"></nav>
+</header>
+<div th:if="${error != null}">
+  <h2 th:text="${error}"></h2>
+</div>
+<form th:action="@{/supplier/workEdit}" method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label for="descripcion" class="form-label">Descripcion</label>
+    <textarea class="form-control" id="descripcion" name="description" th:text="${service.description}"></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="tarifa" class="form-label">Tarifa</label>
+    <input type="text" class="form-control" id="tarifa" name="priceHour" th:value="${service.priceHour}">
+  </div>
+  <div class="mb-3">
+    <label for="file-input" class="form-label btn btn-primary">Examinar...</label>
+    <input class="form-control" type="file" id="file-input" accept="image/jpeg" name="images" onchange="preview()"  multiple style="display: none;">
+    <p id="num-of-files">No hay imagenes seleccionadas</p>
+    <div id="images" class="container d-flex flex-row"></div>
+    <div class="container d-flex flex-row">
+      <div th:each="image : ${service.imageGallery}">
+        <div class="card" style="width: 18rem;">
+          <img th:src="@{'/image/' + ${image}}"  class="card-img-top" alt="">
+          <label class="card-body">
+            <input type="checkbox" name="delete" th:value="${image}">
+            Eliminar
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <a href="#" class="btn btn-primary"></a>
+        </div>
+    </div> -->
 
-  <body>
-    <header>
-      <nav th:replace="fragments/navbar :: navbar"></nav>
-    </header>
-
-    <form>
-      <div class="mb-3">
-        <label for="descripcion" class="form-label">Descripcion</label>
-        <textarea
-          class="form-control"
-          id="descripcion"
-          name="comment"></textarea>
-      </div>
-      <div class="mb-3">
-        <label for="tarifa" class="form-label">Tarifa</label>
-        <input type="text" class="form-control" id="tarifa" />
-      </div>
-      <div class="mb-3 form-check">
-        <!--
-         Corrousel de imagenes
-         Cada una con un boton de editar, o eliminar, y agregar
-         Implementarlo con JS y guardar cambios al enviar solicitud
-         -->
-        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-        <label class="form-check-label" for="exampleCheck1"
-          >Las imagenes cargadas</label
-        >
-      </div>
-      <button type="submit" class="btn btn-primary">Editar</button>
-    </form>
-  </body>
-  <footer th:replace="fragments/footer :: footer"></footer>
-  <link th:href="@{/css/services.css}" rel="stylesheet" />
+    <button type="submit" class="btn btn-primary">Editar</button>
+</form>
+<script th:src="@{/js/imgpreview.js}"></script>
+</body>
+<footer th:replace="fragments/footer :: footer"></footer>
+<link th:href="@{/css/services.css}" rel="stylesheet" />
 </html>
