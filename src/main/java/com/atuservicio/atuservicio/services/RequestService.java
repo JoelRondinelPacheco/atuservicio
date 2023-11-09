@@ -96,9 +96,9 @@ public class RequestService implements IRequestService {
 
     @Override
     public List<RequestInfoDTO> getByUserId(String id) throws MyException {
-
-        List<Request> requests = this.requestRepository.findByUserId(id);
-
+        System.out.println("Ingreso al servicio de busquda por idUsuario " + id);
+        List<Request> requests = this.requestRepository.findByCustomerId(id);
+        System.out.println("Recuperé las solicitudes");
         List<RequestInfoDTO> requestsInfo = new ArrayList<>();
         for (Request r : requests) {
             RequestInfoDTO rInfo = this.createRequestInfoDTO(r);

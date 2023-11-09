@@ -81,7 +81,7 @@ public class RequestController {
     }
 
     //El PROVEEDOR ACEPTA LA SOLICITUD DEL CLIENTE
-    @GetMapping("/{idRequest}")
+    @GetMapping("/accept/{idRequest}")
     public String requestAccepted(@PathVariable("idRequest") String idRequest, ModelMap model) {
 
         try {
@@ -91,7 +91,7 @@ public class RequestController {
             RequestInfoDTO r = this.requestService.accept(requestDTO);
 
             //Retorna la lista actualizada de solicitudes de clientes
-            return this.requestsFromCustomers(model);
+            return "redirect:/request/list/customers";
 
         } catch (MyException ex) {
             model.put("error", ex.getMessage());
@@ -100,7 +100,7 @@ public class RequestController {
     }
 
     //El PROVEEDOR RECHAZA LA SOLICITUD DEL CLIENTE
-    @GetMapping("/{idRequest}")
+    @GetMapping("/decline/{idRequest}")
     public String requestRefused(@PathVariable("idRequest") String idRequest, ModelMap model) {
 
         try {
@@ -110,7 +110,7 @@ public class RequestController {
             RequestInfoDTO r = this.requestService.decline(requestDTO);
 
             //Retorna la lista actualizada de solicitudes de clientes
-            return this.requestsFromCustomers(model);
+            return "redirect:/request/list/customers";
 
         } catch (MyException ex) {
             model.put("error", ex.getMessage());
@@ -121,12 +121,15 @@ public class RequestController {
     //LISTAR LAS SOLICITUDES A PROVEEDORES GENERADAS POR EL CLIENTE LOGUEADO
     @GetMapping("/list/suppliers")
     public String requestsToSuppliers(ModelMap model) {
-
+            System.out.println("Ingreso");
         try {
+            
             //Recupero los detalles del usuario cliente logueado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            System.out.println("Email" + auth.getName());
             UserInfoDTO customerDTO = userService.getSearchEmailUser(auth.getName());
             //Recupero la lista de solicitudes que realizó el cliente mediante su id
+            System.out.println("Recupero el usuario por email");
             List<RequestInfoDTO> requests = requestService.getByUserId(customerDTO.getId());
 
             model.addAttribute("requests", requests);
