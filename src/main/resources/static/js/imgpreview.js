@@ -5,7 +5,7 @@ let numOfFiles = document.getElementById("num-of-files");
 function preview(){
     imageContainer.innerHTML = "";
     const files = fileInput.files;
-    numOfFiles.textContent = `${fileInput.files.length} imagenes seleccionadas`;
+    //numOfFiles.textContent = `${fileInput.files.length} imagenes nuevas`;
 
     for(let i = 0; i < files.length; i++){
         let reader = new FileReader();
@@ -29,6 +29,7 @@ function preview(){
 
         deleteButton.addEventListener("click", function() {
             imageContainer.removeChild(container);
+               // numOfFiles.textContent = `${fileInput.files.length} imagenes nuevas`;
             removeFile(file);
         })
         reader.onload=()=>{
@@ -47,6 +48,6 @@ function preview(){
 function removeFile(fileToRemove) {
     const newFiles = Array.from(fileInput.files).filter(file => file !== fileToRemove);
     fileInput.files = new FileList(newFiles);
-    numOfFiles.textContent = `${fileInput.files.length} imagenes seleccionadas`;
+    //numOfFiles.textContent = `${fileInput.files.length} imagenes nuevas`;
 
 }

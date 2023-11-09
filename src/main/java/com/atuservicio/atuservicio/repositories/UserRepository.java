@@ -6,6 +6,7 @@ import com.atuservicio.atuservicio.entities.User;
 import java.util.List;
 import java.util.Optional;
 
+import com.atuservicio.atuservicio.enums.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -43,4 +44,8 @@ public interface UserRepository extends JpaRepository<User, String> {
     public List<User> findUsersByProvince(@Param("province") String province);
     @Query("SELECT u FROM User u WHERE u.country = :country  AND u.role = 'SUPPLIER'")
     List<User> findUsersByCountry(@Param("country") String country);
+
+    //PAGINATED
+    @Query("SELECT u FROM User u WHERE u.role = :role")
+    Page<User> findByRole(@Param("role") Role role, Pageable pageable);
 }
