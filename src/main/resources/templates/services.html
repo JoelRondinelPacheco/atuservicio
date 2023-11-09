@@ -139,33 +139,23 @@
                 </button>
               </form>
             </div>
-            <div class="card-footer d-flex justify-content-between">
-              <i class="bi bi-geo-fill" th:text="${user.province}"></i>
-            </div>
-          </div>
-        </div>
+            <div th:if="${locationFound}" class="col mt-5" th:each="user : ${users}">
+                <div class="card h-100">
+                    <img th:src="@{/image/{imageCard}(imageCard=${user.imageCard})}" class="card-img-top"
+                        alt="Servicio" />
+                    <div class="card-body">
+                        <h5 class="card-title text-truncate" th:text="${user.name}">Nombre</h5>
+                        <p class="card-text text-truncate" th:text="${user.category.name}">Categoria</p>
+                        <form class="d-flex justify-content-center" sec:authorize="isAuthenticated()"
+                            th:action="@{'/supplier/workPreview/' + ${user.id}}">
+                            <button class="boton-card-detail">Ver mas...</button>
+                        </form>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <i class="bi bi-geo-fill" th:text="${user.province}"></i>
+                    </div>
+                </div>
 
-        <div th:if="${userFound}" class="col mt-5">
-          <div class="card h-100">
-            <img
-              th:src="@{/image/{imageCard}(imageCard=${user.imageCard})}"
-              class="card-img-top"
-              alt="Servicio" />
-            <div class="card-body">
-              <h5 class="card-title text-truncate" th:text="${user.name}">
-                Nombre
-              </h5>
-              <p
-                class="card-text text-truncate"
-                th:text="${user.category.name}">
-                Categoria
-              </p>
-              <form
-                class="d-flex justify-content-center"
-                sec:authorize="isAuthenticated()"
-                th:action="@{'/supplier/profile/' + ${user.id}}">
-                <button class="boton-card-detail">Ver mas...</button>
-              </form>
             </div>
             <div class="card-footer d-flex justify-content-between">
               <i class="bi bi-geo-fill" th:text="${user.province}"></i>
