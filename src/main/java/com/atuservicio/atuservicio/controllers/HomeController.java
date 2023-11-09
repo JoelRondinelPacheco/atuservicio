@@ -22,6 +22,7 @@ import com.atuservicio.atuservicio.services.CategoryService;
 import com.atuservicio.atuservicio.services.ImageService;
 import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.UserService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -79,9 +80,12 @@ public class HomeController {
         } else {
             try {
                 UserInfoDTO user = userService.getSearchEmailUser(email);
-
-                model.addAttribute("userFound", true);
-                model.addAttribute("user", user);
+                List<UserInfoDTO> users = new ArrayList();
+                
+                users.add(user);
+                
+                model.addAttribute("locationFound", true);
+                model.addAttribute("users", users);
 
                 return "search.html";
 

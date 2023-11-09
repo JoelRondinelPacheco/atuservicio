@@ -1,9 +1,30 @@
-@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
+body, html {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #F8F5F2;
+  font-family: "Kanit", sans-serif;
+}
 
-body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #F8F5F2;
-    font-family: "Kanit", sans-serif;
-  }
+.botones {
+  background-color: #EDB83D;
+  font-family: "Kanit", sans-serif;
+  font-size: 20px;
+  color: #000B29;
+  border-radius: 40px;
+  transition: all 0.3s ease;
+  margin: 5px;
+}
+
+.botones:hover {
+  background-color: #FFD700;
+  color: #ffffff;
+}
+
+.botones:active {
+  transform: scale(1.1);
+}
+
+.color {
+  background-color: #F8F5F2;
+}

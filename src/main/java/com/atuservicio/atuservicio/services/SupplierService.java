@@ -255,7 +255,7 @@ public class SupplierService implements ISupplierService {
         }
         throw new MyException("Supplier no encontrado");
     }
-    private SupplierInfoDTO createSupplierInfoDTO(Supplier supplier) {
+    public SupplierInfoDTO createSupplierInfoDTO(Supplier supplier) {
         return new SupplierInfoDTO(
                 supplier.getName(),
                 supplier.getEmail(),

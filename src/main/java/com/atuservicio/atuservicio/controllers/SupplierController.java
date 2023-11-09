@@ -246,13 +246,14 @@ public class SupplierController {
 
     }
 
-    @GetMapping("/workPreview")
-    public String workPreview(ModelMap model) throws MyException {
+    @GetMapping("/workPreview/{id}")
+    public String workPreview(@PathVariable("id") String id,ModelMap model) throws MyException {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
+        SupplierInfoDTO supplier = supplierService.getById(id);
+        String email = supplier.getEmail();
 
         ServiceInfoDTO service = this.supplierService.getServiceInfo(email);
+        model.addAttribute("supplier", supplier);
         model.addAttribute("service", service);
 
         return "work.html";
