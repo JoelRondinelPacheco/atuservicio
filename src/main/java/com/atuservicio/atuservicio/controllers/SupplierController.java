@@ -251,11 +251,14 @@ public class SupplierController {
 
         SupplierInfoDTO supplier = supplierService.getById(id);
         String email = supplier.getEmail();
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = auth.getName();
+        UserInfoDTO user = userService.getSearchEmailUser(userEmail);
         ServiceInfoDTO service = this.supplierService.getServiceInfo(email);
+         model.addAttribute("user", user);
         model.addAttribute("supplier", supplier);
         model.addAttribute("service", service);
-        return "work.html";
+        return "work_user.html";
     }
 
     @GetMapping("/service")
