@@ -278,12 +278,6 @@ public class SupplierController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         try {
-            System.out.println("IMG SIZE");
-            System.out.println(images.size());
-            System.out.println(images.isEmpty());
-            System.out.println("selected");
-            System.out.println(delete);
-
             if (delete == null || delete.isEmpty()) {
                 delete = new ArrayList<String>();
                 delete.add("empty");

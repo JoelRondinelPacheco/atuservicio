@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: head"></head>
-<head>
-  <title>Servicios</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+<link th:href="@{/css/work_edit.css}" rel="stylesheet" />
 <body>
 <header>
   <nav th:replace="fragments/navbar :: navbar"></nav>
@@ -13,17 +9,39 @@
 <div th:if="${error != null}">
   <h2 th:text="${error}"></h2>
 </div>
+<div class="contenedor-general">
 <form th:action="@{/supplier/workEdit}" method="POST" enctype="multipart/form-data">
-  <div class="mb-3">
-    <label for="descripcion" class="form-label">Descripcion</label>
-    <textarea class="form-control" id="descripcion" name="description" th:text="${service.description}"></textarea>
+  <div class="row">
+  <div class="col-md-10 mb-3">
+    <label for="descripcion" class="form-label descripcion">
+      <i class="fa-regular fa-comment"></i> Descripcion
+    </label>
+    <textarea
+            class="form-control"
+            id="descripcion"
+            name="description"
+            th:text="${service.description}"></textarea>
   </div>
-  <div class="mb-3">
-    <label for="tarifa" class="form-label">Tarifa</label>
-    <input type="text" class="form-control" id="tarifa" name="priceHour" th:value="${service.priceHour}">
+  <div class="col-md-2 mb-2">
+    <label for="tarifa" class="form-label tarifa">
+      <i class="fa-solid fa-dollar-sign"></i> Precio
+    </label>
+    <input
+            type="text"
+            class="form-control input-tarifa"
+            id="tarifa"
+            name="priceHour"
+            th:value="${service.priceHour}" />
   </div>
-  <div class="mb-3">
+  </div>
+  <div class="contenedor-sube-fotos">
+    <img th:src="@{/img/sube-fotos.png}" alt="logo" class="img-sube" />
+  </div>
+  <div class="row">
+    <div class="col-md-12 mb-10">
     <label for="file-input" class="form-label btn btn-primary">Examinar...</label>
+      </div>
+    </div>
     <input class="form-control" type="file" id="file-input" accept="image/jpeg" name="images" onchange="preview()"  multiple style="display: none;">
     <p id="num-of-files">No hay imagenes seleccionadas</p>
     <div id="images" class="container d-flex flex-row"></div>
@@ -38,16 +56,15 @@
         </div>
       </div>
     </div>
-  </div>
-    <!-- <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-            <a href="#" class="btn btn-primary"></a>
-        </div>
-    </div> -->
 
-    <button type="submit" class="btn btn-primary">Editar</button>
+
+  <div class="row">
+    <div class="col-md-12">
+      <button type="submit" class="btn botones">Editar</button>
+    </div>
+  </div>
 </form>
+</div>
 <script th:src="@{/js/imgpreview.js}"></script>
 </body>
 <footer th:replace="fragments/footer :: footer"></footer>
