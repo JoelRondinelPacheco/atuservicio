@@ -10,27 +10,27 @@
     </header>
 
     <!-- Contentedor principañ -->
-    <div class="container">
-      <div class="container text-center">
+    <div class="container color">
+      <div class="container color text-center">
         <div class="row row-eq-height align-items-stretch">
           <div class="col">
             <div class="card">
               <img
                 src="image.png"
-                class="card-img-top img-responsive"
+                class="card-img-top color img-responsive"
                 alt="sin tarjeta de presentacion" />
-              <div class="card-body">
-                <h5 class="card-title">nombre proveedor</h5>
-                <p class="card-text">DATOS PERSONALES</p>
+              <div class="card-body color">
+                <h5 class="card-title color">nombre proveedor</h5>
+                <p class="card-text color">DATOS PERSONALES</p>
               </div>
             </div>
           </div>
-          <div class="col">
-            <div class="card" style="width: 18rem">
-              <div class="card-body">
-                <h5 class="card-title">Servicio</h5>
+          <div class="col color">
+            <div class="card color" style="width: 18rem">
+              <div class="card-body color">
+                <h5 class="card-title color">Servicio</h5>
 
-                <p class="card-text">
+                <p class="card-text color">
                   DESCRIPCION Some quick example text to build on the card title
                   and make up the bulk of the card's content.
                 </p>
@@ -38,19 +38,20 @@
             </div>
           </div>
           <div class="col">
-            <div class="container">
-              <div class="card">
-                <div class="card-body">
-                  <p class="card-text">Este es un pequeño texto</p>
+            <div class="container color">
+              <div class="card color">
+                <div class="card-body color">
+                  <p class="card-text color">Este es un pequeño texto</p>
                 </div>
-                <div class="card">
-                  <div class="card-body">
-                    <p class="card-text">Este es un pequeño texto</p>
+                <div class="card color">
+                  <div class="card-body color">
+                    <p class="card-text color">Este es un pequeño texto</p>
                   </div>
-
-                  <a th:href="@{/supplier/workEdit}" class="btn btn-primary"
-                    >Modificar</a
-                  >
+                  <div class="color">
+                    <a th:href="@{/supplier/workEdit}" class="btn botones"
+                      >Modificar</a
+                    >
+                  </div>
                 </div>
               </div>
             </div>
@@ -59,18 +60,24 @@
       </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid color">
       <div
         id="myCarousel"
-        class="carousel carousel-static slide"
+        class="carousel carousel-static slide color"
         data-ride="carousel">
-        <div class="carousel-inner" th:each="image, imageStart : ${service.imageGallery}">
-          <div th:attr="class=${imageStart.index == 0 ? 'carousel-item active' : 'carousel-item'}">
-            <img th:src="'/image/' + ${image}" class="d-block w-100" alt="Imagen 1" />
+        <div
+          class="carousel-inner color"
+          th:each="image, imageStart : ${service.imageGallery}">
+          <div
+            th:attr="class=${imageStart.index == 0 ? 'carousel-item active' : 'carousel-item'}">
+            <img
+              th:src="'/image/' + ${image}"
+              class="d-block w-100 color"
+              alt="Imagen 1" />
           </div>
-          </div>
+        </div>
         <a
-          class="carousel-control-prev"
+          class="carousel-control-prev color"
           href="#myCarousel"
           role="button"
           data-slide="prev">
@@ -87,8 +94,6 @@
         </a>
       </div>
     </div>
-    <a th:href="@{/supplier/workEdit}">edit</a>
-
 
     <footer th:replace="fragments/footer :: footer"></footer>
     <script
