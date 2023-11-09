@@ -1,6 +1,7 @@
 package com.atuservicio.atuservicio.services;
 
 import com.atuservicio.atuservicio.dtos.LoginPassDTO;
+import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.*;
 import com.atuservicio.atuservicio.entities.Image;
 import com.atuservicio.atuservicio.entities.User;
@@ -231,6 +232,15 @@ public class UserService implements IUserService {
             userInformation.add(userInfo);
         }
         return userInformation;
+    }
+
+    public List<SupplierInfoDTO> searchUsers(UserSearchAdminDTO arguments) {
+
+        List<SupplierInfoDTO> usersInformation = new ArrayList<>();
+
+        
+
+        return usersInformation;
     }
 
 }
