@@ -255,9 +255,18 @@ public class SupplierController {
         ServiceInfoDTO service = this.supplierService.getServiceInfo(email);
         model.addAttribute("supplier", supplier);
         model.addAttribute("service", service);
-
         return "work.html";
+    }
 
+    @GetMapping("/service")
+    public String myService(ModelMap model) throws MyException {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+
+        ServiceInfoDTO service = this.supplierService.getServiceInfo(email);
+        model.addAttribute("service", service);
+        return "work.html";
     }
 
     @GetMapping("/workEdit")
