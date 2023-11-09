@@ -13,6 +13,8 @@ import com.atuservicio.atuservicio.repositories.RequestRepository;
 import com.atuservicio.atuservicio.repositories.SupplierRepository;
 import com.atuservicio.atuservicio.repositories.UserRepository;
 import com.atuservicio.atuservicio.services.interfaces.IRequestService;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,13 +63,93 @@ public class RequestService implements IRequestService {
         request.setDescription(requestDTO.getDescription());
         request.setState(StateRequest.PENDING);
         request.setContract(null);
-        
-        Request requestGuardado = this.requestRepository.save(request);
-        System.out.println("Request guardado:" + requestGuardado.getDescription());
-        
-        RequestInfoDTO requestInfo = this.createRequestInfoDTO(request);
 
-        return requestInfo;
+        Request requestSaved = this.requestRepository.save(request);
+
+        return this.createRequestInfoDTO(requestSaved);
+    }
+
+    @Override
+    public List<RequestInfoDTO> getAllRequests() {
+
+        List<Request> requests = this.requestRepository.findAll();
+
+        List<RequestInfoDTO> requestsInfo = new ArrayList<>();
+        for (Request r : requests) {
+            RequestInfoDTO rInfo = this.createRequestInfoDTO(r);
+            requestsInfo.add(rInfo);
+        }
+        return requestsInfo;
+    }
+
+    @Override
+    public RequestInfoDTO getById(String id) throws MyException {
+
+        Optional<Request> requestOptional = this.requestRepository.findById(id);
+        if (requestOptional.isPresent()) {
+            Request request = requestOptional.get();
+            RequestInfoDTO requestInfo = this.createRequestInfoDTO(request);
+            return requestInfo;
+        }
+        throw new MyException("Solicitud no encontrada");
+    }
+
+    @Override
+    public List<RequestInfoDTO> getByUserId(String id) throws MyException {
+
+        List<Request> requests = this.requestRepository.findByUserId(id);
+
+        List<RequestInfoDTO> requestsInfo = new ArrayList<>();
+        for (Request r : requests) {
+            RequestInfoDTO rInfo = this.createRequestInfoDTO(r);
+            requestsInfo.add(rInfo);
+        }
+        return requestsInfo;
+    }
+
+    @Override
+    public List<RequestInfoDTO> getBySupplierId(String id) throws MyException {
+
+        List<Request> requests = this.requestRepository.findBySupplierId(id);
+
+        List<RequestInfoDTO> requestsInfo = new ArrayList<>();
+        for (Request r : requests) {
+            RequestInfoDTO rInfo = this.createRequestInfoDTO(r);
+            requestsInfo.add(rInfo);
+        }
+        return requestsInfo;
+    }
+    
+    @Override
+    public RequestInfoDTO accept(RequestInfoDTO requestDTO) throws MyException {
+        
+        Optional<Request> requestOptional = this.requestRepository.findById(requestDTO.getId());
+        
+        if (requestOptional.isPresent()) {
+            Request request = requestOptional.get();
+            if (request.getState().equals(StateRequest.PENDING)) {
+                request.setState(StateRequest.APPROVED);
+            }
+            Request requestSaved = this.requestRepository.save(request);
+            return this.createRequestInfoDTO(requestSaved);
+        }
+        throw new MyException("Solicitud no encontrada");
+    }
+    
+    @Override
+    public RequestInfoDTO decline(RequestInfoDTO requestDTO) throws MyException {
+        
+        Optional<Request> requestOptional = this.requestRepository.findById(requestDTO.getId());
+        
+        if (requestOptional.isPresent()) {
+            Request request = requestOptional.get();
+            if (request.getState().equals(StateRequest.PENDING)) {
+                request.setState(StateRequest.REFUSED);
+            }
+            Request requestSaved = this.requestRepository.save(request);
+            return this.createRequestInfoDTO(requestSaved);
+        }
+        throw new MyException("Solicitud no encontrada");
     }
 
     private RequestInfoDTO createRequestInfoDTO(Request request) {
