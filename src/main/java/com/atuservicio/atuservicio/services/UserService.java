@@ -234,13 +234,7 @@ public class UserService implements IUserService {
         return userInformation;
     }
 
-    public List<SupplierInfoDTO> searchUsers(UserSearchAdminDTO arguments) {
+    
 
-        List<SupplierInfoDTO> usersInformation = new ArrayList<>();
-
-        
-
-        return usersInformation;
-    }
 
 }

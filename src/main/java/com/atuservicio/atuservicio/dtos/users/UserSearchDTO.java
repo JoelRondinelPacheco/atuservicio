@@ -12,13 +12,21 @@ public class UserSearchDTO {
     private String country;
     private String province;
     private String city;
-
+    private String email;
     public UserSearchDTO(String city, String province, String country) {
         
         this.setCity(city);
         this.setCountry(country);
         this.setProvince(province);
         
+       
+    }
+    public UserSearchDTO(String city, String province, String country,String email) {
+        
+        this.setCity(city);
+        this.setCountry(country);
+        this.setProvince(province);
+        this.setEmail(email);
        
     }
 }

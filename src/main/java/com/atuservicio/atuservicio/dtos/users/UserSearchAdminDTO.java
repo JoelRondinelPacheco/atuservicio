@@ -11,18 +11,23 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserSearchAdminDTO extends UserSearchDTO {
 
-    private String email;
     private Role role;
     private String name;
     private String categoryId;
 
-    public UserSearchAdminDTO(String city, String province, String country, String email, Role role, String name,String categoryId) {
+    public UserSearchAdminDTO(String city, String province, String country, Role role, String name, String categoryId) {
         super(city, province, country);
-        this.email = email;
         this.role = role;
         this.name = name;
         this.categoryId = categoryId;
     }
 
+    public UserSearchAdminDTO(String city, String province, String country, String email, Role role, String name,
+            String categoryId) {
+        super(city, province, country, email);
+        this.role = role;
+        this.name = name;
+        this.categoryId = categoryId;
+    }
 
 }

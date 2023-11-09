@@ -7,6 +7,7 @@ import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserPaginatedDTO;
 import com.atuservicio.atuservicio.dtos.users.UserSearchAdminDTO;
+import com.atuservicio.atuservicio.dtos.users.UserSearchDTO;
 import com.atuservicio.atuservicio.enums.Role;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.SupplierService;
@@ -41,18 +42,16 @@ public class AdminController {
      * return this.clientsPaginated(1, "name", "asc", model);
      * }
      */
-    @PostMapping("/dashboard")
+    @PostMapping("/clients/search")
     public String adminDashboard(@RequestParam String country, 
     @RequestParam String province,
      @RequestParam String city,
      @RequestParam String email,
-     @RequestParam Role role,
-     @RequestParam String name,
-     @RequestParam String categoryId,
     ModelMap model) {
 
-        UserSearchAdminDTO userSearch = new UserSearchAdminDTO(city,province,country,email,role,name,categoryId);
+        UserSearchDTO userSearch = new UserSearchDTO(city,province,country,email);
 
+        
         // List<SupplierInfoDTO> users = userService.getListUserInfoDTO(userSearch);
 
         return "";
