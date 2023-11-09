@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="fragments/head :: head"></head>
+    <body>
+        <!--NavBar-->
+        <header>
+            <nav th:replace="fragments/navbar :: navbar"></nav>
+        </header>
+
+        <div class="container">
+            <form class="formulario-registro"
+                  th:action="@{/request/send/{idSupplier}(idSupplier=${supplier.id})}"
+                  method="POST">
+                
+                <h1>Información del cliente</h1>
+                <!--Foto del cliente
+                <div>
+                    <img th:src="@{/image/{imageId}(imageId=${user.image.id})}">
+                </div>-->
+                <!--Nombre del cliente-->
+                <div>
+                    <input type="text" th:value="${user.name}" readonly>
+                </div>
+                <!--Email del cliente-->
+                <div>
+                    <input type="text" th:value="${user.email}" readonly>
+                </div>
+                <!--Localización del cliente-->
+                <div>
+                    <input type="text" th:value="${user.country}" readonly>
+                    <input type="text" th:value="${user.province}" readonly>
+                    <input type="text" th:value="${user.city}" readonly>
+                    <input type="text" th:value="${user.address}" readonly>
+                    <input type="text" th:value="${user.address_number}" readonly>
+                </div>
+                
+                <h1>Información del proveedor</h1>
+                <!--Foto del proveedor
+                <div>
+                    <img th:src="@{/image/{image}(image=${supplier.image.id})}">
+                </div>-->
+                <!--Nombre del proveedor-->
+                <div>
+                    <input type="text" th:value="${supplier.name}" readonly>
+                </div>
+                <!--Rubro o categoría del proveedor-->
+                <div>
+                    <input type="text" th:value="${supplier.category.name}" readonly>
+                </div>
+                <!--Precio x hora
+                <div>
+                    <input type="text" th:value="supplier.priceHour" readonly>
+                </div>-->
+                <!--Localización del cliente-->
+                <div>
+                    <input type="text" th:value="${supplier.country}" readonly>
+                    <input type="text" th:value="${supplier.province}" readonly>
+                    <input type="text" th:value="${supplier.city}" readonly>
+                </div>
+                
+                <!--Descripción del servicio-->
+                <div>
+                    <textarea name="description" placeholder="Ingrese una descripción del trabajo a solicitar"></textarea>
+                </div>
+
+                <button class="btn brn-primary mt-3" type="submit">Enviar solicitud</button>
+            </form>
+        </div>
+
+        <!--Footer-->
+        <footer th:replace="fragments/footer :: footer"></footer>
+    </body>
+</html>
