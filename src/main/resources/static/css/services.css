@@ -1,29 +1,113 @@
 @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
 
-.boton-card-detail {
-    margin-top: 15px;
-    background-color: #ffc107;
-    font-family: "Kanit", sans-serif;
-    font-size: 1.3rem;
-    border: none;
-    border-radius: 50px; /* Ajusta el valor para redondear más o menos */
-    padding: 10px 10px; /* Ajusta el relleno para reducir el ancho */
-    cursor: pointer;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Ajusta los valores de la sombra */
-    transition: background-color 0.3s, box-shadow 0.3s;
+.contenedor-modal{
+    margin-top: 25px;
 }
 
-.boton-card-detail:hover {
-    background-color: rgb(255, 27, 0); /* Cambia el color a rojo en el hover */
-    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4); /* Ajusta la sombra en el hover */
+.boton-buscar { 
+    font-family: "Kanit", sans-serif !important;
+    background-color: #EDB83D !important;
+    color: #000B29!important;
+    border-radius: 25px !important;
+    margin-top: 25px;
+    border-color: #EDB83D;
+    font-size: 20px;
+
 }
 
-.boton-card-detail:active {
-    background-color: #1995AD; /* Cambia el color cuando se hace clic */
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Restaura la sombra al hacer clic */
+
+
 }
-.contenedorTarjeta{
 
-justify-content: center;
+.btn-custom {
+    text-align: right; /* Alinea el botón a la derecha */
+    transition: all 0.2s; /* Agrega una transición suave para cambios de estilo */
+}
 
+.btn-custom:hover {
+    transform: scale(1.1); /* Hace que el botón sea un 10% más grande al pasar el mouse sobre él */
+    background-color: rgb(228, 228, 111); /* Cambia el fondo a amarillo claro al pasar el mouse sobre él */
+}
+
+.titulo-frame-proveedores{
+    font-family: "Kanit", sans-serif !important;
+    color: #D70026;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+}
+
+.contenedor-modal{
+
+    background-color: #EDECEB;
+}
+
+.img-modal {
+    height: 90px;
+    width: auto;
+    animation: balanceo 2s linear infinite; /* 2 segundos de duración, velocidad lineal y repetición infinita */
+}
+
+@keyframes balanceo {
+    0%, 100% {
+        transform: translateX(0); /* Posición inicial y final, no hay movimiento */
+    }
+    50% {
+        transform: translateX(100px); /* Mueve la imagen 100px a la derecha a la mitad de la animación */
+    }
+}
+
+
+.card {
+    max-height: 400px; /* Altura máxima de las tarjetas */
+    width: 100%; /* Ancho fijo del 100% */
+    font-family: "Kanit", sans-serif !important;
+    color: #000B29!important;
+}
+.card-img-top {
+    height: 200px; /* Altura máxima de las imágenes */
+    width: 100%; /* Ancho fijo del 100% */
+}
+
+.fondo{
+    background-color: #EDB83D;
+}
+
+.cerrar{
+    background-color: #EDB83D;
+    margin-left: 10px;
+}
+
+.boton-ver-mas {
+    background-color: #EDB83D;
+    font-family: "Kanit", sans-serif !important;
+    color: #F8F5F2 !important;
+    border-radius: 25px !important;
+    margin-top: 25px;
+    border-color: #EDB83D;
+    font-size: 20px;
+    transition: all 0.3s ease; /* Agregar transición suave a todos los cambios */
+
+    /* Definir el tamaño original del botón */
+    transform: scale(1);
+}
+
+.boton-ver-mas:hover {
+    background-color: #FFD700; /* Cambiar el color al pasar el mouse sobre el botón */
+}
+
+.boton-ver-mas:active {
+    transform: scale(1.1); /* Hacer que el botón sea un 10% más grande al hacer clic */
+    animation: moveLeftRight 0.5s ease infinite; /* Agregar movimiento izquierda-derecha infinito al hacer clic */
+}
+
+@keyframes moveLeftRight {
+    0%, 100% {
+        transform: translateX(0); /* Posición inicial y final, no hay movimiento */
+    }
+    50% {
+        transform: translateX(10px); /* Mueve el botón 10px a la derecha a la mitad de la animación */
+    }
 }

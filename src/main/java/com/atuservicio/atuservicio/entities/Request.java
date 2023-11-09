@@ -2,7 +2,10 @@
 
 package com.atuservicio.atuservicio.entities;
 
+import com.atuservicio.atuservicio.enums.StateRequest;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -28,6 +31,9 @@ public class Request extends Base{
     @OneToOne
     private Contract contract;
     
-    private String content;
+    private String description;
+    
+    @Enumerated(EnumType.STRING)
+    private StateRequest state;
     
 }

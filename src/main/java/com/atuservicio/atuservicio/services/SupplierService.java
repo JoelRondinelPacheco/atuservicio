@@ -233,14 +233,21 @@ public class SupplierService implements ISupplierService {
             Supplier supplier = supplierOptional.get();
             supplier.setDescription(service.getDescription());
             supplier.setPriceHour(service.getPriceHour());
+
             List<Image> images = new ArrayList<>();
             for (MultipartFile img : service.getImages()) {
-                Image image = this.imageService.save(img, supplier);
-                images.add(image);
+                if (!img.isEmpty()) {
+                    Image image = this.imageService.save(img, supplier);
+                    images.add(image);
+                }
             }
 
             for (String imageId : service.getDeletedImages()) {
-                this.imageService.delete(imageId);
+                try {
+                    this.imageService.delete(imageId);
+                } catch (MyException ex) {
+                    System.out.println(ex.getMessage());
+                }
             }
             supplier.setImageGallery(images);
             Supplier supplierSaved = this.supplierRepository.save(supplier);
@@ -248,7 +255,7 @@ public class SupplierService implements ISupplierService {
         }
         throw new MyException("Supplier no encontrado");
     }
-    private SupplierInfoDTO createSupplierInfoDTO(Supplier supplier) {
+    public SupplierInfoDTO createSupplierInfoDTO(Supplier supplier) {
         return new SupplierInfoDTO(
                 supplier.getName(),
                 supplier.getEmail(),
