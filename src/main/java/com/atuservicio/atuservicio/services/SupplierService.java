@@ -281,8 +281,6 @@ public class SupplierService implements ISupplierService {
         System.out.println(imgs.size());
         for (Image img : imgs) {
             images.add(img.getId());
-            System.out.println("asdas");
-            System.out.println(img.getId());
         }
         CategoryInfoDTO category = this.categoryService.getById(supplier.getCategory().getId());
         return new ServiceInfoDTO(supplier.getName(), supplier.getEmail(), supplier.getImageCard().getId(), category, supplier.getDescription(), supplier.getPriceHour(), images);
