@@ -1,60 +1,86 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head th:replace="fragments/head :: head"></head>
+  <link th:href="@{/css/index.css}" rel="stylesheet" />
 
-<head th:replace="fragments/head :: head"></head>
-<link th:href="@{/css/index.css}" rel="stylesheet" />
+  <body>
+    <video autoplay loop muted>
+      <source src="/img/intro.mp4" type="video/mp4" />
+      Tu navegador no soporta la etiqueta de video.
+    </video>
+    <header>
+      <nav th:replace="fragments/navbar :: navbar"></nav>
+    </header>
+    <div class="container" sec:authorize="not isAuthenticated()">
+      <div class="login-div">
+        <div class="login-container">
+          <form class="login-form" th:action="@{/perform_login}" method="POST">
+            <div id="emailHelp" class="letras-login">Acceso Rápido</div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="letras-login email-icon"
+                >Email</label
+              >
+              <input
+                type="email"
+                name="email"
+                class="form-control label-login-index"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp" />
+            </div>
+            <div class="mb-3">
+              <label
+                for="exampleInputPassword1"
+                class="letras-login password-icon"
+                >Contraseña</label
+              >
+              <input
+                type="password"
+                name="password"
+                class="form-control label-login-index"
+                id="exampleInputPassword1" />
+            </div>
+            <div>
+              <button type="submit" class="boton-sesion">Iniciar Sesión</button>
+            </div>
+            <div class="m-2">
+              <!-- <a href="#">¿Olvidaste la contraseña?</a> -->
+            </div>
+          </form>
+        </div>
 
-<body>
-  <video autoplay loop muted>
-    <source src="/img/intro.mp4" type="video/mp4" />
-    Tu navegador no soporta la etiqueta de video.
-  </video>
-  <header>
-    <nav th:replace="fragments/navbar :: navbar"></nav>
-  </header>
-  <div class="container" sec:authorize="not isAuthenticated()">
-    <div class="login-div">
-      <div class="login-container">
-        <form class="login-form" th:action="@{/perform_login}" method="POST">
-          <div id="emailHelp" class="letras-login">Acceso Rápido</div>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="letras-login email-icon">Email</label>
-            <input type="email" name="email" class="form-control label-login-index" id="exampleInputEmail1"
-              aria-describedby="emailHelp" />
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="letras-login password-icon">Contraseña</label>
-            <input type="password" name="password" class="form-control label-login-index" id="exampleInputPassword1" />
-          </div>
-          <div>
-            <button type="submit" class="boton-sesion ">Iniciar Sesión</button>
-          </div>
-          <div class="m-2">
-            <a href="#">¿Olvidaste la contraseña?</a>
-          </div>
-        </form>
-      </div>
+        <div class="button-container" sec:authorize="not isAuthenticated()">
+          <form
+            action="/client/register"
+            th:action="@{/client/register}"
+            method="GET">
+            <button type="submit" class="boton-sesion left-button">
+              Soy Cliente
+            </button>
+          </form>
+          <img
+            src="/img/registro-flecha.png"
+            class="registro-flecha"
+            alt="logo a tu servicio" />
 
-      <div class="button-container" sec:authorize="not isAuthenticated()">
-        <form action="/client/register" th:action="@{/client/register}" method="GET">
-          <button type="submit" class="boton-sesion left-button">
-            Soy Cliente
-          </button>
-        </form>
-        <img src="/img/registro-flecha.png" class="registro-flecha" alt="logo a tu servicio" />
-
-        <form action="/supplier/register" th:action="@{/supplier/register}" method="GET">
-          <button type="submit" class="boton-sesion right-button">
-            Soy Proveedor
-          </button>
-        </form>
+          <form
+            action="/supplier/register"
+            th:action="@{/supplier/register}"
+            method="GET">
+            <button type="submit" class="boton-sesion right-button">
+              Soy Proveedor
+            </button>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
 
-  <img src="/img/logo.webp" class="logo-index mt-5 bg-transparent" alt="logo a tu servicio" />
+    <img
+      src="/img/logo.webp"
+      class="logo-index mt-5 bg-transparent"
+      alt="logo a tu servicio" />
 
-  <footer th:replace="fragments/footer :: footer"></footer>
-</body>
-
+    <footer th:replace="fragments/footer :: footer"></footer>
+  </body>
 </html>
