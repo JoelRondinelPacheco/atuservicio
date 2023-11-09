@@ -183,7 +183,8 @@ public class UserService implements IUserService {
     @Override
     public UserPaginatedDTO findPaginated(int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
-        Page<User> users = this.userRepository.findAll(pageable);
+        //Page<User> users = this.userRepository.findAll(pageable);
+        Page<User> users = this.userRepository.findByRole(Role.CLIENT, pageable);
         List<UserInfoDTO> usersInfo = new ArrayList<>();
         for (User user : users) {
             usersInfo.add(this.createUserInfoDTO(user));
