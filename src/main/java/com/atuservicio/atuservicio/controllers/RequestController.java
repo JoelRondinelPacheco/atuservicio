@@ -64,7 +64,7 @@ public class RequestController {
     @PostMapping("/send/{idSupplier}")
     public String requestSend(@PathVariable("idSupplier") String idSupplier,
             @RequestParam String description, ModelMap model) {
-
+        System.out.println("Devuelve formulario");
         try {
             //Recupero los detalles del usuario cliente logueado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
