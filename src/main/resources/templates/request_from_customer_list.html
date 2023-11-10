@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="fragments/head :: head"></head>
+
+<body>
+        <!--NavBar-->
+        <header>
+            <nav th:replace="fragments/navbar :: navbar"></nav>
+        </header>
+        
+        <div class="container">
+            <h1>Lista de solicitudes recibidas</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Fecha de la solicitud</th>
+                        <th scope="col">Nombre del cliente</th>
+                        <th scope="col">Email del cliente</th>
+                        <th scope="col">Descripción del cliente</th>
+                        <th scope="col">Estado de la solicitud</th>
+                    </tr>
+                </thead>
+                
+                <tbody class="table-group-divider">
+                    <tr th:each="request : ${requests}">
+                        <td th:text="${request.createdAt}"></td>
+                        <td th:text="${request.costumer.name}"></td>
+                        <td th:text="${request.costumer.email}"></td>
+                        <td th:text="${request.description}"></td>
+                        <td th:text="${request.state}"></td>
+
+                        <!--<td>
+                            
+                            <button class="btn btn-success" th:if="${request.state != 'ACCEPTED'}" th:onclick="'|updateState(\'' + ${request.id} + '\', \'ACCEPTED\')|'">Aceptar</button>
+                            <button class="btn btn-danger" th:if="${request.state != 'REJECTED'}" th:onclick="'|updateState(\'' + ${request.id} + '\', \'REJECTED\')|'">Rechazar</button>
+                        */</td>-->
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!--Footer-->
+        <footer th:replace="fragments/footer :: footer"></footer>
+    </body>
+</html>
