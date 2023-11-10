@@ -266,8 +266,9 @@ public class SupplierController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
-
+        SupplierInfoDTO supplier = supplierService.getByEmail(email);
         ServiceInfoDTO service = this.supplierService.getServiceInfo(email);
+        model.addAttribute("supplier", supplier);
         model.addAttribute("service", service);
         return "work.html";
     }

@@ -16,12 +16,12 @@
           <div class="col">
             <div class="card">
               <img
-                src="image.png"
+              th:src="@{/image/{imageId}(imageId=${supplier.imageCard})}"
                 class="card-img-top color img-responsive"
                 alt="sin tarjeta de presentacion" />
               <div class="card-body color">
-                <h5 class="card-title color">nombre proveedor</h5>
-                <p class="card-text color">DATOS PERSONALES</p>
+                <h5 th:text="${supplier.name}" class="card-title color"></h5>
+                <p th:text="${supplier.email}"class="card-text color"></p>
               </div>
             </div>
           </div>
@@ -30,9 +30,10 @@
               <div class="card-body color">
                 <h5 class="card-title color">Servicio</h5>
 
-                <p class="card-text color">
-                  DESCRIPCION Some quick example text to build on the card title
-                  and make up the bulk of the card's content.
+                <h1 th:text="${supplier.category.name}" >                  
+                </h1>
+                <p th:text="${service.description}" class="card-text color">
+                  
                 </p>
               </div>
             </div>
@@ -41,11 +42,12 @@
             <div class="container color">
               <div class="card color">
                 <div class="card-body color">
-                  <p class="card-text color">Este es un pequeño texto</p>
+                  <p>Precio por hora:</p>
+                  <p th:text="${service.priceHour}" class="card-text color"></p>
                 </div>
                 <div class="card color">
                   <div class="card-body color">
-                    <p class="card-text color">Este es un pequeño texto</p>
+                   
                   </div>
                   <div class="color">
                     <a th:href="@{/supplier/workEdit}" class="btn botones"

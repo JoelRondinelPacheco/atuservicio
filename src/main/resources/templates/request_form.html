@@ -7,63 +7,59 @@
             <nav th:replace="fragments/navbar :: navbar"></nav>
         </header>
 
-        <div class="container">
-            <form class="formulario-registro"
+        <div class="container-fluid" >
+            <form class="form-group"
                   th:action="@{/request/send/{idSupplier}(idSupplier=${supplier.id})}"
                   method="POST">
-                
+              
                 <h1>Información del cliente</h1>
-                <!--Foto del cliente
+                <div class="row row-cols-4 px-5"> 
                 <div>
-                    <img th:src="@{/image/{imageId}(imageId=${user.image.id})}">
-                </div>-->
-                <!--Nombre del cliente-->
-                <div>
-                    <input type="text" th:value="${user.name}" readonly>
+                    <img th:src="@{/image/{imageId}(imageId=${user.image})}">
+                   
                 </div>
-                <!--Email del cliente-->
+             
                 <div>
-                    <input type="text" th:value="${user.email}" readonly>
-                </div>
-                <!--Localización del cliente-->
-                <div>
-                    <input type="text" th:value="${user.country}" readonly>
-                    <input type="text" th:value="${user.province}" readonly>
-                    <input type="text" th:value="${user.city}" readonly>
-                    <input type="text" th:value="${user.address}" readonly>
-                    <input type="text" th:value="${user.address_number}" readonly>
-                </div>
+                    <p th:text="${user.name}" ></p>
                 
+                    <p th:text="${user.email}" ></p>
+              
+                    <p th:text="${user.country}" ></p>
+                    <p th:text="${user.province}" ></p>
+                    <p th:text="${user.city}" ></p>
+                    <p th:text="${user.address}" ></p>
+                    <p th:text="${user.address_number}" ></p>
+                </div>
+            </div>
+            <div >    
                 <h1>Información del proveedor</h1>
-                <!--Foto del proveedor
+                <div class="row row-cols-4 px-5">      
                 <div>
-                    <img th:src="@{/image/{image}(image=${supplier.image.id})}">
-                </div>-->
-                <!--Nombre del proveedor-->
-                <div>
-                    <input type="text" th:value="${supplier.name}" readonly>
+                    <img th:src="@{/image/{imageId}(imageId=${supplier.imageCard})}">
                 </div>
-                <!--Rubro o categoría del proveedor-->
                 <div>
-                    <input type="text" th:value="${supplier.category.name}" readonly>
-                </div>
-                <!--Precio x hora
-                <div>
-                    <input type="text" th:value="supplier.priceHour" readonly>
-                </div>-->
-                <!--Localización del cliente-->
-                <div>
-                    <input type="text" th:value="${supplier.country}" readonly>
-                    <input type="text" th:value="${supplier.province}" readonly>
-                    <input type="text" th:value="${supplier.city}" readonly>
-                </div>
+                <p th:text="${supplier.name}" ></p>
                 
+                <p th:text="${supplier.email}" ></p>
+          
+                <p th:text="${supplier.country}" ></p>
+                <p th:text="${supplier.province}" ></p>
+                <p th:text="${supplier.city}" ></p>
+                <p th:text="${supplier.address}" ></p>
+                <p th:text="${supplier.address_number}" ></p>
+                <p th:text="${supplier.category.name}" ></p>
+                <p th:text="'$/H ' +${service.priceHour}" ></p>
+            </div>
                 <!--Descripción del servicio-->
                 <div>
-                    <textarea name="description" placeholder="Ingrese una descripción del trabajo a solicitar"></textarea>
+                    <p>Ingrese una descripción del trabajo que necesita</p>
+                    <textarea name="description"></textarea>
                 </div>
-
-                <button class="btn brn-primary mt-3" type="submit">Enviar solicitud</button>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary mt-3" >Enviar solicitud</button>
+            </div>
             </form>
         </div>
 
