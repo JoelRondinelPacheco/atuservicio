@@ -137,9 +137,9 @@ public class SupplierController {
             ModelMap model) {
 
         try {
-            
-            EditSupplierDTO supplierInfoDTO = new EditSupplierDTO(id, name, image, address, address_number, city,
-                    province, country, postal_code, categoryId);
+
+            EditSupplierDTO supplierInfoDTO = new EditSupplierDTO(id, name, image, address, address_number, country,
+                    province, city, postal_code, categoryId);
             SupplierInfoDTO supplier = this.supplierService.edit(supplierInfoDTO);
             model.addAttribute("exito", "Datos actualizados");
             model.addAttribute("user", supplier);
@@ -205,14 +205,15 @@ public class SupplierController {
     @PostMapping("/services")
     public String searchServices(@RequestParam(required = false) String country,
             @RequestParam(required = false) String province, @RequestParam(required = false) String city,
-            @RequestParam(required = false) String email,@RequestParam(required = false)String category, ModelMap model) {
+            @RequestParam(required = false) String email, @RequestParam(required = false) String category,
+            ModelMap model) {
 
         if (email.isEmpty()) {
             System.out.println(province);
             System.out.println(country);
             System.out.println(city);
             UserSearchDTO userSearch = new UserSearchDTO(city, province, country);
-            List<SupplierInfoDTO> users = supplierService.getSearchSuppliers(userSearch,category);
+            List<SupplierInfoDTO> users = supplierService.getSearchSuppliers(userSearch, category);
 
             List<CategoryInfoDTO> categories = this.categoryService.listAll();
             model.addAttribute("categories", categories);
@@ -262,7 +263,7 @@ public class SupplierController {
         String userEmail = auth.getName();
         UserInfoDTO user = userService.getSearchEmailUser(userEmail);
         ServiceInfoDTO service = this.supplierService.getServiceInfo(email);
-         model.addAttribute("user", user);
+        model.addAttribute("user", user);
         model.addAttribute("supplier", supplier);
         model.addAttribute("service", service);
         return "work_user.html";
@@ -296,8 +297,10 @@ public class SupplierController {
 
     @PostMapping("/workEdit")
 
-    public String postWorkInfo(@RequestParam String description, @RequestParam Double priceHour, @RequestParam(required = false) List<MultipartFile> images,
-                               @RequestParam(required = false) MultipartFile card, @RequestParam(required = false, name = "delete") List<String> delete,  ModelMap model) throws MyException {
+    public String postWorkInfo(@RequestParam String description, @RequestParam Double priceHour,
+            @RequestParam(required = false) List<MultipartFile> images,
+            @RequestParam(required = false) MultipartFile card,
+            @RequestParam(required = false, name = "delete") List<String> delete, ModelMap model) throws MyException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         try {
@@ -306,7 +309,8 @@ public class SupplierController {
                 delete.add("empty");
             }
 
-            ServiceInfoDTO service = this.supplierService.editServiceInfo(new EditServiceInfoDTO(email, description, priceHour, images, delete, card));
+            ServiceInfoDTO service = this.supplierService
+                    .editServiceInfo(new EditServiceInfoDTO(email, description, priceHour, images, delete, card));
             model.addAttribute("service", service);
             model.addAttribute("exito", "Servicio actualizado correctamente");
             return "work";

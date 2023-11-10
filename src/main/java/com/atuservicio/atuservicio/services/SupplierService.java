@@ -202,12 +202,14 @@ public class SupplierService implements ISupplierService {
                     .stream().filter(element -> element.getCategory().getName().equals(category))
                     .collect(Collectors.toList());
 
+
+
             return userInformation;
         }
-        if (userSearch.getCity() == null) {
-            userSearch.setCity("");
-        }
-        if (!userSearch.getCity().isEmpty()) {
+        // if (userSearch.getCity() == null) {
+        //     userSearch.setCity("");
+        // }
+        if (userSearch.getCity() != null && !userSearch.getCity().isEmpty()) {
 
             List<Supplier> users = supplierRepository.findSuppliersByCity(userSearch.getCity());
             return userInformation = getListSupplierInfoDTO(users);
