@@ -8,6 +8,7 @@ import com.atuservicio.atuservicio.enums.Role;
 import java.util.List;
 import java.util.Optional;
 
+import com.atuservicio.atuservicio.enums.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -38,15 +39,27 @@ public interface UserRepository extends JpaRepository<User, String> {
                         @Param("country") String country);
 
         @Query("SELECT u FROM User u WHERE u.city = :city")
-        public List<User> findUsersByCity(@Param("city") String city);
+        public List<User> getUsersByCity(@Param("city") String city);
 
         @Query("SELECT u FROM User u WHERE u.province = :province")
-        public List<User> findUsersByProvince(@Param("province") String province);
+        public List<User> getUsersByProvince(@Param("province") String province);
 
         @Query("SELECT u FROM User u WHERE u.country = :country  AND u.role = 'SUPPLIER'")
-        List<User> findUsersByCountry(@Param("country") String country);
+        List<User> getUsersByCountry(@Param("country") String country);
 
         @Query("SELECT u FROM User u WHERE u.role = :role")
         List<User> findUsersByRole(@Param("role") Role role);
+
+
+    @Query("SELECT u FROM User u WHERE u.city = :city AND u.role = 'SUPPLIER'")
+    public List<User> findUsersByCity(@Param("city")String city);
+    @Query("SELECT u FROM User u WHERE u.province = :province  AND u.role = 'SUPPLIER'")
+    public List<User> findUsersByProvince(@Param("province") String province);
+    @Query("SELECT u FROM User u WHERE u.country = :country  AND u.role = 'SUPPLIER'")
+    List<User> findUsersByCountry(@Param("country") String country);
+
+    //PAGINATED
+    @Query("SELECT u FROM User u WHERE u.role = :role")
+    Page<User> findByRole(@Param("role") Role role, Pageable pageable);
 
 }

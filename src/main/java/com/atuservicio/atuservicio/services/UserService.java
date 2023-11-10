@@ -185,7 +185,8 @@ public class UserService implements IUserService {
     @Override
     public UserPaginatedDTO findPaginated(int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
-        Page<User> users = this.userRepository.findAll(pageable);
+        // Page<User> users = this.userRepository.findAll(pageable);
+        Page<User> users = this.userRepository.findByRole(Role.CLIENT, pageable);
         List<UserInfoDTO> usersInfo = new ArrayList<>();
         for (User user : users) {
             usersInfo.add(this.createUserInfoDTO(user));
@@ -245,11 +246,11 @@ public class UserService implements IUserService {
         }
 
         if (!userSearch.getCity().isEmpty()) {
-            return getSearchUsers(userSearch);
+            return getSearchUsersForLocation(userSearch);
         }
 
         if (!userSearch.getProvince().isEmpty()) {
-            return getSearchUsers(userSearch);
+            return getSearchUsersForLocation(userSearch);
         }
 
         if (!userSearch.getEmail().isEmpty()) {
@@ -267,6 +268,32 @@ public class UserService implements IUserService {
         }
 
         return getAllUsers();
+    }
+
+    public List<UserInfoDTO> getSearchUsersForLocation(UserSearchDTO userSearch) {
+        List<UserInfoDTO> userInformation = new ArrayList<>();
+        System.out.println(userSearch.getCountry());
+        if (userSearch.getCity() == null) {
+            userSearch.setCity("");
+        }
+        if (!userSearch.getCity().isEmpty()) {
+
+            List<User> users = userRepository.getUsersByCity(userSearch.getCity());
+            return userInformation = getListUserInfoDTO(users);
+
+        } else if (!userSearch.getProvince().isEmpty()) {
+
+            List<User> users = userRepository.getUsersByProvince(userSearch.getProvince());
+            return userInformation = getListUserInfoDTO(users);
+
+        } else if (!userSearch.getCountry().isEmpty()) {
+
+            List<User> users = userRepository.getUsersByCountry(userSearch.getCountry());
+            return userInformation = getListUserInfoDTO(users);
+
+        }
+
+        return userInformation;
     }
 
     // public Object[] findUsers(UserSearchDTO userSearch) throws MyException {
