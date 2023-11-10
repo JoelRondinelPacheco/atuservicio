@@ -94,7 +94,7 @@
                 <div class="form-group">
                     <label for="rubro">Rubro:</label>
                     <select class="form-control" id="rubro" name="categoryId" required>
-                        <option th:selected="selected" th:value="${category}" th:text="${category.name}">Selecciona un rubro</option>
+                        <option th:selected="selected" th:value="${category.id}" th:text="${category.name}">Selecciona un rubro</option>
                         <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"
                             >
                         </option>
