@@ -1,73 +1,89 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace="fragments/head :: head"></head>
-    <body>
-        <!--NavBar-->
-        <header>
-            <nav th:replace="fragments/navbar :: navbar"></nav>
-        </header>
 
-        <div class="container">
-            <form class="formulario-registro"
-                  th:action="@{/request/send/{idSupplier}(idSupplier=${supplier.id})}"
-                  method="POST">
-                
-                <h1>Información del cliente</h1>
-                <!--Foto del cliente
-                <div>
-                    <img th:src="@{/image/{imageId}(imageId=${user.image.id})}">
-                </div>-->
-                <!--Nombre del cliente-->
-                <div>
-                    <input type="text" th:value="${user.name}" readonly>
+<head th:replace="fragments/head :: head"></head>
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+crossorigin="anonymous"></script>
+<link th:href="@{/css/request.css}" rel="stylesheet" />
+
+<body>
+    <!--NavBar-->
+    <header>
+        <nav th:replace="fragments/navbar :: navbar"></nav>
+    </header>
+    <form class="form-group" th:action="@{/request/send/{idSupplier}(idSupplier=${supplier.id})}" method="POST"></form>
+    <div class="panel">
+        <div class="row row-cols-2 px-5 ">
+
+            <div>
+                <h1 class="tiltulo">Información del cliente</h1>
+                <div class="panel ">
+                    <div>
+                        <img class="card-img-top" th:src="@{/image/{imageId}(imageId=${user.image})}">
+
+                    </div>
+
+                    <div class="container overflow-hidden text-center">
+                        <p th:text="${user.name}"></p>
+
+                        <p th:text="${user.email}"></p>
+
+                        <p th:text="${user.country}"></p>
+                        <p th:text="${user.province}"></p>
+                        <p th:text="${user.city}"></p>
+                        <p th:text="${user.address}"></p>
+                        <p th:text="${user.address_number}"></p>
+                    </div>
                 </div>
-                <!--Email del cliente-->
-                <div>
-                    <input type="text" th:value="${user.email}" readonly>
-                </div>
-                <!--Localización del cliente-->
-                <div>
-                    <input type="text" th:value="${user.country}" readonly>
-                    <input type="text" th:value="${user.province}" readonly>
-                    <input type="text" th:value="${user.city}" readonly>
-                    <input type="text" th:value="${user.address}" readonly>
-                    <input type="text" th:value="${user.address_number}" readonly>
-                </div>
-                
+            </div>
+            <div>
                 <h1>Información del proveedor</h1>
-                <!--Foto del proveedor
-                <div>
-                    <img th:src="@{/image/{image}(image=${supplier.image.id})}">
-                </div>-->
-                <!--Nombre del proveedor-->
-                <div>
-                    <input type="text" th:value="${supplier.name}" readonly>
-                </div>
-                <!--Rubro o categoría del proveedor-->
-                <div>
-                    <input type="text" th:value="${supplier.category.name}" readonly>
-                </div>
-                <!--Precio x hora
-                <div>
-                    <input type="text" th:value="supplier.priceHour" readonly>
-                </div>-->
-                <!--Localización del cliente-->
-                <div>
-                    <input type="text" th:value="${supplier.country}" readonly>
-                    <input type="text" th:value="${supplier.province}" readonly>
-                    <input type="text" th:value="${supplier.city}" readonly>
-                </div>
-                
-                <!--Descripción del servicio-->
-                <div>
-                    <textarea name="description" placeholder="Ingrese una descripción del trabajo a solicitar"></textarea>
-                </div>
+                <div class="panel">
+                    <div>
+                        <img class="card-img-top" th:src="@{/image/{imageId}(imageId=${supplier.imageCard})}">
+                    </div>
+                    <div>
+                        <div class="container overflow-hidden text-center">
+                            <p th:text="${supplier.name}"></p>
 
-                <button class="btn brn-primary mt-3" type="submit">Enviar solicitud</button>
-            </form>
+                            <p th:text="${supplier.email}"></p>
+
+                            <p th:text="${supplier.country}"></p>
+                            <p th:text="${supplier.province}"></p>
+                            <p th:text="${supplier.city}"></p>
+                            <p th:text="${supplier.address}"></p>
+                            <p th:text="${supplier.address_number}"></p>
+                            <p th:text="${supplier.category.name}"></p>
+                            <p th:text="'$/H ' +${service.priceHour}"></p>
+                        </div>
+                    </div>
+                    <!--Descripción del servicio-->
+
+                </div>
+                <div>
+                    <p>Ingrese una descripción del trabajo que necesita</p>
+                    <textarea style="width: 400px;" name="description"></textarea>
+                </div>
+            </div>
+
+
+
+            <div>
+
+                <button type="submit" class="btn botones">Enviar solicitud</button>
+            </div>
+            
         </div>
+    </div>
+</form>
+    <!--Footer-->
+    <footer th:replace="fragments/footer :: footer"></footer>
+ 
+</body>
 
-        <!--Footer-->
-        <footer th:replace="fragments/footer :: footer"></footer>
-    </body>
 </html>
