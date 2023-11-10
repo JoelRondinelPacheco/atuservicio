@@ -129,6 +129,7 @@ public class RequestService implements IRequestService {
             Request request = requestOptional.get();
             if (request.getState().equals(StateRequest.PENDING)) {
                 request.setState(StateRequest.APPROVED);
+                //logica del contrato
             }
             Request requestSaved = this.requestRepository.save(request);
             return this.createRequestInfoDTO(requestSaved);
