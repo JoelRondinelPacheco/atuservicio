@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
+ <link th:href="@{/css/services.css}" rel="stylesheet" />
 <head th:replace="fragments/head :: head"></head>
 
 <body>
@@ -94,7 +94,7 @@
                 <div class="form-group">
                     <label for="rubro">Rubro:</label>
                     <select class="form-control" id="rubro" name="categoryId" required>
-                        <option th:selected="selected" th:value="${category}" th:text="${category.name}">Selecciona un rubro</option>
+                        <option th:selected="selected" th:value="${category.id}" th:text="${category.name}">Selecciona un rubro</option>
                         <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"
                             >
                         </option>
@@ -103,8 +103,11 @@
 
             </div>
         </div>
-        <button type="submit" class="boton-sesion-registro">Guardar</button>
+        <button class="boton-card-detail boton-ver-mas" type="submit" >Guardar</button>
     </form>
+    
+    <br>
+    <br>
     <div class="logo-registro">
         <!-- <img src="/img/registro.webp" alt="Tu Logo" /> -->
     </div>

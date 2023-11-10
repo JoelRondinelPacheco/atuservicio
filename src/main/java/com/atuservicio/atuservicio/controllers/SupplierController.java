@@ -137,7 +137,7 @@ public class SupplierController {
             ModelMap model) {
 
         try {
-
+            
             EditSupplierDTO supplierInfoDTO = new EditSupplierDTO(id, name, image, address, address_number, city,
                     province, country, postal_code, categoryId);
             SupplierInfoDTO supplier = this.supplierService.edit(supplierInfoDTO);
