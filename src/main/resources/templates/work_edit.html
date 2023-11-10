@@ -10,7 +10,24 @@
   <h2 th:text="${error}"></h2>
 </div>
 <div class="contenedor-general">
-<form th:action="@{/supplier/workEdit}" method="POST" enctype="multipart/form-data">
+  <main  class="d-flex justify-content-center w-75">
+<form th:action="@{/supplier/workEdit}" method="POST" enctype="multipart/form-data" class="w-100">
+  <div class="row">
+  <div class="card" style="width: 18rem;">
+    <img th:src="@{'/image/' + ${service.imageCardId}}"  class="card-img-top" alt="">
+      <p>Imagen anterior</p>
+  </div>
+    <div class="card" id="img-nueva">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 mb-10">
+      <label for="card-image" class="form-label btn botones">Examinar...</label>
+      <input class="form-control" type="file" id="card-image" accept="image/jpeg" oncgange="newPreview()" name="card" onchange="preview()" style="display: none;">
+
+    </div>
+  </div>
   <div class="row">
   <div class="col-md-10 mb-3">
     <label for="descripcion" class="form-label descripcion">
@@ -21,6 +38,7 @@
             id="descripcion"
             name="description"
             th:text="${service.description}"></textarea>
+  </div>
   </div>
   <div class="col-md-2 mb-2">
     <label for="tarifa" class="form-label tarifa">
@@ -33,19 +51,20 @@
             name="priceHour"
             th:value="${service.priceHour}" />
   </div>
-  </div>
   <div class="contenedor-sube-fotos">
     <img th:src="@{/img/sube-fotos.png}" alt="logo" class="img-sube" />
   </div>
   <div class="row">
     <div class="col-md-12 mb-10">
-    <label for="file-input" class="form-label btn btn-primary">Examinar...</label>
+
+    <label for="file-input" class="form-label btn botones">Examinar...</label>
+      <p id="num-of-files" class="fs-4">Imagenes nuevas</p>
       </div>
     </div>
     <input class="form-control" type="file" id="file-input" accept="image/jpeg" name="images" onchange="preview()"  multiple style="display: none;">
-    <p id="num-of-files">No hay imagenes seleccionadas</p>
     <div id="images" class="container d-flex flex-row"></div>
-    <div class="container d-flex flex-row">
+  <p id="num-of-files" class="fs-4">Imagenes existentes</p>
+  <div class="container d-flex flex-row">
       <div th:each="image : ${service.imageGallery}">
         <div class="card" style="width: 18rem;">
           <img th:src="@{'/image/' + ${image}}"  class="card-img-top" alt="">
@@ -64,6 +83,7 @@
     </div>
   </div>
 </form>
+  </main>
 </div>
 <script th:src="@{/js/imgpreview.js}"></script>
 </body>

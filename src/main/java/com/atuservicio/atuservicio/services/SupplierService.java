@@ -10,6 +10,7 @@ import com.atuservicio.atuservicio.dtos.services.ServiceInfoDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.EditSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SaveSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
+import com.atuservicio.atuservicio.dtos.suppliers.SupplierPaginatedDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserSearchDTO;
 import com.atuservicio.atuservicio.entities.Category;
@@ -23,6 +24,9 @@ import com.atuservicio.atuservicio.repositories.SupplierRepository;
 import com.atuservicio.atuservicio.repositories.UserRepository;
 import com.atuservicio.atuservicio.services.interfaces.ISupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +34,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -105,6 +111,16 @@ public class SupplierService implements ISupplierService {
         return suppliersDTO;
     }
 
+    public SupplierPaginatedDTO findPaginated(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+        Page<Supplier> suppliers = this.supplierRepository.findAll(pageable);
+        List<SupplierInfoDTO> suppliersDTO = new ArrayList<>();
+        for (Supplier s : suppliers) {
+            suppliersDTO.add(this.createSupplierInfoDTO(s));
+        }
+        return new SupplierPaginatedDTO(suppliersDTO, suppliers.getTotalPages(), suppliers.getTotalElements());
+    }
+
     @Override
     public SupplierInfoDTO edit(EditSupplierDTO supplierDTO) throws MyException {
         System.out.println(supplierDTO.getId());
@@ -176,9 +192,18 @@ public class SupplierService implements ISupplierService {
         throw new MyException("Proveedor no encontrado por email");
     }
 
-    public List<SupplierInfoDTO> getSearchSuppliers(UserSearchDTO userSearch) {
+    public List<SupplierInfoDTO> getSearchSuppliers(UserSearchDTO userSearch, String category) {
         List<SupplierInfoDTO> userInformation = new ArrayList<>();
         System.out.println(userSearch.getCountry());
+
+        if (category != null && !category.isEmpty()) {
+
+            userInformation = getAllSuppliers()
+                    .stream().filter(element -> element.getCategory().getName().equals(category))
+                    .collect(Collectors.toList());
+
+            return userInformation;
+        }
         if (userSearch.getCity() == null) {
             userSearch.setCity("");
         }
@@ -217,7 +242,7 @@ public class SupplierService implements ISupplierService {
         return infoSuppliers;
     }
 
-    public ServiceInfoDTO getServiceInfo(String id) throws MyException{
+    public ServiceInfoDTO getServiceInfo(String id) throws MyException {
         Optional<Supplier> supplierOptional = this.supplierRepository.findByEmailSupplier(id);
         if (supplierOptional.isPresent()) {
             Supplier supplier = supplierOptional.get();
@@ -226,7 +251,7 @@ public class SupplierService implements ISupplierService {
         throw new MyException("Supplier no encontrado");
     }
 
-    //TODO COMPLETE IMAGE EDITION
+    // TODO COMPLETE IMAGE EDITION
     public ServiceInfoDTO editServiceInfo(EditServiceInfoDTO service) throws MyException {
         Optional<Supplier> supplierOptional = this.supplierRepository.findByEmailSupplier(service.getEmail());
         if (supplierOptional.isPresent()) {
@@ -249,12 +274,18 @@ public class SupplierService implements ISupplierService {
                     System.out.println(ex.getMessage());
                 }
             }
+
+            if (!service.getCard().isEmpty()) {
+                Image img = this.imageService.save(service.getCard());
+                supplier.setImageCard(img);
+            }
             supplier.setImageGallery(images);
             Supplier supplierSaved = this.supplierRepository.save(supplier);
             return this.createServiceInfoDTO(supplierSaved);
         }
         throw new MyException("Supplier no encontrado");
     }
+
     public SupplierInfoDTO createSupplierInfoDTO(Supplier supplier) {
         return new SupplierInfoDTO(
                 supplier.getName(),
@@ -283,10 +314,8 @@ public class SupplierService implements ISupplierService {
             images.add(img.getId());
         }
         CategoryInfoDTO category = this.categoryService.getById(supplier.getCategory().getId());
-        return new ServiceInfoDTO(supplier.getName(), supplier.getEmail(), supplier.getImageCard().getId(), category, supplier.getDescription(), supplier.getPriceHour(), images);
+        return new ServiceInfoDTO(supplier.getName(), supplier.getEmail(), supplier.getImageCard().getId(), category,
+                supplier.getDescription(), supplier.getPriceHour(), images);
     }
 
-
-
 }
-

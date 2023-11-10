@@ -11,30 +11,28 @@ color: #D70026;
 margin-top: 20px;
 font-size: 30px;
 text-align: center;
-justify-content: center;
+/*justify-content: center;*/
 align-items: center;
 display: flex;
-
-
 }
 
 .descripcion i {
     margin-right: 5px; /* O ajusta el valor según sea necesario */
 }
 .contenedor-general {
+display: flex;
     width: 100%;
     padding: 6px; /* Centrar horizontalmente */
    height: 100vh;
     background-color: #F8F5F2;
     flex-direction: column; /* Aplicar flexbox en dirección de columna (vertical) */
-    align-items: center; /* Centrar verticalmente */
+   align-items: center; /* Centrar verticalmente */
+
 }
 .tarifa{
     color: #D70026;
 margin-top: 20px;
 font-size: 30px;
-
-
 }
 
 .input-tarifa{
