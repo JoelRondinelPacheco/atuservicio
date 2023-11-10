@@ -26,7 +26,7 @@
             class="collapse navbar-collapse margen-retoque"
             id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+                <li sec:authorize="not isAuthenticated()" class="nav-item">
                     <a class="nav-link active colorfont" th:href="@{/}">
                         <i class="fas fa-home colorfont"></i>
                         Inicio
@@ -44,12 +44,7 @@
                         Contacto
                     </a>
                 </li>
-                <li class="nav-item colorfont">
-                    <a class="nav-link active colorfont" th:href="@{/search}">
-                        <i class="fas fa-search colorfont"></i>
-                        Búsqueda
-                    </a>
-                </li>
+              
                 <li class="nav-item colorfont" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link active colorfont" th:href="@{/admin/dashboard}">
                         <i class="fas fa-search colorfont"></i>
@@ -96,7 +91,7 @@
                             <a class="dropdown-item colorfont" th:href="@{/profile}"
                                >Mi Perfil</a>
                         </li>
-                        <li>
+                        <li sec:authorize="hasRole('SUPPLIER')">
                             <a class="dropdown-item colorfont" th:href="@{/supplier/service}"
                                >Mi Servicio</a>
                         </li>
