@@ -24,6 +24,9 @@ import com.atuservicio.atuservicio.repositories.SupplierRepository;
 import com.atuservicio.atuservicio.repositories.UserRepository;
 import com.atuservicio.atuservicio.services.interfaces.ISupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -105,11 +108,17 @@ public class SupplierService implements ISupplierService {
         }
         return suppliersDTO;
     }
-/*
+
     public SupplierPaginatedDTO findPaginated(int pageNumber, int pageSize) {
-        Pageable pa
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+        Page<Supplier> suppliers = this.supplierRepository.findAll(pageable);
+        List<SupplierInfoDTO> suppliersDTO = new ArrayList<>();
+        for (Supplier s : suppliers) {
+            suppliersDTO.add(this.createSupplierInfoDTO(s));
+        }
+        return new SupplierPaginatedDTO(suppliersDTO, suppliers.getTotalPages(), suppliers.getTotalElements());
     }
-*/
+
     @Override
     public SupplierInfoDTO edit(EditSupplierDTO supplierDTO) throws MyException {
         System.out.println(supplierDTO.getId());
@@ -253,6 +262,11 @@ public class SupplierService implements ISupplierService {
                 } catch (MyException ex) {
                     System.out.println(ex.getMessage());
                 }
+            }
+
+            if (!service.getCard().isEmpty()) {
+                Image img = this.imageService.save(service.getCard());
+                supplier.setImageCard(img);
             }
             supplier.setImageGallery(images);
             Supplier supplierSaved = this.supplierRepository.save(supplier);

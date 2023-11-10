@@ -4,6 +4,7 @@ import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
 import com.atuservicio.atuservicio.dtos.categories.EditCategoryDTO;
 import com.atuservicio.atuservicio.dtos.categories.SaveCategoryDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
+import com.atuservicio.atuservicio.dtos.suppliers.SupplierPaginatedDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserPaginatedDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
@@ -49,44 +50,28 @@ public class AdminController {
             model.addAttribute("clients", clients.getClients());
             return "clients_dashboard";
         }
-    // TODO Agergar page size desde la vista
-    // /clients/pageNumber?sortField=name&sortDir=asc
-   /* @GetMapping("/clients/{pageNumber}")
-    public String clientsPaginated(@PathVariable int pageNumber, @RequestParam String sortField, @RequestParam String sortDir, ModelMap model) {
-        int pageSize = 5;
-        UserPaginatedDTO clients = this.userService.findPaginated(pageNumber, pageSize, sortField, sortDir);
-
-        model.addAttribute("currentPage", pageNumber);
-        model.addAttribute("totalPages", clients.getTotalPages());
-        model.addAttribute("totalItems", clients.getTotalElements());
-
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
-        model.addAttribute("clients", clients.getClients());
-        return "clients_dashboard";
-    }*/
 
     @GetMapping("/clients/delete")
-    public String deleteUser(@RequestParam String clientId, ModelMap model) {
+    public String deleteUser(@RequestParam String clientId, @RequestParam int currentpage, ModelMap model) {
         try {
             this.userService.delete(clientId);
-            List<UserInfoDTO> clients = this.userService.getAllUsers();
+            return this.clientsPaginated(currentpage, model);
+           /* List<UserInfoDTO> clients = this.userService.getAllUsers();
             model.addAttribute("clients", clients);
-            return "clients_dashboard";
+            return "clients_dashboard";*/
         } catch (MyException ex) {
             return "clients_dashboard";
         }
     }
 
     @GetMapping("/clients/activate")
-    public String activateClient(@RequestParam String clientId, ModelMap model) {
+    public String activateClient(@RequestParam String clientId, @RequestParam int currentpage, ModelMap model) {
         try {
             this.userService.activate(clientId);
-            List<UserInfoDTO> clients = this.userService.getAllUsers();
+            return this.clientsPaginated(currentpage, model);
+            /*List<UserInfoDTO> clients = this.userService.getAllUsers();
             model.addAttribute("clients", clients);
-            return "clients_dashboard";
+            return "clients_dashboard";*/
         } catch (MyException ex) {
             return "clients_dashboard";
         }
@@ -102,33 +87,42 @@ public class AdminController {
             return "client_panel";
         }
     }
-
     @GetMapping("/suppliers")
-    public String supplierDashboard(ModelMap model) {
+    public String suppliersMainDashboard(ModelMap model) {
+        return this.supplierPageDashboard(1, model);
+    }
+    @GetMapping("/suppliers/{pageNumber}")
+    public String supplierPageDashboard(@PathVariable int pageNumber, ModelMap model) {
+        int pageSize = 5;
+        SupplierPaginatedDTO suppliers = this.supplierService.findPaginated(pageNumber, pageSize);
+
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", suppliers.getTotalPages());
+        model.addAttribute("totalItems", suppliers.getTotalElements());
+        model.addAttribute("suppliers", suppliers.getSuppliers());
+        return "suppliers_dashboard";
+
+        /*
         List<SupplierInfoDTO> suppliers = this.supplierService.getAllSuppliers();
         model.addAttribute("suppliers", suppliers);
-        return "suppliers_dashboard";
+        return "suppliers_dashboard";*/
     }
 
     @GetMapping("/suppliers/delete")
-    public String deleteSupplier(@RequestParam String supplierId, ModelMap model) {
+    public String deleteSupplier(@RequestParam String supplierId, @RequestParam int currentpage, ModelMap model) {
         try {
             this.supplierService.delete(supplierId);
-            List<SupplierInfoDTO> suppliers = this.supplierService.getAllSuppliers();
-            model.addAttribute("suppliers", suppliers);
-            return "suppliers_dashboard";
+            return this.clientsPaginated(currentpage, model);
         } catch (MyException ex) {
             return "suppliers_dashboard";
         }
     }
 
     @GetMapping("/suppliers/activate")
-    public String activateSupplier(@RequestParam String supplierId, ModelMap model) {
+    public String activateSupplier(@RequestParam String supplierId,  @RequestParam int currentpage, ModelMap model) {
         try {
             this.supplierService.activate(supplierId);
-            List<SupplierInfoDTO> suppliers = this.supplierService.getAllSuppliers();
-            model.addAttribute("suppliers", suppliers);
-            return "suppliers_dashboard";
+            return this.clientsPaginated(currentpage, model);
         } catch (MyException ex) {
             return "suppliers_dashboard";
         }

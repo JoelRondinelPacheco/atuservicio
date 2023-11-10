@@ -45,10 +45,10 @@
             </td>
             <td>
                 <div th:unless="${client.active}">
-                    <a th:href="@{/admin/clients/activate?clientId={clientId}(clientId=${client.id})}">Dar de alta</a>
+                    <a th:href="@{'/admin/clients/activate?clientId='+${client.id}+'&'+'currentpage='+${currentPage}}">Dar de alta</a>
                 </div>
                 <div th:if="${client.active}">
-                <a th:href="@{/admin/clients/delete?clientId={clientId}(clientId=${client.id})}">Dar de Baja</a>
+                <a th:href="@{'/admin/clients/delete?clientId='+${client.id}+'&'+'currentpage='+${currentPage}}">Dar de Baja</a>
                 </div>
             </td>
         </tr>

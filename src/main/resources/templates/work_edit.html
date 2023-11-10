@@ -13,6 +13,22 @@
   <main  class="d-flex justify-content-center w-75">
 <form th:action="@{/supplier/workEdit}" method="POST" enctype="multipart/form-data" class="w-100">
   <div class="row">
+  <div class="card" style="width: 18rem;">
+    <img th:src="@{'/image/' + ${service.imageCardId}}"  class="card-img-top" alt="">
+      <p>Imagen anterior</p>
+  </div>
+    <div class="card" id="img-nueva">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 mb-10">
+      <label for="card-image" class="form-label btn botones">Examinar...</label>
+      <input class="form-control" type="file" id="card-image" accept="image/jpeg" oncgange="newPreview()" name="card" onchange="preview()" style="display: none;">
+
+    </div>
+  </div>
+  <div class="row">
   <div class="col-md-10 mb-3">
     <label for="descripcion" class="form-label descripcion">
       <i class="fa-regular fa-comment"></i> Descripcion

@@ -18,4 +18,5 @@ public class EditServiceInfoDTO {
     private Double priceHour;
     private List<MultipartFile> images;
     private List<String> deletedImages;
+    private MultipartFile card;
 }
