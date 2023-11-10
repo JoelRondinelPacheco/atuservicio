@@ -1,75 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
+ body {
+      font-family: Arial, sans-serif;
+    }
 
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
+    #contract {
+      max-width: 600px;
+      margin: 20px auto;
+    }
 
-/* Elimina las clases de Bootstrap en el fragmento de footer */
-footer {
-  background-color: #000B29;
-  padding: 10px 0;
-  position: fixed;
-  bottom: 0;
-  color: #F8F5F2;
-  width: 100%;
-  height: 60px;
-  font-family: "Kanit", sans-serif;
-  font-size: 1rem;
-  justify-content: center;
-}
-.text-right{
-  font-size: 20px;
-}
-/* Estilo personalizado para las redes sociales a la derecha */
-.redes-sociales {
-  text-align: right;
-}
+    #accept-label {
+      display: block;
+      margin-top: 10px;
+    }
 
-/* Estilo personalizado para el texto de copyright y fecha a la izquierda */
-#changing-color-text {
-  text-align: left;
-}
-
-/* Estilo para el cambio de color del texto en el footer */
-#changing-color-text {
-  animation: changeColor 6s infinite;
-}
-
-/* Estilo para el enlace "Contacto" en el footer */
-footer a {
-  text-decoration: none; /* Elimina el subrayado */
-  font-weight: bold; /* Texto en negrita */
-  color: #EDB83D; /* Cambio de color al pasar el mouse */
-}
-
-/* Animación de cambio de color */
-@keyframes changeColor {
-  0% {
-    color: #EDB83D; /* Color 1 */
-  }
-  50% {
-    color: #EDB83D; /* Color 2 */
-  }
-  100% {
-    color: #EDB83D; /* Color 3 */
-  }
-}
-
-/* Estilos para los iconos en el estado normal (sin hover) */
-.redes-sociales a i {
-  font-size: 24px;
-  color: #EDB83D; /* Color normal de los iconos */
-  transition: color 0.3s; /* Transición suave de color en 0.3 segundos */
-}
-
-/* Estilos para los iconos en el estado hover */
-.redes-sociales a:hover i {
-  color: #F8F5F2; /* Cambia el color del icono al pasar el mouse */
-}
-
-/* Cambia el color del texto al pasar el mouse */
-.redes-sociales a:hover {
-  color: #F8F5F2; /* Cambia el color del texto al pasar el mouse */
-}
+    #submit-btn {
+      margin-top: 20px;
+    }
