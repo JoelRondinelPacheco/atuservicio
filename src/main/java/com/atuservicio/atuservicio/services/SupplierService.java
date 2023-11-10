@@ -31,6 +31,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -105,11 +107,12 @@ public class SupplierService implements ISupplierService {
         }
         return suppliersDTO;
     }
-/*
-    public SupplierPaginatedDTO findPaginated(int pageNumber, int pageSize) {
-        Pageable pa
-    }
-*/
+
+    /*
+     * public SupplierPaginatedDTO findPaginated(int pageNumber, int pageSize) {
+     * Pageable pa
+     * }
+     */
     @Override
     public SupplierInfoDTO edit(EditSupplierDTO supplierDTO) throws MyException {
         System.out.println(supplierDTO.getId());
@@ -181,9 +184,18 @@ public class SupplierService implements ISupplierService {
         throw new MyException("Proveedor no encontrado por email");
     }
 
-    public List<SupplierInfoDTO> getSearchSuppliers(UserSearchDTO userSearch) {
+    public List<SupplierInfoDTO> getSearchSuppliers(UserSearchDTO userSearch, String category) {
         List<SupplierInfoDTO> userInformation = new ArrayList<>();
         System.out.println(userSearch.getCountry());
+
+        if (category != null && !category.isEmpty()) {
+
+            userInformation = getAllSuppliers()
+                    .stream().filter(element -> element.getCategory().getName().equals(category))
+                    .collect(Collectors.toList());
+
+            return userInformation;
+        }
         if (userSearch.getCity() == null) {
             userSearch.setCity("");
         }
@@ -222,7 +234,7 @@ public class SupplierService implements ISupplierService {
         return infoSuppliers;
     }
 
-    public ServiceInfoDTO getServiceInfo(String id) throws MyException{
+    public ServiceInfoDTO getServiceInfo(String id) throws MyException {
         Optional<Supplier> supplierOptional = this.supplierRepository.findByEmailSupplier(id);
         if (supplierOptional.isPresent()) {
             Supplier supplier = supplierOptional.get();
@@ -231,7 +243,7 @@ public class SupplierService implements ISupplierService {
         throw new MyException("Supplier no encontrado");
     }
 
-    //TODO COMPLETE IMAGE EDITION
+    // TODO COMPLETE IMAGE EDITION
     public ServiceInfoDTO editServiceInfo(EditServiceInfoDTO service) throws MyException {
         Optional<Supplier> supplierOptional = this.supplierRepository.findByEmailSupplier(service.getEmail());
         if (supplierOptional.isPresent()) {
@@ -260,6 +272,7 @@ public class SupplierService implements ISupplierService {
         }
         throw new MyException("Supplier no encontrado");
     }
+
     public SupplierInfoDTO createSupplierInfoDTO(Supplier supplier) {
         return new SupplierInfoDTO(
                 supplier.getName(),
@@ -288,10 +301,8 @@ public class SupplierService implements ISupplierService {
             images.add(img.getId());
         }
         CategoryInfoDTO category = this.categoryService.getById(supplier.getCategory().getId());
-        return new ServiceInfoDTO(supplier.getName(), supplier.getEmail(), supplier.getImageCard().getId(), category, supplier.getDescription(), supplier.getPriceHour(), images);
+        return new ServiceInfoDTO(supplier.getName(), supplier.getEmail(), supplier.getImageCard().getId(), category,
+                supplier.getDescription(), supplier.getPriceHour(), images);
     }
 
-
-
 }
-
