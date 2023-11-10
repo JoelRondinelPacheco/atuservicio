@@ -43,18 +43,23 @@ public class AdminController {
      * }
      */
     @PostMapping("/clients/search")
-    public String adminDashboard(@RequestParam String country, 
-    @RequestParam String province,
-     @RequestParam String city,
-     @RequestParam String email,
-    ModelMap model) {
+    public String clientSearch(
+            @RequestParam(required = false) String country,
+            @RequestParam(required = false) String province,
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) Role role,
+            ModelMap model) throws MyException {
 
-        UserSearchDTO userSearch = new UserSearchDTO(city,province,country,email);
+        UserSearchDTO userSearch = new UserSearchDTO(city, province, country, email, role);
 
-        
-        // List<SupplierInfoDTO> users = userService.getListUserInfoDTO(userSearch);
+        List<UserInfoDTO> clients = userService.findUsers(userSearch);
+        model.addAttribute("clients", clients);
+        Role[] roles = Role.values();
+        model.addAttribute("roles", roles);
 
-        return "";
+        return "clients_dashboard";
+
     }
 
     @GetMapping("/clients/{pageNumber}")

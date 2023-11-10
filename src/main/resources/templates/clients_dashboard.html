@@ -18,14 +18,14 @@
             <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop"
                 aria-labelledby="staticBackdropLabel">
                 <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="staticBackdropLabel">Búsqueda</h5>
+                    <h5 class="offcanvas-title" id="staticBackdropLabel">Búsqueda de cliente</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
                     <div>
 
                         <h1 class="mb-4"></h1>
-                        <form th:action="@{/supplier/services}" method="post" class="">
+                        <form th:action="@{/admin/clients/search}" method="post" class="">
                             <div class="input-group mb-4">
                                 <h3>Por ubicación</h3>
                                 <br>
@@ -57,12 +57,15 @@
                             <div class="input-group mt-5">
 
                                 <div class="col-md-4 w-100">
-                                    <label for="name" class="form-label">Por Nombre:</label>
-                                    <input class="form-control" id="name" name="name"
-                                        placeholder="Ingrese un nombre...">
+                                    <label for="role" class="form-label">Por rol:</label>
+                                    <select name="role" id="role" class="form-control">
+                                        <option value="">Seleccione un rol</option>
+                                        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+                                    </select>
                                 </div>
-
                             </div>
+
+
                             <div class="col-12 mt-3">
                                 <button type="submit" class="btn btn-primary boton-buscar ">Buscar</button>
                             </div>
@@ -88,7 +91,9 @@
                     <th>Ciudad</th>
                     <th>Provincia</th>
                     <th>País</th>
+                    <th>Rol</th>
                     <th>Usuario activo</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -100,6 +105,7 @@
                     <td th:text="${client.city}"></td>
                     <td th:text="${client.province}"></td>
                     <td th:text="${client.country}"></td>
+                    <td th:text="${client.role.name}"></td>
                     <td th:text="${client.active}"></td>
                     <td>
                         <a th:href="@{/admin/clients/edit?clientId={clientId}(clientId=${client.id})}">Editar</a>

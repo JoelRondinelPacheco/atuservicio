@@ -181,6 +181,7 @@ public class UserService implements IUserService {
         }
         throw new MyException("Usuario no encontrado");
     }
+
     @Override
     public UserPaginatedDTO findPaginated(int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
@@ -191,21 +192,24 @@ public class UserService implements IUserService {
         }
         return new UserPaginatedDTO(usersInfo, users.getTotalPages(), users.getTotalElements());
     }
-/*
-    @Override
-    public UserPaginatedDTO findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection) {
-        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())
-                ? Sort.by(sortField).ascending()
-                : Sort.by(sortField).descending();
-        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
-        Page<User> users = this.userRepository.findAll(pageable);
-        List<UserInfoDTO> usersInfo = new ArrayList<>();
-        for (User user : users) {
-            usersInfo.add(this.createUserInfoDTO(user));
-        }
-        return new UserPaginatedDTO(usersInfo, users.getTotalPages(), users.getTotalElements());
-    }
-*/
+
+    /*
+     * @Override
+     * public UserPaginatedDTO findPaginated(int pageNumber, int pageSize, String
+     * sortField, String sortDirection) {
+     * Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())
+     * ? Sort.by(sortField).ascending()
+     * : Sort.by(sortField).descending();
+     * Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+     * Page<User> users = this.userRepository.findAll(pageable);
+     * List<UserInfoDTO> usersInfo = new ArrayList<>();
+     * for (User user : users) {
+     * usersInfo.add(this.createUserInfoDTO(user));
+     * }
+     * return new UserPaginatedDTO(usersInfo, users.getTotalPages(),
+     * users.getTotalElements());
+     * }
+     */
     public UserInfoDTO createUserInfoDTO(User user) {
         UserInfoDTO userinfo = new UserInfoDTO(
                 user.getName(),
@@ -234,7 +238,67 @@ public class UserService implements IUserService {
         return userInformation;
     }
 
-    
+    public List<UserInfoDTO> findUsers(UserSearchDTO userSearch) throws MyException {
 
+        if (userSearch.getCity() == null) {
+            userSearch.setCity("");
+        }
+
+        if (!userSearch.getCity().isEmpty()) {
+            return getSearchUsers(userSearch);
+        }
+
+        if (!userSearch.getProvince().isEmpty()) {
+            return getSearchUsers(userSearch);
+        }
+
+        if (!userSearch.getEmail().isEmpty()) {
+            UserInfoDTO userFound = getSearchEmailUser(userSearch.getEmail());
+            List<UserInfoDTO> users = new ArrayList<>();
+            users.add(userFound);
+            return users;
+        }
+
+        if (userSearch.getRol() != null) {
+            List<UserInfoDTO> users = new ArrayList<>();
+            users = getListUserInfoDTO(userRepository.findUsersByRole(userSearch.getRol()));
+
+            return users;
+        }
+
+        return getAllUsers();
+    }
+
+    // public Object[] findUsers(UserSearchDTO userSearch) throws MyException {
+
+    // List<UserInfoDTO> userInformation = new ArrayList<>();
+    // List<SupplierInfoDTO> supplierInformation = new ArrayList<>();
+    // if (userSearch.getCity() == null) {
+    // userSearch.setCity("");
+    // }
+
+    // if (!userSearch.getCity().isEmpty()) {
+    // userInformation = getSearchUsers(userSearch);
+    // }
+
+    // if (!userSearch.getProvince().isEmpty()) {
+    // userInformation = getSearchUsers(userSearch);
+    // }
+
+    // if (!userSearch.getEmail().isEmpty()) {
+    // UserInfoDTO userFound = getSearchEmailUser(userSearch.getEmail());
+    // userInformation.add(userFound);
+    // }
+
+    // if (userSearch.getRol() != null) {
+    // userInformation =
+    // getListUserInfoDTO(userRepository.findUsersByRole(userSearch.getRol()));
+    // }
+
+    // Object[] users = new Object[2];
+    // users[0] = userInformation;
+    // users[1] = supplierInformation;
+    // return users;
+    // }
 
 }
