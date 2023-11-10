@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
+ <link th:href="@{/css/services.css}" rel="stylesheet" />
 <head th:replace="fragments/head :: head"></head>
 
 <body>
@@ -103,8 +103,11 @@
 
             </div>
         </div>
-        <button type="submit" class="boton-sesion-registro">Guardar</button>
+        <button class="boton-card-detail boton-ver-mas" type="submit" >Guardar</button>
     </form>
+    
+    <br>
+    <br>
     <div class="logo-registro">
         <!-- <img src="/img/registro.webp" alt="Tu Logo" /> -->
     </div>
