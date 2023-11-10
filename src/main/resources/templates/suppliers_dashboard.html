@@ -56,10 +56,6 @@
             <div class="col-sm-2">
                 Total Rows: [[${totalItems}]]
             </div>
-            <!-- <div class="col-sm-1">
-                 <a th:if="${currentPage < totalPages}" th:href="@{'/admin/clients/' + ${currentPage + 1}}">Anterior</a>
-                 <span th:unless="${currentPage < totalPages}">Anterior</span>
-             </div> -->
             <div class="col-sm-1">
                 <span th:each="i: ${#numbers.sequence(1, totalPages)}">
                     <a th:if="${currentPage != i}" th:href="@{'/admin/suppliers/' + ${i}}">[[${i}]]</a>

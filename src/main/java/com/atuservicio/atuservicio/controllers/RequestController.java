@@ -2,9 +2,11 @@ package com.atuservicio.atuservicio.controllers;
 
 import com.atuservicio.atuservicio.dtos.requests.RequestInfoDTO;
 import com.atuservicio.atuservicio.dtos.requests.SaveRequestDTO;
+import com.atuservicio.atuservicio.dtos.services.ServiceInfoDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
+import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.interfaces.IRequestService;
 import com.atuservicio.atuservicio.services.interfaces.ISupplierService;
 import com.atuservicio.atuservicio.services.interfaces.IUserService;
@@ -24,28 +26,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/request")
 public class RequestController {
 
+    
     @Autowired
     private IUserService userService;
 
     @Autowired
-    private ISupplierService supplierService;
+    SupplierService supplierService;
 
     @Autowired
     private IRequestService requestService;
 
     //EL CLIENTE PRESIONA EL BOTON 'CONTRATAR'
-    @GetMapping("/form")  //Agregar el idSupplier
-    public String requestForm(ModelMap model) {
+    @GetMapping("/form/{id}")  //Agregar el idSupplier
+    public String requestForm(@PathVariable("id") String id,ModelMap model) {
 
         try {
             //Recupero los detalles del usuario cliente logueado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             UserInfoDTO customerDTO = userService.getSearchEmailUser(auth.getName());
             //Recupero los detalles del proveedor seleccionado mediante su id
-            SupplierInfoDTO supplierDTO = supplierService.getById("ee0e8d52-6635-48e7-a6c8-6f212f984cc7");
+            SupplierInfoDTO supplierDTO = supplierService.getById(id);
+            ServiceInfoDTO service = supplierService.getServiceInfo(supplierDTO.getEmail());
             //Inyecto ambas entidades en el modelo de la vista html
             model.addAttribute("user", customerDTO);
             model.addAttribute("supplier", supplierDTO);
+            model.addAttribute("service", service);
 
             return "request_form.html";
 
