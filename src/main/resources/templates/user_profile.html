@@ -4,7 +4,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
 <html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
+  <link th:href="@{/css/services.css}" rel="stylesheet" />
 <head th:replace="fragments/head :: head">
     <title>Mi Perfil</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -47,10 +47,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </div>
                 </div>
             </div>
-
-            <div style="text-align: center;">
-                <h5>Editar mi Perfil</h5>
-                <a th:href="@{/editUser?id={userId}(userId=${user.id})}">Editar</a>
+           <br>
+                
+                <br>
+                <form   class="d-flex justify-content-center" th:action="@{/editUser}" th:object="${user}" method="get">
+    <input type="hidden" name="id" th:value="${user.id}" />
+    <button  class="boton-card-detail boton-ver-mas" type="submit">Editar</button>
+</form>
+                 
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+           
             </div>
 
         </div>
