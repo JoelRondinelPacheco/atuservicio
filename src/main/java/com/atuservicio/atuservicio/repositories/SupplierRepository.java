@@ -8,6 +8,9 @@ import com.atuservicio.atuservicio.entities.User;
 import java.util.List;
 import java.util.Optional;
 
+import com.atuservicio.atuservicio.enums.Role;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -46,5 +49,6 @@ public interface SupplierRepository extends JpaRepository<Supplier, String> {
 
     @Query("SELECT u FROM Supplier u WHERE u.country = :country")
     public List<Supplier> findSuppliersByCountry(@Param("country") String country);
+
 
 }
