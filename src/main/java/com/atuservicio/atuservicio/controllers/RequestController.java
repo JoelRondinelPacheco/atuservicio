@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/request")
 public class RequestController {
 
-    
     @Autowired
     private IUserService userService;
 
@@ -37,7 +36,7 @@ public class RequestController {
     private IRequestService requestService;
 
     //EL CLIENTE PRESIONA EL BOTON 'CONTRATAR'
-    @GetMapping("/form/{id}")  //Agregar el idSupplier
+    @GetMapping("/form/{id}")
     public String requestForm(@PathVariable("id") String id,ModelMap model) {
 
         try {
@@ -47,6 +46,7 @@ public class RequestController {
             //Recupero los detalles del proveedor seleccionado mediante su id
             SupplierInfoDTO supplierDTO = supplierService.getById(id);
             ServiceInfoDTO service = supplierService.getServiceInfo(supplierDTO.getEmail());
+
             //Inyecto ambas entidades en el modelo de la vista html
             model.addAttribute("user", customerDTO);
             model.addAttribute("supplier", supplierDTO);
