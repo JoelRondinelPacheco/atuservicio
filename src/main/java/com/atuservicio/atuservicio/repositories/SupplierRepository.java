@@ -1,6 +1,7 @@
 
 package com.atuservicio.atuservicio.repositories;
 
+import com.atuservicio.atuservicio.entities.Category;
 import com.atuservicio.atuservicio.entities.Supplier;
 import com.atuservicio.atuservicio.entities.User;
 

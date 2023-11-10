@@ -1,85 +1,157 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head th:replace="fragments/head :: head"></head>
+
 <body>
-<header>
-    <nav th:replace="fragments/navbar :: navbar"></nav>
-</header>
-<body>
-<div class="container">
-    <h1>Lista de Usuarios</h1>
-    <h3 th:text="${currentPage}"></h3>
-    <h3 th:text="${totalPages}"></h3>
-    <h3 th:text="${totalItems}"></h3>
-    <div th:replace="fragments/adminbtns :: adminbtns"></div>
-    <!--
+    <header>
+        <nav th:replace="fragments/navbar :: navbar"></nav>
+    </header>
+
+    <body>
+        <div class="container">
+            <h1>Lista de Usuarios</h1>
+            <h3 th:text="${currentPage}"></h3>
+            <h3 th:text="${totalPages}"></h3>
+            <h3 th:text="${totalItems}"></h3>
+            <div th:replace="fragments/adminbtns :: adminbtns"></div>
+            <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop"
+                aria-labelledby="staticBackdropLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="staticBackdropLabel">Búsqueda de cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div>
+
+                        <h1 class="mb-4"></h1>
+                        <form th:action="@{/admin/clients/search}" method="post" class="">
+                            <div class="input-group mb-4">
+                                <h3>Por ubicación</h3>
+                                <br>
+                                <div class="col-md-4 w-100">
+                                    <label for="country" class="form-label">País:</label>
+                                    <select type="text" class="form-select" id="country" name="country">
+                                        <option>Argentina</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-md-4 w-100">
+                                    <label for="province" class="form-label">Provincia:</label>
+                                    <select class="form-control" id="province" name="province"> </select>
+                                </div>
+                                <div class="col-md-4 w-100">
+                                    <label for="city" class="form-label">Localidad:</label>
+                                    <select class="form-control" id="city" name="city"> </select>
+                                </div>
+                            </div>
+
+                            <div class="input-group mt-5">
+
+                                <div class="col-md-4 w-100">
+                                    <label for="city" class="form-label">Por Email:</label>
+                                    <input class="form-control" id="email" name="email" placeholder="email@ejemplo.com">
+                                </div>
+                            </div>
+
+                            <div class="input-group mt-5">
+
+                                <div class="col-md-4 w-100">
+                                    <label for="role" class="form-label">Por rol:</label>
+                                    <select name="role" id="role" class="form-control">
+                                        <option value="">Seleccione un rol</option>
+                                        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 mt-3">
+                                <button type="submit" class="btn btn-primary boton-buscar ">Buscar</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!--
     <h3><a th:href="@{/admin/dashboard}">Clients</a></h3>
     <h3><a th:href="@{/admin/suppliers}">Suppliers</a></h3> -->
-    <table class="table">
-        <thead>
-        <tr>
-            <th>
- Nombre
-              </th>
-            <th>Correo Electrónico</th>
-            <th>Dirección</th>
-            <th>Ciudad</th>
-            <th>Provincia</th>
-            <th>País</th>
-             <th>Usuario activo</th>
-        </tr>
-        </thead>
-        <tbody>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>Correo Electrónico</th>
+                    <th>Dirección</th>
+                    <th>Ciudad</th>
+                    <th>Provincia</th>
+                    <th>País</th>
+                    <th>Rol</th>
+                    <th>Usuario activo</th>
 
-        <tr th:each="client : ${clients}">
-            <td th:text="${client.name}"></td>
-            <td th:text="${client.email}"></td>
-            <td th:text="${client.address}"></td>
-            <td th:text="${client.city}"></td>
-            <td th:text="${client.province}"></td>
-            <td th:text="${client.country}"></td>
-            <td th:text="${client.active}"></td>
-            <td>
-                <a th:href="@{/admin/clients/edit?clientId={clientId}(clientId=${client.id})}">Editar</a>
-            </td>
-            <td>
-                <div th:unless="${client.active}">
-                    <a th:href="@{/admin/clients/activate?clientId={clientId}(clientId=${client.id})}">Dar de alta</a>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr th:each="client : ${clients}">
+                    <td th:text="${client.name}"></td>
+                    <td th:text="${client.email}"></td>
+                    <td th:text="${client.address}"></td>
+                    <td th:text="${client.city}"></td>
+                    <td th:text="${client.province}"></td>
+                    <td th:text="${client.country}"></td>
+                    <td th:text="${client.role.name}"></td>
+                    <td th:text="${client.active}"></td>
+                    <td>
+                        <a th:href="@{/admin/clients/edit?clientId={clientId}(clientId=${client.id})}">Editar</a>
+                    </td>
+                    <td>
+                        <div th:unless="${client.active}">
+                            <a th:href="@{/admin/clients/activate?clientId={clientId}(clientId=${client.id})}">Dar de
+                                alta</a>
+                        </div>
+                        <div th:if="${client.active}">
+                            <a th:href="@{/admin/clients/delete?clientId={clientId}(clientId=${client.id})}">Dar de
+                                Baja</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div th:if="${totalPages > 1}">
+            <div class="row col-sm-10">
+                <div class="col-sm-2">
+                    Total Rows: [[${totalItems}]]
                 </div>
-                <div th:if="${client.active}">
-                <a th:href="@{/admin/clients/delete?clientId={clientId}(clientId=${client.id})}">Dar de Baja</a>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <div th:if="${totalPages > 1}">
-        <div class="row col-sm-10">
-            <div class="col-sm-2">
-                Total Rows: [[${totalItems}]]
-            </div>
-           <!-- <div class="col-sm-1">
+                <!-- <div class="col-sm-1">
                 <a th:if="${currentPage < totalPages}" th:href="@{'/admin/clients/' + ${currentPage + 1}}">Anterior</a>
                 <span th:unless="${currentPage < totalPages}">Anterior</span>
             </div> -->
-            <div class="col-sm-1">
-                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                    <a th:if="${currentPage != i}" th:href="@{'/admin/clients/' + ${i}}">[[${i}]]</a>
-                    <a th:unless="${currentPage != i}">[[${i}]]</a>
-                </span>
-            </div>
-            <div class="col-sm-1">
-                <a th:if="${currentPage < totalPages}" th:href="@{'/admin/clients/' + ${currentPage + 1}}">Siguiente</a>
-                <span th:unless="${currentPage < totalPages}">Siguiente</span>
+                <div class="col-sm-1">
+                    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                        <a th:if="${currentPage != i}" th:href="@{'/admin/clients/' + ${i}}">[[${i}]]</a>
+                        <a th:unless="${currentPage != i}">[[${i}]]</a>
+                    </span>
+                </div>
+                <div class="col-sm-1">
+                    <a th:if="${currentPage < totalPages}"
+                        th:href="@{'/admin/clients/' + ${currentPage + 1}}">Siguiente</a>
+                    <span th:unless="${currentPage < totalPages}">Siguiente</span>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+        </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<footer th:replace="fragments/footer :: footer"></footer>
-</body>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="/js/search.js"></script>
+        <footer th:replace="fragments/footer :: footer"></footer>
+    </body>
+
 </html>

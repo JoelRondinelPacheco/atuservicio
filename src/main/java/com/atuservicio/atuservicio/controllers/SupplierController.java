@@ -15,6 +15,7 @@ import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserRegisterErrorDTO;
 import com.atuservicio.atuservicio.dtos.users.UserSearchDTO;
+import com.atuservicio.atuservicio.entities.Category;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.interfaces.ICategoryService;
@@ -193,7 +194,8 @@ public class SupplierController {
     public String listServices(ModelMap model) {
 
         List<SupplierInfoDTO> users = supplierService.getAllSuppliers();
-
+        List<CategoryInfoDTO> categories = this.categoryService.listAll();
+        model.addAttribute("categories", categories);
         model.addAttribute("users", users);
         model.addAttribute("locationFound", true);
 
@@ -203,14 +205,17 @@ public class SupplierController {
     @PostMapping("/services")
     public String searchServices(@RequestParam(required = false) String country,
             @RequestParam(required = false) String province, @RequestParam(required = false) String city,
-            @RequestParam(required = false) String email, ModelMap model) {
+            @RequestParam(required = false) String email,@RequestParam(required = false)String category, ModelMap model) {
 
         if (email.isEmpty()) {
             System.out.println(province);
             System.out.println(country);
             System.out.println(city);
             UserSearchDTO userSearch = new UserSearchDTO(city, province, country);
-            List<SupplierInfoDTO> users = supplierService.getSearchSuppliers(userSearch);
+            List<SupplierInfoDTO> users = supplierService.getSearchSuppliers(userSearch,category);
+
+            List<CategoryInfoDTO> categories = this.categoryService.listAll();
+            model.addAttribute("categories", categories);
 
             model.addAttribute("locationFound", true);
             model.addAttribute("users", users);
@@ -219,14 +224,16 @@ public class SupplierController {
         } else {
             try {
                 SupplierInfoDTO user = supplierService.getByEmail(email);
-
+                List<CategoryInfoDTO> categories = this.categoryService.listAll();
+                model.addAttribute("categories", categories);
                 model.addAttribute("userFound", true);
                 model.addAttribute("user", user);
 
                 return "services.html";
 
             } catch (MyException ex) {
-
+                List<CategoryInfoDTO> categories = this.categoryService.listAll();
+                model.addAttribute("categories", categories);
                 model.put("error", ex.getMessage());
                 System.out.println(ex.getMessage());
                 return "services.html";
@@ -247,15 +254,18 @@ public class SupplierController {
     }
 
     @GetMapping("/workPreview/{id}")
-    public String workPreview(@PathVariable("id") String id,ModelMap model) throws MyException {
+    public String workPreview(@PathVariable("id") String id, ModelMap model) throws MyException {
 
         SupplierInfoDTO supplier = supplierService.getById(id);
         String email = supplier.getEmail();
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = auth.getName();
+        UserInfoDTO user = userService.getSearchEmailUser(userEmail);
         ServiceInfoDTO service = this.supplierService.getServiceInfo(email);
+         model.addAttribute("user", user);
         model.addAttribute("supplier", supplier);
         model.addAttribute("service", service);
-        return "work.html";
+        return "work_user.html";
     }
 
     @GetMapping("/service")
@@ -263,8 +273,9 @@ public class SupplierController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
-
+        SupplierInfoDTO supplier = supplierService.getByEmail(email);
         ServiceInfoDTO service = this.supplierService.getServiceInfo(email);
+        model.addAttribute("supplier", supplier);
         model.addAttribute("service", service);
         return "work.html";
     }
@@ -284,7 +295,9 @@ public class SupplierController {
     }
 
     @PostMapping("/workEdit")
-    public String postWorkInfo(@RequestParam String description, @RequestParam Double priceHour, @RequestParam(required = false) List<MultipartFile> images, @RequestParam(required = false, name = "delete") List<String> delete,  ModelMap model) throws MyException {
+    public String postWorkInfo(@RequestParam String description, @RequestParam Double priceHour,
+            @RequestParam(required = false) List<MultipartFile> images,
+            @RequestParam(required = false, name = "delete") List<String> delete, ModelMap model) throws MyException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         try {
@@ -293,7 +306,8 @@ public class SupplierController {
                 delete.add("empty");
             }
 
-            ServiceInfoDTO service = this.supplierService.editServiceInfo(new EditServiceInfoDTO(email, description, priceHour, images, delete));
+            ServiceInfoDTO service = this.supplierService
+                    .editServiceInfo(new EditServiceInfoDTO(email, description, priceHour, images, delete));
             model.addAttribute("service", service);
             model.addAttribute("exito", "Servicio actualizado correctamente");
             return "work";
