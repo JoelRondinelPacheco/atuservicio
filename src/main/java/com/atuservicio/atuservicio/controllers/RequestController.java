@@ -33,16 +33,16 @@ public class RequestController {
     @Autowired
     private IRequestService requestService;
 
-    //EL CLIENTE PRESIONA EL BOTON 'CONTRATAR'
-    @GetMapping("/form")  //Agregar el idSupplier
-    public String requestForm(ModelMap model) {
+    //EL CLIENTE PRESIONA EL BOTON 'CONTACTAR'
+    @GetMapping("/form/{idSupplier}")  //Agregar el idSupplier
+    public String requestForm(@PathVariable("idSupplier") String idSupplier, ModelMap model) {
 
         try {
             //Recupero los detalles del usuario cliente logueado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             UserInfoDTO customerDTO = userService.getSearchEmailUser(auth.getName());
             //Recupero los detalles del proveedor seleccionado mediante su id
-            SupplierInfoDTO supplierDTO = supplierService.getById("ee0e8d52-6635-48e7-a6c8-6f212f984cc7");
+            SupplierInfoDTO supplierDTO = supplierService.getById(idSupplier);
             //Inyecto ambas entidades en el modelo de la vista html
             model.addAttribute("user", customerDTO);
             model.addAttribute("supplier", supplierDTO);
