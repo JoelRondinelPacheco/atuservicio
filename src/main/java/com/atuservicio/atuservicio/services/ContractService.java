@@ -100,6 +100,7 @@ public class ContractService implements IContractService {
         List<ContractInfoDTO> requestsInfo = new ArrayList<>();
         for (Contract r : contracts) {
             ContractInfoDTO rInfo = this.createContractInfoDTO(r);
+            System.out.println(r.getDescription());
             requestsInfo.add(rInfo);
         }
         return requestsInfo;
@@ -117,9 +118,9 @@ public class ContractService implements IContractService {
         }
         return requestsInfo;
     }
-    
+
     @Override
-    public ContractInfoDTO accept(ContractInfoDTO requestDTO) throws MyException {
+    public ContractInfoDTO acceptSupplier(ContractInfoDTO requestDTO) throws MyException {
         
         Optional<Contract> requestOptional = this.contractRepository.findById(requestDTO.getId());
         
@@ -133,16 +134,32 @@ public class ContractService implements IContractService {
         }
         throw new MyException("Solicitud no encontrada");
     }
-    
-    @Override
-    public ContractInfoDTO decline(ContractInfoDTO requestDTO) throws MyException {
+
+    public ContractInfoDTO declineSupplier(ContractInfoDTO requestDTO) throws MyException {
         
         Optional<Contract> contractOptional = this.contractRepository.findById(requestDTO.getId());
         
         if (contractOptional.isPresent()) {
             Contract contract = contractOptional.get();
             if (contract.getState().equals(State.PENDING_APPROVAL)) {
-                contract.setState(State.REFUSED);
+                contract.setState(State.REFUSED_SUPPLIER);
+            }
+            Contract contractSaved = this.contractRepository.save(contract);
+            return this.createContractInfoDTO(contractSaved);
+        }
+        throw new MyException("Solicitud no encontrada");
+    }
+
+    @Override
+    public ContractInfoDTO declineClient(String contractId) throws MyException {
+
+        Optional<Contract> contractOptional = this.contractRepository.findById(contractId);
+
+        if (contractOptional.isPresent()) {
+            Contract contract = contractOptional.get();
+            if (contract.getState().equals(State.APPROVED)) {
+                contract.setState(State.REFUSED_CLIENT);
+                //En este  punto puede emitir comentario
             }
             Contract contractSaved = this.contractRepository.save(contract);
             return this.createContractInfoDTO(contractSaved);
@@ -154,9 +171,7 @@ public class ContractService implements IContractService {
     public ContractInfoDTO clientDone(String contractId) throws MyException {
         Contract contract = this.getContractById(contractId);
         contract.setCustomerDone(true);
-        if (contract.getSupplierDone()) {
-            contract.setState(State.DONE);
-        }
+        contract.setState(State.DONE);
         Contract contractDone = this.contractRepository.save(contract);
         return createContractInfoDTO(contractDone);
     }
@@ -165,21 +180,36 @@ public class ContractService implements IContractService {
     public ContractInfoDTO supplierDone(String contractId) throws MyException {
         Contract contract = this.getContractById(contractId);
         contract.setSupplierDone(true);
-        if (contract.getSupplierDone()) {
-            contract.setState(State.DONE);
-        }
+        contract.setState(State.DONE);
         Contract contractDone = this.contractRepository.save(contract);
         return createContractInfoDTO(contractDone);
     }
 
+    @Override
+    public Contract getFullContractById(String id) throws MyException {
+        Optional<Contract> contract = this.contractRepository.findById(id);
+        if (contract.isPresent()) {
+            return contract.get();
+        }
+        throw new MyException("Contrato no encontrado");
+    }
+
     private ContractInfoDTO createContractInfoDTO(Contract contract) {
+        Boolean hasComments;
+
+        if (contract.getComments() == null || contract.getComments().size() == 0) {
+            hasComments = false;
+        } else {
+            hasComments = true;
+        }
         ContractInfoDTO requestinfo = new ContractInfoDTO(
                 contract.getId(),
                 contract.getCreatedAt(),
                 contract.getDescription(),
                 contract.getState(),
                 this.userService.createUserInfoDTO(contract.getCustomer()),
-                this.supplierService.createSupplierInfoDTO(contract.getSupplier()));
+                this.supplierService.createSupplierInfoDTO(contract.getSupplier()),
+                hasComments);
         return requestinfo;
     }
 

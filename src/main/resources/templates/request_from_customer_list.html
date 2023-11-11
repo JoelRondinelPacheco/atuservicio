@@ -23,18 +23,18 @@
                 </tr>
             </thead>
             <tbody class="table-group-divider">
-                <tr th:each="request : ${requests}" th:if="${request.state.name() == 'PENDING'}">
-                    <td th:text="${request.createdAt}"></td>
-                    <td th:text="${request.customer.name}"></td>
-                    <td th:text="${request.customer.email}"></td>
-                    <td th:text="${request.customer.address}"></td>
-                    <td th:text="${request.description}"></td>
-                    <td th:text="${request.state}"></td>
+                <tr th:each="contract : ${contracts}" th:if="${contract.state.name() == 'PENDING_APPROVAL'}">
+                    <td th:text="${contract.createdAt}"></td>
+                    <td th:text="${contract.customer.name}"></td>
+                    <td th:text="${contract.customer.email}"></td>
+                    <td th:text="${contract.customer.address}"></td>
+                    <td th:text="${contract.description}"></td>
+                    <td th:text="${contract.state}"></td>
                     <td>
-                        <a class="btn btn-success" th:href="@{/request/accept/__${request.id}__}">Aprobar</a>
+                        <a class="btn btn-success" th:href="@{/contract/supplier/accept/__${contract.id}__}">Aprobar</a>
                     </td>
                     <td>
-                        <a class="btn btn-danger" th:href="@{/request/decline/__${request.id}__}">Rechazar</a>
+                        <a class="btn btn-danger" th:href="@{/contract/supplier/decline/__${contract.id}__}">Rechazar</a>
                     </td>
                 </tr>
             </tbody>
@@ -55,13 +55,13 @@
                 </tr>
             </thead>
             <tbody class="table-group-divider">
-                <tr th:each="request : ${requests}" th:if="${request.state.name() == 'APPROVED'}">
-                    <td th:text="${request.createdAt}"></td>
-                    <td th:text="${request.customer.name}"></td>
-                    <td th:text="${request.customer.email}"></td>
-                    <td th:text="${request.customer.address}"></td>
-                    <td th:text="${request.description}"></td>
-                    <td th:text="${request.state}"></td>
+                <tr th:each="contract : ${contracts}" th:if="${contract.state.name() == 'APPROVED'}">
+                    <td th:text="${contract.createdAt}"></td>
+                    <td th:text="${contract.customer.name}"></td>
+                    <td th:text="${contract.customer.email}"></td>
+                    <td th:text="${contract.customer.address}"></td>
+                    <td th:text="${contract.description}"></td>
+                    <td th:text="${contract.state}"></td>
                 </tr>
             </tbody>
         </table>
@@ -81,14 +81,68 @@
                 </tr>
             </thead>
             <tbody class="table-group-divider">
-                <tr th:each="request : ${requests}" th:if="${request.state.name() == 'REFUSED'}">
-                    <td th:text="${request.createdAt}"></td>
-                    <td th:text="${request.customer.name}"></td>
-                    <td th:text="${request.customer.email}"></td>
-                    <td th:text="${request.customer.address}"></td>
-                    <td th:text="${request.description}"></td>
-                    <td th:text="${request.state}"></td>
+                <tr th:each="contract : ${contracts}" th:if="${contract.state.name() == 'REFUSED_SUPPLIER'}">
+                    <td th:text="${contract.createdAt}"></td>
+                    <td th:text="${contract.customer.name}"></td>
+                    <td th:text="${contract.customer.email}"></td>
+                    <td th:text="${contract.customer.address}"></td>
+                    <td th:text="${contract.description}"></td>
+                    <td th:text="${contract.state}"></td>
                 </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container mt-5">
+        <h1>Lista de solicitudes rechazadas</h1>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Fecha de la solicitud</th>
+                <th scope="col">Nombre del cliente</th>
+                <th scope="col">Email del cliente</th>
+                <th scope="col">Dirección del cliente</th>
+                <th scope="col">Descripción de la solicitud</th>
+                <th scope="col">Estado de la solicitud</th>
+                <th scope="col">Comentario</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <tr th:each="contract : ${contracts}" th:if="${contract.state.name() == 'DONE'}">
+                <td th:text="${contract.createdAt}"></td>
+                <td th:text="${contract.customer.name}"></td>
+                <td th:text="${contract.customer.email}"></td>
+                <td th:text="${contract.customer.address}"></td>
+                <td th:text="${contract.description}"></td>
+                <td th:text="${contract.state}"></td>
+                <td th:if="${contract.hasComment}"><button><a th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a></button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container mt-5">
+        <h1>Lista de solicitudes rechazadas</h1>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Fecha de la solicitud</th>
+                <th scope="col">Nombre del cliente</th>
+                <th scope="col">Email del cliente</th>
+                <th scope="col">Dirección del cliente</th>
+                <th scope="col">Descripción de la solicitud</th>
+                <th scope="col">Estado de la solicitud</th>
+                <th scope="col">Comentario</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <tr th:each="contract : ${contracts}" th:if="${contract.state.name() == 'REFUSED_CLIENT'}">
+                <td th:text="${contract.createdAt}"></td>
+                <td th:text="${contract.customer.name}"></td>
+                <td th:text="${contract.customer.email}"></td>
+                <td th:text="${contract.customer.address}"></td>
+                <td th:text="${contract.description}"></td>
+                <td th:text="${contract.state}"></td>
+                <td th:if="${contract.hasComment}"><button><a th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a></button></td>
+            </tr>
             </tbody>
         </table>
     </div>

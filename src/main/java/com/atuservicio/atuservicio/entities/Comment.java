@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Getter
 @Setter
@@ -15,7 +16,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "comments")
 public class Comment extends Base {
-    
+
     @ManyToOne                          //Relación 'muchos a uno': muchos comentarios pueden ser escritos por un mismo autor ('User')
     @JoinColumn(name = "author_id")
     private User author;
@@ -23,7 +24,12 @@ public class Comment extends Base {
     @ManyToOne                          ////Relación 'muchos a uno': muchos comentarios pueden tener como destino a un mismo destinatario ('User')
     @JoinColumn(name = "receiver_id")
     private User receiver;
-    
+
+    @ManyToOne
+    @JoinColumn(name = "contract_id")
+    private Contract contract;
+
+    @CreationTimestamp
     @Temporal(TemporalType.DATE)
     private Date date;
     
@@ -38,6 +44,8 @@ public class Comment extends Base {
         inverseJoinColumns = @JoinColumn(name = "qualification_id")
     )
     private List<Qualification> ratings;   //calificaciones
+
+    //public Comment(User author, User receiver, Contract contract, String content, Double S)
     
     
 }

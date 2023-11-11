@@ -66,7 +66,8 @@ public class AdminController {
     @GetMapping("/clients/{pageNumber}")
     public String clientsPaginated(@PathVariable int pageNumber, ModelMap model) {
         int pageSize = 5;
-        UserPaginatedDTO clients = this.userService.findPaginated(pageNumber, pageSize);
+        UserPaginatedDTO clients = this.userService.
+                findPaginated(pageNumber, pageSize);
         Role[] roles = Role.values();
 
         model.addAttribute("roles", roles);

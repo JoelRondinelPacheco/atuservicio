@@ -296,36 +296,12 @@ public class UserService implements IUserService {
         return userInformation;
     }
 
-    // public Object[] findUsers(UserSearchDTO userSearch) throws MyException {
-
-    // List<UserInfoDTO> userInformation = new ArrayList<>();
-    // List<SupplierInfoDTO> supplierInformation = new ArrayList<>();
-    // if (userSearch.getCity() == null) {
-    // userSearch.setCity("");
-    // }
-
-    // if (!userSearch.getCity().isEmpty()) {
-    // userInformation = getSearchUsers(userSearch);
-    // }
-
-    // if (!userSearch.getProvince().isEmpty()) {
-    // userInformation = getSearchUsers(userSearch);
-    // }
-
-    // if (!userSearch.getEmail().isEmpty()) {
-    // UserInfoDTO userFound = getSearchEmailUser(userSearch.getEmail());
-    // userInformation.add(userFound);
-    // }
-
-    // if (userSearch.getRol() != null) {
-    // userInformation =
-    // getListUserInfoDTO(userRepository.findUsersByRole(userSearch.getRol()));
-    // }
-
-    // Object[] users = new Object[2];
-    // users[0] = userInformation;
-    // users[1] = supplierInformation;
-    // return users;
-    // }
+    public User getUserById(String id) throws MyException {
+        Optional<User> userO = this.userRepository.findById(id);
+        if (userO.isPresent()) {
+            return userO.get();
+        }
+        throw new MyException("User no encontrado");
+    }
 
 }

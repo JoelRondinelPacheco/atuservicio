@@ -5,10 +5,16 @@ import com.atuservicio.atuservicio.dtos.contracts.SaveContractDTO;
 import com.atuservicio.atuservicio.dtos.services.ServiceInfoDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
+import com.atuservicio.atuservicio.entities.Comment;
+import com.atuservicio.atuservicio.entities.Contract;
+import com.atuservicio.atuservicio.entities.User;
 import com.atuservicio.atuservicio.exceptions.MyException;
+import com.atuservicio.atuservicio.repositories.CommentRepository;
 import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.interfaces.IContractService;
 import com.atuservicio.atuservicio.services.interfaces.IUserService;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -33,8 +39,10 @@ public class ContractController {
 
     @Autowired
     private IContractService contractService;
+    @Autowired
+    private CommentRepository commentRepository;
 
-    //EL CLIENTE PRESIONA EL BOTON 'CONTRATAR'
+    //EL CLIENTE PRESIONA EL BOTON 'CONTACTAR'
     @GetMapping("/form/{id}")
     public String requestForm(@PathVariable("id") String id,ModelMap model) {
 
@@ -85,17 +93,18 @@ public class ContractController {
     }
 
     //El PROVEEDOR ACEPTA LA SOLICITUD DEL CLIENTE
-    @GetMapping("/accept/{idRequest}")
+    @GetMapping("/supplier/accept/{idRequest}")
     public String requestAccepted(@PathVariable("idRequest") String idRequest, ModelMap model) {
 
         try {
             //Recupero la solicitud en la base de datos mediante su id
             ContractInfoDTO requestDTO = this.contractService.getById(idRequest);
             //La solicitud se envía a la capa de servicios para cambiar su estado a APROBADO y generar el contrato (CONSULTAR)
-            ContractInfoDTO r = this.contractService.accept(requestDTO);
+            ContractInfoDTO r = this.contractService.acceptSupplier(requestDTO);
 
             //Retorna la lista actualizada de solicitudes de clientes
-            return "redirect:/request/list/customers";
+            model.put("acepto", "Aceptaste la solicitu del contrato");
+            return "redirect:/contract/list/customers";
 
         } catch (MyException ex) {
             model.put("error", ex.getMessage());
@@ -104,23 +113,104 @@ public class ContractController {
     }
 
     //El PROVEEDOR RECHAZA LA SOLICITUD DEL CLIENTE
-    @GetMapping("/decline/{idRequest}")
-    public String requestRefused(@PathVariable("idRequest") String idRequest, ModelMap model) {
+    @GetMapping("/decline/{contractId}")
+    public String requestRefused(@PathVariable("contractId") String contractId, ModelMap model) {
 
         try {
             //Recupero la solicitud en la base de datos mediante su id
-            ContractInfoDTO requestDTO = this.contractService.getById(idRequest);
+            ContractInfoDTO requestDTO = this.contractService.getById(contractId);
             //La solicitud se envía a la capa de servicios para cambiar su estado a RECHAZADO
-            ContractInfoDTO r = this.contractService.decline(requestDTO);
+            ContractInfoDTO r = this.contractService.declineClient(contractId);
 
             //Retorna la lista actualizada de solicitudes de clientes
-            return "redirect:/request/list/customers";
+            return "redirect:/contract/list/customers";
 
         } catch (MyException ex) {
             model.put("error", ex.getMessage());
             return "index.html";
         }
     }
+
+    // DESPUES DE SER ACEPTADO POR EL PROVEEDOR, EL CLIENTE SI ESTA DE ACUERDO CON EL TRABAJO
+    @GetMapping("/client/accept/{contractId}")
+    public String clientAccept(@PathVariable String contractId, ModelMap model) {
+        try {
+            ContractInfoDTO contractAccepted = this.contractService.clientDone(contractId);
+           model.addAttribute("contract", contractAccepted);
+           return "comments_accept";
+        } catch (MyException ex) {
+            return null;
+        }
+    }
+    //ENDPOINT PARA ENVIAR EL COMENTARIO OK
+    @PostMapping("/comment/accept/{contractId}")
+    public String clientCommentOk(@PathVariable String contractId, @RequestParam String content, @RequestParam Double score, ModelMap model) {
+        try {
+            // TODO PASAR LA LOGICA NECESARIO AL CONTRACT O COMMENT SERVICE
+            this.contractService.clientDone(contractId);
+            Contract contract = this.contractService.getFullContractById(contractId);
+            User author = this.userService.getUserById(contract.getCustomer().getId());
+            User receiver = this.userService.getUserById(contract.getSupplier().getId());
+            Comment comment = new Comment();
+            comment.setAuthor(author);
+            comment.setReceiver(receiver);
+            comment.setContent(content);
+            comment.setScore(score);
+            comment.setContract(contract);
+            Comment commentSaved = this.commentRepository.save(comment);
+            //List<Comment> comments = this.commentRepository.findAll();
+            model.addAttribute("comment", commentSaved);
+            return this.requestsToSuppliers(model);
+        } catch (MyException ex) {
+            return null;
+        }
+    }
+
+    // DESPUES DE SER ACEPTADO POR EL PROVEEDOR, EL CLIENTE NO ESTA DE ACUERDO CON EL TRABAJO
+
+    @GetMapping("/client/refused/{contractId}")
+    public String clientRefused(@PathVariable String contractId, ModelMap model) {
+            try {
+                ContractInfoDTO contractAccepted = this.contractService.declineClient(contractId);
+                model.addAttribute("contract", contractAccepted);
+                return "comments_refused";
+            } catch (MyException ex) {
+                return null;
+            }
+    }
+
+    //POST CLIENT REFUSED
+    @PostMapping("/comment/refused/{contractId}")
+    public String clientCommentRefused(@PathVariable String contractId, @RequestParam String content, @RequestParam Double score, ModelMap model) {
+        try {
+            // TODO PASAR LA LOGICA NECESARIO AL CONTRACT O COMMENT SERVICE
+            this.contractService.declineClient(contractId);
+            Contract contract = this.contractService.getFullContractById(contractId);
+            User author = this.userService.getUserById(contract.getCustomer().getId());
+            User receiver = this.userService.getUserById(contract.getSupplier().getId());
+            Comment comment = new Comment();
+            comment.setAuthor(author);
+            comment.setReceiver(receiver);
+            comment.setContent(content);
+            comment.setScore(score);
+            comment.setContract(contract);
+            Comment commentSaved = this.commentRepository.save(comment);
+            model.addAttribute("comment", commentSaved);
+            return this.requestsToSuppliers(model);
+        } catch (MyException ex) {
+            return null;
+        }
+    }
+
+    // DESPUES DEL RECHAZO DEL CLIENTE, EL SUPPLIER PODRIA RESPONDER EL COMENTARIO (RECLAMO)
+    @GetMapping("/replica/{contractId}")
+    public String responseSupplier(@PathVariable String contractId) {
+        // Comentario que le dejo el cliente
+        return null;
+    }
+
+
+    // DESPUES DE SER ACEPTADO POR EL PROVEEDOR, EL CLIENTE ESTA DE ACUERDO CON EL TRABAJO BIEN HECHO
 
     //LISTAR LAS SOLICITUDES A PROVEEDORES GENERADAS POR EL CLIENTE LOGUEADO
     @GetMapping("/list/suppliers")
@@ -134,9 +224,9 @@ public class ContractController {
             UserInfoDTO customerDTO = userService.getSearchEmailUser(auth.getName());
             //Recupero la lista de solicitudes que realizó el cliente mediante su id
             System.out.println("Recupero el usuario por email");
-            List<ContractInfoDTO> requests = contractService.getByUserId(customerDTO.getId());
-
-            model.addAttribute("requests", requests);
+            List<Comment> comments = this.commentRepository.findAll();
+            List<ContractInfoDTO> contracts = contractService.getByUserId(customerDTO.getId());
+            model.addAttribute("contracts", contracts);
 
             return "request_to_supplier_list.html";
 
@@ -155,9 +245,9 @@ public class ContractController {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             SupplierInfoDTO supplierDTO = supplierService.getByEmail(auth.getName());
             //Recupero la lista de solicitudes que recibió el proveedor mediante su id
-            List<ContractInfoDTO> requests = contractService.getBySupplierId(supplierDTO.getId());
+            List<ContractInfoDTO> contracts = contractService.getBySupplierId(supplierDTO.getId());
 
-            model.addAttribute("requests", requests);
+            model.addAttribute("contracts", contracts);
 
             return "request_from_customer_list.html";
 
@@ -168,13 +258,46 @@ public class ContractController {
 
     }
 
+    //COMENTARIOS
+    @GetMapping("/comments/{contractId}")
+    public String commentsList(@PathVariable String contractId, ModelMap model) {
+        List<Comment> comments = this.commentRepository.findByContractId(contractId);
+        model.addAttribute("comments", comments);
+        return "comments_list";
+    }
+    @GetMapping("/comments/supplier/{contractId}")
+    public String commentsSupplierList(@PathVariable String contractId, ModelMap model) {
+        List<Comment> comments = this.commentRepository.findByContractId(contractId);
+        model.addAttribute("comments", comments);
+        model.put("contractId", contractId);
+        return "comments_supplier_list";
+    }
+    @PostMapping("/comments/supplier/response/{contractId}")
+    public String commentsSupplierResponse(@PathVariable String contractId, @RequestParam String content, @RequestParam Double score, ModelMap model) {
+        try {
+            Contract contract = this.contractService.getFullContractById(contractId);
+            User receiver = this.userService.getUserById(contract.getCustomer().getId());
+            User author = this.userService.getUserById(contract.getSupplier().getId());
+            Comment comment = new Comment();
+            comment.setAuthor(author);
+            comment.setReceiver(receiver);
+            comment.setContent(content);
+            comment.setScore(score);
+            comment.setContract(contract);
+            this.commentRepository.save(comment);
+            return this.requestsFromCustomers(model);
+        } catch (MyException ex) {
+            return null;
+        }
+    }
+
     //LISTAR TODAS LAS SOLICITUDES GENERADAS EN LA APLICACIÓN
     @GetMapping("/list")
     public String requestListAll(ModelMap model) {
 
-        List<ContractInfoDTO> requests = contractService.getAllContracts();
+        List<ContractInfoDTO> contracts = contractService.getAllContracts();
 
-        model.addAttribute("requests", requests);
+        model.addAttribute("contracts", contracts);
 
         return "request_list_all.html";
     }

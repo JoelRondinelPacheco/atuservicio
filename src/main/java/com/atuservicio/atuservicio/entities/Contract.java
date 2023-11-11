@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,6 +33,10 @@ public class Contract extends Base{
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
+    @OneToMany(mappedBy = "contract")
+    private List<Comment> comments;
+
+
     //TODO FINAL DATE ?
     @Temporal(TemporalType.DATE)
     private Date date;
@@ -40,6 +45,8 @@ public class Contract extends Base{
 
     @Enumerated(EnumType.STRING)
     private State state;
+
+    private Double estimatedTime;
 
     @PrePersist
     private void prePersist() {

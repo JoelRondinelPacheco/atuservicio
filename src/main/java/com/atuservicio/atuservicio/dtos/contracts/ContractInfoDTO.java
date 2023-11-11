@@ -23,5 +23,6 @@ public class ContractInfoDTO {
     private State state;
     private UserInfoDTO customer;
     private SupplierInfoDTO supplier;
+    private boolean hasComment;
     
 }
