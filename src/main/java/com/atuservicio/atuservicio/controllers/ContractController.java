@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/request")
+@RequestMapping("/contract")
 public class ContractController {
 
     
@@ -33,7 +33,7 @@ public class ContractController {
     SupplierService supplierService;
 
     @Autowired
-    private IContractService requestService;
+    private IContractService contractService;
 
     //EL CLIENTE PRESIONA EL BOTON 'CONTRATAR'
     @GetMapping("/form/{id}")  //Agregar el idSupplier
@@ -73,7 +73,7 @@ public class ContractController {
             //Crear la solicitud DTO
             SaveContractDTO requestDTO = new SaveContractDTO(customerDTO, supplierDTO, description);
             //Persistir en BBDD
-            ContractInfoDTO r = this.requestService.save(requestDTO);
+            ContractInfoDTO r = this.contractService.save(requestDTO);
 
             model.put("exito", "Solicitud enviada al proveedor exitosamente");
             return "index.html";
@@ -90,9 +90,9 @@ public class ContractController {
 
         try {
             //Recupero la solicitud en la base de datos mediante su id
-            ContractInfoDTO requestDTO = this.requestService.getById(idRequest);
+            ContractInfoDTO requestDTO = this.contractService.getById(idRequest);
             //La solicitud se envía a la capa de servicios para cambiar su estado a APROBADO y generar el contrato (CONSULTAR)
-            ContractInfoDTO r = this.requestService.accept(requestDTO);
+            ContractInfoDTO r = this.contractService.accept(requestDTO);
 
             //Retorna la lista actualizada de solicitudes de clientes
             return "redirect:/request/list/customers";
@@ -109,9 +109,9 @@ public class ContractController {
 
         try {
             //Recupero la solicitud en la base de datos mediante su id
-            ContractInfoDTO requestDTO = this.requestService.getById(idRequest);
+            ContractInfoDTO requestDTO = this.contractService.getById(idRequest);
             //La solicitud se envía a la capa de servicios para cambiar su estado a RECHAZADO
-            ContractInfoDTO r = this.requestService.decline(requestDTO);
+            ContractInfoDTO r = this.contractService.decline(requestDTO);
 
             //Retorna la lista actualizada de solicitudes de clientes
             return "redirect:/request/list/customers";
@@ -134,7 +134,7 @@ public class ContractController {
             UserInfoDTO customerDTO = userService.getSearchEmailUser(auth.getName());
             //Recupero la lista de solicitudes que realizó el cliente mediante su id
             System.out.println("Recupero el usuario por email");
-            List<ContractInfoDTO> requests = requestService.getByUserId(customerDTO.getId());
+            List<ContractInfoDTO> requests = contractService.getByUserId(customerDTO.getId());
 
             model.addAttribute("requests", requests);
 
@@ -155,7 +155,7 @@ public class ContractController {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             SupplierInfoDTO supplierDTO = supplierService.getByEmail(auth.getName());
             //Recupero la lista de solicitudes que recibió el proveedor mediante su id
-            List<ContractInfoDTO> requests = requestService.getBySupplierId(supplierDTO.getId());
+            List<ContractInfoDTO> requests = contractService.getBySupplierId(supplierDTO.getId());
 
             model.addAttribute("requests", requests);
 
@@ -172,7 +172,7 @@ public class ContractController {
     @GetMapping("/list")
     public String requestListAll(ModelMap model) {
 
-        List<ContractInfoDTO> requests = requestService.getAllRequests();
+        List<ContractInfoDTO> requests = contractService.getAllContracts();
 
         model.addAttribute("requests", requests);
 

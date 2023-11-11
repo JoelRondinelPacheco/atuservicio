@@ -9,11 +9,13 @@ import java.util.List;
 
 public interface IContractService {
     
-    ContractInfoDTO save(SaveContractDTO requestDTO) throws MyException;
-    List<ContractInfoDTO> getAllRequests();
+    ContractInfoDTO save(SaveContractDTO contractDTO) throws MyException;
+    List<ContractInfoDTO> getAllContracts();
     ContractInfoDTO getById(String id) throws MyException;
     List<ContractInfoDTO> getByUserId(String id) throws MyException;
     List<ContractInfoDTO> getBySupplierId(String id) throws MyException;
-    ContractInfoDTO accept(ContractInfoDTO requestDTO) throws MyException;
-    ContractInfoDTO decline(ContractInfoDTO requestDTO) throws MyException;
+    ContractInfoDTO accept(ContractInfoDTO contractDTO) throws MyException;
+    ContractInfoDTO decline(ContractInfoDTO contractDTO) throws MyException;
+    ContractInfoDTO clientDone(String contractId) throws MyException;
+    ContractInfoDTO supplierDone(String contractId) throws MyException;
 }

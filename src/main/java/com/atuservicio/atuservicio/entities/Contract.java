@@ -20,6 +20,10 @@ import java.util.Date;
 @Entity
 @Table(name = "contracts")
 public class Contract extends Base{
+
+    Boolean customerDone;
+    Boolean supplierDone;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private User customer;
@@ -36,5 +40,11 @@ public class Contract extends Base{
 
     @Enumerated(EnumType.STRING)
     private State state;
+
+    @PrePersist
+    private void prePersist() {
+        this.customerDone = false;
+        this.supplierDone = false;
+    }
     
 }

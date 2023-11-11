@@ -3,7 +3,8 @@
 package com.atuservicio.atuservicio.enums;
 
 public enum State {
-    PENDING,
+    PENDING_APPROVAL,
+    REFUSED,
     APPROVED,
-    REFUSED;
+    DONE;
 }
