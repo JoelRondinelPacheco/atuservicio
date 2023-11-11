@@ -165,7 +165,7 @@ public class ContractService implements IContractService {
     public ContractInfoDTO supplierDone(String contractId) throws MyException {
         Contract contract = this.getContractById(contractId);
         contract.setSupplierDone(true);
-        if (contract.getCustomerDone()) {
+        if (contract.getSupplierDone()) {
             contract.setState(State.DONE);
         }
         Contract contractDone = this.contractRepository.save(contract);

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head"></head>
+<body>
+    <!-- NavBar -->
+    <header>
+        <nav th:replace="fragments/navbar :: navbar"></nav>
+    </header>
+
+    <div class="container mt-5">
+        <h1>Lista de solicitudes pendientes</h1>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Fecha de la solicitud</th>
+                    <th scope="col">Nombre del cliente</th>
+                    <th scope="col">Email del cliente</th>
+                    <th scope="col">Dirección del cliente</th>
+                    <th scope="col">Descripción de la solicitud</th>
+                    <th scope="col">Estado de la solicitud</th>
+                    <th scope="col">Aprobar</th>
+                    <th scope="col">Rechazar</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr th:each="request : ${requests}" th:if="${request.state.name() == 'PENDING'}">
+                    <td th:text="${request.createdAt}"></td>
+                    <td th:text="${request.customer.name}"></td>
+                    <td th:text="${request.customer.email}"></td>
+                    <td th:text="${request.customer.address}"></td>
+                    <td th:text="${request.description}"></td>
+                    <td th:text="${request.state}"></td>
+                    <td>
+                        <a class="btn btn-success" th:href="@{/request/accept/__${request.id}__}">Aprobar</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" th:href="@{/request/decline/__${request.id}__}">Rechazar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container mt-5">
+        <h1>Lista de solicitudes aprobadas</h1>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Fecha de la solicitud</th>
+                    <th scope="col">Nombre del cliente</th>
+                    <th scope="col">Email del cliente</th>
+                    <th scope="col">Dirección del cliente</th>
+                    <th scope="col">Descripción de la solicitud</th>
+                    <th scope="col">Estado de la solicitud</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr th:each="request : ${requests}" th:if="${request.state.name() == 'APPROVED'}">
+                    <td th:text="${request.createdAt}"></td>
+                    <td th:text="${request.customer.name}"></td>
+                    <td th:text="${request.customer.email}"></td>
+                    <td th:text="${request.customer.address}"></td>
+                    <td th:text="${request.description}"></td>
+                    <td th:text="${request.state}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container mt-5">
+        <h1>Lista de solicitudes rechazadas</h1>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Fecha de la solicitud</th>
+                    <th scope="col">Nombre del cliente</th>
+                    <th scope="col">Email del cliente</th>
+                    <th scope="col">Dirección del cliente</th>
+                    <th scope="col">Descripción de la solicitud</th>
+                    <th scope="col">Estado de la solicitud</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr th:each="request : ${requests}" th:if="${request.state.name() == 'REFUSED'}">
+                    <td th:text="${request.createdAt}"></td>
+                    <td th:text="${request.customer.name}"></td>
+                    <td th:text="${request.customer.email}"></td>
+                    <td th:text="${request.customer.address}"></td>
+                    <td th:text="${request.description}"></td>
+                    <td th:text="${request.state}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

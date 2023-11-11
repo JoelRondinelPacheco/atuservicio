@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/contract")
 public class ContractController {
 
-    
     @Autowired
     private IUserService userService;
 
@@ -36,7 +35,7 @@ public class ContractController {
     private IContractService contractService;
 
     //EL CLIENTE PRESIONA EL BOTON 'CONTRATAR'
-    @GetMapping("/form/{id}")  //Agregar el idSupplier
+    @GetMapping("/form/{id}")
     public String requestForm(@PathVariable("id") String id,ModelMap model) {
 
         try {
@@ -46,6 +45,7 @@ public class ContractController {
             //Recupero los detalles del proveedor seleccionado mediante su id
             SupplierInfoDTO supplierDTO = supplierService.getById(id);
             ServiceInfoDTO service = supplierService.getServiceInfo(supplierDTO.getEmail());
+
             //Inyecto ambas entidades en el modelo de la vista html
             model.addAttribute("user", customerDTO);
             model.addAttribute("supplier", supplierDTO);
@@ -63,7 +63,7 @@ public class ContractController {
     @PostMapping("/send/{idSupplier}")
     public String requestSend(@PathVariable("idSupplier") String idSupplier,
             @RequestParam String description, ModelMap model) {
-
+        System.out.println("Devuelve formulario");
         try {
             //Recupero los detalles del usuario cliente logueado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();

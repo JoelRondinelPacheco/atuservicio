@@ -15,8 +15,11 @@ public class EditSupplierDTO extends EditUserDTO {
     private String categoryId;
 
     public EditSupplierDTO(String id, String name, MultipartFile image, String address, Long address_number,
-            String city, String province, String country, String postal_code, String categoryId) {
-        super(id, name, image, address, address_number, city, province, country, postal_code);
+            String country, String province, String city, String postal_code, String categoryId) {
+        super(id, name, image, address, address_number, country, province, city, postal_code);
         this.categoryId = categoryId;
     }
+
+    
+
 }
