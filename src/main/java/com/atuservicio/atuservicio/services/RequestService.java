@@ -2,12 +2,10 @@ package com.atuservicio.atuservicio.services;
 
 import com.atuservicio.atuservicio.dtos.requests.RequestInfoDTO;
 import com.atuservicio.atuservicio.dtos.requests.SaveRequestDTO;
-import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
-import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.entities.Request;
 import com.atuservicio.atuservicio.entities.Supplier;
 import com.atuservicio.atuservicio.entities.User;
-import com.atuservicio.atuservicio.enums.StateRequest;
+import com.atuservicio.atuservicio.enums.State;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.repositories.RequestRepository;
 import com.atuservicio.atuservicio.repositories.SupplierRepository;
@@ -61,7 +59,7 @@ public class RequestService implements IRequestService {
         request.setCustomer(customer);
         request.setSupplier(supplier);
         request.setDescription(requestDTO.getDescription());
-        request.setState(StateRequest.PENDING);
+        request.setState(State.PENDING);
         request.setContract(null);
 
         Request requestSaved = this.requestRepository.save(request);
@@ -127,8 +125,8 @@ public class RequestService implements IRequestService {
         
         if (requestOptional.isPresent()) {
             Request request = requestOptional.get();
-            if (request.getState().equals(StateRequest.PENDING)) {
-                request.setState(StateRequest.APPROVED);
+            if (request.getState().equals(State.PENDING)) {
+                request.setState(State.APPROVED);
             }
             Request requestSaved = this.requestRepository.save(request);
             return this.createRequestInfoDTO(requestSaved);
@@ -143,8 +141,8 @@ public class RequestService implements IRequestService {
         
         if (requestOptional.isPresent()) {
             Request request = requestOptional.get();
-            if (request.getState().equals(StateRequest.PENDING)) {
-                request.setState(StateRequest.REFUSED);
+            if (request.getState().equals(State.PENDING)) {
+                request.setState(State.REFUSED);
             }
             Request requestSaved = this.requestRepository.save(request);
             return this.createRequestInfoDTO(requestSaved);

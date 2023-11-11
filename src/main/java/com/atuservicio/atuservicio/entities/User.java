@@ -62,8 +62,6 @@ public class User extends Base implements UserDetails {
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)  //Relación 'uno a muchos' --> un usuario puede recibir muchos comentarios
     private List<Comment> comments_received;
     
-    @OneToMany(mappedBy = "customer")
-    private List<Request> requests;
     
     
 

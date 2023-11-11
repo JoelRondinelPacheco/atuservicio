@@ -2,13 +2,10 @@
 
 package com.atuservicio.atuservicio.entities;
 
-import com.atuservicio.atuservicio.enums.StateRequest;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import com.atuservicio.atuservicio.enums.State;
+
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,21 +16,21 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "requests")
+@Table(name = "contracts")
 public class Request extends Base{
     
     @ManyToOne
+    @JoinColumn(name = "id")
     private User customer;
     
     @ManyToOne
+    @JoinColumn(name = "id")
     private Supplier supplier;
-    
-    @OneToOne
-    private Contract contract;
     
     private String description;
     
     @Enumerated(EnumType.STRING)
-    private StateRequest state;
+    private State state;
+    //TODO FINA DATE ?
     
 }
