@@ -50,5 +50,12 @@ public interface SupplierRepository extends JpaRepository<Supplier, String> {
     @Query("SELECT u FROM Supplier u WHERE u.country = :country")
     public List<Supplier> findSuppliersByCountry(@Param("country") String country);
 
+    @Query("SELECT s FROM Supplier s " +
+            "WHERE (:country = '' OR :country IS NULL OR s.country = :country) " +
+            "AND (:province = '' OR :province IS NULL OR s.province = :province) " +
+            "AND (:city = '' OR :city IS NULL OR s.city = :city)" +
+            "AND (:category = '' OR :category IS NULL OR s.category = :category)")
+    public List<Supplier> findByCountryAndProvinceAndCityAndCategory(@Param("country") String country,
+            @Param("province") String province, @Param("city") String city, @Param("category") String category);
 
 }
