@@ -48,14 +48,14 @@
                 <select class="form-control fondo" id="category" name="category">
                   <option value="">Seleccione un rubro...</option>
                   <option value="" th:each="category : ${categories}" th:text="${category.name}"
-                    th:value="${category.name}"></option>
+                    th:value="${category.id}"></option>
                 </select>
               </div>
             </div>
 
 
             <div class="input-group ">
-              
+
               <h3>Por email</h3>
               <div class="col-md-4 w-100">
                 <!-- <label for="city" class="form-label">Email:</label> -->
@@ -78,14 +78,19 @@
     </div>
   </div>
 
-  <div class="container-fluid">
-    <div class="row row-cols-4 px-5 card-group">
-      <div th:if="${error != null}" class="card text-white bg-warning mb-3 mensajeError mt-5">
-        <div class="card-body">
-          <h5 class="card-title" th:text="${error}"></h5>
-        </div>
-      </div>
 
+  <div class="container-fluid">
+
+
+
+
+    <div th:if="${error != null}" class="card text-white bg-warning mb-3 mensajeError mt-5">
+      <div class="card-body">
+        <h5 class="card-title" th:text="${error}"></h5>
+      </div>
+    </div>
+
+    <div class="row row-cols-4 px-5 card-group">
       <div th:if="${locationFound}" class="col mt-5" th:each="user : ${users}">
         <div class="card h-100">
           <img th:src="@{/image/{imageCard}(imageCard=${user.imageCard})}" class="card-img-top" alt="Servicio" />
@@ -111,10 +116,17 @@
     </div>
   </div>
 
+
+
+
+
+
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
     crossorigin="anonymous"></script>
   <script src="/js/search.js"></script>
+
 </body>
 <footer th:replace="fragments/footer :: footer"></footer>
 

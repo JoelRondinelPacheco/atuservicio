@@ -206,22 +206,32 @@ public class SupplierController {
     public String searchServices(@RequestParam(required = false) String country,
             @RequestParam(required = false) String province, @RequestParam(required = false) String city,
             @RequestParam(required = false) String email, @RequestParam(required = false) String category,
-            ModelMap model) {
+            ModelMap model){
 
         if (email.isEmpty()) {
-            System.out.println(province);
-            System.out.println(country);
-            System.out.println(city);
-            UserSearchDTO userSearch = new UserSearchDTO(city, province, country);
-            List<SupplierInfoDTO> users = supplierService.getSearchSuppliers(userSearch, category);
+            try {
+                System.out.println(province);
+                System.out.println(country);
+                System.out.println(city);
+                UserSearchDTO userSearch = new UserSearchDTO(city, province, country);
+                List<SupplierInfoDTO> users = supplierService.getSearchSuppliers(userSearch, category);
 
-            List<CategoryInfoDTO> categories = this.categoryService.listAll();
-            model.addAttribute("categories", categories);
+                List<CategoryInfoDTO> categories = this.categoryService.listAll();
+                model.addAttribute("categories", categories);
 
-            model.addAttribute("locationFound", true);
-            model.addAttribute("users", users);
+                model.addAttribute("locationFound", true);
+                model.addAttribute("users", users);
 
-            return "services.html";
+                return "services.html";
+            } catch (MyException ex) {
+                List<CategoryInfoDTO> categories = this.categoryService.listAll();
+                model.addAttribute("categories", categories);
+                model.put("error", ex.getMessage());
+                System.out.println(ex.getMessage());
+
+                return listServices(model);
+            }
+
         } else {
             try {
                 SupplierInfoDTO user = supplierService.getByEmail(email);
@@ -237,7 +247,7 @@ public class SupplierController {
                 model.addAttribute("categories", categories);
                 model.put("error", ex.getMessage());
                 System.out.println(ex.getMessage());
-                return "services.html";
+                return listServices(model);
             }
         }
 
