@@ -15,48 +15,42 @@ crossorigin="anonymous"></script>
     <header>
         <nav th:replace="fragments/navbar :: navbar"></nav>
     </header>
-    <div class="container">
-    <form class="form-group" th:action="@{/request/send/{idSupplier}(idSupplier=${supplier.id})}" method="POST">
+    <div class="container mt-3">
+    <form class="form-group" th:action="@{/contract/send/{idSupplier}(idSupplier=${supplier.id})}" method="POST">
     <div class="panel">
         <div class="row">
             <div class="col">
-                <h1 class="tiltulo">Información del cliente</h1>
-                <div class="panel ">
-                    <div>
-                        <img  class="rounded-circle" th:src="@{/image/{imageId}(imageId=${user.image})}">
+                <div class="panel text-center p-3">
+                    <img  class="rounded-circle" th:src="@{/image/{imageId}(imageId=${supplier.image})}">
+                    <p class="fs-2 fw-bold" th:text="${supplier.name}"></p>
+                    <p>Cantiadd de estrellas</p>
+                    <p  class="fs-2 fw-semibold" th:text="${supplier.category.name}"></p>
+                    <p th:text="'$ ' +${service.priceHour} + ' /hora'"></p>
 
+                    <div class="row">
+                        <div class="col"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="col">
+                            <p th:text="${supplier.country}"></p>
+                            <p th:text="${supplier.province}"></p>
+                            <p th:text="${supplier.city}"></p>
+                        </div>
                     </div>
 
-                    <div class="container overflow-hidden text-center">
-                        <p th:text="${user.name}"></p>
-                        <p th:text="${user.country}"></p>
-                        <p th:text="${user.province}"></p>
-                        <p th:text="${user.city}"></p>
-                        <p th:text="${user.address}"></p>
-                        <p th:text="${user.address_number}"></p>
-                    </div>
                 </div>
             </div>
 
             <div class="col-8">
-                <h1>Información del proveedor</h1>
                 <div class="panel">
                     <div>
                         <img class="card-img-top" th:src="@{/image/{imageId}(imageId=${supplier.imageCard})}">
                     </div>
                     <div>
-                        <div class="container overflow-hidden text-center">
-                            <p th:text="${supplier.name}"></p>
-
-                            <p th:text="${supplier.email}"></p>
-
-                            <p th:text="${supplier.country}"></p>
-                            <p th:text="${supplier.province}"></p>
-                            <p th:text="${supplier.city}"></p>
-                            <p th:text="${supplier.address}"></p>
-                            <p th:text="${supplier.address_number}"></p>
-                            <p th:text="${supplier.category.name}"></p>
-                            <p th:text="'$/H ' +${service.priceHour}"></p>
+                        <div class="container d-flex flex-row">
+                            <div th:each="image : ${service.imageGallery}">
+                                <div class="card" style="width: 18rem;">
+                                    <img th:src="@{'/image/' + ${image}}"  class="card-img-top" alt="">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!--Descripción del servicio-->
@@ -64,16 +58,13 @@ crossorigin="anonymous"></script>
                 </div>
                 <div>
                     <p>Ingrese una descripción del trabajo que necesita</p>
-                    <textarea style="width: 400px;" name="description"></textarea>
+                    <textarea name="description"></textarea>
                 </div>
+                <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+
             </div>
 
 
-
-            <div>
-
-                <button type="submit" class="btn botones">Enviar solicitud</button>
-            </div>
             
         </div>
     </div>

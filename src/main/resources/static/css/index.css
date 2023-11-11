@@ -86,7 +86,7 @@
   margin-top: 10 px;
 }
 
-/* Estilos para el video de fondo */
+/* Estilos para el video de fondo 
 video {
   position: fixed;
   top: 0;
@@ -94,8 +94,33 @@ video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.5; /* Ajusta la transparencia aquí (1 es opaco, 0 es completamente transparente) */
+  opacity: 0.5; 
+  z-index: -1;
+}*/
+
+/* Cambio joel */
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
+
+#video-background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+}
+.my-button {
+  background-color: #EDB83D;
+  border-color: #EDB83D;
+}
+
+
+/* Cambio joel */
 
 /* Estilos para los botones en la sección de acceso rápido */
 .button-container {
