@@ -11,28 +11,24 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
 crossorigin="anonymous"></script>
 <link th:href="@{/css/contract.css}" rel="stylesheet" />
 
-<body>
-    <!--NavBar-->
+<body class="container-fluid">
     <header>
         <nav th:replace="fragments/navbar :: navbar"></nav>
     </header>
+    <div class="container">
     <form class="form-group" th:action="@{/request/send/{idSupplier}(idSupplier=${supplier.id})}" method="POST">
     <div class="panel">
-        <div class="row row-cols-2 px-5 ">
-
-            <div>
+        <div class="row">
+            <div class="col">
                 <h1 class="tiltulo">Información del cliente</h1>
                 <div class="panel ">
                     <div>
-                        <img class="card-img-top" th:src="@{/image/{imageId}(imageId=${user.image})}">
+                        <img  class="rounded-circle" th:src="@{/image/{imageId}(imageId=${user.image})}">
 
                     </div>
 
                     <div class="container overflow-hidden text-center">
                         <p th:text="${user.name}"></p>
-
-                        <p th:text="${user.email}"></p>
-
                         <p th:text="${user.country}"></p>
                         <p th:text="${user.province}"></p>
                         <p th:text="${user.city}"></p>
@@ -41,7 +37,8 @@ crossorigin="anonymous"></script>
                     </div>
                 </div>
             </div>
-            <div>
+
+            <div class="col-8">
                 <h1>Información del proveedor</h1>
                 <div class="panel">
                     <div>
@@ -81,6 +78,7 @@ crossorigin="anonymous"></script>
         </div>
     </div>
 </form>
+    </div>
     <!--Footer-->
     <footer th:replace="fragments/footer :: footer"></footer>
     <script
