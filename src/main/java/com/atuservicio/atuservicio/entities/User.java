@@ -11,7 +11,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -48,24 +47,21 @@ public class User extends Base implements UserDetails {
     
     private String postal_code;
 
+    @OneToMany(mappedBy = "customer")
+    private List<Contract> contracts;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)   //Relación 'uno a muchos' --> un usuario puede escribi muchos comentarios
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)  //Relación 'uno a muchos' --> un usuario puede recibir muchos comentarios
+    private List<Comment> comments_received;
+
     @PrePersist
     private void prePersistActive(){
         this.active = true;
     }
-    
-    @OneToMany(mappedBy = "customer")
-    private List<Contract> contracts;
-    
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)   //Relación 'uno a muchos' --> un usuario puede escribi muchos comentarios
-    private List<Comment> comments;
-    
-    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)  //Relación 'uno a muchos' --> un usuario puede recibir muchos comentarios
-    private List<Comment> comments_received;
-    
-    @OneToMany(mappedBy = "customer")
-    private List<Request> requests;
-    
-    
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

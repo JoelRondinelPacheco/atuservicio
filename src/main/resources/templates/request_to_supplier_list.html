@@ -1,40 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="fragments/head :: head"></head>
-<body>
-    <!-- NavBar -->
-    <header>
-        <nav th:replace="fragments/navbar :: navbar"></nav>
-    </header>
-    
-    <div class="container mt-5">
-        <h1>Lista de solicitudes enviadas</h1>
-        <table class="table table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Fecha de la solicitud</th>
-                    <th scope="col">Rubro del proveedor</th>
-                    <th scope="col">Nombre del proveedor</th>
-                    <th scope="col">Email del proveedor</th>
-                    <th scope="col">Descripción del servicio</th>
-                    <th scope="col">Estado de la solicitud</th>
-                </tr>
-            </thead>
-            
-            <tbody class="table-group-divider">
-                <tr th:each="request : ${requests}">
-                    <td th:text="${request.createdAt}"></td>
-                    <td th:text="${request.supplier.category.name}"></td>
-                    <td th:text="${request.supplier.name}"></td>
-                    <td th:text="${request.supplier.email}"></td>
-                    <td th:text="${request.description}"></td>
-                    <td th:text="${request.state}"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
-    <!-- Footer -->
-    <footer th:replace="fragments/footer :: footer"></footer>
-</body>
+    <head th:replace="fragments/head :: head"></head>
+    <body>
+        <!--NavBar-->
+        <header>
+            <nav th:replace="fragments/navbar :: navbar"></nav>
+        </header>
+        
+        <div class="container">
+            <h1>Lista de solicitudes enviadas</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Fecha de la solicitud</th>
+                        <th scope="col">Rubro del proveedor</th>
+                        <th scope="col">Nombre del proveedor</th>
+                        <th scope="col">Email del proveedor</th>
+                        <th scope="col">Descripción del servicio</th>
+                        <th scope="col">Estado de la solicitud</th>
+                        <th scope="col">Comentario</th>
+                    </tr>
+                </thead>
+                
+                <tbody class="table-group-divider">
+                    <tr th:each="contract : ${contracts}">
+                        <td th:text="${contract.createdAt}"></td>
+                        <td th:text="${contract.supplier.category.name}"></td>
+                        <td th:text="${contract.supplier.name}"></td>
+                        <td th:text="${contract.supplier.email}"></td>
+                        <td th:text="${contract.description}"></td>
+                        <td th:text="${contract.state}"></td>
+                        <td th:if="${contract.hasComment}"><button><a th:href="@{'/contract/comments/' + ${contract.id}}">Ver</a></button></td>
+
+
+                        <td th:if="${contract.state.name() == 'APPROVED'}">
+                            <button><a th:href="@{'/contract/client/accept/' + ${contract.id}}">ACEPTAR</a></button>
+                            <button><a th:href="@{'/contract/client/refused/' + ${contract.id}}">CANCELAR</a></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!--Footer-->
+        <footer th:replace="fragments/footer :: footer"></footer>
+    </body>
 </html>

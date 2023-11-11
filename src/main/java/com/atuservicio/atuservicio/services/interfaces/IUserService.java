@@ -18,6 +18,7 @@ public interface IUserService {
     UserInfoDTO getSearchEmailUser(String userSearch) throws MyException;
     String activate(String id) throws MyException;
     UserPaginatedDTO findPaginated(int pageNumber, int pageSize);
+    User getUserById(String id) throws MyException;
     //UserPaginatedDTO findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection);
 
 }

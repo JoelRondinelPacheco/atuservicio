@@ -94,11 +94,13 @@
                             <a class="dropdown-item colorfont" th:href="@{/supplier/service}"
                                >Mi Servicio</a>
                         </li>
+
                         <li sec:authorize="hasAnyRole('CLIENT', 'SUPPLIER')">
                             <a class="dropdown-item colorfont"
-                               th:href="${#request.isUserInRole('SUPPLIER') ? '/request/list/customers' : ( #request.isUserInRole('CLIENT') ? '/request/list/suppliers' : '#')}">
+                               th:href="${#request.isUserInRole('SUPPLIER') ? '/contract/list/customers' : ( #request.isUserInRole('CLIENT') ? '/contract/list/suppliers' : '#')}">
                                 Solicitudes
                             </a>
+
                         </li>
                     </ul>
                 </li>
