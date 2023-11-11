@@ -2,14 +2,16 @@
 
 package com.atuservicio.atuservicio.entities;
 
-import java.util.Date;
+import com.atuservicio.atuservicio.enums.State;
+
 import javax.persistence.*;
 
-import com.atuservicio.atuservicio.enums.State;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Date;
 
 @Getter
 @Setter
@@ -18,11 +20,10 @@ import lombok.Setter;
 @Entity
 @Table(name = "contracts")
 public class Contract extends Base{
-    
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private User customer;
-    
+
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
@@ -35,5 +36,5 @@ public class Contract extends Base{
 
     @Enumerated(EnumType.STRING)
     private State state;
-
+    
 }

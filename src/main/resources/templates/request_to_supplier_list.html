@@ -22,13 +22,13 @@
                 </thead>
                 
                 <tbody class="table-group-divider">
-                    <tr th:each="request : ${requests}">
-                        <td th:text="${request.createdAt}"></td>
-                        <td th:text="${request.supplier.category.name}"></td>
-                        <td th:text="${request.supplier.name}"></td>
-                        <td th:text="${request.supplier.email}"></td>
-                        <td th:text="${request.description}"></td>
-                        <td th:text="${request.state}"></td>
+                    <tr th:each="contract : ${contracts}">
+                        <td th:text="${contract.createdAt}"></td>
+                        <td th:text="${contract.supplier.category.name}"></td>
+                        <td th:text="${contract.supplier.name}"></td>
+                        <td th:text="${contract.supplier.email}"></td>
+                        <td th:text="${contract.description}"></td>
+                        <td th:text="${contract.state}"></td>
                     </tr>
                 </tbody>
             </table>
