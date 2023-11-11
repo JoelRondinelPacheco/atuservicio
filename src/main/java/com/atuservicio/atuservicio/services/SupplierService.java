@@ -192,41 +192,49 @@ public class SupplierService implements ISupplierService {
         throw new MyException("Proveedor no encontrado por email");
     }
 
-    public List<SupplierInfoDTO> getSearchSuppliers(UserSearchDTO userSearch, String category) {
+    public List<SupplierInfoDTO> getSearchSuppliers(UserSearchDTO userSearch, String category) throws MyException {
+
         List<SupplierInfoDTO> userInformation = new ArrayList<>();
         System.out.println(userSearch.getCountry());
+        userInformation = getListSupplierInfoDTO(supplierRepository.findByCountryAndProvinceAndCityAndCategory(
+                userSearch.getCountry(), userSearch.getProvince(), userSearch.getCity(), category));
 
-        if (category != null && !category.isEmpty()) {
-
-            userInformation = getAllSuppliers()
-                    .stream().filter(element -> element.getCategory().getName().equals(category))
-                    .collect(Collectors.toList());
-
-
-
-            return userInformation;
+        if (userInformation.size() == 0) {
+            throw new MyException("No se encontró proveedor con los parametros indicados");
         }
-        // if (userSearch.getCity() == null) {
-        //     userSearch.setCity("");
-        // }
-        if (userSearch.getCity() != null && !userSearch.getCity().isEmpty()) {
-
-            List<Supplier> users = supplierRepository.findSuppliersByCity(userSearch.getCity());
-            return userInformation = getListSupplierInfoDTO(users);
-
-        } else if (!userSearch.getProvince().isEmpty()) {
-
-            List<Supplier> users = supplierRepository.findSuppliersByProvince(userSearch.getProvince());
-            return userInformation = getListSupplierInfoDTO(users);
-
-        } else if (!userSearch.getCountry().isEmpty()) {
-
-            List<Supplier> users = supplierRepository.findSuppliersByCountry(userSearch.getCountry());
-            return userInformation = getListSupplierInfoDTO(users);
-
-        }
-
         return userInformation;
+
+        // if (category != null && !category.isEmpty()) {
+
+        // userInformation = getAllSuppliers()
+        // .stream().filter(element -> element.getCategory().getName().equals(category))
+        // .collect(Collectors.toList());
+
+        // return userInformation;
+        // }
+        // // if (userSearch.getCity() == null) {
+        // // userSearch.setCity("");
+        // // }
+        // if (userSearch.getCity() != null && !userSearch.getCity().isEmpty()) {
+
+        // List<Supplier> users =
+        // supplierRepository.findSuppliersByCity(userSearch.getCity());
+        // return userInformation = getListSupplierInfoDTO(users);
+
+        // } else if (!userSearch.getProvince().isEmpty()) {
+
+        // List<Supplier> users =
+        // supplierRepository.findSuppliersByProvince(userSearch.getProvince());
+        // return userInformation = getListSupplierInfoDTO(users);
+
+        // } else if (!userSearch.getCountry().isEmpty()) {
+
+        // List<Supplier> users =
+        // supplierRepository.findSuppliersByCountry(userSearch.getCountry());
+        // return userInformation = getListSupplierInfoDTO(users);
+
+        // }
+
     }
 
     private List<SupplierInfoDTO> getListSupplierInfoDTO(List<Supplier> users) {
