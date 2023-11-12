@@ -8,11 +8,11 @@
 <header class="mb-0 pb-0">
   <nav th:replace="fragments/navbar :: navbar"></nav>
 </header>
-<h1>Comentario para trabajo bien hecho</h1>
+<h1>Comentario para rechazar</h1>
 <h1 th:text="${contract.supplier.email}"></h1>
 <form th:action="@{'/contract/comment/refused/' + ${contract.id}}" method="post">
   <label for="puntuacion"></label>
-  <input type="number" id="puntuacion" name="score">
+  <input type="number" id="puntuacion" value ="0" name="score">
   <label for="comment">comentario</label>
   <textarea id="comment" name="content"></textarea>
   <input type="submit" value="enviar">

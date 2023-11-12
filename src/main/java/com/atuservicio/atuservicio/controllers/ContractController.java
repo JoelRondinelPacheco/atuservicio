@@ -91,14 +91,28 @@ public class ContractController {
             return "index.html";
         }
     }
-
+    
+    // EL CLIENTE PUEDE CANCELAR LA SOLICITUD DEL TRABAJO ANTES QUE EL PRROVEEDOR LA ACEPTE 
+    
+    @GetMapping("/client/canceled/{contractId}")
+    public String clientCanceled(@PathVariable String contractId, ModelMap model) {
+            try {
+                ContractInfoDTO contractCanceled = this.contractService.cancelClient(contractId);
+                model.addAttribute("contract", contractCanceled);
+                return "comments_canceled.html";
+            } catch (MyException ex) {
+                return null;
+            }
+    }
     //El PROVEEDOR ACEPTA LA SOLICITUD DEL CLIENTE
     @GetMapping("/supplier/accept/{idRequest}")
-    public String requestAccepted(@PathVariable("idRequest") String idRequest, ModelMap model) {
-
+    public String requestAccepted(@PathVariable("idRequest") String idRequest,@RequestParam Double estimatedTime, ModelMap model) {
+        System.out.println("tiempo estimado" + estimatedTime);
         try {
             //Recupero la solicitud en la base de datos mediante su id
             ContractInfoDTO requestDTO = this.contractService.getById(idRequest);
+            requestDTO.setEstimatedTime(estimatedTime);
+            System.out.println("Tiempo seteado" + requestDTO.getEstimatedTime());
             //La solicitud se envía a la capa de servicios para cambiar su estado a APROBADO y generar el contrato (CONSULTAR)
             ContractInfoDTO r = this.contractService.acceptSupplier(requestDTO);
 
@@ -215,17 +229,18 @@ public class ContractController {
     //LISTAR LAS SOLICITUDES A PROVEEDORES GENERADAS POR EL CLIENTE LOGUEADO
     @GetMapping("/list/suppliers")
     public String requestsToSuppliers(ModelMap model) {
-            System.out.println("Ingreso");
+            
         try {
             
             //Recupero los detalles del usuario cliente logueado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            System.out.println("Email" + auth.getName());
+            
             UserInfoDTO customerDTO = userService.getSearchEmailUser(auth.getName());
             //Recupero la lista de solicitudes que realizó el cliente mediante su id
-            System.out.println("Recupero el usuario por email");
+            
             List<Comment> comments = this.commentRepository.findAll();
             List<ContractInfoDTO> contracts = contractService.getByUserId(customerDTO.getId());
+            
             model.addAttribute("contracts", contracts);
 
             return "request_to_supplier_list.html";
