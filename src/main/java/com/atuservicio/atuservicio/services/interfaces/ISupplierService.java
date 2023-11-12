@@ -1,8 +1,10 @@
 package com.atuservicio.atuservicio.services.interfaces;
 
+import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.EditSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SaveSupplierDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
+import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.exceptions.MyException;
 
 import java.util.List;
@@ -15,4 +17,5 @@ public interface ISupplierService {
     String delete(String id) throws MyException;
     String activate(String id) throws MyException;
     SupplierInfoDTO getByEmail(String email) throws MyException;
+    SupplierInfoDTO convertToSupplier(UserInfoDTO customerDTO, CategoryInfoDTO categoryDTO) throws MyException;
 }

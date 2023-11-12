@@ -49,8 +49,14 @@ public class HomeController {
     private ImageService imageService;
 
     @GetMapping("/")
-    public String index() {
-
+    public String index(ModelMap model) {
+        
+        List<UserInfoDTO> users = this.userService.getAllUsers();
+        List<CategoryInfoDTO> categories = this.categoryService.listAll();
+        
+        model.addAttribute("user", users);
+        model.addAttribute("categories", categories);
+        
         return "index.html";
     }
 
