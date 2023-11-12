@@ -206,7 +206,7 @@ public class SupplierController {
     public String searchServices(@RequestParam(required = false) String country,
             @RequestParam(required = false) String province, @RequestParam(required = false) String city,
             @RequestParam(required = false) String email, @RequestParam(required = false) String category,
-            ModelMap model){
+            ModelMap model) {
 
         if (email.isEmpty()) {
             try {
@@ -327,6 +327,26 @@ public class SupplierController {
         } catch (MyException e) {
             model.addAttribute("error", "Algo salio mal");
             return this.workEdit(model);
+        }
+    }
+
+    @PostMapping("/convert/{UserId}")
+    public String convertToSupplier(@PathVariable("UserId") String UserId, @RequestParam String CategoryId, ModelMap model) {
+
+        try {
+            UserInfoDTO customerDTO = this.userService.getById(UserId);
+            CategoryInfoDTO categoryDTO = this.categoryService.getById(CategoryId);
+            SupplierInfoDTO supplierDTO = this.supplierService.convertToSupplier(customerDTO, categoryDTO);
+            
+            ServiceInfoDTO service = this.supplierService.getServiceInfo(supplierDTO.getEmail());
+            
+            model.addAttribute("service", service);
+            model.put("exito", "Has cambiado tu cuenta a proveedor exitosamente");
+            return "work_edit.html";
+
+        } catch (MyException ex) {
+            model.put("error", "Error al cambiar tu cuenta a proveedor");
+            return "work_edit.html";
         }
 
     }

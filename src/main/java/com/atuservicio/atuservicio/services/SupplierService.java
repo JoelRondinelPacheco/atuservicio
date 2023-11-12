@@ -54,6 +54,8 @@ public class SupplierService implements ISupplierService {
     private UserRepository userRepository;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private UserService userService;
 
     @Override
     public SupplierInfoDTO save(SaveSupplierDTO supplierDTO) throws MyException {
@@ -205,36 +207,27 @@ public class SupplierService implements ISupplierService {
         return userInformation;
 
         // if (category != null && !category.isEmpty()) {
-
         // userInformation = getAllSuppliers()
         // .stream().filter(element -> element.getCategory().getName().equals(category))
         // .collect(Collectors.toList());
-
         // return userInformation;
         // }
         // // if (userSearch.getCity() == null) {
         // // userSearch.setCity("");
         // // }
         // if (userSearch.getCity() != null && !userSearch.getCity().isEmpty()) {
-
         // List<Supplier> users =
         // supplierRepository.findSuppliersByCity(userSearch.getCity());
         // return userInformation = getListSupplierInfoDTO(users);
-
         // } else if (!userSearch.getProvince().isEmpty()) {
-
         // List<Supplier> users =
         // supplierRepository.findSuppliersByProvince(userSearch.getProvince());
         // return userInformation = getListSupplierInfoDTO(users);
-
         // } else if (!userSearch.getCountry().isEmpty()) {
-
         // List<Supplier> users =
         // supplierRepository.findSuppliersByCountry(userSearch.getCountry());
         // return userInformation = getListSupplierInfoDTO(users);
-
         // }
-
     }
 
     private List<SupplierInfoDTO> getListSupplierInfoDTO(List<Supplier> users) {
@@ -312,7 +305,6 @@ public class SupplierService implements ISupplierService {
                 supplier.getCategory(),
                 supplier.getActive(),
                 supplier.getImageCard().getId()
-
         );
     }
 
@@ -326,6 +318,45 @@ public class SupplierService implements ISupplierService {
         CategoryInfoDTO category = this.categoryService.getById(supplier.getCategory().getId());
         return new ServiceInfoDTO(supplier.getName(), supplier.getEmail(), supplier.getImageCard().getId(), category,
                 supplier.getDescription(), supplier.getPriceHour(), images);
+    }
+
+    @Override
+    public SupplierInfoDTO convertToSupplier(UserInfoDTO customerDTO, CategoryInfoDTO categoryDTO) throws MyException {
+
+        Optional<User> userOptional = this.userRepository.findById(customerDTO.getId());
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            //Se da de baja al usuario como cliente y se persiste en la BD
+            this.userService.delete(user.getId());
+            //Se instancia un proveedor con los mismos atributos para persistirlo en la BD
+            Supplier supplier = new Supplier();
+            supplier.setName(user.getName());
+            supplier.setEmail(user.getEmail());
+            supplier.setPassword(user.getPassword());
+            supplier.setRole(Role.SUPPLIER);
+            
+            Image image = this.imageService.getById(user.getImage().getId());
+            supplier.setImage(image);
+            
+            supplier.setAddress(user.getAddress());
+            supplier.setAddress_number(user.getAddress_number());
+            supplier.setCity(user.getCity());
+            supplier.setProvince(user.getProvince());
+            supplier.setCountry(user.getCountry());
+            supplier.setPostal_code(user.getPostal_code());
+            
+            Category category = this.categoryRepository.findById(categoryDTO.getId()).get();
+            supplier.setCategory(category);
+            supplier.setImageCard(category.getImage());
+            //CONSULTAR: ¿Por qué la imagecard del proveedor toma la imagen de su rubro?
+            
+            /*El precio x hora, la descripción y la gelería de imagenes lo 
+            completa el proveedor en la vista work_edit.html*/
+            
+            Supplier supplierSaved = this.supplierRepository.save(supplier);
+            return this.createSupplierInfoDTO(supplierSaved);
+        }
+        throw new MyException("Usuario no encontrado");
     }
 
 }
