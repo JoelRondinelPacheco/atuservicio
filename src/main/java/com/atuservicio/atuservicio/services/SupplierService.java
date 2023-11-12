@@ -311,7 +311,8 @@ public class SupplierService implements ISupplierService {
                 supplier.getId(),
                 supplier.getCategory(),
                 supplier.getActive(),
-                supplier.getImageCard().getId()
+                supplier.getImageCard().getId(),
+                supplier.getPriceHour()
 
         );
     }

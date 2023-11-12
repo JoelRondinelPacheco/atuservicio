@@ -128,6 +128,7 @@ public class ContractService implements IContractService {
             Contract contract = requestOptional.get();
             if (contract.getState().equals(State.PENDING_APPROVAL)) {
                 contract.setState(State.APPROVED);
+                contract.setEstimatedTime(requestDTO.getEstimatedTime());
             }
             Contract contractSaved = this.contractRepository.save(contract);
             return this.createContractInfoDTO(contractSaved);
@@ -157,7 +158,7 @@ public class ContractService implements IContractService {
 
         if (contractOptional.isPresent()) {
             Contract contract = contractOptional.get();
-            if (contract.getState().equals(State.APPROVED)) {
+            if (contract.getState().equals(State.APPROVED) || (contract.getState().equals(State.PENDING_APPROVAL) )) {
                 contract.setState(State.REFUSED_CLIENT);
                 //En este  punto puede emitir comentario
             }
@@ -167,6 +168,22 @@ public class ContractService implements IContractService {
         throw new MyException("Solicitud no encontrada");
     }
 
+    @Override
+    public ContractInfoDTO cancelClient(String contractId) throws MyException {
+
+        Optional<Contract> contractOptional = this.contractRepository.findById(contractId);
+
+        if (contractOptional.isPresent()) {
+            Contract contract = contractOptional.get();
+            if (contract.getState().equals(State.APPROVED) || (contract.getState().equals(State.PENDING_APPROVAL) )) {
+                contract.setState(State.CANCELED_CLIENT);
+                //En este  punto puede emitir comentario
+            }
+            Contract contractSaved = this.contractRepository.save(contract);
+            return this.createContractInfoDTO(contractSaved);
+        }
+        throw new MyException("Solicitud no encontrada");
+    }
     @Override
     public ContractInfoDTO clientDone(String contractId) throws MyException {
         Contract contract = this.getContractById(contractId);
@@ -209,7 +226,9 @@ public class ContractService implements IContractService {
                 contract.getState(),
                 this.userService.createUserInfoDTO(contract.getCustomer()),
                 this.supplierService.createSupplierInfoDTO(contract.getSupplier()),
-                hasComments);
+                hasComments,
+                contract.getEstimatedTime());
+
         return requestinfo;
     }
 

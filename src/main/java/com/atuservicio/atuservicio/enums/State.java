@@ -7,6 +7,7 @@ public enum State {
     REFUSED_SUPPLIER,
     APPROVED,
     REFUSED_CLIENT,
+    CANCELED_CLIENT,
     DONE,
     DONE_SUPPLIER;
 }
