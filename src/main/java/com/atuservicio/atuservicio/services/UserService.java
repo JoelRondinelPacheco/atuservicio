@@ -183,10 +183,10 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserPaginatedDTO findPaginated(int pageNumber, int pageSize) {
+    public UserPaginatedDTO findPaginated(int pageNumber, int pageSize, Role role) {
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
         // Page<User> users = this.userRepository.findAll(pageable);
-        Page<User> users = this.userRepository.findByRole(Role.CLIENT, pageable);
+        Page<User> users = this.userRepository.findByRole(role, pageable);
         List<UserInfoDTO> usersInfo = new ArrayList<>();
         for (User user : users) {
             usersInfo.add(this.createUserInfoDTO(user));
@@ -211,22 +211,7 @@ public class UserService implements IUserService {
      * users.getTotalElements());
      * }
      */
-    public UserInfoDTO createUserInfoDTO(User user) {
-        UserInfoDTO userinfo = new UserInfoDTO(
-                user.getName(),
-                user.getEmail(),
-                user.getRole(),
-                user.getImage().getId(),
-                user.getAddress(),
-                user.getAddress_number(),
-                user.getCity(),
-                user.getProvince(),
-                user.getCountry(),
-                user.getPostal_code(),
-                user.getId(),
-                user.getActive());
-        return userinfo;
-    }
+
 
     public List<UserInfoDTO> getListUserInfoDTO(List<User> users) {
 
@@ -296,12 +281,39 @@ public class UserService implements IUserService {
         return userInformation;
     }
 
+
+
+    @Override
+    public UserInfoDTO changeRole(String id, Role role) throws MyException {
+        User user = this.getUserById(id);
+        user.setRole(role);
+        User userSaved = this.userRepository.save(user);
+        return this.createUserInfoDTO(userSaved);
+    }
+
     public User getUserById(String id) throws MyException {
         Optional<User> userO = this.userRepository.findById(id);
         if (userO.isPresent()) {
             return userO.get();
         }
         throw new MyException("User no encontrado");
+    }
+
+    public UserInfoDTO createUserInfoDTO(User user) {
+        UserInfoDTO userinfo = new UserInfoDTO(
+                user.getName(),
+                user.getEmail(),
+                user.getRole(),
+                user.getImage().getId(),
+                user.getAddress(),
+                user.getAddress_number(),
+                user.getCity(),
+                user.getProvince(),
+                user.getCountry(),
+                user.getPostal_code(),
+                user.getId(),
+                user.getActive());
+        return userinfo;
     }
 
 }

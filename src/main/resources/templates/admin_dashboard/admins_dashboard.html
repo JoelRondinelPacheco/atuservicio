@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/head :: head"></head>
+
+<body>
+<header>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+</header>
+<div class="container">
+    <div th:replace="fragments/adminbtns :: adminbtns"></div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Correo Electrónico</th>
+            <th>País</th>
+            <th>Provincia</th>
+            <th>Usuario activo</th>
+            <th></th>
+            <th>Cambiar role</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="admin : ${admins}">
+            <td th:text="${admin.name}"></td>
+            <td th:text="${admin.email}"></td>
+            <td th:text="${admin.country}"></td>
+            <td th:text="${admin.province}"></td>
+            <td th:text="${admin.active}"></td>
+            <td>
+                <div th:unless="${admin.active}">
+                    <a class="btn btn-primary" th:href="@{'/admin/admins/activate?clientId='+${admin.id}+'&'+'currentpage='+${currentPage}}">Dar de alta</a>
+                </div>
+                <div th:if="${admin.active}">
+                    <a class="btn btn-primary"  th:href="@{'/admin/admins/delete?clientId='+${admin.id}+'&'+'currentpage='+${currentPage}}">Dar de Baja</a>
+                </div>
+            </td>
+            <td><a class="btn btn-primary" th:href="@{'/admin/role/moderator/'+${admin.id}}">Moderador</a></td>
+            <td><a class="btn btn-primary" th:href="@{'/admin/role/admin/'+${admin.id}}">Adminstrador</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            <div class="col-sm-2">
+                Total Rows: [[${totalItems}]]
+            </div>
+            <div class="col-sm-1">
+                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                    <a th:if="${currentPage != i}" th:href="@{'/admin/admins/' + ${i}}">[[${i}]]</a>
+                    <a th:unless="${currentPage != i}">[[${i}]]</a>
+                </span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/admin/admins/' + ${currentPage + 1}}">Siguiente</a>
+                <span th:unless="${currentPage < totalPages}">Siguiente</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/search.js"></script>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

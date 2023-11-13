@@ -3,6 +3,7 @@ package com.atuservicio.atuservicio.services.interfaces;
 import com.atuservicio.atuservicio.dtos.*;
 import com.atuservicio.atuservicio.dtos.users.*;
 import com.atuservicio.atuservicio.entities.User;
+import com.atuservicio.atuservicio.enums.Role;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import org.springframework.data.domain.Page;
 
@@ -17,8 +18,11 @@ public interface IUserService {
     List<UserInfoDTO> getSearchUsers(UserSearchDTO userSearch);
     UserInfoDTO getSearchEmailUser(String userSearch) throws MyException;
     String activate(String id) throws MyException;
-    UserPaginatedDTO findPaginated(int pageNumber, int pageSize);
+    UserPaginatedDTO findPaginated(int pageNumber, int pageSize, Role role);
     User getUserById(String id) throws MyException;
     //UserPaginatedDTO findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection);
+    UserInfoDTO changeRole(String id, Role role) throws MyException;
+
+
 
 }
