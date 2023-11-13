@@ -1,0 +1,112 @@
+<div th:fragment="modal-login" >
+    <button
+    type="button"
+    class="btn btn-outline-light btn-lg px-4 me-md-2"
+    data-bs-toggle="modal"
+    data-bs-target="#staticBackdrop">
+    Login
+  </button>
+
+  <!-- Modal -->
+  <div
+    class="modal fade  "
+    id="staticBackdrop"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+    <div class="modal-dialog color-login-form">
+      <div class="modal-content ">
+        <div class="modal-header color-login-form">
+          <h1 class="modal-title  color-login-form fs-5" id="staticBackdropLabel">
+            Inicio de Sesión
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"></button>
+        </div>
+        <!-- formulario login -->
+        <link href="sign-in.css" rel="stylesheet">
+      
+     
+    
+        <div class="dropdown color-login-form position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
+          <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
+                  id="bd-theme"
+                  type="button"
+                  aria-expanded="false"
+                  data-bs-toggle="dropdown"
+                  aria-label="Toggle theme (auto)">
+            <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
+            <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#sun-fill"></use></svg>
+                Light
+                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
+                Dark
+                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#circle-half"></use></svg>
+                Auto
+                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+    
+        
+    <main class="form-signin w-100 m-auto color-login-form">
+
+      <form th:action="@{/perform_login}" method="POST" class="color-login-form" >
+        <img class="mb-4 mt-3" src="/img/logo.png" alt="" width="72" height="57">
+        <!-- <h1 class="h3 mb-3 fw-normal">Please sign in</h1> -->
+    
+        <div class="form-floating mx-auto w-70">
+          <input type="email" class="form-control custom-bg" id="floatingInput" name="email" placeholder="name@example.com">
+          <label for="floatingInput">Email</label>
+      </div>
+      <div class="form-floating mx-auto w-70">
+          <input type="password" class="form-control custom-bg" id="floatingPassword" name="password" placeholder="Password">
+          <label for="floatingPassword">Password</label>
+      </div>
+      
+      
+    
+        <div class="form-check text-start my-3">
+         <br>
+          
+        </div>
+        <button class="btn btn-outline-light w-30 py-2" type="submit">Inicia Sesión</button>
+        <p class="mt-5 mb-3 text-body-secondary">&copy; 2023</p>
+      </form>
+        <!-- fin de formulario de login -->
+
+      
+        
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-light"
+            data-bs-dismiss="modal">
+            Cerrar
+          </button>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -39,28 +39,21 @@ public class UserService implements IUserService {
         if (!userDTO.getPassword().equals(userDTO.getPassword2())) {
             throw new MyException("Las contraseñas no coincide");
         }
+        //Instancia un usuario
         User user = new User();
+        //Setea Nombre, email
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
+        //Encrypta contraseña y la setea
         String pass = new BCryptPasswordEncoder().encode(userDTO.getPassword());
         user.setPassword(pass);
-
+        //Setea Rol de Cliente
         user.setRole(Role.CLIENT);
-        if (userDTO.getImage().isEmpty()) {
-            System.out.println("imagen vacia");
-            Image img = this.imageService.getById("d4fe09fd-56f6-4b55-a1b9-58671d68f1f1");
-            Image imgUser = this.imageService.saveDefaultImage(img);
-            user.setImage(imgUser);
-        } else {
-            Image img = this.imageService.save(userDTO.getImage());
-            user.setImage(img);
-        }
-        user.setAddress(userDTO.getAddress());
-        user.setAddress_number(userDTO.getAddress_number());
-        user.setCity(userDTO.getCity());
-        user.setProvince(userDTO.getProvince());
-        user.setCountry(userDTO.getCountry());
-        user.setPostal_code(userDTO.getPostal_code());
+        //Busca la imagen por defecto para un cliente y la setea
+        Image img = this.imageService.getById("d4fe09fd-56f6-4b55-a1b9-58671d68f1f1");
+        Image imgUser = this.imageService.saveDefaultImage(img);
+        user.setImage(imgUser);
+        //Se persiste el usuario en la Base de Datos
         User userGuardado = this.userRepository.save(user);
         if (userGuardado == null) {
             throw new MyException("No se puedo crear el usuario");

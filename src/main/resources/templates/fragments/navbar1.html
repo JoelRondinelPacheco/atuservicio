@@ -1,0 +1,106 @@
+
+  <nav
+  class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+  aria-label="Ninth navbar example">
+  <div class="container-xl">
+    <a class="navbar-brand" href="#">A tu servicio</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarsExample07XL"
+      aria-controls="navbarsExample07XL"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"> </span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample07XL">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">
+            <i class="fa-solid fa-house text-white me-1"></i> Home
+          </a>
+        </li>
+        
+        
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle text-white"
+            href="#"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            >Servicios</a
+          >
+          <ul class="dropdown-menu">
+            <li  th:each="category : ${categories}">
+              <a th:text="${category.name}"class="barra-desplegable-menu dropdown-item" th:href="@{'/searchByCategoty/' + ${category.id}}"
+                ></a
+              >
+            </li>
+            
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{'/supplier/services'}">
+            <i class="fa-solid fa-truck-field-un"></i> Proveedores
+          </a>
+        </li>
+       
+        <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+          <a class="nav-link active" aria-current="page" th:href="@{/admin/dashboard}">
+            <i class="fa-solid fa-screwdriver-wrench"></i> Dashboard
+          </a>
+        </li>
+        
+
+        <!-- mi perfil -->
+        <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+          <a
+            class="nav-link dropdown-toggle text-white"
+            href="#"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            >Mi Perfil</a
+          >
+          <ul class="dropdown-menu" >
+            <li>
+              <a class="barra-desplegable-menu dropdown-item" th:href="@{/profile/}"
+                >Ver</a
+              >
+            </li>
+            <li sec:authorize="hasAnyRole('CLIENT', 'SUPPLIER')">
+              <a class="barra-desplegable-menu dropdown-item"
+                 th:href="${#request.isUserInRole('SUPPLIER') ? '/contract/list/customers' : ( #request.isUserInRole('CLIENT') ? '/contract/list/suppliers' : '#')}">
+                  Solicitudes
+              </a>
+
+            </li>
+            <li sec:authorize="hasRole('SUPPLIER')"  class="nav-item">
+              <a class="barra-desplegable-menu dropdown-item" th:href="@{/supplier/service}"
+                >Perfil Profesional</a
+              >
+            </li>
+            
+          </ul>
+
+            <!-- mi perfil -->
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" th:href="@{/contact/}">
+                <i class="fa-regular fa-comments"></i> Contacto
+              </a>
+            </li>
+            
+
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+              <a class="nav-link active" aria-current="page" th:href="@{'/perform_logout'}">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesion
+              </a>
+            </li>
+
+
+      </ul>
+
+    
+</nav>

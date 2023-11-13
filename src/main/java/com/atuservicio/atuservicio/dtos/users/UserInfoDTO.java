@@ -20,7 +20,7 @@ public class UserInfoDTO extends UserDTO {
     private Role role;
     private Boolean active;
     public UserInfoDTO(String name, String email, Role role, String image, String address, Long address_number, String city, String province, String country, String postal_code, String id, Boolean active) {
-        super(name, email, address, address_number, city, province, country, postal_code);
+        super(name, email);
         this.id = id;
         this.image = image;
         this.role = role;

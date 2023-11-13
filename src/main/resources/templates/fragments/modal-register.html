@@ -1,0 +1,127 @@
+<div th:fragment="modal-register">
+  <button
+    type="button"
+    class="btn btn-outline-light btn-lg px-4"
+    data-bs-toggle="modal"
+    data-bs-target="#staticBackdrop-registro">
+    Registro
+  </button>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="staticBackdrop-registro"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header color-login-form">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            Registro de Usuario
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"></button>
+        </div>
+        <div class="modal-body color-login-form">
+          <!-- datos para regisrto -->
+          <form action="">
+            <div class="form-floating mx-auto w-70">
+              <input
+                type="text"
+                class="form-control custom-bg"
+                id="floatingInput"
+                placeholder="name@example.com" />
+              <label for="floatingInput">Nombre de Usuario</label>
+            </div>
+
+            <div class="form-floating mx-auto w-70">
+              <input
+                type="email"
+                class="form-control custom-bg"
+                id="floatingInput"
+                placeholder="name@example.com" />
+              <label for="floatingInput">Email</label>
+            </div>
+            <div class="form-floating mx-auto w-70">
+              <input
+                type="password"
+                class="form-control custom-bg"
+                id="floatingPassword"
+                placeholder="Password" />
+              <label for="floatingPassword">Password</label>
+            </div>
+            <div class="form-floating mx-auto w-70">
+              <input
+                type="password"
+                class="form-control custom-bg"
+                id="floatingPassword"
+                placeholder="Password2" />
+              <label for="floatingPassword">Confirmar Password</label>
+            </div>
+            <!-- check de ususario -->
+            <div class="contenedor-check color-login-form">
+              <select
+                class="form-select color-login-form form-select-sm"
+                aria-label="Small select example"
+                id="typeUser">
+                <option class="color-login-form" selected>
+                  Registrate como...
+                </option>
+                <option class="color-login-form" value="1">Cliente</option>
+                <option class="color-login-form" value="2">Proveedor</option>
+              </select>
+            </div>
+            <div class="contenedor-check color-login-form">
+              <select 
+                class="form-select color-login-form form-select-sm"
+                aria-label="Small select example">
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}" class="color-login-form" ></option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer" id="color-modal-registro">
+          <button
+            type="button"
+            class="btn btn-outline-light"
+            data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="button" class="btn btn-outline-light">
+            Registrame
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var typeUser = document.getElementById('typeUser')
+  console.log('Hola')
+  typeUser.addEventListener('change', function(e) {
+ 
+    if(typeUser.value == '2') {
+    console.log("elegío")
+    console.log(typeUser.value)
+    document.getElementById('Selector').innerHTML =`
+          <div class="contenedor-check color-login-form">
+              <select 
+                class="form-select color-login-form form-select-sm"
+                aria-label="Small select example">
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}" class="color-login-form" ></option>
+              </select>
+            </div>`
+  } else {
+    
+  }
+})
+
+
+  
+</script>

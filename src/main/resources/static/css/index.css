@@ -1,188 +1,98 @@
-@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@700&display=swap');
 
-/* Reset de márgenes y relleno */
-* {
-  margin: 0;
-  padding: 0;
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 
-/* Estilo general para el contenedor de la página */
-.container {
+
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+
+}
+@media (max-width: 768px) {
+
+
+  .logo{
+    width: 50px;
+    height: auto;
+  }
+}
+
+
+
+
+.letra-estilo-one{
+
+  font-family: 'PT Sans Narrow', sans-serif;
+}
+.contenedor-general{
   width: 100%;
   height: 100%;
-}
 
-/* Estilos para los botones (ajusta los estilos según tus preferencias) */
-.boton-sesion {
-  width: 200px;
-  height:auto;
-  color: #EDB83D;
-  font-size: 1.3rem;
-  border: none;
-  border-radius: 50px;
-  padding: 10px 20px;
-  cursor: pointer;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s, box-shadow 0.3s;
-  background-color: #EDB83D;
-  color: #000B29;
-}
-
-.boton-sesion:hover {
-  background-color: #FFD700; /* Amarillo más oscuro en hover */
-  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4);
-}
-
-.boton-sesion:active {
-  background-color: #FFD700; /* Amarillo más oscuro cuando se hace clic */
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Estilo para el contenedor del formulario */
-.login-container {
-  
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Sombra pronunciada */
-  padding: 20px; /* Espacio interior */
-  max-width: 50%;
-  max-width: 35%; /* Tamaño reducido a la mitad */
-  margin: 25px auto; /* Centrar en el medio de la pantalla */
-  text-align: center; /* Alinear al centro del contenedor */
-}
-
-/* Estilo para el formulario */
-.login-form {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Estilo para el icono de email */
-.email-icon::before {
-  content: "\f0e0"; /* Código de FontAwesome para el icono de email */
-  font-family: FontAwesome;
-  margin-right: 10px; /* Espacio entre el icono y el campo de entrada */
-}
-
-/* Estilo para el icono de contraseña */
-.password-icon::before {
-  content: "\f023"; /* Código de FontAwesome para el icono de contraseña */
-  font-family: FontAwesome;
-  margin-right: 10px; /* Espacio entre el icono y el campo de entrada */
-}
-
-/* Estilo para el texto "Acceso Rápido" */
-.letras-login {
-  font-family: "Kanit", sans-serif;
-  font-size: 1.3rem;
-}
-
-/* Estilo para el logo */
-.logo-index {
-  display: flex;
-  width: 140px;
-  /* height: auto; */
   align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  margin-top: 10 px;
+}
+/* imagen del fonde del hero  */
+
+.fondo-seccion {
+  position: relative;
 }
 
-/* Estilos para el video de fondo 
-video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.5; 
-  z-index: -1;
-}*/
-
-/* Cambio joel */
-.video-background {
+.fondo-seccion::before {
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  background-image: url('/img/hero.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: opacity(0.5);
+  z-index: -1; /* Coloca el fondo detrás del contenido */
 }
 
-#video-background {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.5;
-}
-.my-button {
-  background-color: #EDB83D;
-  border-color: #EDB83D;
-}
-
-
-/* Cambio joel */
-
-/* Estilos para los botones en la sección de acceso rápido */
-.button-container {
-  margin-top: 25px;
-  overflow: hidden; /* Añade clearfix para evitar problemas de diseño */
-  margin-bottom: 35px;
-  display: flex;
-  flex-direction: row; /* Cambiar la dirección del eje principal a horizontal */
-  justify-content: center; /* Centra el contenido horizontalmente */
-  /* Otras propiedades de estilo según sea necesario */
-}
-
-
-
-.boton-sesion.soy-proveedor {
-  background-color: #EDB83D;
-  color: rgb(71, 66, 66);
-  margin-left: 23px;
-}
-
-.boton-sesion.soy-cliente:hover,
-.boton-sesion.soy-proveedor:hover {
-  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4);
-}
-
-.boton-sesion.soy-cliente:active,
-.boton-sesion.soy-proveedor:active {
-  background-color: #EDB83D(48, 61, 248);
-  background-color: darkred;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Estilo para el botón izquierdo */
-.left-button {
-  float: left; /* Alinea el botón a la izquierda */
-}
-
-/* Estilo para el botón derecho */
-.right-button {
-  float: right; /* Alinea el botón a la derecha */
-}
-
-/* Añade un clearfix para evitar problemas de diseño */
-.button-container::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.registro-flecha {
-  /* Establecer un tamaño inicial */
-  width: 120px;
+.logo {
+  width: 200px; /* Tamaño inicial */
   height: auto;
-  animation: agrandarDisminuir 2s ease infinite; /* Agregar la animación que se ejecuta automáticamente */
+  transition: width 0.5s ease; /* Agrega una transición suave al cambiar el tamaño */
 }
 
-/* Definir el conjunto de keyframes para la animación */
-@keyframes agrandarDisminuir {
+@media (max-width: 768px) {
+  .logo {
+    width: 80px; /* Tamaño para pantallas pequeñas */
+  }
+}
+
+
+.wwihd section{
+  width: 100%;
+  height: auto;
+}
+
+/* fin fondo seccion */
+
+/* titulo experiencia de nuestros usuarios */
+
+.titulo-experiencia-usuario {
+  font-family: 'PT Sans Narrow', sans-serif;
+  color: transparent; /* Inicialmente, hacemos el texto transparente */
+  font-size: 30px;
+  display: inline-block; /* Necesario para animar letras individualmente */
+  animation: fadeInOut 4s infinite; /* 4s es la duración total de la animación, ajusta según necesites */
+}
+
+@keyframes fadeInOut {
   0%, 100% {
-      transform: scale(1); /* Tamaño inicial y final */
+    color: transparent; /* Al inicio y al final, el texto es transparente */
   }
   50% {
-      transform: scale(1.2); /* Agrandar la imagen al 120% a la mitad de la animación */
+    color: aliceblue; /* A la mitad de la animación, el texto es visible */
   }
 }

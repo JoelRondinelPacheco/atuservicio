@@ -23,7 +23,7 @@ crossorigin="anonymous"></script>
                 <div class="panel text-center p-3">
                     <img  class="rounded-circle" th:src="@{/image/{imageId}(imageId=${supplier.image})}">
                     <p class="fs-2 fw-bold" th:text="${supplier.name}"></p>
-                    <p>Cantiadd de estrellas</p>
+                    <p>Cantidad de estrellas</p>
                     <p  class="fs-2 fw-semibold" th:text="${supplier.category.name}"></p>
                     <p th:text="'$ ' +${service.priceHour} + ' /hora'"></p>
 
