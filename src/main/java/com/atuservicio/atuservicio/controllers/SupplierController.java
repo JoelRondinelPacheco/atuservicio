@@ -67,32 +67,20 @@ public class SupplierController {
     @PostMapping("/register")
     public String register(@RequestParam(required = false) String name, @RequestParam(required = false) String email,
             @RequestParam(required = false) String password, @RequestParam(required = false) String password2,
-            @RequestParam(required = false) MultipartFile image, @RequestParam(required = false) String address,
-            @RequestParam(required = false) Long address_number, @RequestParam(required = false) String postal_code,
-            @RequestParam(required = false) String city, @RequestParam(required = false) String province,
-            @RequestParam(required = false) String country, @RequestParam(required = false) String categoryId,
+            @RequestParam(required = false) String categoryId,
             ModelMap model) throws MyException {
 
-        if (city == null) {
-            city = "";
-        }
+      
         System.out.println("rubro:" + categoryId);
         try {
 
             List<UserRegisterErrorDTO> errors = validar(name, email, password,
-                    password2, address, address_number, postal_code, city, province,
-                    country, categoryId);
+                    password2, categoryId);
 
             if (!errors.isEmpty()) {
                 model.addAttribute("errors", errors);
                 model.put("name", name);
                 model.put("email", email);
-                model.put("address", address);
-                model.put("address_number", address_number);
-                model.put("postal_code", postal_code);
-                model.put("city", city);
-                model.put("province", province);
-                model.put("country", country);
                 model.put("categoryId", categoryId);
 
                 List<CategoryInfoDTO> categories = categoryService.listAll();
@@ -102,8 +90,7 @@ public class SupplierController {
                 return "register_supplier.html";
             }
 
-            SaveSupplierDTO user = new SaveSupplierDTO(name, email, address, address_number, city,
-                    province, country, postal_code, password, password2, image, categoryId);
+            SaveSupplierDTO user = new SaveSupplierDTO(name, email,  password, password2, categoryId);
 
             supplierService.save(user);
             model.put("exito", "usuario registrado correctamente");
@@ -353,8 +340,7 @@ public class SupplierController {
 
     private List<UserRegisterErrorDTO> validar(String name, String email,
             String password, String password2,
-            String address, Long address_number, String postal_code,
-            String city, String province, String country, String categoryId) throws MyException {
+            String categoryId) throws MyException {
         List<UserRegisterErrorDTO> errors = new ArrayList<>();
 
         if (name.isEmpty() || name == null) {
@@ -387,30 +373,7 @@ public class SupplierController {
         if (!password.equals(password2)) {
             errors.add(new UserRegisterErrorDTO("password2", "Las contraseñas ingresadas deben ser iguales"));
         }
-        if (address.isEmpty() || address == null) {
 
-            errors.add(new UserRegisterErrorDTO("address", "Dirección requerida"));
-        }
-        if (address_number == null) {
-
-            errors.add(new UserRegisterErrorDTO("address_number", "Altura de dirección requerida"));
-        }
-        if (postal_code.isEmpty() || postal_code == null) {
-
-            errors.add(new UserRegisterErrorDTO("postal_code", "Codigo postal requerido"));
-        }
-        if (city.isEmpty() || city == null) {
-
-            errors.add(new UserRegisterErrorDTO("city", "Localidad requerida"));
-        }
-        if (province.isEmpty() || province == null) {
-
-            errors.add(new UserRegisterErrorDTO("province", "Provincia requerida"));
-        }
-        if (country.isEmpty() || country == null) {
-
-            errors.add(new UserRegisterErrorDTO("country", "País requerido"));
-        }
         if (categoryId.isEmpty() || categoryId == null || categoryId.equals("Selecciona un rubro")) {
 
             errors.add(new UserRegisterErrorDTO("categoryId", "Rubro requerido"));
