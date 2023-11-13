@@ -58,6 +58,7 @@
   z-index: -1; /* Coloca el fondo detrás del contenido */
 }
 
+
 .logo {
   width: 200px; /* Tamaño inicial */
   height: auto;
