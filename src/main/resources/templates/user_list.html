@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head th:replace="fragments/head :: head"></head>
+  <body>
+    <header>
+      <nav th:replace="fragments/navbar :: navbar"></nav>
+    </header>
+<body>
+    <div class="container">
+        <h1>Lista de Usuarios</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Correo Electrónico</th>
+                    <th>Dirección</th>
+                    <th>Ciudad</th>
+                    <th>Provincia</th>
+                    <th>País</th>
+                    <th>Código Postal</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.address}"></td>
+                    <td th:text="${user.city}"></td>
+                    <td th:text="${user.province}"></td>
+                    <td th:text="${user.country}"></td>
+                    <td th:text="${user.postal_code}"></td>
+                     <td>
+                        <a th:href="@{/editarUser?id={userId}(userId=${user.id})}">Editar</a>
+
+                    </td>
+                    <td>
+                        <a href="/darDeBajaUser?id=${user.id}">Dar de Baja</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

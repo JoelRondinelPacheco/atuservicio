@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+ <link th:href="@{/css/services.css}" rel="stylesheet" />
+<head th:replace="fragments/head :: head">
+    <title>Mi Perfil</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <header>
+        <nav th:replace="fragments/navbar :: navbar"></nav>
+    </header>
+    <div class="profile">
+        <h1>Mi Perfil</h1>
+        <img th:src="@{/image/{imageId}(imageId=${user.image})}" alt="">
+        <div class="profile">
+
+            <h1>Mi Perfil</h1>
+
+            <div class="container mt-5">
+                <div class="profile card">
+                    <h1 class="card-header" style="background-color:#EDB83D ; color: black;">Mi Perfil</h1>
+                    <div class="card-body">
+
+
+                        <h5 class="card-title"><strong>Nombre:</strong> <span th:text="${user.name}"></span></h5>
+                        <p class="card-text"><strong>Correo Electrónico:</strong> <span th:text="${user.email}"></span>
+                        </p>
+                        <p class="card-text"><strong>Dirección:</strong> <span th:text="${user.address}"></span></p>
+                        <p class="card-text"><strong>País:</strong> <span th:text="${user.country}"></span></p>
+                        <p class="card-text"><strong>Provincia:</strong> <span th:text="${user.province}"></span></p>
+                        <p class="card-text"><strong>Ciudad:</strong> <span th:text="${user.city}"></span></p>
+                        <p class="card-text"><strong>Código Postal:</strong> <span th:text="${user.postal_code}"></span>
+                        </p>
+                        <p class="card-text"><strong>Rubro:</strong> <span th:text="${user.category.name}"></span></p>
+
+                    </div>
+                </div>
+            </div>
+ <br>
+                
+                <br>
+<div style="text-align: center;">
+    <h5>Editar mi Perfil</h5>
+    <form  class="d-flex justify-content-center" th:action="@{/supplier/modify/__${user.id}__}" method="get">
+        <button class="boton-card-detail boton-ver-mas" type="submit">Editar</button>
+    </form>
+                   <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+           
+</div>
+
+
+        </div>
+        <footer>
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <footer th:replace="fragments/footer :: footer"></footer>
+        </footer>
+
+</body>
+
+</html>

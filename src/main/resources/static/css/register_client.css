@@ -1,0 +1,43 @@
+
+.formulario-registro {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Kanit", sans-serif;
+          font-size: 1.3rem;
+}
+.imagen-label {
+  margin-top: 20px;
+}
+
+.boton-sesion-registro {
+  background-color: #ffc107;
+  font-family: "Kanit", sans-serif;
+  font-size: 1.3rem;
+  border: none;
+  border-radius: 50px; /* Ajusta el valor para redondear más o menos */
+  padding: 10px 20px; /* Ajusta el relleno según tus preferencias */
+  cursor: pointer;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Ajusta los valores de la sombra */
+  transition: background-color 0.3s, box-shadow 0.3s;
+  margin-right: 50px;
+}
+
+.boton-sesion-registro:hover {
+  background-color: red; /* Cambia el color a rojo en el hover */
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4); /* Ajusta la sombra en el hover */
+}
+
+.boton-sesion-registro:active {
+  background-color: darkred; /* Cambia el color cuando se hace clic */
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Restaura la sombra al hacer clic */
+}
+
+.file-up{
+
+  margin-top: 25px;
+}
+
+.color-fondo-boton{
+  background-color: #edb83d;
+}

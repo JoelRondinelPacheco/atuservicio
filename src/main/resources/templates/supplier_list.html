@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head th:replace="fragments/head :: head"></head>
+  <body>
+    <header>
+      <nav th:replace="fragments/navbar :: navbar"></nav>
+    </header>
+<body>
+    <div class="container">
+        <h1>Lista de Proveedores</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Correo Electrónico</th>
+                    <th>Dirección</th>
+                    <th>Ciudad</th>
+                    <th>Provincia</th>
+                    <th>País</th>
+                    <th>Código Postal</th>
+                    <th>Rubro</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr th:each="supplier : ${suppliers}">
+                    <td th:text="${supplier.id}"></td>
+                    <td th:text="${supplier.name}"></td>
+                    <td th:text="${supplier.email}"></td>
+                    <td th:text="${supplier.address}"></td>
+                    <td th:text="${supplier.city}"></td>
+                    <td th:text="${supplier.province}"></td>
+                    <td th:text="${supplier.country}"></td>
+                    <td th:text="${supplier.postal_code}"></td>
+                    <td th:text="${supplier.rubro}"></td>
+                     <td>
+                        <a href="/editarSupplier?id=${supplier.id}">Editar</a>
+                    </td>
+                    <td>
+                        <a href="/darDeBajaSupplier?id=${supplier.id}">Dar de Baja</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head"></head>
+<body>
+    <!-- NavBar -->
+    <header>
+        <nav th:replace="fragments/navbar :: navbar"></nav>
+    </header>
+
+    <div class="container mt-5">
+        <h1>Lista de solicitudes pendientes</h1>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Fecha de la solicitud</th>
+                    <th scope="col">Nombre del cliente</th>
+                    <th scope="col">Email del cliente</th>
+                    <th scope="col">Dirección del cliente</th>
+                    <th scope="col">Descripción de la solicitud</th>
+                    <th scope="col">Estado de la solicitud</th>
+                    <th scope="col">Aprobar</th>
+                    <th scope="col">Rechazar</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr th:each="contract : ${contracts}" th:if="${contract.state.name() == 'PENDING_APPROVAL'}">
+                    <td th:text="${contract.createdAt}"></td>
+                    <td th:text="${contract.customer.name}"></td>
+                    <td th:text="${contract.customer.email}"></td>
+                    <td th:text="${contract.customer.address}"></td>
+                    <td th:text="${contract.description}"></td>
+                    <td th:text="${contract.state}"></td>
+                    <td>
+                        <form th:action="@{/contract/supplier/accept/__${contract.id}__}">
+                            <label>Tiempo estimado en horas</label>
+                            <input type="number" value="0" name="estimatedTime"/>
+                        <input type="submit" value="Cotizar" class="btn btn-success" />
+                        </form>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" th:href="@{/contract/supplier/decline/__${contract.id}__}">Rechazar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container mt-5">
+        <h1>Lista de solicitudes aprobadas</h1>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Fecha de la solicitud</th>
+                    <th scope="col">Nombre del cliente</th>
+                    <th scope="col">Email del cliente</th>
+                    <th scope="col">Dirección del cliente</th>
+                    <th scope="col">Descripción de la solicitud</th>
+                    <th scope="col">Estado de la solicitud</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr th:each="contract : ${contracts}" th:if="${contract.state.name() == 'APPROVED'}">
+                    <td th:text="${contract.createdAt}"></td>
+                    <td th:text="${contract.customer.name}"></td>
+                    <td th:text="${contract.customer.email}"></td>
+                    <td th:text="${contract.customer.address}"></td>
+                    <td th:text="${contract.description}"></td>
+                    <td th:text="${contract.state}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container mt-5">
+        <h1>Lista de solicitudes rechazadas</h1>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Fecha de la solicitud</th>
+                <th scope="col">Nombre del cliente</th>
+                <th scope="col">Email del cliente</th>
+                <th scope="col">Dirección del cliente</th>
+                <th scope="col">Descripción de la solicitud</th>
+                <th scope="col">Estado de la solicitud</th>
+                <th scope="col">Comentario</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <tr th:each="contract : ${contracts}" th:if="${contract.state.name() == 'REFUSED_CLIENT'}">
+                <td th:text="${contract.createdAt}"></td>
+                <td th:text="${contract.customer.name}"></td>
+                <td th:text="${contract.customer.email}"></td>
+                <td th:text="${contract.customer.address}"></td>
+                <td th:text="${contract.description}"></td>
+                <td th:text="${contract.state}"></td>
+                <td th:if="${contract.hasComment}"><button><a th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a></button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container mt-5">
+        <h1>Lista de solicitudes canceladas</h1>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Fecha de la solicitud</th>
+                <th scope="col">Nombre del cliente</th>
+                <th scope="col">Email del cliente</th>
+                <th scope="col">Dirección del cliente</th>
+                <th scope="col">Descripción de la solicitud</th>
+                <th scope="col">Estado de la solicitud</th>
+                <th scope="col">Comentario</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <tr th:each="contract : ${contracts}" th:if="${contract.state.name() == 'CANCELED_CLIENT'}">
+                <td th:text="${contract.createdAt}"></td>
+                <td th:text="${contract.customer.name}"></td>
+                <td th:text="${contract.customer.email}"></td>
+                <td th:text="${contract.customer.address}"></td>
+                <td th:text="${contract.description}"></td>
+                <td th:text="${contract.state}"></td>
+                <td th:if="${contract.hasComment}"><button><a th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a></button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

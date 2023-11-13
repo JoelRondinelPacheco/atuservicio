@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #F8F5F2;
+    font-family: "Kanit", sans-serif;
+  }
+.redes-img{
+height: 300px;
+width: auto;
+padding-top: 20px;
+}
+
+.iconos-redes i {
+    font-size:60px /* Aumenta el tamaño de los iconos */
+  }
+  
+ .integrantes{
+    font-size: 25px;
+    font-family: "Kanit", sans-serif;
+    color: #000B29;
+ } 
+
+ .titulo-integrantes{
+
+    margin-top: 25px;
+    align-items: center;
+    text-align: center;
+    font-family: "Kanit", sans-serif;
+    color: #D70026;
+    font-size: 30px;
+    
+ }
+
+ .contenedor-form {
+    background-color: #EDB83D;
+    padding-inline: 10px !important;
+    border-radius: 25px;
+    text-align: center;
+    font-family: "Kanit", sans-serif !important;
+    color: #000000 !important;
+  }
+  
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    background-color: #FFF6D8;
+    font-size: 25px;
+    font-family: "Kanit", sans-serif !important;
+    color: #000000 !important;
+  }
+  
+  button {
+    background-color: #D70026 !important;
+    color: #000B29!important;
+    font-weight: bold !important;
+    border: 0px !important;
+  }
+
+  .titulo-redes{
+    color: #D70026 ;
+    font-size: 25px;
+    font-family: "Kanit", sans-serif !important;
+  }

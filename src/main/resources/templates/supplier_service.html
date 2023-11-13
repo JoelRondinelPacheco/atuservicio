@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="fragments/head :: head"></head>
+
+<body>
+    <header>
+       <nav th:replace="fragments/navbar :: navbar"></nav>
+    </header>
+        
+       <div class="card-body">
+           
+        
+        
+        <div class="container mt-5">
+        <div class="profile card">
+                <h1 class="card-header" style="background-color:#EDB83D ; color: black;">Mi Servicio</h1>
+            <div class="card-body">
+                
+                 <img src="ruta-a-tu-imagen-de-perfil.jpg" alt="Foto del Servicio">
+                <h5 class="card-title"><strong>Nombre:</strong> <span th:text="${user.name}"></span></h5>
+                <p class="card-text"><strong>Correo Electrónico:</strong> <span th:text="${user.email}"></span></p>
+                <p class="card-text"><strong>Dirección:</strong> <span th:text="${user.address}"></span></p>
+                <p class="card-text"><strong>País:</strong> <span th:text="${user.country}"></span></p>
+                <p class="card-text"><strong>Provincia:</strong> <span th:text="${user.province}"></span></p>
+                <p class="card-text"><strong>Ciudad:</strong> <span th:text="${user.city}"></span></p>
+                <p class="card-text"><strong>Código Postal:</strong> <span th:text="${user.postal_code}"></span></p>
+                <p class="card-text"><strong>Rubro:</strong> <span th:text="${user.category.name}"></span></p>
+                <p class="card-text"><strong>Precio por hora:</strong> <span th:text="${user.category.name}"></span></p>
+                
+            </div>
+        </div>
+       </div>
+    <footer>
+     
+    <footer th:replace="fragments/footer :: footer"></footer>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+</body>
+
+    </body>
+</html>

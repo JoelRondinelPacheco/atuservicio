@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/head :: head"></head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<body>
+    <video autoplay loop muted>
+        <source src="/img/intro.mp4" type="video/mp4" />
+        Tu navegador no soporta la etiqueta de video.
+    </video>
+    <header>
+        <nav th:replace="fragments/navbar :: navbar"></nav>
+    </header>
+    <!--
+<div th:if="${param.error}" class="card text-white bg-danger mb-3 mensajeError">
+    <div class="card-body">
+        <h5 class="card-title">Error</h5>
+        <p class="card-text">Credenciales inválidas </p>
+    </div>
+</div> -->
+    <div class="container">
+        <div class="row login-contenedor ">
+            <!-- Columna izquierda para el formulario de inicio de sesión -->
+            <div class="col-md-6 login-contenedor narrow-login-form ">
+                <h2 class="inicio-sesion-login">Inicio de Sesión</h2>
+                <form class=" full-width-form" th:action="@{/perform_login}" method="post">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label text-input-login">Email</label>
+                        <input type="email" class="form-control label-login-login" id="exampleInputEmail1"
+                            aria-describedby="emailHelp" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label text-input-login">Contraseña</label>
+                        <input type="password" class="form-control label-login-login" id="exampleInputPassword1"
+                            name="password">
+                    </div>
+
+
+                    <div class="login-contenedor d-flex justify-content-center">
+                        <button type="submit" class="btn btn-warning">Iniciar Sesión</button>
+                    </div>
+
+                    <div class="mb-2 text-center">
+                        <!-- <a href="#">¿Olvidaste la contraseña?</a> -->
+
+
+                    </div>
+                    <div th:if="${exito != null}" class="card text-white bg-success mb-3 mensajeExito">
+                        <div class="card-body">
+                            <h5 class="card-title">Éxito!</h5>
+                            <p class="card-text" th:text="${exito}"></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Columna derecha para la imagen -->
+            <div class="col-md-6">
+                <img class="img-login" src="/img/hombre-login.webp" alt="">
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link th:href="@{/css/login.css}" rel="stylesheet" />
+
+    <script>
+        $(document).ready(function () {
+            $("#login-form").submit(function (e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+
+    <footer th:replace="fragments/footer :: footer"></footer>
+
+
+</body>
+
+</html>

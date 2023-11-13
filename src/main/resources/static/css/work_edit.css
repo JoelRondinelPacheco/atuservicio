@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
+body html {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #F8F5F2;
+    font-family: "Kanit", sans-serif;
+  }
+.descripcion{
+color: #D70026;
+margin-top: 20px;
+font-size: 30px;
+text-align: center;
+/*justify-content: center;*/
+align-items: center;
+display: flex;
+}
+
+.descripcion i {
+    margin-right: 5px; /* O ajusta el valor según sea necesario */
+}
+.contenedor-general {
+display: flex;
+    width: 100%;
+    padding: 6px; /* Centrar horizontalmente */
+   height: 100vh;
+    background-color: #F8F5F2;
+    flex-direction: column; /* Aplicar flexbox en dirección de columna (vertical) */
+   align-items: center; /* Centrar verticalmente */
+
+}
+.tarifa{
+    color: #D70026;
+margin-top: 20px;
+font-size: 30px;
+}
+
+.input-tarifa{
+    width: 80%;
+}
+
+.botones {
+    background-color: #EDB83D;
+    font-family: "Kanit", sans-serif;
+    font-size: 20px;
+    color: #000B29;
+    border-radius: 40px;
+    transition: all 0.3s ease; /* Agregar transición suave a todos los cambios */
+    margin: 5px;
+}
+
+.botones:hover {
+    background-color: #FFD700; /* Cambiar el color al pasar el mouse sobre el botón */
+    color: #ffffff; /* Cambiar el color del texto al pasar el mouse sobre el botón */
+}
+
+.botones:active {
+    transform: scale(1.1); /* Hacer que el botón sea un 10% más grande al hacer clic */
+}
+
+
+
+.contenedor-sube-fotos {
+    text-align: center; /* Centrar la imagen horizontalmente */
+}
+
+.img-sube {
+    max-width: 210px; /* Establecer el ancho máximo de la imagen */
+    height: auto; /* Hacer que la altura se ajuste automáticamente para mantener la proporción */
+    display: inline-block; /* Evitar que la imagen ocupe todo el ancho disponible */
+    animation: moverDerechaIzquierda 2s linear infinite; /* Agregar la animación de movimiento */
+}
+
+@keyframes moverDerechaIzquierda {
+    0%, 100% {
+        transform: translateX(0); /* Posición inicial y final, no hay movimiento */
+    }
+    50% {
+        transform: translateX(20px); /* Mueve la imagen 20px a la derecha a la mitad de la animación */
+    }
+}
