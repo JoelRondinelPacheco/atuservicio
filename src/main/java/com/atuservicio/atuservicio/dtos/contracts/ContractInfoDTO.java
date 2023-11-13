@@ -24,5 +24,5 @@ public class ContractInfoDTO {
     private UserInfoDTO customer;
     private SupplierInfoDTO supplier;
     private boolean hasComment;
-    
+    private Double estimatedTime;
 }
