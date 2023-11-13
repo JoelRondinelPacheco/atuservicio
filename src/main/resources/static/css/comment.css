@@ -1,0 +1,76 @@
+.rounded-card {
+  border-radius: 50px; /* Ajusta el radio de las esquinas de la tarjeta */
+}
+
+.rounded-img-container {
+  width: 100%; /* Ajusta el tamaño del contenedor de la imagen al 100% de la tarjeta */
+  height: 300px; /* Ajusta el tamaño del contenedor de la imagen según sea necesario */
+  overflow: hidden;
+  margin-top: 20px; /* Ajusta el margen superior según tus preferencias */
+}
+
+.rounded-img-container img {
+  width: 100%; /* Asegura que la imagen ocupe el 100% del contenedor */
+  height: auto; /* Mantiene la proporción de la imagen */
+}
+
+.contenedor-experiencia-usuario{
+  background-color:#c0aaca ;
+}
+
+.card-color{
+  background-color:#91719B ;
+}
+
+/* calificaciones */
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+  content: '\2605';
+  position: absolute;
+  color: gold;
+}
+
+/* Estilos opcionales para cambiar el color y tamaño de las estrellas */
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+
+.rating > span:before,
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+  content: '\2605';
+  position: absolute;
+  color: gold;
+  border: 1px solid #fff; /* Borde blanco */
+}
+
+.rating {
+  color: #aaa;
+  font-size: 24px;
+}
+
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+  color: #ffcc00;
+}
+
+/* fin de calificaciones */
+
