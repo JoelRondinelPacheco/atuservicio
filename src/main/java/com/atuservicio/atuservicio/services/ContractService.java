@@ -94,13 +94,10 @@ public class ContractService implements IContractService {
 
     @Override
     public List<ContractInfoDTO> getByUserId(String id) throws MyException {
-        System.out.println("Ingreso al servicio de busquda por idUsuario " + id);
         List<Contract> contracts = this.contractRepository.findByCustomerId(id);
-        System.out.println("Recuperé las solicitudes");
         List<ContractInfoDTO> requestsInfo = new ArrayList<>();
         for (Contract r : contracts) {
             ContractInfoDTO rInfo = this.createContractInfoDTO(r);
-            System.out.println(r.getDescription());
             requestsInfo.add(rInfo);
         }
         return requestsInfo;
@@ -136,6 +133,7 @@ public class ContractService implements IContractService {
         throw new MyException("Solicitud no encontrada");
     }
 
+    @Override
     public ContractInfoDTO declineSupplier(ContractInfoDTO requestDTO) throws MyException {
         
         Optional<Contract> contractOptional = this.contractRepository.findById(requestDTO.getId());

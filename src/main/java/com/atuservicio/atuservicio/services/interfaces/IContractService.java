@@ -21,4 +21,6 @@ public interface IContractService {
     ContractInfoDTO clientDone(String contractId) throws MyException;
     ContractInfoDTO supplierDone(String contractId) throws MyException;
     Contract getFullContractById(String id) throws MyException;
+
+    ContractInfoDTO declineSupplier(ContractInfoDTO requestDTO) throws MyException;
 }

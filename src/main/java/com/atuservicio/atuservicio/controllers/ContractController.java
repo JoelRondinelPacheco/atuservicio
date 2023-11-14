@@ -93,7 +93,6 @@ public class ContractController {
     }
     
     // EL CLIENTE PUEDE CANCELAR LA SOLICITUD DEL TRABAJO ANTES QUE EL PRROVEEDOR LA ACEPTE 
-    
     @GetMapping("/client/canceled/{contractId}")
     public String clientCanceled(@PathVariable String contractId, ModelMap model) {
             try {
@@ -127,14 +126,14 @@ public class ContractController {
     }
 
     //El PROVEEDOR RECHAZA LA SOLICITUD DEL CLIENTE
-    @GetMapping("/decline/{contractId}")
+    @GetMapping("/supplier/decline/{contractId}")
     public String requestRefused(@PathVariable("contractId") String contractId, ModelMap model) {
 
         try {
             //Recupero la solicitud en la base de datos mediante su id
             ContractInfoDTO requestDTO = this.contractService.getById(contractId);
             //La solicitud se envía a la capa de servicios para cambiar su estado a RECHAZADO
-            ContractInfoDTO r = this.contractService.declineClient(contractId);
+            ContractInfoDTO r = this.contractService.declineSupplier(requestDTO);
 
             //Retorna la lista actualizada de solicitudes de clientes
             return "redirect:/contract/list/customers";
@@ -181,7 +180,6 @@ public class ContractController {
     }
 
     // DESPUES DE SER ACEPTADO POR EL PROVEEDOR, EL CLIENTE NO ESTA DE ACUERDO CON EL TRABAJO
-
     @GetMapping("/client/refused/{contractId}")
     public String clientRefused(@PathVariable String contractId, ModelMap model) {
             try {
@@ -231,15 +229,12 @@ public class ContractController {
     public String requestsToSuppliers(ModelMap model) {
             
         try {
-            
             //Recupero los detalles del usuario cliente logueado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            
             UserInfoDTO customerDTO = userService.getSearchEmailUser(auth.getName());
             //Recupero la lista de solicitudes que realizó el cliente mediante su id
-            
-            List<Comment> comments = this.commentRepository.findAll();
             List<ContractInfoDTO> contracts = contractService.getByUserId(customerDTO.getId());
+            List<Comment> comments = this.commentRepository.findAll();
             
             model.addAttribute("contracts", contracts);
 
@@ -276,6 +271,7 @@ public class ContractController {
     //COMENTARIOS
     @GetMapping("/comments/{contractId}")
     public String commentsList(@PathVariable String contractId, ModelMap model) {
+        //Recupero los comentarios específicos al contrato mediante su id
         List<Comment> comments = this.commentRepository.findByContractId(contractId);
         model.addAttribute("comments", comments);
         return "comments_list";
