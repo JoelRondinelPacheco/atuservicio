@@ -331,12 +331,12 @@ public class SupplierController {
     }
 
     @PostMapping("/convert/{UserId}")
-    public String convertToSupplier(@PathVariable("UserId") String UserId, @RequestParam String CategoryId, ModelMap model) {
+    public String convertToSupplier(@PathVariable("UserId") String UserId, @RequestParam String CategoryId, @RequestParam String email, ModelMap model) {
 
         try {
             UserInfoDTO customerDTO = this.userService.getById(UserId);
             CategoryInfoDTO categoryDTO = this.categoryService.getById(CategoryId);
-            SupplierInfoDTO supplierDTO = this.supplierService.convertToSupplier(customerDTO, categoryDTO);
+            SupplierInfoDTO supplierDTO = this.supplierService.convertToSupplier(customerDTO, categoryDTO, email);
             
             ServiceInfoDTO service = this.supplierService.getServiceInfo(supplierDTO.getEmail());
             

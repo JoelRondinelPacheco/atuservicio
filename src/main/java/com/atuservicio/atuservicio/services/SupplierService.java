@@ -245,7 +245,7 @@ public class SupplierService implements ISupplierService {
         return infoSuppliers;
     }
 
-    public ServiceInfoDTO getServiceInfo(String id) throws MyException {
+    public ServiceInfoDTO getServiceInfo(String id) throws MyException {  //cambiar el parámetro a email
         Optional<Supplier> supplierOptional = this.supplierRepository.findByEmailSupplier(id);
         if (supplierOptional.isPresent()) {
             Supplier supplier = supplierOptional.get();
@@ -323,9 +323,9 @@ public class SupplierService implements ISupplierService {
         return new ServiceInfoDTO(supplier.getName(), supplier.getEmail(), supplier.getImageCard().getId(), category,
                 supplier.getDescription(), supplier.getPriceHour(), images);
     }
-
+    
     @Override
-    public SupplierInfoDTO convertToSupplier(UserInfoDTO customerDTO, CategoryInfoDTO categoryDTO) throws MyException {
+    public SupplierInfoDTO convertToSupplier(UserInfoDTO customerDTO, CategoryInfoDTO categoryDTO, String email) throws MyException {
 
         Optional<User> userOptional = this.userRepository.findById(customerDTO.getId());
         if (userOptional.isPresent()) {
@@ -335,7 +335,7 @@ public class SupplierService implements ISupplierService {
             //Se instancia un proveedor con los mismos atributos para persistirlo en la BD
             Supplier supplier = new Supplier();
             supplier.setName(user.getName());
-            supplier.setEmail(user.getEmail());
+            supplier.setEmail(email);   //HABLAR CON EL EQUIPO!
             supplier.setPassword(user.getPassword());
             supplier.setRole(Role.SUPPLIER);
             
@@ -354,9 +354,13 @@ public class SupplierService implements ISupplierService {
             supplier.setImageCard(category.getImage());
             //CONSULTAR: ¿Por qué la imagecard del proveedor toma la imagen de su rubro?
             
+            Image image2 = this.imageService.getById("d4fe09fd-56f6-4b55-a1b9-58671d68f1f1");
+            List<Image> images = new ArrayList<>();
+            images.add(image2);
+            supplier.setImageGallery(images);
+            
             /*El precio x hora, la descripción y la gelería de imagenes lo 
             completa el proveedor en la vista work_edit.html*/
-            
             Supplier supplierSaved = this.supplierRepository.save(supplier);
             return this.createSupplierInfoDTO(supplierSaved);
         }

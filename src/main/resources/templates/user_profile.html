@@ -4,68 +4,69 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
 <html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-  <link th:href="@{/css/services.css}" rel="stylesheet" />
-<head th:replace="fragments/head :: head">
-    <title>Mi Perfil</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
+    <link th:href="@{/css/services.css}" rel="stylesheet" />
+    <head th:replace="fragments/head :: head">
+        <title>Mi Perfil</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
 
-<body>
-    <header>
-        <nav th:replace="fragments/navbar :: navbar"></nav>
-    </header>
-    <div class="profile">
-        <h1>Mi Perfil</h1>
-        <img th:src="@{/image/{imageId}(imageId=${user.image})}" alt="">
+    <body>
+        <header>
+            <nav th:replace="fragments/navbar :: navbar"></nav>
+        </header>
         <div class="profile">
-
             <h1>Mi Perfil</h1>
-            <div class="row">
-                <div th:if="${updated != null}" class="card text-white bg-success mb-3 mensajeExito">
-                    <div class="card-body">
-                        <h5 class="card-title">Éxito!</h5>
-                        <p class="card-text" th:text="${updated}"></p>
+            <img th:src="@{/image/{imageId}(imageId=${user.image})}" alt="">
+            <div class="profile">
+
+                <h1>Mi Perfil</h1>
+                <div class="row">
+                    <div th:if="${updated != null}" class="card text-white bg-success mb-3 mensajeExito">
+                        <div class="card-body">
+                            <h5 class="card-title">Éxito!</h5>
+                            <p class="card-text" th:text="${updated}"></p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="container mt-5">
-                <div class="profile card">
-                    <h1 class="card-header" style="background-color:#EDB83D ; color: black;">Mi Perfil</h1>
+                <div class="container mt-5">
+                    <div class="profile card">
+                        <h1 class="card-header" style="background-color:#EDB83D ; color: black;">Mi Perfil</h1>
 
-                    <div class="card-body">
+                        <div class="card-body">
 
-                        <h5 class="card-title"><strong>Nombre:</strong> <span th:text="${user.name}"></span></h5>
-                        <p class="card-text"><strong>Correo Electrónico:</strong> <span th:text="${user.email}"></span>
-                        </p>
-                        <p class="card-text"><strong>Dirección:</strong> <span th:text="${user.address}"></span></p>
-                        <p class="card-text"><strong>País:</strong> <span th:text="${user.country}"></span></p>
-                        <p class="card-text"><strong>Provincia:</strong> <span th:text="${user.province}"></span></p>
-                        <p class="card-text"><strong>Ciudad:</strong> <span th:text="${user.city}"></span></p>
-                        <p class="card-text"><strong>Código Postal:</strong> <span th:text="${user.postal_code}"></span>
-                        </p>
+                            <h5 class="card-title"><strong>Nombre:</strong> <span th:text="${user.name}"></span></h5>
+                            <p class="card-text"><strong>Correo Electrónico:</strong> <span th:text="${user.email}"></span>
+                            </p>
+                            <p class="card-text"><strong>Dirección:</strong> <span th:text="${user.address}"></span></p>
+                            <p class="card-text"><strong>País:</strong> <span th:text="${user.country}"></span></p>
+                            <p class="card-text"><strong>Provincia:</strong> <span th:text="${user.province}"></span></p>
+                            <p class="card-text"><strong>Ciudad:</strong> <span th:text="${user.city}"></span></p>
+                            <p class="card-text"><strong>Código Postal:</strong> <span th:text="${user.postal_code}"></span>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-           <br>
-                
-              <br>
+                <br>
+
+                <br>
                 <form class="d-flex justify-content-center" th:action="@{/editUser}" th:object="${user}" method="get">
                     <input type="hidden" name="id" th:value="${user.id}" />
                     <button class="boton-card-detail boton-ver-mas" type="submit">Editar</button>
                 </form>
-                <form class="d-flex justify-content-center" th:action="@{/changeToProvider}" th:object="${user}" method="get">
-                    <input type="hidden" name="id" th:value="${user.id}" />
+
+                <form class="d-flex justify-content-center" th:action="@{/supplier/convert/__${user.id}__}" method="POST">
                     <button class="boton-card-detail boton-ver-mas" type="submit">Cambiar a Proveedor</button>
+                    <div class="form-group">
+                        <label for="rubro">Selecciona un rubro:</label>
+                        <select class="form-control" id="rubro" name="CategoryId">
+                            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                        </select>
+                        <label for="email">Cambiar el email (HABLAR CON EL EQUIPO!)</label>
+                        <input type="email" id="email" name="email" th:value="${user.email}">
+                    </div>
                 </form>
 
-                <div class="form-group">
-                    <label for="rubro">Rubro:</label>
-                    <select class="form-control" id="rubro" name="categoryId" th:value="${categoryId}">
-                        <option>Selecciona un rubro</option>
-                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
-                    </select>
-                </div>
                 <div th:if="${errors != null}">
                     <div th:each="error : ${errors}">
                         <div th:if="${error.name == 'categoryId'}">
@@ -78,7 +79,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </div>
                 </div>
 
-                 
+
                 <br>
                 <br>
                 <br>
@@ -86,7 +87,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <br>
                 <br>
                 <br>
-           
+
             </div>
 
         </div>
@@ -97,6 +98,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <footer th:replace="fragments/footer :: footer"></footer>
         </footer>
 
-</body>
+    </body>
 
 </html>

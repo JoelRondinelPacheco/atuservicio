@@ -117,7 +117,9 @@ public class HomeController {
             return "supplier_profile";
         } else if (role.equals("[ROLE_CLIENT]") || role.equals("[ROLE_MODERATOR]") || role.equals("[ROLE_ADMIN]")) {
             UserInfoDTO user = this.userService.getSearchEmailUser(email);
+            List<CategoryInfoDTO> categories = this.categoryService.listAll();
             model.addAttribute("user", user);
+            model.addAttribute("categories", categories);
             return "user_profile";
 
         } else {
