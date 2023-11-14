@@ -32,17 +32,8 @@ public class AdminController {
     @Autowired
     private ICategoryService categoryService;
 
-    @GetMapping("/dashboard")
-    public String adminDashboard(ModelMap model) {
-        return this.clientsPaginated(1, true, model);
-    }
 
-    /*
-     * @GetMapping("/dashboard")
-     * public String adminDashboard(ModelMap model) {
-     * return this.clientsPaginated(1, "name", "asc", model);
-     * }
-     */
+
     @PostMapping("/clients/search")
     public String clientSearch(
             @RequestParam(required = false) String country,
@@ -61,25 +52,6 @@ public class AdminController {
 
         return "clients_dashboard";
 
-    }
-
-    @GetMapping("/clients/{pageNumber}")
-    public String clientsPaginated(@PathVariable int pageNumber, @RequestParam Boolean active, ModelMap model) {
-        int pageSize = 5;
-        UserPaginatedDTO clients = this.userService.
-                findPaginated(pageNumber, pageSize, Role.CLIENT, active);
-        Role[] roles = Role.values();
-
-        model.addAttribute("roles", roles);
-        model.addAttribute("currentPage", pageNumber);
-        model.addAttribute("totalPages", clients.getTotalPages());
-        model.addAttribute("totalItems", clients.getTotalElements());
-        model.addAttribute("clients", clients.getClients());
-        if (active) {
-            return "admin_dashboard/clients_dashboard";
-        } else {
-            return "admin_dashboard/clients_dashboard_inactive";
-        }
     }
 
     @GetMapping("/clients/delete")
