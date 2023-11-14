@@ -51,9 +51,11 @@ public class ContractController {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             UserInfoDTO customerDTO = userService.getSearchEmailUser(auth.getName());
             //Recupero los detalles del proveedor seleccionado mediante su id
+            System.out.println("Recupera el usuario logueado: " + customerDTO);
             SupplierInfoDTO supplierDTO = supplierService.getById(id);
+            System.out.println("Recupera el Proveedor " + supplierDTO);
             ServiceInfoDTO service = supplierService.getServiceInfo(supplierDTO.getEmail());
-
+            System.out.println("Recupera el servicio del proveedor " + service);
             //Inyecto ambas entidades en el modelo de la vista html
             model.addAttribute("user", customerDTO);
             model.addAttribute("supplier", supplierDTO);

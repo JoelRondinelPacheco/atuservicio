@@ -55,7 +55,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   filter: opacity(0.5);
-  z-index: -1; /* Coloca el fondo detrás del contenido */
+ 
 }
 
 
@@ -82,6 +82,22 @@
 /* titulo experiencia de nuestros usuarios */
 
 .titulo-experiencia-usuario {
+  font-family: 'PT Sans Narrow', sans-serif;
+  color: transparent; /* Inicialmente, hacemos el texto transparente */
+  font-size: 30px;
+  display: inline-block; /* Necesario para animar letras individualmente */
+  animation: fadeInOut 4s infinite; /* 4s es la duración total de la animación, ajusta según necesites */
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    color: transparent; /* Al inicio y al final, el texto es transparente */
+  }
+  50% {
+    color: aliceblue; /* A la mitad de la animación, el texto es visible */
+  }
+}
+.precio {
   font-family: 'PT Sans Narrow', sans-serif;
   color: transparent; /* Inicialmente, hacemos el texto transparente */
   font-size: 30px;
