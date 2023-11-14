@@ -98,10 +98,8 @@
 }
 .precio {
   font-family: 'PT Sans Narrow', sans-serif;
-  color: transparent; /* Inicialmente, hacemos el texto transparente */
+  color: aliceblue; /* Inicialmente, hacemos el texto transparente */
   font-size: 30px;
-  display: inline-block; /* Necesario para animar letras individualmente */
-  animation: fadeInOut 4s infinite; /* 4s es la duración total de la animación, ajusta según necesites */
 }
 
 @keyframes fadeInOut {

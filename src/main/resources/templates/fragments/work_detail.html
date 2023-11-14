@@ -23,7 +23,10 @@
           <p th:text="${supplier.email}" class="card-text">
            
           </p>
-          <p th:text="${supplier.id}" class="card-text">
+          <p th:text="${supplier.address} + ' ' + ${supplier.address_number}" class="card-text">
+           
+          </p>
+          <p th:text="${supplier.city} + ' ' + ${supplier.province}" class="card-text">
            
           </p>
         
@@ -58,11 +61,10 @@
             >
           </p>
           <!-- calificaciones -->
-          <div class="precio"> 
-            <ion-icon name="star-half-sharp"></ion-icon>
-            <ion-icon name="star-half-sharp"></ion-icon>
-            <ion-icon name="star-half-sharp"></ion-icon>
-            <ion-icon name="star-half-sharp"></ion-icon>
+          <!-- <p th:text="${supplier.comments.score}" class="card-text">
+           
+          </p>  -->
+          
             <!-- La calificación se redondea y se convierte en un entero para determinar cuántas estrellas llenar -->
             <!-- <th:block th:each="star : ${#numbers.sequence(1, calificacion)}">
               <span>☆</span>
@@ -101,6 +103,5 @@
   <script>
     AOS.init();
   </script>
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 </div>

@@ -34,7 +34,7 @@
           </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="hasRole('ADMIN')">
           <a
             class="nav-link active"
             aria-current="page"
@@ -44,7 +44,7 @@
         </li>
 
         <!-- Mi Perfil -->
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
           <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown" aria-expanded="false">Mi
             Perfil</a>
           <ul class="dropdown-menu">
@@ -56,11 +56,11 @@
               >
             </li>
             <!-- Otros elementos del menú desplegable... -->
-            <li>
+            <li sec:authorize="hasAnyRole('CLIENT', 'SUPPLIER')">
               <a class="barra-desplegable-menu dropdown-item"
                 th:href="${#request.isUserInRole('SUPPLIER') ? '/contract/list/customers' : ( #request.isUserInRole('CLIENT') ? '/contract/list/suppliers' : '#')}">Solicitudes</a>
             </li>
-            <li>
+            <li sec:authorize="hasRole('SUPPLIER')">
               <a class="barra-desplegable-menu dropdown-item" th:href="@{/supplier/service}">Perfil Profecional</a>
 
             </li>
@@ -75,7 +75,7 @@
         </li>
 
         <!-- Cerrar Sesión -->
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="isAuthenticated()">
           <a
             class="nav-link active"
             aria-current="page"
