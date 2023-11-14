@@ -1,5 +1,7 @@
 package com.atuservicio.atuservicio.controllers;
 
+import com.atuservicio.atuservicio.dtos.comments.CommentInfoDTO;
+import com.atuservicio.atuservicio.dtos.comments.SaveCommentDTO;
 import com.atuservicio.atuservicio.dtos.contracts.ContractInfoDTO;
 import com.atuservicio.atuservicio.dtos.contracts.SaveContractDTO;
 import com.atuservicio.atuservicio.dtos.services.ServiceInfoDTO;
@@ -10,6 +12,7 @@ import com.atuservicio.atuservicio.entities.Contract;
 import com.atuservicio.atuservicio.entities.User;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.repositories.CommentRepository;
+import com.atuservicio.atuservicio.services.CommentService;
 import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.interfaces.IContractService;
 import com.atuservicio.atuservicio.services.interfaces.IUserService;
@@ -39,8 +42,12 @@ public class ContractController {
 
     @Autowired
     private IContractService contractService;
+    
     @Autowired
     private CommentRepository commentRepository;
+    
+    @Autowired
+    private CommentService commentService;
 
     //EL CLIENTE PRESIONA EL BOTON 'CONTACTAR'
     @GetMapping("/form/{id}")
@@ -98,8 +105,10 @@ public class ContractController {
             try {
                 //El contrato se envía a la capa de servicios para cambiar su estado a CANCELED_CLIENT
                 ContractInfoDTO contractCanceled = this.contractService.cancelClient(contractId);
+                
                 model.addAttribute("contract", contractCanceled);
                 return "comments_canceled.html";
+                
             } catch (MyException ex) {
                 return null;
             }
@@ -208,7 +217,7 @@ public class ContractController {
         }
     }
     
-    //---------------------COMENTARIOS-------------------
+    //----------------------------------COMENTARIOS-----------------------------
     
     //ENDPOINT PARA ENVIAR EL COMENTARIO OK
     @PostMapping("/comment/accept/{contractId}")
@@ -216,9 +225,11 @@ public class ContractController {
         try {
             // TODO PASAR LA LOGICA NECESARIO AL CONTRACT O COMMENT SERVICE
             this.contractService.clientDone(contractId);
+            
             Contract contract = this.contractService.getFullContractById(contractId);
             User author = this.userService.getUserById(contract.getCustomer().getId());
             User receiver = this.userService.getUserById(contract.getSupplier().getId());
+            
             Comment comment = new Comment();
             comment.setAuthor(author);
             comment.setReceiver(receiver);
@@ -227,7 +238,9 @@ public class ContractController {
             comment.setContract(contract);
             Comment commentSaved = this.commentRepository.save(comment);
             //List<Comment> comments = this.commentRepository.findAll();
+            
             model.addAttribute("comment", commentSaved);
+            
             return this.requestsToSuppliers(model);
         } catch (MyException ex) {
             return null;
@@ -240,9 +253,11 @@ public class ContractController {
         try {
             // TODO PASAR LA LOGICA NECESARIO AL CONTRACT O COMMENT SERVICE
             this.contractService.declineClient(contractId);
+            
             Contract contract = this.contractService.getFullContractById(contractId);
             User author = this.userService.getUserById(contract.getCustomer().getId());
             User receiver = this.userService.getUserById(contract.getSupplier().getId());
+            
             Comment comment = new Comment();
             comment.setAuthor(author);
             comment.setReceiver(receiver);
@@ -250,12 +265,34 @@ public class ContractController {
             comment.setScore(score);
             comment.setContract(contract);
             Comment commentSaved = this.commentRepository.save(comment);
+            
             model.addAttribute("comment", commentSaved);
             return this.requestsToSuppliers(model);
+            
         } catch (MyException ex) {
             return null;
         }
     }
+    
+    /*
+    @PostMapping("/comment/canceled/{contractId}")
+    public String clientCommentCanceled(@PathVariable String contractId, @RequestParam String content, ModelMap model) {
+        try {
+            //Recupero el contrato de la base de datos
+            ContractInfoDTO contractDTO = this.contractService.getById(contractId);
+            //Instancio un nuevo comentario y lo persisto en la base de datos
+            SaveCommentDTO commentDTO = new SaveCommentDTO(contractDTO, content);
+            CommentInfoDTO c = this.commentService.save(commentDTO);
+            
+        } catch (MyException ex) {
+        }
+        
+    }
+    */
+    
+    
+    
+    
 
     // DESPUES DEL RECHAZO DEL CLIENTE, EL SUPPLIER PODRIA RESPONDER EL COMENTARIO (RECLAMO)
     @GetMapping("/replica/{contractId}")
@@ -297,6 +334,12 @@ public class ContractController {
             return null;
         }
     }
+    
+    
+    
+    
+    
+    
     
     //LISTAR LAS SOLICITUDES A PROVEEDORES GENERADAS POR EL CLIENTE LOGUEADO
     @GetMapping("/list/suppliers")
