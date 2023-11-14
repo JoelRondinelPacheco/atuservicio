@@ -1,117 +1,96 @@
 <!DOCTYPE html>
-
 <html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-  <head th:replace="fragments/head :: head"></head>
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="fragments/head :: head"></head>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contacto - Atuservicio</title>
-  <link
-    rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-    crossorigin="anonymous" />
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
-  <link th:href="@{/css/redes.css}" rel="stylesheet" />
-  <body>
-    <header>
-      <nav th:replace="fragments/navbar :: navbar"></nav>
-    </header>
- 
-    <div id="contract">
-  <h2>Contrato de Servicios</h2>
+    <body>
 
-  <p>Entre:</p>
-  <p><strong th:text="${user.name}"> Proveedor th:text="${user.name}"</strong></p>
-  <p><strong  th:text="${user.address}"> Dirección del Proveedor</strong></p>
-  <p><strong th:text="${user.email}">Información de contacto del Proveedor</strong></p>
+        <nav th:replace="fragments/navbar :: navbar"></nav>
 
-  <p>En adelante denominado "Proveedor"</p>
+        <section class="py-6 wwihd text-center fondo-seccion">
 
-  <p>Y</p>
+            <div id="contract">
+                <h2>Contrato de Servicios</h2>
 
-  <p><strong th:text="${user.name}">Nombre del Cliente</strong></p>
-  <p><strong  th:text="${user.address}">Dirección del Cliente</strong></p>
-  <p><strong th:text="${user.email}>Información de contacto del Cliente</strong></p>
+                <p>Entre:</p>
+                <p><strong th:text="${user.name}"> Proveedor th:text="${user.name}"</strong></p>
+                <p><strong  th:text="${user.address}"> Dirección del Proveedor</strong></p>
+                <p><strong th:text="${user.email}">Información de contacto del Proveedor</strong></p>
 
-  <p>En adelante denominado "Cliente"</p>
+                <p>En adelante denominado "Proveedor"</p>
 
-  <h3>1. OBJETO DEL CONTRATO</h3>
-  <p>El Cliente contrata al Proveedor para la prestación de los siguientes servicios:</p>
-  <p><strong th:text="${user.desciption} >[Descripción detallada de los servicios]</strong></p>
+                <p>Y</p>
 
-  <h3>2. FECHA DE INICIO Y DURACIÓN</h3>
-  <p>El presente contrato entrará en vigencia a partir del <strong> th: text="${user.createdAt} </strong> y tendrá una duración segun <strong>lo dispuesto en la descripciòn supra aludido </strong>, a menos que se rescinda de acuerdo con las cláusulas establecidas en este contrato.</p>
+                <p><strong th:text="${user.name}">Nombre del Cliente</strong></p>
+                <p><strong  th:text="${user.address}">Dirección del Cliente</strong></p>
+                <p><strong th:text="${user.email}>Información de contacto del Cliente</strong></p>
 
-  <h3>3. CONDICIONES DE PAGO</h3>
-  <p>A cambio de los servicios prestados, el Cliente acuerda pagar al Proveedor la suma <strong>convenida en Precio / Hora</strong> en <strong>Pesos Argentinos</strong></p>
- 
+                           <p>En adelante denominado "Cliente"</p>
 
-  <h3>4. OBLIGACIONES DEL PROVEEDOR</h3>
-  <p>El Proveedor se compromete a:</p>
-  <ul>
-    <li>Prestar los servicios de manera profesional y competente.</li>
-    <li>Cumplir con los plazos acordados.</li>
-    <li>Proporcionar informes periódicos sobre el progreso de los servicios.</li>
-  </ul>
+                        <h3>1. OBJETO DEL CONTRATO</h3>
+                        <p>El Cliente contrata al Proveedor para la prestación de los siguientes servicios:</p>
+                        <p><strong th:text="${user.desciption} >[Descripción detallada de los servicios]</strong></p>
 
-  <h3>5. OBLIGACIONES DEL CLIENTE</h3>
-  <p>El Cliente se compromete a:</p>
-  <ul>
-    <li>Proporcionar al Proveedor la información y recursos necesarios para la prestación de los servicios.</li>
-    <li>Cumplir con los pagos según lo estipulado en la cláusula 3.</li>
-  </ul>
+                                   <h3>2. FECHA DE INICIO Y DURACIÓN</h3>
+                                   <p>El presente contrato entrará en vigencia a partir del <strong> th: text="${user.createdAt} </strong> y tendrá una duración segun <strong>lo dispuesto en la descripciòn supra aludido </strong>, a menos que se rescinda de acuerdo con las cláusulas establecidas en este contrato.</p>
 
-  <h3>6. CONFIDENCIALIDAD</h3>
-  <p>Ambas partes acuerdan mantener la confidencialidad de cualquier información confidencial revelada durante la prestación de los servicios.</p>
+                        <h3>3. CONDICIONES DE PAGO</h3>
+                        <p>A cambio de los servicios prestados, el Cliente acuerda pagar al Proveedor la suma <strong>convenida en Precio / Hora</strong> en <strong>Pesos Argentinos</strong></p>
 
-  <h3>7. TERMINACIÓN DEL CONTRATO</h3>
-  <p>Cualquiera de las partes puede rescindir este contrato por escrito si la otra parte incumple de manera sustancial sus obligaciones y no remedia dicho incumplimiento.</p>
 
-  <h3>8. LEY APLICABLE</h3>
-  <p>Este contrato se regirá e interpretará de acuerdo con las leyes de <strong>Argentina</strong></p>
+                        <h3>4. OBLIGACIONES DEL PROVEEDOR</h3>
+                        <p>El Proveedor se compromete a:</p>
+                        <ul>
+                            <li>Prestar los servicios de manera profesional y competente.</li>
+                            <li>Cumplir con los plazos acordados.</li>
+                            <li>Proporcionar informes periódicos sobre el progreso de los servicios.</li>
+                        </ul>
 
-  <h3>Términos y Condiciones</h3>
-  <p>1. El cliente acepta...</p>
-  <p>2. El proveedor se compromete...</p>
+                        <h3>5. OBLIGACIONES DEL CLIENTE</h3>
+                        <p>El Cliente se compromete a:</p>
+                        <ul>
+                            <li>Proporcionar al Proveedor la información y recursos necesarios para la prestación de los servicios.</li>
+                            <li>Cumplir con los pagos según lo estipulado en la cláusula 3.</li>
+                        </ul>
 
-  <label id="accept-label">
-    <input type="checkbox" id="accept-checkbox"> Acepto los términos y condiciones
-  </label>
+                        <h3>6. CONFIDENCIALIDAD</h3>
+                        <p>Ambas partes acuerdan mantener la confidencialidad de cualquier información confidencial revelada durante la prestación de los servicios.</p>
 
-  <button id="submit-btn" onclick="validarFormulario()">Enviar</button>
-</div>
+                        <h3>7. TERMINACIÓN DEL CONTRATO</h3>
+                        <p>Cualquiera de las partes puede rescindir este contrato por escrito si la otra parte incumple de manera sustancial sus obligaciones y no remedia dicho incumplimiento.</p>
 
-<script>
-  function validarFormulario() {
-    var checkbox = document.getElementById("accept-checkbox");
+                        <h3>8. LEY APLICABLE</h3>
+                        <p>Este contrato se regirá e interpretará de acuerdo con las leyes de <strong>Argentina</strong></p>
 
-    if (!checkbox.checked) {
-      alert("Debes aceptar los términos y condiciones antes de enviar el formulario.");
-    } else {
-      // Aquí puedes enviar el formulario o realizar otras acciones necesarias.
-      alert("Formulario enviado correctamente.");
-    }
-  }
-</script>
-                 
-    <footer th:replace="fragments/footer :: footer"></footer>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"></script>
-  </body>
-</html>
+                        <h3>Términos y Condiciones</h3>
+                        <p>1. El cliente acepta...</p>
+                        <p>2. El proveedor se compromete...</p>
+
+                        <label id="accept-label">
+                            <input type="checkbox" id="accept-checkbox"> Acepto los términos y condiciones
+                        </label>
+
+                        <button id="submit-btn" onclick="validarFormulario()">Enviar</button>
+            </div>
+
+            <script>
+                function validarFormulario() {
+                    var checkbox = document.getElementById("accept-checkbox");
+
+                    if (!checkbox.checked) {
+                        alert("Debes aceptar los términos y condiciones antes de enviar el formulario.");
+                    } else {
+                        // Aquí puedes enviar el formulario o realizar otras acciones necesarias.
+                        alert("Formulario enviado correctamente.");
+                    }
+                }
+            </script>
+
+            <footer
+                th:replace="fragments/footer :: footer"
+                class="fixed-footer">
+
+                </body>
+
+                </html>
