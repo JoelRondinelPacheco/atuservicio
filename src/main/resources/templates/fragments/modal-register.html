@@ -66,22 +66,29 @@
             </div>
             <!-- check de ususario -->
             <div class="contenedor-check color-login-form">
+              <label for="typeUser">Choose user type:</label>
               <select
                 class="form-select color-login-form form-select-sm"
                 aria-label="Small select example"
-                id="typeUser">
-                <option class="color-login-form" selected>
+                id="typeUser"
+                name="typeUser">
+                <option class="color-login-form" value="" selected disabled>
                   Registrate como...
                 </option>
                 <option class="color-login-form" value="1">Cliente</option>
                 <option class="color-login-form" value="2">Proveedor</option>
               </select>
             </div>
+
             <div class="contenedor-check color-login-form">
-              <select 
+              <select
                 class="form-select color-login-form form-select-sm"
                 aria-label="Small select example">
-                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}" class="color-login-form" ></option>
+                <option
+                  th:each="category : ${categories}"
+                  th:value="${category.id}"
+                  th:text="${category.name}"
+                  class="color-login-form"></option>
               </select>
             </div>
           </form>
@@ -102,26 +109,21 @@
   </div>
 </div>
 <script>
-  var typeUser = document.getElementById('typeUser')
-  console.log('Hola')
-  typeUser.addEventListener('change', function(e) {
- 
-    if(typeUser.value == '2') {
-    console.log("elegío")
-    console.log(typeUser.value)
-    document.getElementById('Selector').innerHTML =`
+  var typeUser = document.getElementById("typeUser");
+  console.log("Hola");
+  typeUser.addEventListener("change", function (e) {
+    if (typeUser.value == "2") {
+      console.log("elegío");
+      console.log(typeUser.value);
+      document.getElementById("Selector").innerHTML = `
           <div class="contenedor-check color-login-form">
               <select 
                 class="form-select color-login-form form-select-sm"
                 aria-label="Small select example">
                 <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}" class="color-login-form" ></option>
               </select>
-            </div>`
-  } else {
-    
-  }
-})
-
-
-  
+            </div>`;
+    } else {
+    }
+  });
 </script>

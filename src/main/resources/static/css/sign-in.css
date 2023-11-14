@@ -85,6 +85,10 @@
     margin-top: 15px !important;
    
 }
+select{
+  background-color: #d1c0d8 !important;
+  color: #ffffff;
+}
 
 .custom-bg {
   background-color: #d1c0d8 !important; /* Cambia este valor al tono de violeta que prefieras */

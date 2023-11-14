@@ -55,7 +55,6 @@
   background-size: cover;
   background-repeat: no-repeat;
   filter: opacity(0.5);
-  z-index: -1; /* Coloca el fondo detrás del contenido */
 }
 
 
