@@ -49,11 +49,35 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
            <br>
                 
-                <br>
-                <form   class="d-flex justify-content-center" th:action="@{/editUser}" th:object="${user}" method="get">
-    <input type="hidden" name="id" th:value="${user.id}" />
-    <button  class="boton-card-detail boton-ver-mas" type="submit">Editar</button>
-</form>
+              <br>
+                <form class="d-flex justify-content-center" th:action="@{/editUser}" th:object="${user}" method="get">
+                    <input type="hidden" name="id" th:value="${user.id}" />
+                    <button class="boton-card-detail boton-ver-mas" type="submit">Editar</button>
+                </form>
+                <form class="d-flex justify-content-center" th:action="@{/changeToProvider}" th:object="${user}" method="get">
+                    <input type="hidden" name="id" th:value="${user.id}" />
+                    <button class="boton-card-detail boton-ver-mas" type="submit">Cambiar a Proveedor</button>
+                </form>
+
+                <div class="form-group">
+                    <label for="rubro">Rubro:</label>
+                    <select class="form-control" id="rubro" name="categoryId" th:value="${categoryId}">
+                        <option>Selecciona un rubro</option>
+                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                    </select>
+                </div>
+                <div th:if="${errors != null}">
+                    <div th:each="error : ${errors}">
+                        <div th:if="${error.name == 'categoryId'}">
+                            <div class="card text-white bg-danger mb-3">
+                                <div class="card-body">
+                                    <p class="card-text" th:text="${error.nameMsg}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                  
                 <br>
                 <br>
