@@ -18,7 +18,7 @@ public interface IUserService {
     List<UserInfoDTO> getSearchUsers(UserSearchDTO userSearch);
     UserInfoDTO getSearchEmailUser(String userSearch) throws MyException;
     String activate(String id) throws MyException;
-    UserPaginatedDTO findPaginated(int pageNumber, int pageSize, Role role);
+    UserPaginatedDTO findPaginated(int pageNumber, int pageSize, Role role, Boolean active);
     User getUserById(String id) throws MyException;
     //UserPaginatedDTO findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection);
     UserInfoDTO changeRole(String id, Role role) throws MyException;

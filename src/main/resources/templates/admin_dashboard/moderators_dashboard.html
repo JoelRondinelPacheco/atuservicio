@@ -34,11 +34,11 @@
         <div th:unless="${moderator.active}">
           <a class="btn btn-primary" th:href="@{'/admin/moderators/activate?clientId='+${moderator.id}+'&'+'currentpage='+${currentPage}}">Dar de alta</a>
         </div>
-        <div th:if="${client.active}">
+        <div th:if="${moderator.active}">
           <a class="btn btn-primary"  th:href="@{'/admin/moderators/delete?clientId='+${moderator.id}+'&'+'currentpage='+${currentPage}}">Dar de Baja</a>
         </div>
       </td>
-      <td><a class="btn btn-primary" th:href="@{'/admin/role/moderator/'+${moderator.id}}">Moderador</a></td>
+      <td><a class="btn btn-primary" th:href="@{'/admin/role/client/'+${moderator.id}}">Client</a></td>
       <td><a class="btn btn-primary" th:href="@{'/admin/role/admin/'+${moderator.id}}">Adminstrador</a></td>
     </tr>
     </tbody>

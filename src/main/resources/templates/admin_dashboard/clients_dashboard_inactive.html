@@ -12,8 +12,7 @@
             <button type="button" class="btn btn-primary"><a class="text-light" th:href="@{/admin/clients/1?active=true}">Ver Activos</a></button>
 
             <button type="button" class="btn btn-primary"><a  class="text-light" th:href="@{/admin/clients/1?active=false}">Ver inactivos</a></button>
-
-            <table class="table">
+        <table class="table">
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -35,12 +34,7 @@
                     <td th:text="${client.province}"></td>
                     <td th:text="${client.active}"></td>
                     <td>
-                        <div th:unless="${client.active}">
                             <a class="btn btn-primary" th:href="@{'/admin/clients/activate?clientId='+${client.id}+'&'+'currentpage='+${currentPage}}">Dar de alta</a>
-                        </div>
-                        <div th:if="${client.active}">
-                            <a class="btn btn-primary"  th:href="@{'/admin/clients/delete?clientId='+${client.id}+'&'+'currentpage='+${currentPage}}">Dar de Baja</a>
-                        </div>
                     </td>
                     <td><a class="btn btn-primary" th:href="@{'/admin/role/moderator/'+${client.id}}">Moderador</a></td>
                     <td><a class="btn btn-primary" th:href="@{'/admin/role/admin/'+${client.id}}">Adminstrador</a></td>

@@ -34,7 +34,7 @@ public class AdminController {
 
     @GetMapping("/dashboard")
     public String adminDashboard(ModelMap model) {
-        return this.clientsPaginated(1, model);
+        return this.clientsPaginated(1, true, model);
     }
 
     /*
@@ -64,10 +64,10 @@ public class AdminController {
     }
 
     @GetMapping("/clients/{pageNumber}")
-    public String clientsPaginated(@PathVariable int pageNumber, ModelMap model) {
+    public String clientsPaginated(@PathVariable int pageNumber, @RequestParam Boolean active, ModelMap model) {
         int pageSize = 5;
         UserPaginatedDTO clients = this.userService.
-                findPaginated(pageNumber, pageSize, Role.CLIENT);
+                findPaginated(pageNumber, pageSize, Role.CLIENT, active);
         Role[] roles = Role.values();
 
         model.addAttribute("roles", roles);
@@ -75,14 +75,18 @@ public class AdminController {
         model.addAttribute("totalPages", clients.getTotalPages());
         model.addAttribute("totalItems", clients.getTotalElements());
         model.addAttribute("clients", clients.getClients());
-        return "admin_dashboard/clients_dashboard";
+        if (active) {
+            return "admin_dashboard/clients_dashboard";
+        } else {
+            return "admin_dashboard/clients_dashboard_inactive";
+        }
     }
 
     @GetMapping("/clients/delete")
     public String deleteUser(@RequestParam String clientId, @RequestParam int currentpage, ModelMap model) {
         try {
             this.userService.delete(clientId);
-            return this.clientsPaginated(currentpage, model);
+            return this.clientsPaginated(currentpage, true, model);
            /* List<UserInfoDTO> clients = this.userService.getAllUsers();
             model.addAttribute("clients", clients);
             return "clients_dashboard";*/
@@ -95,7 +99,7 @@ public class AdminController {
     public String activateClient(@RequestParam String clientId, @RequestParam int currentpage, ModelMap model) {
         try {
             this.userService.activate(clientId);
-            return this.clientsPaginated(currentpage, model);
+            return this.clientsPaginated(currentpage, false, model);
             /*List<UserInfoDTO> clients = this.userService.getAllUsers();
             model.addAttribute("clients", clients);
             return "clients_dashboard";*/
@@ -119,7 +123,7 @@ public class AdminController {
     public String makeModerator(@PathVariable String userId, ModelMap model) {
         try {
             this.userService.changeRole(userId, Role.MODERATOR);
-            return "admin_dashboard/moderator_dashboard";
+            return "admin_dashboard/moderators_dashboard";
         } catch (MyException ex) {
             return null;
         }
@@ -188,7 +192,7 @@ public String moderatorsMainDashboard(ModelMap model) {
     @GetMapping("/moderators/{pageNumber}")
     public String moderatorsPageDashboard(@PathVariable int pageNumber, ModelMap model) {
         int pageSize = 5;
-        UserPaginatedDTO moderators = this.userService.findPaginated(pageNumber, pageSize, Role.MODERATOR);
+        UserPaginatedDTO moderators = this.userService.findPaginated(pageNumber, pageSize, Role.MODERATOR, true);
 
         model.addAttribute("currentPage", pageNumber);
         model.addAttribute("totalPages", moderators.getTotalPages());
@@ -224,7 +228,7 @@ public String moderatorsMainDashboard(ModelMap model) {
     @GetMapping("/admins/{pageNumber}")
     public String adminsPageDashboard(@PathVariable int pageNumber, ModelMap model) {
         int pageSize = 5;
-        UserPaginatedDTO admins = this.userService.findPaginated(pageNumber, pageSize, Role.ADMIN);
+        UserPaginatedDTO admins = this.userService.findPaginated(pageNumber, pageSize, Role.ADMIN, true);
 
         model.addAttribute("currentPage", pageNumber);
         model.addAttribute("totalPages", admins.getTotalPages());

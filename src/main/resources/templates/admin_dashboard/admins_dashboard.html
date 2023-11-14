@@ -9,6 +9,7 @@
 </header>
 <div class="container">
     <div th:replace="fragments/adminbtns :: adminbtns"></div>
+
     <table class="table">
         <thead>
         <tr>
@@ -31,15 +32,10 @@
             <td th:text="${admin.province}"></td>
             <td th:text="${admin.active}"></td>
             <td>
-                <div th:unless="${admin.active}">
-                    <a class="btn btn-primary" th:href="@{'/admin/admins/activate?clientId='+${admin.id}+'&'+'currentpage='+${currentPage}}">Dar de alta</a>
-                </div>
-                <div th:if="${admin.active}">
-                    <a class="btn btn-primary"  th:href="@{'/admin/admins/delete?clientId='+${admin.id}+'&'+'currentpage='+${currentPage}}">Dar de Baja</a>
-                </div>
+                <a class="btn btn-primary"  th:href="@{'/admin/admins/delete?clientId='+${admin.id}+'&'+'currentpage='+${currentPage}}">Dar de Baja</a>
             </td>
+            <td><a class="btn btn-primary" th:href="@{'/admin/role/client/'+${admin.id}}">Client</a></td>
             <td><a class="btn btn-primary" th:href="@{'/admin/role/moderator/'+${admin.id}}">Moderador</a></td>
-            <td><a class="btn btn-primary" th:href="@{'/admin/role/admin/'+${admin.id}}">Adminstrador</a></td>
         </tr>
         </tbody>
     </table>

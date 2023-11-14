@@ -19,11 +19,24 @@ public class UserInfoDTO extends UserDTO {
     private String image;
     private Role role;
     private Boolean active;
+    private String address;
+    private Long address_number;
+    private String city;
+    private String province;
+    private String country;
+    private String postal_code;
     public UserInfoDTO(String name, String email, Role role, String image, String address, Long address_number, String city, String province, String country, String postal_code, String id, Boolean active) {
         super(name, email);
         this.id = id;
         this.image = image;
         this.role = role;
         this.active = active;
+        this.address = address;
+        this.address_number = address_number;
+        this.city = city;
+        this.province = province;
+        this.country = country;
+        this.postal_code = postal_code;
+
     }
 }
