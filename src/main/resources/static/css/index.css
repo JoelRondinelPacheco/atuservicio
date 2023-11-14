@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@700&display=swap');
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+
+}
+@media (max-width: 768px) {
+
+
+  .logo{
+    width: 50px;
+    height: auto;
+  }
+}
+
+
+
+
+.letra-estilo-one{
+
+  font-family: 'PT Sans Narrow', sans-serif;
+}
+.contenedor-general{
+  width: 100%;
+  height: 100%;
+
+  align-items: center;
+}
+/* imagen del fonde del hero  */
+
+.fondo-seccion {
+  position: relative;
+}
+
+.fondo-seccion::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/img/hero.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: opacity(0.5);
+  z-index: -1; /* Coloca el fondo detrás del contenido */
+}
+
+
+.logo {
+  width: 200px; /* Tamaño inicial */
+  height: auto;
+  transition: width 0.5s ease; /* Agrega una transición suave al cambiar el tamaño */
+}
+
+@media (max-width: 768px) {
+  .logo {
+    width: 80px; /* Tamaño para pantallas pequeñas */
+  }
+}
+
+
+.wwihd section{
+  width: 100%;
+  height: auto;
+}
+
+/* fin fondo seccion */
+
+/* titulo experiencia de nuestros usuarios */
+
+.titulo-experiencia-usuario {
+  font-family: 'PT Sans Narrow', sans-serif;
+  color: transparent; /* Inicialmente, hacemos el texto transparente */
+  font-size: 30px;
+  display: inline-block; /* Necesario para animar letras individualmente */
+  animation: fadeInOut 4s infinite; /* 4s es la duración total de la animación, ajusta según necesites */
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    color: transparent; /* Al inicio y al final, el texto es transparente */
+  }
+  50% {
+    color: aliceblue; /* A la mitad de la animación, el texto es visible */
+  }
+}

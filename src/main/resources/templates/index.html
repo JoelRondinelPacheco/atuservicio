@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head th:replace="fragments/head :: head"></head>
+  
+  
+  
+
+  <body>
+   
+
+    <div class="contenedor-general">
+      <nav th:replace="fragments/navbar :: navbar"></nav>
+      <!-- hero -->
+
+      <section class="py-6 wwihd text-center fondo-seccion">
+       
+
+        <div class="container col-xxl-8 px-4 py-5">
+          <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+            <div class="col-10 col-sm-8 col-lg-6">
+              <img
+                src="/img/logo.png"
+                class="d-block mx-lg-auto logo img-fluid"
+                alt="Bootstrap Themes"
+                width="700"
+                height="500"
+                loading="lazy" />
+            </div>
+            <div class="col-lg-6">
+              <h1 class=" titulo-hero display-5 fw-bold lh-1 mb-3">A tu</h1>
+              <h1 class=" titulo-hero display-5 fw-bold lh-1 mb-3">Servicio</h1>
+
+              <p class="lead intro-texto-hero ">
+                "Descubre la revolución de servicios en tu hogar: ¡tu plataforma todo en uno! Ofrece o encuentra profesionales para tu domicilio con rapidez, eficacia y profesionalismo. Donde tus necesidades encuentran soluciones, y cada servicio es una experiencia que transforma tu hogar. Tu comodidad y bienestar, nuestra prioridad."
+              </p>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <!-- login -->
+                <!-- Button trigger modal -->
+               
+<div th:replace="fragments/modal-login :: modal-login"></div>
+<div th:replace="fragments/modal-register :: modal-register"></div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+      </section>
+
+      <section class="py-5 text-center contenedor-experiencia-usuario">
+        <h1 class="display-4 titulo-experiencia-usuario">Experiencia de nuestros usuarios...</h1>
+        <div th:replace="fragments/comment :: comment"></div>
+
+      </section>
+
+      <section id="servicios" class="py-5 text-center">
+        <h1 class="display-4">Sección 3</h1>
+ 
+      </section>
+
+      <section class="py-5 text-center">
+        <h1 class="display-4">Sección 4</h1>
+        <p>Este es el contenido de la sección 4.</p>
+      </section>
+
+      <section class="py-5 text-center">
+        <h1 class="display-4">Sección 5</h1>
+        <p>Este es el contenido de la sección 5.</p>
+      </section>
+
+      <section class="py-5 text-center">
+        <h1 class="display-4">Sección 6</h1>
+        <p>Este es el contenido de la sección 6.</p>
+      </section>
+      <footer
+        th:replace="fragments/footer :: footer"
+        class="fixed-footer"
+>
+    </div>
+  </body>
+</html>
