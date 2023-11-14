@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -62,7 +63,6 @@ public class HomeController {
         List<UserInfoDTO> users = this.userService.getAllUsers();
 
         model.addAttribute("user", users);
-      
 
         return "index.html";
     }
@@ -112,15 +112,28 @@ public class HomeController {
     }
 
     @GetMapping("/searchByCategory/{categoryId}")
-    public String searchBycategory(@PathVariable("categoryId") String categoryId, ModelMap model, Principal principal) {
+    public String searchBycategory(@PathVariable("categoryId") String categoryId,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size, ModelMap model, Principal principal) {
 
         try {
+            Page<SupplierInfoDTO> users;
+            String province = "";
             if (principal == null) {
                 System.out.println("Usuario no logueado");
+
+                users = supplierService.getPageByCategoryAndProvince(categoryId, province, page, size);
+
             } else {
                 System.out.println("Usuario logueado");
+
+                province = userService.getSearchEmailUser(principal.getName()).getProvince();
+
+                users = supplierService.getPageByCategoryAndProvince(categoryId, province, page, size);
+
             }
-            List<SupplierInfoDTO> users = supplierService.getSuppliersByCategory(categoryId);
+            // List<SupplierInfoDTO> users =
+            // supplierService.getSuppliersByCategory(categoryId);
             model.addAttribute("locationFound", true);
             model.addAttribute("users", users);
 
@@ -130,7 +143,7 @@ public class HomeController {
 
             model.put("error", ex.getMessage());
 
-            return "search.html";
+            return "services.html";
         }
 
     }

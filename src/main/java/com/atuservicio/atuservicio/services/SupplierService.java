@@ -194,44 +194,20 @@ public class SupplierService implements ISupplierService {
         }
         return userInformation;
 
-        // if (category != null && !category.isEmpty()) {
-        // userInformation = getAllSuppliers()
-        // .stream().filter(element -> element.getCategory().getName().equals(category))
-        // .collect(Collectors.toList());
-        // return userInformation;
-        // }
-        // // if (userSearch.getCity() == null) {
-        // // userSearch.setCity("");
-        // // }
-        // if (userSearch.getCity() != null && !userSearch.getCity().isEmpty()) {
-        // List<Supplier> users =
-        // supplierRepository.findSuppliersByCity(userSearch.getCity());
-        // return userInformation = getListSupplierInfoDTO(users);
-        // } else if (!userSearch.getProvince().isEmpty()) {
-        // List<Supplier> users =
-        // supplierRepository.findSuppliersByProvince(userSearch.getProvince());
-        // return userInformation = getListSupplierInfoDTO(users);
-        // } else if (!userSearch.getCountry().isEmpty()) {
-        // List<Supplier> users =
-        // supplierRepository.findSuppliersByCountry(userSearch.getCountry());
-        // return userInformation = getListSupplierInfoDTO(users);
-        // }
     }
 
-        public List<SupplierInfoDTO> getSuppliersByCategory( String categoryId) throws MyException {
+    public List<SupplierInfoDTO> getSuppliersByCategory(String categoryId) throws MyException {
 
         List<SupplierInfoDTO> userInformation = new ArrayList<>();
-    
+
         userInformation = getListSupplierInfoDTO(supplierRepository.findByCategorySupplier(categoryId));
 
         if (userInformation.size() == 0) {
             throw new MyException("No se encontró proveedor con los parametros indicados");
         }
         return userInformation;
-        }
-    
-    
-    
+    }
+
     private List<SupplierInfoDTO> getListSupplierInfoDTO(List<Supplier> users) {
 
         List<SupplierInfoDTO> infoSuppliers = new ArrayList<>();
@@ -307,9 +283,7 @@ public class SupplierService implements ISupplierService {
                 supplier.getCategory(),
                 supplier.getActive(),
                 supplier.getImageCard().getId(),
-                supplier.getPriceHour()
-
-        );
+                supplier.getPriceHour());
     }
 
     private ServiceInfoDTO createServiceInfoDTO(Supplier supplier) throws MyException {
@@ -330,37 +304,82 @@ public class SupplierService implements ISupplierService {
         Optional<User> userOptional = this.userRepository.findById(customerDTO.getId());
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            //Se da de baja al usuario como cliente y se persiste en la BD
+            // Se da de baja al usuario como cliente y se persiste en la BD
             this.userService.delete(user.getId());
-            //Se instancia un proveedor con los mismos atributos para persistirlo en la BD
+            // Se instancia un proveedor con los mismos atributos para persistirlo en la BD
             Supplier supplier = new Supplier();
             supplier.setName(user.getName());
             supplier.setEmail(user.getEmail());
             supplier.setPassword(user.getPassword());
             supplier.setRole(Role.SUPPLIER);
-            
+
             Image image = this.imageService.getById(user.getImage().getId());
             supplier.setImage(image);
-            
+
             supplier.setAddress(user.getAddress());
             supplier.setAddress_number(user.getAddress_number());
             supplier.setCity(user.getCity());
             supplier.setProvince(user.getProvince());
             supplier.setCountry(user.getCountry());
             supplier.setPostal_code(user.getPostal_code());
-            
+
             Category category = this.categoryRepository.findById(categoryDTO.getId()).get();
             supplier.setCategory(category);
             supplier.setImageCard(category.getImage());
-            //CONSULTAR: ¿Por qué la imagecard del proveedor toma la imagen de su rubro?
-            
-            /*El precio x hora, la descripción y la gelería de imagenes lo 
-            completa el proveedor en la vista work_edit.html*/
-            
+            // CONSULTAR: ¿Por qué la imagecard del proveedor toma la imagen de su rubro?
+
+            /*
+             * El precio x hora, la descripción y la gelería de imagenes lo
+             * completa el proveedor en la vista work_edit.html
+             */
             Supplier supplierSaved = this.supplierRepository.save(supplier);
             return this.createSupplierInfoDTO(supplierSaved);
         }
         throw new MyException("Usuario no encontrado");
     }
 
+    public Page<SupplierInfoDTO> getPageByCategoryAndProvince(String category, String province, int page, int size)
+            throws MyException {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<SupplierInfoDTO> supplierInfo = convertPageSupplierToPageSupplierDTO(supplierRepository
+                .findByCategoryAndProvince(province, category, pageable));
+        // Page<SupplierInfoDTO> supplierInfo =
+        // convertPageSupplierToPageSupplierDTO(supplierRepository.findAll(pageable));
+        if (supplierInfo.isEmpty()) {
+            throw new MyException("No se encontró proveedor");
+        }
+
+        return supplierInfo;
+
+    }
+
+
+    private Page<SupplierInfoDTO> convertPageSupplierToPageSupplierDTO(Page<Supplier> suppliers) {
+        for (Supplier iterable_element : suppliers) {
+            System.out.println(iterable_element.getName());
+        }
+        Page<SupplierInfoDTO> supplierInformation = suppliers.map(s -> new SupplierInfoDTO(s.getName(),
+                s.getEmail(),
+                s.getRole(),
+                s.getImage().getId(),
+                s.getAddress(),
+                s.getAddress_number(),
+                s.getCity(),
+                s.getProvince(),
+                s.getCountry(),
+                s.getPostal_code(),
+                s.getId(),
+                s.getCategory(),
+                s.getActive(),
+                s.getImageCard().getId(),
+                s.getPriceHour()));
+
+        return supplierInformation;
+    }
+
 }
+/**
+ * supplier.getPostal_code(), supplier.getId(), supplier.getCategory(),
+ * supplier.getActive(), supplier.getImageCard().getId(),
+ * supplier.getPriceHour()
+ */
