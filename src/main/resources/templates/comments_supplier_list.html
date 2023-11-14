@@ -10,7 +10,7 @@
 
         <section class="py-6 wwihd text-center fondo-seccion">
 
-            <h1>Lista de comentarios</h1>
+            <h1 class="p-3 titulo-hero display-5 fw-bold lh-1 mb-3">Lista de comentarios</h1>
             <div th:each="comment : ${comments}">
                 <form>
                     <input type="number" name="score" th:value="${comment.score}" readonly>
@@ -20,17 +20,26 @@
                 </form>
             </div>
             <form th:action="@{'/contract/comments/supplier/response/' + ${contractId}}" method="post">
-                <label for="puntuacion"></label>
-                <input type="number" value="0" id="puntuacion" name="score">
-                <label for="comment">comentario</label>
-                <textarea id="comment" name="content"></textarea>
-                <input type="submit" value="enviar">
-            </form>
+                <label for="puntuacion">puntuacion</label>
+                <div class="p-1">
+                    <input type="number" value="0" id="puntuacion" name="score" required>
+                    <div class="p-1">
+                        <label for="comment">comentario</label>
+                        <div class="p-1">
+                            <textarea id="comment" name="content" placeholder= "Escribe tu comentario aquí" required></textarea>
+                            <div class="p-1">
+                                <input type="submit" value="enviar">
+                                </form>
 
-            <footer
-                th:replace="fragments/footer :: footer"
-                class="fixed-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                </body>
+                <footer
+                    th:replace="fragments/footer :: footer"
+                    class="fixed-footer">
 
-                </html>
+                    </body>
+
+                    </html>
