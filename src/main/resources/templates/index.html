@@ -50,31 +50,20 @@
         
       </section>
 
-      <section class="py-5 text-center contenedor-experiencia-usuario">
+      <section class="py-5 text-center contenedor-experiencia-usuario" >
         <h1 class="display-4 titulo-experiencia-usuario">Experiencia de nuestros usuarios...</h1>
         <div th:replace="fragments/comment :: comment"></div>
 
       </section>
 
-      <section id="servicios" class="py-5 text-center">
-        <h1 class="display-4">Sección 3</h1>
- 
-      </section>
+      <section id="servicios" class="py-5 fondo-seccion text-center">
+    <h1 class="display-4  titulo-experiencia-usuario">Servicios</h1>
+    <div th:replace="fragments/services-card:: services-card"></div>
 
-      <section class="py-5 text-center">
-        <h1 class="display-4">Sección 4</h1>
-        <p>Este es el contenido de la sección 4.</p>
-      </section>
+</section>
 
-      <section class="py-5 text-center">
-        <h1 class="display-4">Sección 5</h1>
-        <p>Este es el contenido de la sección 5.</p>
-      </section>
 
-      <section class="py-5 text-center">
-        <h1 class="display-4">Sección 6</h1>
-        <p>Este es el contenido de la sección 6.</p>
-      </section>
+     
       <footer
         th:replace="fragments/footer :: footer"
         class="fixed-footer"

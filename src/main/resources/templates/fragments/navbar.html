@@ -3,7 +3,7 @@
   class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
   aria-label="Ninth navbar example">
   <div class="container-xl">
-    <a class="navbar-brand" href="#">A tu servicio</a>
+    <a class="navbar-brand fw-bold fs-3" href="#">A tu servicio</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -29,13 +29,19 @@
         </a>
 
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" th:href="@{'/supplier/services'}">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            th:href="@{'/supplier/services'}">
             <i class="fa-solid fa-truck-field-un"></i> Proveedores
           </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" th:href="@{/admin/dashboard}">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            th:href="@{/admin/dashboard}">
             <i class="fa-solid fa-screwdriver-wrench"></i> Dashboard
           </a>
         </li>
@@ -51,16 +57,24 @@
           >
           <ul class="dropdown-menu">
             <li>
-              <a class="barra-desplegable-menu dropdown-item" th:href="@{/profile/}">Ver</a>
+              <a
+                class="barra-desplegable-menu dropdown-item"
+                th:href="@{/profile/}"
+                >Ver</a
+              >
             </li>
             <!-- Otros elementos del menú desplegable... -->
             <li>
-              <a class="barra-desplegable-menu dropdown-item" th:href="${#request.isUserInRole('SUPPLIER') ? '/contract/list/customers' : ( #request.isUserInRole('CLIENT') ? '/contract/list/suppliers' : '#')}"
+              <a
+                class="barra-desplegable-menu dropdown-item"
+                th:href="${#request.isUserInRole('SUPPLIER') ? '/contract/list/customers' : ( #request.isUserInRole('CLIENT') ? '/contract/list/suppliers' : '#')}"
                 >Solicitudes</a
               >
             </li>
             <li>
-              <a class="barra-desplegable-menu dropdown-item" th:href="@{/supplier/service}"
+              <a
+                class="barra-desplegable-menu dropdown-item"
+                th:href="@{/supplier/service}"
                 >Perfil Profecional</a
               >
             </li>
@@ -76,7 +90,10 @@
 
         <!-- Cerrar Sesión -->
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" th:href="@{'/perform_logout'}">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            th:href="@{'/perform_logout'}">
             <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesión
           </a>
         </li>

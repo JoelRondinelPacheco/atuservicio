@@ -36,8 +36,10 @@ body, html {
 }
 
 .card-img-top {
-    height: 200px; /* Altura máxima de las imágenes */
-    width: 100%; /* Ancho fijo del 100% */
+    height: 70%; /* Altura máxima de las imágenes */
+    width: 50%; /* Ancho fijo del 100% */
+  
+   
 }
 
 .titulo{
