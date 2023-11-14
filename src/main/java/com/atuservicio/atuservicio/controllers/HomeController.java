@@ -9,28 +9,35 @@ package com.atuservicio.atuservicio.controllers;
  *
  * @author dario
  */
-
 import com.atuservicio.atuservicio.dtos.LoginPassDTO;
 import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.SupplierInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.dtos.users.UserSearchDTO;
 import com.atuservicio.atuservicio.entities.Category;
+import com.atuservicio.atuservicio.entities.User;
 import com.atuservicio.atuservicio.enums.Role;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.services.CategoryService;
+import com.atuservicio.atuservicio.services.CustomUserDetailsService;
 import com.atuservicio.atuservicio.services.ImageService;
 import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.UserService;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.trace.http.HttpTrace;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +47,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/")
 public class HomeController {
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -51,28 +59,20 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(ModelMap model) {
-        
+
         List<UserInfoDTO> users = this.userService.getAllUsers();
-        List<CategoryInfoDTO> categories = this.categoryService.listAll();
-        
+
         model.addAttribute("user", users);
-        model.addAttribute("categories", categories);
-        
+
         return "index.html";
     }
 
-    
-    
     @GetMapping("/search")
     public String search() {
 
         return "search.html";
     }
 
-
-
-    
-    
     @PostMapping("/search")
     public String resultSearch(@RequestParam(required = false) String country,
             @RequestParam(required = false) String province, @RequestParam(required = false) String city,
@@ -94,9 +94,9 @@ public class HomeController {
             try {
                 UserInfoDTO user = userService.getSearchEmailUser(email);
                 List<UserInfoDTO> users = new ArrayList();
-                
+
                 users.add(user);
-                
+
                 model.addAttribute("locationFound", true);
                 model.addAttribute("users", users);
 
@@ -111,29 +111,43 @@ public class HomeController {
         }
     }
 
-    @GetMapping("/searchByCategoty/{categoryId}")
-    public String searchBycategory(@PathVariable("categoryId") String categoryId, ModelMap model) {
+    @GetMapping("/searchByCategory/{categoryId}")
+    public String searchBycategory(@PathVariable("categoryId") String categoryId,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size, ModelMap model, Principal principal) {
 
         try {
-            
+            Page<SupplierInfoDTO> users;
+            String province = "";
+            if (principal == null) {
+                System.out.println("Usuario no logueado");
 
-            List<SupplierInfoDTO> users = supplierService.getSuppliersByCategory(categoryId);
+                users = supplierService.getPageByCategoryAndProvince(categoryId, province, page, size);
 
+            } else {
+                System.out.println("Usuario logueado");
+
+                province = userService.getSearchEmailUser(principal.getName()).getProvince();
+
+                users = supplierService.getPageByCategoryAndProvince(categoryId, province, page, size);
+
+            }
+            // List<SupplierInfoDTO> users =
+            // supplierService.getSuppliersByCategory(categoryId);
             model.addAttribute("locationFound", true);
             model.addAttribute("users", users);
 
             return "services.html";
-    
 
-            } catch (MyException ex) {
+        } catch (MyException ex) {
 
-                model.put("error", ex.getMessage());
+            model.put("error", ex.getMessage());
 
-                return "search.html";
-            }
- 
+            return "services.html";
+        }
+
     }
-    
+
     @GetMapping("/profile")
     public String profile(ModelMap model) throws MyException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -182,6 +196,7 @@ public class HomeController {
             return "index.html";
         }
     }
+
     @GetMapping("/contact")
     public String contact() {
 
