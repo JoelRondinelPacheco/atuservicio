@@ -12,8 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 public class SaveSupplierDTO extends SaveUserDTO {
     private String categoryId;
-    public SaveSupplierDTO(String name, String email, String address, Long address_number, String city, String province, String country, String postal_code, String password, String password2, MultipartFile image, String categoryId) {
-        super(name, email, address, address_number, city, province, country, postal_code, password, password2, image);
+    public SaveSupplierDTO(String name, String email, String password, String password2, String categoryId) {
+        super(name, email);
         this.categoryId = categoryId;
     }
 }

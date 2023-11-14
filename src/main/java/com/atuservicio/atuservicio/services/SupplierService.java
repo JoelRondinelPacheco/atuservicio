@@ -68,20 +68,10 @@ public class SupplierService implements ISupplierService {
         String password = new BCryptPasswordEncoder().encode(supplierDTO.getPassword());
         supplier.setPassword(password);
         supplier.setRole(Role.SUPPLIER);
-        if (supplierDTO.getImage().isEmpty()) {
-            Image img = this.imageService.getById("d4fe09fd-56f6-4b55-a1b9-58671d68f1f1");
-            Image imgUser = this.imageService.saveDefaultImage(img);
-            supplier.setImage(imgUser);
-        } else {
-            Image img = this.imageService.save(supplierDTO.getImage());
-            supplier.setImage(img);
-        }
-        supplier.setAddress(supplierDTO.getAddress());
-        supplier.setAddress_number(supplierDTO.getAddress_number());
-        supplier.setCity(supplierDTO.getCity());
-        supplier.setProvince(supplierDTO.getProvince());
-        supplier.setCountry(supplierDTO.getCountry());
-        supplier.setPostal_code(supplierDTO.getPostal_code());
+
+        Image img = this.imageService.getById("d4fe09fd-56f6-4b55-a1b9-58671d68f1f1");
+        Image imgUser = this.imageService.saveDefaultImage(img);
+        supplier.setImage(imgUser);
         Category category = this.categoryRepository.findById(supplierDTO.getCategoryId()).get();
         supplier.setCategory(category);
         supplier.setImageCard(category.getImage());
@@ -230,6 +220,20 @@ public class SupplierService implements ISupplierService {
         // }
     }
 
+        public List<SupplierInfoDTO> getSuppliersByCategory( String categoryId) throws MyException {
+
+        List<SupplierInfoDTO> userInformation = new ArrayList<>();
+    
+        userInformation = getListSupplierInfoDTO(supplierRepository.findByCategorySupplier(categoryId));
+
+        if (userInformation.size() == 0) {
+            throw new MyException("No se encontró proveedor con los parametros indicados");
+        }
+        return userInformation;
+        }
+    
+    
+    
     private List<SupplierInfoDTO> getListSupplierInfoDTO(List<Supplier> users) {
 
         List<SupplierInfoDTO> infoSuppliers = new ArrayList<>();

@@ -1,123 +1,86 @@
 <nav
-    th:fragment="navbar"
-    class="color-nabvar navbar navbar-expand-lg bg-body-tertiary">
-    <link th:href="@{/css/navbar.css}" rel="stylesheet" />
+  th:fragment="navbar"
+  class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+  aria-label="Ninth navbar example">
+  <div class="container-xl">
+    <a class="navbar-brand" href="#">A tu servicio</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarsExample07XL"
+      aria-controls="navbarsExample07XL"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <div class="container-fluid color-nabvar">
-        <!-- Logotipo a la izquierda -->
-        <a class="navbar-brand" href="#">
-            <img class="img-navbar" src="/img/logo.webp" alt="Tu Logo" />
+    <div class="collapse navbar-collapse" id="navbarsExample07XL">
+      <ul
+        class="navbar-nav ms-auto mb-2 mb-lg-0 direccion-navbar justify-content-start align-items-start">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">
+            <i class="fa-solid fa-house text-white me-1"></i> Home
+          </a>
+        </li>
+
+        <a class="nav-link active" aria-current="page" href="#servicios">
+          <i class="fa-regular fa-comments"></i> Servicios
         </a>
 
-        <!-- Botón de navegación para pantallas pequeñas -->
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{'/supplier/services'}">
+            <i class="fa-solid fa-truck-field-un"></i> Proveedores
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/admin/dashboard}">
+            <i class="fa-solid fa-screwdriver-wrench"></i> Dashboard
+          </a>
+        </li>
+
+        <!-- Mi Perfil -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle text-white"
+            href="#"
+            data-bs-toggle="dropdown"
             aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            >Mi Perfil</a
+          >
+          <ul class="dropdown-menu">
+            <li>
+              <a class="barra-desplegable-menu dropdown-item" th:href="@{/profile/}">Ver</a>
+            </li>
+            <!-- Otros elementos del menú desplegable... -->
+            <li>
+              <a class="barra-desplegable-menu dropdown-item" th:href="${#request.isUserInRole('SUPPLIER') ? '/contract/list/customers' : ( #request.isUserInRole('CLIENT') ? '/contract/list/suppliers' : '#')}"
+                >Solicitudes</a
+              >
+            </li>
+            <li>
+              <a class="barra-desplegable-menu dropdown-item" th:href="@{/supplier/service}"
+                >Perfil Profecional</a
+              >
+            </li>
+          </ul>
+        </li>
 
-        <!-- Enlaces a la derecha -->
-        <div
-            class="collapse navbar-collapse margen-retoque"
-            id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"  sec:authorize="not isAuthenticated()">
-                    <a class="nav-link active colorfont" th:href="@{/}">
-                        <i class="fas fa-home colorfont"></i>
-                        Inicio
-                    </a>
-                </li>
-                <li class="nav-item custom-nav-item colorfont">
-                    <a class="nav-link active colorfont" th:href="@{/supplier/services}">
-                        <i class="fas fa-cogs colorfont"></i>
-                        Proveedores
-                    </a>
-                </li>
-                <li class="nav-item colorfont">
-                    <a class="nav-link active colorfont" th:href="@{/contact}">
-                        <i class="fas fa-envelope colorfont"></i>
-                        Contacto
-                    </a>
-                </li>
-                <li class="nav-item colorfont" sec:authorize="hasRole('ADMIN')">
-                    <a class="nav-link active colorfont" th:href="@{/admin/dashboard}">
-                        <i class="fas fa-search colorfont"></i>
-                        Dashboard
-                    </a>
-                </li>
-                <li
-                    class="nav-item dropdown colorfont"
-                    sec:authorize="not isAuthenticated()">
-                    <a
-                        class="nav-link dropdown-toggle colorfont active"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Registro
-                    </a>
-                    <ul class="dropdown-menu color-nabvar colorfont">
-                        <li>
-                            <a class="dropdown-item colorfont" th:href="@{/client/register}"
-                               >Cliente</a
-                            >
-                        </li>
-                        <li>
-                            <a class="dropdown-item colorfont" th:href="@{/supplier/register}"
-                               >Proveedor</a
-                            >
-                        </li>
-                    </ul>
+        <!-- Contacto -->
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/contact/}">
+            <i class="fa-regular fa-comments"></i> Contacto
+          </a>
+        </li>
 
-                <li
-                    class="nav-item dropdown colorfont"
-                    sec:authorize="isAuthenticated()">
-                    <a
-                        class="nav-link dropdown-toggle colorfont active"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Mi Perfil
-                    </a>
-                    <ul class="dropdown-menu color-nabvar colorfont">
-                        <li>
-                            <a class="dropdown-item colorfont" th:href="@{/profile}"
-                               >Mi Perfil</a>
-                        </li>
-                        <li sec:authorize="hasRole('SUPPLIER')">
-                            <a class="dropdown-item colorfont" th:href="@{/supplier/service}"
-                               >Mi Servicio</a>
-                        </li>
-
-                        <li sec:authorize="hasAnyRole('CLIENT', 'SUPPLIER')">
-                            <a class="dropdown-item colorfont"
-                               th:href="${#request.isUserInRole('SUPPLIER') ? '/contract/list/customers' : ( #request.isUserInRole('CLIENT') ? '/contract/list/suppliers' : '#')}">
-                                Solicitudes
-                            </a>
-
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="nav-item colorfont" sec:authorize="not isAuthenticated()">
-                    <a class="nav-link active colorfont" th:href="@{/login}">
-                        <i class="fas fa-sign-in-alt colorfont"></i>
-                        Login
-                    </a>
-                </li>
-                <li class="nav-item colorfont" sec:authorize="isAuthenticated()">
-                    <a class="nav-link active colorfont" th:href="@{/perform_logout}">
-                        <i class="fas fa-sign-out-alt colorfont"></i>
-                        Cerrar Sesión
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <!-- Cerrar Sesión -->
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{'/perform_logout'}">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesión
+          </a>
+        </li>
+      </ul>
     </div>
+  </div>
 </nav>

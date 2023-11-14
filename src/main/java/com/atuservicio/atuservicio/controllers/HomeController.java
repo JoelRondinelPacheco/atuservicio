@@ -31,6 +31,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,12 +61,18 @@ public class HomeController {
         return "index.html";
     }
 
+    
+    
     @GetMapping("/search")
     public String search() {
 
         return "search.html";
     }
 
+
+
+    
+    
     @PostMapping("/search")
     public String resultSearch(@RequestParam(required = false) String country,
             @RequestParam(required = false) String province, @RequestParam(required = false) String city,
@@ -104,6 +111,29 @@ public class HomeController {
         }
     }
 
+    @GetMapping("/searchByCategoty/{categoryId}")
+    public String searchBycategory(@PathVariable("categoryId") String categoryId, ModelMap model) {
+
+        try {
+            
+
+            List<SupplierInfoDTO> users = supplierService.getSuppliersByCategory(categoryId);
+
+            model.addAttribute("locationFound", true);
+            model.addAttribute("users", users);
+
+            return "services.html";
+    
+
+            } catch (MyException ex) {
+
+                model.put("error", ex.getMessage());
+
+                return "search.html";
+            }
+ 
+    }
+    
     @GetMapping("/profile")
     public String profile(ModelMap model) throws MyException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

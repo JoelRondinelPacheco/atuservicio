@@ -32,7 +32,7 @@ public interface SupplierRepository extends JpaRepository<Supplier, String> {
     @Query("SELECT s FROM Supplier s WHERE s.email = :email")
     public Optional<Supplier> findByEmailSupplier(@Param("email") String email);
 
-    @Query("SELECT s FROM Supplier s WHERE s.category = :idCategory")
+    @Query("SELECT s FROM Supplier s WHERE s.category.id = :idCategory")
     public List<Supplier> findByCategorySupplier(@Param("idCategory") String idCategory);
 
     @Query("SELECT s FROM Supplier s WHERE s.city = :city OR s.province = :province OR s.country = :country")
