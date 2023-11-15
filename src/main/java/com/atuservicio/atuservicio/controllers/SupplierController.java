@@ -201,13 +201,13 @@ public class SupplierController {
                 System.out.println(country);
                 System.out.println(city);
                 UserSearchDTO userSearch = new UserSearchDTO(city, province, country);
-                List<SupplierInfoDTO> users = supplierService.getSearchSuppliers(userSearch, category);
+                List<SupplierInfoDTO> suppliers = supplierService.getSearchSuppliers(userSearch, category);
 
                 List<CategoryInfoDTO> categories = this.categoryService.listAll();
                 model.addAttribute("categories", categories);
 
                 model.addAttribute("locationFound", true);
-                model.addAttribute("users", users);
+                model.addAttribute("suppliers", suppliers);
 
                 return "services.html";
             } catch (MyException ex) {
@@ -221,11 +221,11 @@ public class SupplierController {
 
         } else {
             try {
-                SupplierInfoDTO user = supplierService.getByEmail(email);
+                SupplierInfoDTO supplier = supplierService.getByEmail(email);
                 List<CategoryInfoDTO> categories = this.categoryService.listAll();
                 model.addAttribute("categories", categories);
                 model.addAttribute("userFound", true);
-                model.addAttribute("user", user);
+                model.addAttribute("user", supplier);
 
                 return "services.html";
 
