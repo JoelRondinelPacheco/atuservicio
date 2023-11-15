@@ -12,12 +12,7 @@
   <div class="contenedor-general ">
 
 
-    <!-- <div class="container contenedor-modal">
-      <button class="btn btn-primary boton-buscar" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
-        Buscar proveedores
-      </button>
-
+    <div class="container contenedor-modal">
       <div class="offcanvas offcanvas-start titulo-frame-proveedores" data-bs-backdrop="static" tabindex="-1"
         id="staticBackdrop" aria-labelledby="staticBackdropLabel">
         <div class="offcanvas-header">
@@ -72,38 +67,42 @@
               <div class="col-12 mt-3">
                 <img th:src="@{/img/logo.webp}" alt="logo" class="img-modal" />
 
-                <button type="submit" style="float: right" class="btn btn-primary btn-custom boton-buscar">
-                  Buscar
-                </button>
+
+                <div th:if="${error != null}" class="card text-white bg-warning mb-3 mensajeError mt-5">
+                  <div class="card-body">
+                    <h5 class="card-title" th:text="${error}"></h5>
+                  </div>
+                </div>
+
+
               </div>
+              <button type="submit" class="btn btn-primary"> Buscar</button>
             </form>
           </div>
         </div>
       </div>
-    </div> -->
+      <button class="btn btn-primary boton-buscar" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+        Buscar proveedores
+      </button>
+    </div>
+  </div>
 
 
-    <!-- <div class="container-fluid">
 
 
+  <div th:if="${error != null}" class="card text-white bg-warning mb-3 mensajeError mt-5">
+    <div class="card-body">
+      <h5 class="card-title" th:text="${error}"></h5>
+    </div>
+  </div>
 
-
-      <div th:if="${error != null}" class="card text-white bg-warning mb-3 mensajeError mt-5">
-        <div class="card-body">
-          <h5 class="card-title" th:text="${error}"></h5>
-        </div>
-      </div> -->
-
-    <section id="servicios" class="py-5 fondo-seccion text-center ">
-      <div class="contenedor-titulo ">
-        <h1 class="display-4  titulo-1">Proveedores</h1>
-      </div>
-      <div  th:replace="fragments/suppliers-card:: suppliers-card"></div>
-    </section>
-
-  
-
-
+  <section id="servicios" class="py-5 fondo-seccion text-center ">
+    <div class="contenedor-titulo ">
+      <h1 class="display-4  titulo-1">Proveedores</h1>
+    </div>
+    <div th:replace="fragments/suppliers-card:: suppliers-card"></div>
+  </section>
   </div>
 
 </body>

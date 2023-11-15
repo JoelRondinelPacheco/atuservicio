@@ -57,12 +57,14 @@ public interface SupplierRepository extends JpaRepository<Supplier, String> {
                         @Param("category") String category);
 
         @Query("SELECT s FROM Supplier s "
-                        + "WHERE (:category = '' OR :category IS NULL OR s.category = :category)"
-                        + "AND (:province = '' OR :province IS NULL OR s.province = :province)")
-        public Page<Supplier> findByCategoryAndProvince(@Param("province") String province,
-                        @Param("category") String category, Pageable pageable);
+                        + "WHERE s.category.id = :category "
+                        + "ORDER BY CASE WHEN :province = '' OR :province IS NULL OR s.province = :province THEN 0 ELSE 1 END")
+        public Page<Supplier> findByCategoryAndProvince(@Param("category") String category,
+                        @Param("province") String province,
+                        Pageable pageable);
 
         public Page<Supplier> findAll(Pageable pageable);
+
         @Query("SELECT s FROM Supplier s WHERE s.active = :active")
         Page<Supplier> findAllActive(Pageable pageable, @Param("active") Boolean active);
 
