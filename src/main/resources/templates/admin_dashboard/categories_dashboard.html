@@ -8,26 +8,24 @@
 </header>
 <body>
 <div class="container">
-    <h1>Lista de Categorias</h1>
-    <h3 th:text="${currentPage}"></h3>
-    <h3 th:text="${totalPages}"></h3>
-    <h3 th:text="${totalItems}"></h3>
     <div th:replace="fragments/adminbtns :: adminbtns"></div>
-    <button type="button" class="btn btn-primary"><a  class="text-light" th:href="@{/admin/category/create}">Nueva categoria</a></button>
+    <div class="text-center">
+    <a  class="btn btn-primary" th:href="@{/admin/category/create}">Nueva categoria</a>
+    </div>
     <table class="table">
         <thead>
-        <tr>
-            <th>Nombre</th>
-        </tr>
+            <tr>
+                <th>Nombre</th>
+                <th></th>
+            </tr>
         </thead>
         <tbody>
-
-        <tr th:each="category : ${categories}">
-            <td th:text="${category.name}"></td>
-            <td>
-                <a th:href="@{/admin/category/edit?categoryId={categoryId}(categoryId=${category.id})}">Editar</a>
-            </td>
-        </tr>
+            <tr th:each="category : ${categories}">
+                <td th:text="${category.name}"></td>
+                <td>
+                    <a class="btn btn-primary" th:href="@{/admin/category/edit?categoryId={categoryId}(categoryId=${category.id})}">Editar</a>
+                </td>
+            </tr>
         </tbody>
     </table>
     <div th:if="${totalPages > 1}">

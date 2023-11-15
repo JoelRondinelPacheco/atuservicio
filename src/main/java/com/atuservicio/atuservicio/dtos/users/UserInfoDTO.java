@@ -20,6 +20,7 @@ public class UserInfoDTO extends UserDTO {
     private String image;
     private Role role;
     private Boolean active;
+
     private String city;
     private String province;
     private String country;
@@ -29,6 +30,7 @@ public class UserInfoDTO extends UserDTO {
 
     public UserInfoDTO(String name, String email, Role role, String image, String address, Long address_number,
             String city, String province, String country, String postal_code, String id, Boolean active) {
+
         super(name, email);
         this.id = id;
         this.image = image; 
@@ -40,5 +42,6 @@ public class UserInfoDTO extends UserDTO {
         this.address = address;
         this.address_number = address_number;
         this.postal_code = postal_code;
+
     }
 }

@@ -63,6 +63,8 @@ public interface SupplierRepository extends JpaRepository<Supplier, String> {
                         @Param("category") String category, Pageable pageable);
 
         public Page<Supplier> findAll(Pageable pageable);
+        @Query("SELECT s FROM Supplier s WHERE s.active = :active")
+        Page<Supplier> findAllActive(Pageable pageable, @Param("active") Boolean active);
 
         public Supplier findByEmail(String email);
 }
