@@ -96,3 +96,17 @@
     color: aliceblue; /* A la mitad de la animación, el texto es visible */
   }
 }
+.precio {
+  font-family: 'PT Sans Narrow', sans-serif;
+  color: aliceblue; /* Inicialmente, hacemos el texto transparente */
+  font-size: 30px;
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    color: transparent; /* Al inicio y al final, el texto es transparente */
+  }
+  50% {
+    color: aliceblue; /* A la mitad de la animación, el texto es visible */
+  }
+}
