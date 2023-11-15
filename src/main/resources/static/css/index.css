@@ -56,7 +56,6 @@
   background-size: cover;
   background-repeat: no-repeat;
   filter: opacity(0.5);
- 
 }
 
 
@@ -73,14 +72,15 @@
 }
 .contenedor-titulo{
   position: relative;
-  
+  display: flex;
+  justify-content: center;
 }
 .titulo-1 {
   position: absolute;
   font-family: 'PT Sans Narrow', sans-serif;
   color: aliceblue; /* Inicialmente, hacemos el texto transparente */
   font-size: 30px;
-  z-index: 1;
+  z-index: 0;
 }
 .wwihd section{
   width: 100%;
@@ -111,5 +111,4 @@
     color: aliceblue; /* A la mitad de la animación, el texto es visible */
   }
 }
-
 

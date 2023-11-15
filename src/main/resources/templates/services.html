@@ -96,36 +96,12 @@
 
     <section id="servicios" class="py-5 fondo-seccion text-center ">
       <div class="contenedor-titulo ">
-        <h1 class="display-4  titulo-1">Servicios</h1>
+        <h1 class="display-4  titulo-1">Proveedores</h1>
       </div>
-      <div  th:replace="fragments/suppliers-card:: sppliers-card"></div>
+      <div  th:replace="fragments/suppliers-card:: suppliers-card"></div>
     </section>
 
-    <!-- <div class="row row-cols-4 px-5 card-group">
-        <div th:if="${locationFound}" class="col mt-5" th:each="user : ${users}">
-          <div class="card h-100">
-            <img th:src="@{/image/{imageCard}(imageCard=${user.imageCard})}" class="card-img-top" alt="Servicio" />
-            <div class="card-body">
-              <h5 class="card-title text-truncate" th:text="${user.name}">
-                Nombre
-              </h5>
-              <p id="fondo" class="card-text text-truncate" th:text="${user.category.name}">
-                Categoria
-              </p>
-              <form class="d-flex justify-content-center" sec:authorize="isAuthenticated()"
-                th:action="@{'/supplier/workPreview/' + ${user.id}}">
-                <button class="boton-card-detail boton-ver-mas">
-                  Ver mas...
-                </button>
-              </form>
-            </div>
-            <div class="card-footer d-flex justify-content-between">
-              <i class="bi bi-geo-fill" th:text="${user.province}"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
+  
 
 
   </div>

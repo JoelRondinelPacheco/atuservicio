@@ -2,7 +2,7 @@
   th:fragment="suppliers-card"
   class="row row-cols-1 row-cols-md-4 align-items-center ">
   <!-- Se usa "row-cols-md-4" para que se muestren 4 columnas por fila en tamaños de pantalla md y superiores -->
-  <div class="col " th:each="category : ${categories}">
+  <div class="col " th:each="user : ${users}">
     <div
       data-aos="fade-right"
       class="card rounded-img-container custom-card rounded-card shadow-lg p-3 card-color"
@@ -10,22 +10,28 @@
       <!-- Contenedor para la imagen redonda -->
       <div class="rounded-img-container">
         <img
-          th:src=""
+          th:src="@{/image/{imageCard}(imageCard=${user.imageCard})}"
           class="card-img-top rounded-circle"
           style="border-radius: 50px; width: 230px; height: 13rem"
           alt="Imagen Redonda" />
       </div>
       <div class="card-body text-light">
-        <h5 th:text="" class="card-title fw-bold"></h5>
-        <p class="card-text nombre-usuario-experiencia-texto">
-          Resuelvo todo los problemas de mi hogar repido, siempre los mejores
-          profesionales
+        <h5  class="card-title fw-bold" th:text="${user.name}"></h5>
+        <p class="card-text nombre-usuario-experiencia-texto" th:text="${user.category.name}">
+          
         </p>
-        <!-- <form th:action="@{'/supplier/workPreview/'+ ${user.id}}" > -->
+        <form class="d-flex justify-content-center" sec:authorize="isAuthenticated()"
+        th:action="@{'/supplier/workPreview/' + ${user.id}}">
         <button class="btn btn-outline-light w-30 py-2" type="submit">
           Ver +
         </button>
-        <!-- </form> -->
+        </form>
+
+        <div class="p-1 d-flex justify-content-between">
+          <i class="bi bi-geo-fill" th:text="${user.province}"></i>
+        </div>
+
+
 
         <!-- calificaciones -->
         <div class="rating">
