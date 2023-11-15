@@ -1,5 +1,5 @@
 <div
-  th:fragment="services-card"
+  th:fragment="suppliers-card"
   class="row row-cols-1 row-cols-md-4 align-items-center ">
   <!-- Se usa "row-cols-md-4" para que se muestren 4 columnas por fila en tamaños de pantalla md y superiores -->
   <div class="col " th:each="category : ${categories}">
@@ -10,13 +10,13 @@
       <!-- Contenedor para la imagen redonda -->
       <div class="rounded-img-container">
         <img
-          th:src="@{'/image/' + ${category.image_id}}"
+          th:src=""
           class="card-img-top rounded-circle"
           style="border-radius: 50px; width: 230px; height: 13rem"
           alt="Imagen Redonda" />
       </div>
       <div class="card-body text-light">
-        <h5 th:text="${category.name}" class="card-title fw-bold"></h5>
+        <h5 th:text="" class="card-title fw-bold"></h5>
         <p class="card-text nombre-usuario-experiencia-texto">
           Resuelvo todo los problemas de mi hogar repido, siempre los mejores
           profesionales
