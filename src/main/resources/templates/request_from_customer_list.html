@@ -1,39 +1,53 @@
 <!DOCTYPE html>
-
 <html
   xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  class="fondo-seccion">
   <head th:replace="fragments/head :: head"></head>
+
   <body>
     <nav th:replace="fragments/navbar :: navbar"></nav>
-    <div class="container text-center fs-6">
+
+    <div
+      style="
+        margin-bottom: 250px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding: 10px;
+       
+      ">
+      <class= "container text-center fs-6">
       <div class="row g-2">
         <div class="col-6">
-          <div class="p-3 mt-5">
-            <h4>Lista de solicitudes pendientes</h4>
-            <table class="table table-striped">
+          <div
+            class="border border-info rounded shadow-lg p-3 mt-5"
+            style="background-color: transparent; color: white;
+            position: absolute;">
+            <h4>Solicitudes Pendientes</h4>
+            <table class="table table-striped" style="background-color: transparent;font-size: 10px">
+              <!-- Tu contenido de la tabla -->
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">Fecha de la solicitud</th>
-                  <th scope="col">Nombre del cliente</th>
-                  <th scope="col">Email del cliente</th>
-                  <th scope="col">Dirección del cliente</th>
-                  <th scope="col">Descripción de la solicitud</th>
-                  <th scope="col">Estado de la solicitud</th>
-                  <th scope="col">Aprobar</th>
-                  <th scope="col">Rechazar</th>
+                  <th style="background-color: #c0aaca; color:white" class="fs-6" scope="col">Nombre</th>
+                  <th style="background-color: #c0aaca; color:white" class="fs-6" scope="col">Email</th>
+                  <th style="background-color: #c0aaca; color:white" class="fs-6" scope="col">Fecha</th>
+                  <th style="background-color: #c0aaca; color:white" class="fs-6" scope="col">Dirección</th>
+                  <th style="background-color: #c0aaca; color:white" class="fs-6" scope="col">Descripción</th>
+                  <th style="background-color: #c0aaca; color:white" class="fs-6" scope="col">Estado</th>
+                  <th style="background-color: #c0aaca; color:white" class="fs-6" scope="col">Aprobar</th>
+                  <th style="background-color: #c0aaca; color:white" class="fs-6" scope="col">Rechazar</th>
                 </tr>
               </thead>
               <tbody class="table-group-divider">
                 <tr
                   th:each="contract : ${contracts}"
                   th:if="${contract.state.name() == 'PENDING_APPROVAL'}">
-                  <td th:text="${contract.createdAt}"></td>
-                  <td th:text="${contract.customer.name}"></td>
-                  <td th:text="${contract.customer.email}"></td>
-                  <td th:text="${contract.customer.address}"></td>
-                  <td th:text="${contract.description}"></td>
-                  <td th:text="${contract.state}"></td>
+                  <td style="background-color: #c0aaca; color:white" class="fs-6" th:text="${contract.createdAt}"></td>
+                  <td style="background-color: #c0aaca; color:white" class="fs-6" th:text="${contract.customer.name}"></td>
+                  <td style="background-color: #c0aaca; color:white" class="fs-6" th:text="${contract.customer.email}"></td>
+                  <td style="background-color: #c0aaca; color:white" class="fs-6" th:text="${contract.customer.address}"></td>
+                  <td style="background-color: #c0aaca; color:white" class="fs-6" th:text="${contract.description}"></td>
+                  <td style="background-color: #c0aaca; color:white" class="fs-6" th:text="${contract.state}"></td>
                   <td>
                     <form
                       th:action="@{/contract/supplier/accept/__${contract.id}__}">
@@ -57,63 +71,68 @@
             </table>
           </div>
         </div>
-        <div class="col-6">
-          <div class="p-3 mt-5 border border-success">
-            <h4>Lista de solicitudes aprobadas</h4>
-            <table class="table table-bordered">
+
+        <div style="z-index:2;" class="col-6">
+          <div
+            class="border border-success rounded shadow-lg p-3 mt-5"
+            style="background-color: transparent">
+            <h4 style="color: white;"  >Solicitudas Aprobadas</h4>
+            <table class="table table-bordered" style="font-size: 10px">
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">Fecha de la solicitud</th>
-                  <th scope="col">Nombre del cliente</th>
-                  <th scope="col">Email del cliente</th>
-                  <th scope="col">Dirección del cliente</th>
-                  <th scope="col">Descripción de la solicitud</th>
-                  <th scope="col">Estado de la solicitud</th>
+                  <th style="background-color: #c0aaca; color:  white;" class="shadow-none fs-6" scope="col">Fecha</th>
+                  <th style="background-color: #c0aaca; color:  white;" class="shadow-none fs-6" scope="col">Nombre</th>
+                  <th style="background-color: #c0aaca; color:  white;" class="shadow-none fs-6" scope="col">Email</th>
+                  <th style="background-color: #c0aaca; color:  white;" class="shadow-none fs-6" scope="col">Dirección</th>
+                  <th style="background-color: #c0aaca; color:  white;" class="shadow-none fs-6" scope="col">Descripción</th>
+                  <th style="background-color: #c0aaca; color:  white;" class="shadow-none fs-6" scope="col">Estado</th>
                 </tr>
               </thead>
               <tbody class="table-group-divider">
                 <tr
                   th:each="contract : ${contracts}"
                   th:if="${contract.state.name() == 'APPROVED'}">
-                  <td th:text="${contract.createdAt}"></td>
-                  <td th:text="${contract.customer.name}"></td>
-                  <td th:text="${contract.customer.email}"></td>
-                  <td th:text="${contract.customer.address}"></td>
-                  <td th:text="${contract.description}"></td>
-                  <td th:text="${contract.state}"></td>
+                  <td style="background-color: #c0aaca; color:  white;"  class="fs-6 shadow-none" th:text="${contract.createdAt}"></td>
+                  <td style="background-color: #c0aaca; color:  white;"  class="fs-6 shadow-none" th:text="${contract.customer.name}"></td>
+                  <td style="background-color: #c0aaca; color:  white;"  class="fs-6 shadow-none" th:text="${contract.customer.email}"></td>
+                  <td style="background-color: #c0aaca; color:  white;"  class="fs-6 shadow-none" th:text="${contract.customer.address}"></td>
+                  <td style="background-color: #c0aaca; color:  white;"  class="fs-6 shadow-none" th:text="${contract.description}"></td>
+                  <td style="background-color: #c0aaca; color:  white;"  class="fs-6 shadow-none" th:text="${contract.state}"></td>
                 </tr>
               </tbody>
             </table>
           </div>
-
-          <div class="container mt-5"></div>
         </div>
-        <div class="col-6">
-          <div class="p-3 mt-5">
-            <h4>Lista de solicitudes rechazadas</h4>
-            <table class="table table-hover">
-              <thead class="thead-dark">
+
+        <div style="z-index:2;" class="col-6">
+          <div
+            class="border border-danger rounded shadow-lg p-3 mt-5"
+            style="background-color: transparent">
+            <h4 style="color: white;" >Solicitudes Rechazadas</h4>
+            <table class="table table-hover" style="font-size: 10px">
+              <!-- Tu contenido de la tabla -->
+              <thead style="background-color: transparent" class="thead-dark">
                 <tr>
-                  <th scope="col">Fecha de la solicitud</th>
-                  <th scope="col">Nombre del cliente</th>
-                  <th scope="col">Email del cliente</th>
-                  <th scope="col">Dirección del cliente</th>
-                  <th scope="col">Descripción de la solicitud</th>
-                  <th scope="col">Estado de la solicitud</th>
-                  <th scope="col">Comentario</th>
+                  <th style="background-color: #c0aaca; color:  white; " class="fs-6 shadow-none" scope="col">Nombre</th>
+                  <th style="background-color: #c0aaca; color:  white; " class="fs-6 shadow-none" scope="col">Email</th>
+                  <th style="background-color: #c0aaca; color:  white; " class="fs-6 shadow-none" scope="col">Dirección</th>
+                  <th style="background-color: #c0aaca; color:  white; " class="fs-6 shadow-none" scope="col">Fecha</th>
+                  <th style="background-color: #c0aaca; color:  white; " class="fs-6 shadow-none" scope="col">Descripción</th>
+                  <th style="background-color: #c0aaca; color:  white; " class="fs-6 shadow-none" scope="col">Estado</th>
+                  <th style="background-color: #c0aaca; color:  white; " class="fs-6 shadow-none" scope="col">Comentario</th>
                 </tr>
               </thead>
               <tbody class="table-group-divider">
                 <tr
                   th:each="contract : ${contracts}"
                   th:if="${contract.state.name() == 'REFUSED_CLIENT'}">
-                  <td th:text="${contract.createdAt}"></td>
-                  <td th:text="${contract.customer.name}"></td>
-                  <td th:text="${contract.customer.email}"></td>
-                  <td th:text="${contract.customer.address}"></td>
-                  <td th:text="${contract.description}"></td>
-                  <td th:text="${contract.state}"></td>
-                  <td th:if="${contract.hasComment}">
+                  <td style="background-color: #c0aaca; color:  white; " class="fs-6" th:text="${contract.createdAt}"></td>
+                  <td style="background-color: #c0aaca; color:  white;" class="fs-6" th:text="${contract.customer.name}"></td>
+                  <td style="background-color: #c0aaca; color:  white;" class="fs-6" th:text="${contract.customer.email}"></td>
+                  <td style="background-color: #c0aaca; color:  white;" class="fs-6" th:text="${contract.customer.address}"></td>
+                  <td style="background-color: #c0aaca; color:  white;" class="fs-6" th:text="${contract.description}"></td>
+                  <td style="background-color: #c0aaca; color:  white;" class="fs-6" th:text="${contract.state}"></td>
+                  <td style="background-color: #c0aaca; color:  white;" class="fs-6" th:if="${contract.hasComment}">
                     <button>
                       <a
                         th:href="@{'/contract/comments/supplier/' + ${contract.id}}"
@@ -126,32 +145,36 @@
             </table>
           </div>
         </div>
-        <div class="col-6">
-          <div class="p-3 mt-5">
-            <h4>Lista de solicitudes canceladas</h4>
-            <table class="table table-hover">
-              <thead class="thead-dark">
+
+        <div style="z-index:2;" class="col-6">
+          <div
+            class="border border-danger rounded  p-3 mt-5"
+            style="background-color: transparent">
+            <h4  style="color: white;" >Solicitudes Canceladas</h4>
+            <table class="table table-hover" style="font-size: 10px">
+              <!-- Tu contenido de la tabla -->
+              <thead class="thead-dark" >
                 <tr>
-                  <th scope="col">Fecha de la solicitud</th>
-                  <th scope="col">Nombre del cliente</th>
-                  <th scope="col">Email del cliente</th>
-                  <th scope="col">Dirección del cliente</th>
-                  <th scope="col">Descripción de la solicitud</th>
-                  <th scope="col">Estado de la solicitud</th>
-                  <th scope="col">Comentario</th>
+                  <th style="background-color: #c0aaca; color:white " class="fs-6" scope="col">Fecha</th>
+                  <th style="background-color: #c0aaca; color:white " class="fs-6" scope="col">N. del cliente</th>
+                  <th style="background-color: #c0aaca; color:white " class="fs-6" scope="col">Email</th>
+                  <th style="background-color: #c0aaca; color:white " class="fs-6" scope="col">Dirección</th>
+                  <th style="background-color: #c0aaca; color:white " class="fs-6" scope="col">Descripción</th>
+                  <th style="background-color: #c0aaca; color:white " class="fs-6" scope="col">Estado</th>
+                  <th style="background-color: #c0aaca; color:white " class="fs-6" scope="col">Comentario</th>
                 </tr>
               </thead>
               <tbody class="table-group-divider">
                 <tr
                   th:each="contract : ${contracts}"
                   th:if="${contract.state.name() == 'CANCELED_CLIENT'}">
-                  <td th:text="${contract.createdAt}"></td>
-                  <td th:text="${contract.customer.name}"></td>
-                  <td th:text="${contract.customer.email}"></td>
-                  <td th:text="${contract.customer.address}"></td>
-                  <td th:text="${contract.description}"></td>
-                  <td th:text="${contract.state}"></td>
-                  <td th:if="${contract.hasComment}">
+                  <td style="background-color: #c0aaca; color:white " class="fs-6" th:text="${contract.createdAt}"></td>
+                  <td style="background-color: #c0aaca; color:white " class="fs-6" th:text="${contract.customer.name}"></td>
+                  <td style="background-color: #c0aaca; color:white " class="fs-6" th:text="${contract.customer.email}"></td>
+                  <td style="background-color: #c0aaca; color:white " class="fs-6" th:text="${contract.customer.address}"></td>
+                  <td style="background-color: #c0aaca; color:white " class="fs-6" th:text="${contract.description}"></td>
+                  <td style="background-color: #c0aaca; color:white " class="fs-6" th:text="${contract.state}"></td>
+                  <td style="background-color: #c0aaca; color:white " class="fs-6" th:if="${contract.hasComment}">
                     <button>
                       <a
                         th:href="@{'/contract/comments/supplier/' + ${contract.id}}"
