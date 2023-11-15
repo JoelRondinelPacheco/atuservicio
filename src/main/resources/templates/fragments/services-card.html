@@ -1,19 +1,13 @@
-<div
-  th:fragment="services-card"
-  class="row row-cols-1 row-cols-md-4 align-items-center contenedor-experiencia-usuario">
+<div th:fragment="services-card" class="row row-cols-1 row-cols-md-4 align-items-center contenedor-experiencia-usuario"
+  id="servicios">
   <!-- Se usa "row-cols-md-4" para que se muestren 4 columnas por fila en tamaños de pantalla md y superiores -->
   <div class="col " th:each="category : ${categories}">
-    <div
-      data-aos="fade-right"
-      class="card rounded-img-container custom-card rounded-card shadow-lg p-3 card-color"
+    <div data-aos="fade-right" class="card rounded-img-container custom-card rounded-card shadow-lg p-3 card-color"
       style="width: 18rem; margin-left: 15px; height: 25rem; overflow: hidden">
       <!-- Contenedor para la imagen redonda -->
       <div class="rounded-img-container">
-        <img
-          th:src="@{'/image/' + ${category.image_id}}"
-          class="card-img-top rounded-circle"
-          style="border-radius: 50px; width: 230px; height: 13rem"
-          alt="Imagen Redonda" />
+        <img th:src="@{'/image/' + ${category.image_id}}" class="card-img-top rounded-circle"
+          style="border-radius: 50px; width: 230px; height: 13rem" alt="Imagen Redonda" />
       </div>
       <div class="card-body text-light">
         <h5 th:text="${category.name}" class="card-title fw-bold"></h5>
@@ -21,9 +15,12 @@
           Resuelvo todo los problemas de mi hogar repido, siempre los mejores
           profesionales
         </p>
-        <button class="btn btn-outline-light w-30 py-2" type="submit">
-          Ver +
-        </button>
+
+        <a th:href="@{/searchByCategory/__${category.id}__}"
+          class="link-offset-2 link-underline link-underline-opacity-0"><button class="btn btn-outline-light w-30 py-2"
+            type="submit">Ver + </button>
+        </a>
+
 
         <!-- calificaciones -->
         <div class="rating">

@@ -88,12 +88,13 @@
         <h5 class="card-title" th:text="${error}"></h5>
       </div>
     </div>
-
+<!-- 
     <section id="servicios" class="py-5 fondo-seccion text-center">
         <h1 class="display-4  titulo-experiencia-usuario">Servicios</h1>
         <div th:replace="fragments/services-card:: services-card"></div>
-    </section>
-    <!-- <div class="row row-cols-4 px-5 card-group">
+    </section> -->
+
+    <div class="row row-cols-4 px-5 card-group">
       <div th:if="${locationFound}" class="col mt-5" th:each="user : ${users}">
         <div class="card h-100">
           <img th:src="@{/image/{imageCard}(imageCard=${user.imageCard})}" class="card-img-top" alt="Servicio" />
@@ -117,7 +118,7 @@
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
 
 
 

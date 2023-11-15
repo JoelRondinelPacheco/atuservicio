@@ -27,7 +27,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -381,8 +380,7 @@ public class SupplierService implements ISupplierService {
 
     public Page<SupplierInfoDTO> getPageByCategoryAndProvince(String category, String province, int page, int size)
             throws MyException {
-        Sort sort = Sort.by("province"); // Ordenar por la propiedad "province"
-        Pageable pageable = PageRequest.of(page, size, sort);
+        Pageable pageable = PageRequest.of(page, size);
 
         Page<SupplierInfoDTO> supplierInfo = convertPageSupplierToPageSupplierDTO(
                 supplierRepository.findByCategoryAndProvince(category, province, pageable));
@@ -397,6 +395,7 @@ public class SupplierService implements ISupplierService {
     private Page<SupplierInfoDTO> convertPageSupplierToPageSupplierDTO(Page<Supplier> suppliers) {
         for (Supplier iterable_element : suppliers) {
             System.out.println(iterable_element.getName());
+            System.out.println(iterable_element.getCategory().getName());
         }
         Page<SupplierInfoDTO> supplierInformation = suppliers.map(s -> new SupplierInfoDTO(s.getName(),
                 s.getEmail(),
