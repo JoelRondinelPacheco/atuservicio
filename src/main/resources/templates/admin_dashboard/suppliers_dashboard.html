@@ -8,20 +8,27 @@
 </header>
 <body>
 <div class="container">
-    <h1>Lista de Usuarios</h1>
 
     <div th:replace="fragments/adminbtns :: adminbtns"></div>
+
+    <div class="text-center">
+        <div class="btn-group">
+            <a class="btn" th:classappend="${active == 'active' ? 'btn-primary active' : 'btn-outline-primary'}" th:href="@{/admin/suppliers/1?active=true}">Activos</a></button>
+            <a  class="btn" th:classappend="${active == 'inactive' ? 'btn-primary active' : 'btn-outline-primary'}" th:href="@{/admin/suppliers/1?active=false}">Inactivos</a></button>
+        </div>
+    </div>
+
     <table class="table">
         <thead>
         <tr>
             <th>Nombre</th>
             <th>Correo Electrónico</th>
-            <th>Dirección</th>
-            <th>Ciudad</th>
-            <th>Provincia</th>
             <th>País</th>
+            <th>Provincia</th>
             <th>Categoria</th>
-            <th>Usuario activo</th>
+            <th>Supplier activo</th>
+            <th></th>
+            <th>Cambiar role</th>
         </tr>
         </thead>
         <tbody>
@@ -29,17 +36,10 @@
         <tr th:each="supplier : ${suppliers}">
             <td th:text="${supplier.name}"></td>
             <td th:text="${supplier.email}"></td>
-            <td th:text="${supplier.address}"></td>
-            <td th:text="${supplier.city}"></td>
-            <td th:text="${supplier.province}"></td>
             <td th:text="${supplier.country}"></td>
+            <td th:text="${supplier.province}"></td>
             <td th:text="${supplier.category.name}"></td>
             <td th:text="${supplier.active}"></td>
-            <td>
-
-                <a th:href="@{/admin/suppliers/edit?supplierId={supplierId}(supplierId=${supplier.id})}">Editar</a>
-
-            </td>
             <td>
                 <div th:unless="${supplier.active}">
                     <a th:href="@{'/admin/suppliers/activate?supplierId='+${supplier.id}+'&'+'currentpage='+${currentPage}}">Dar de alta</a>
@@ -48,6 +48,9 @@
                     <a th:href="@{'/admin/suppliers/delete?supplierId='+${supplier.id}+'&'+'currentpage='+${currentPage}}">Dar de Baja</a>
                 </div>
             </td>
+            <td><a class="btn btn-primary" th:href="@{'/admin/role/moderator/'+${supplier.id}}">Moderador</a></td>
+            <td><a class="btn btn-primary" th:href="@{'/admin/role/admin/'+${supplier.id}}">Adminstrador</a></td>
+
         </tr>
         </tbody>
     </table>
