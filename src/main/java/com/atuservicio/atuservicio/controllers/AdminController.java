@@ -32,7 +32,84 @@ public class AdminController {
     @Autowired
     private ICategoryService categoryService;
 
+    @GetMapping("/dashboard")
+    public String adminDashboard(ModelMap model) {
+        return this.clientsPaginated(1, true, model);
+    }
+    @GetMapping("/clients/{pageNumber}")
+    public String clientsPaginated(@PathVariable int pageNumber, @RequestParam Boolean active, ModelMap model) {
+        int pageSize = 5;
+        UserPaginatedDTO clients = this.userService.
+                findPaginated(pageNumber, pageSize, Role.CLIENT, active);
+        Role[] roles = Role.values();
+        model.addAttribute("roles", roles);
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", clients.getTotalPages());
+        model.addAttribute("totalItems", clients.getTotalElements());
+        model.addAttribute("clients", clients.getClients());
+        model.put("currentRole", "CLIENT");
+        if (active) {
+            return "admin_dashboard/clients_dashboard";
+        } else {
+            return "admin_dashboard/clients_dashboard_inactive";
+        }
+    }
 
+    @GetMapping("/suppliers")
+    public String suppliersMainDashboard(ModelMap model) {
+        return this.supplierPageDashboard(1, model);
+    }
+
+    @GetMapping("/suppliers/{pageNumber}")
+    public String supplierPageDashboard(@PathVariable int pageNumber, ModelMap model) {
+        int pageSize = 5;
+        SupplierPaginatedDTO suppliers = this.supplierService.findPaginated(pageNumber, pageSize);
+
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", suppliers.getTotalPages());
+        model.addAttribute("totalItems", suppliers.getTotalElements());
+        model.addAttribute("suppliers", suppliers.getSuppliers());
+        model.put("currentRole", "SUPPLIER");
+
+        return "admin_dashboard/suppliers_dashboard";
+    }
+
+    @GetMapping("/moderators")
+    public String moderatorsMainDashboard(ModelMap model) {
+        return this.moderatorsPageDashboard(1, model);
+    }
+    @GetMapping("/moderators/{pageNumber}")
+    public String moderatorsPageDashboard(@PathVariable int pageNumber, ModelMap model) {
+        int pageSize = 5;
+        UserPaginatedDTO moderators = this.userService.findPaginated(pageNumber, pageSize, Role.MODERATOR, true);
+
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", moderators.getTotalPages());
+        model.addAttribute("totalItems", moderators.getTotalElements());
+        model.addAttribute("moderators", moderators.getClients());
+        model.put("currentRole", "MODERATOR");
+
+        return "admin_dashboard/moderators_dashboard";
+    }
+
+
+    @GetMapping("/admins")
+    public String adminsMainDashboard(ModelMap model) {
+        return this.adminsPageDashboard(1, model);
+    }
+    @GetMapping("/admins/{pageNumber}")
+    public String adminsPageDashboard(@PathVariable int pageNumber, ModelMap model) {
+        int pageSize = 5;
+        UserPaginatedDTO admins = this.userService.findPaginated(pageNumber, pageSize, Role.ADMIN, true);
+
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", admins.getTotalPages());
+        model.addAttribute("totalItems", admins.getTotalElements());
+        model.addAttribute("admins", admins.getClients());
+        model.put("currentRole", "ADMIN");
+
+        return "admin_dashboard/admins_dashboard";
+    }
 
     @PostMapping("/clients/search")
     public String clientSearch(
@@ -121,21 +198,6 @@ public class AdminController {
         }
     }
     /////////////////////////////////////////////////////////////////////////////
-    @GetMapping("/suppliers")
-    public String suppliersMainDashboard(ModelMap model) {
-        return this.supplierPageDashboard(1, model);
-    }
-    @GetMapping("/suppliers/{pageNumber}")
-    public String supplierPageDashboard(@PathVariable int pageNumber, ModelMap model) {
-        int pageSize = 5;
-        SupplierPaginatedDTO suppliers = this.supplierService.findPaginated(pageNumber, pageSize);
-
-        model.addAttribute("currentPage", pageNumber);
-        model.addAttribute("totalPages", suppliers.getTotalPages());
-        model.addAttribute("totalItems", suppliers.getTotalElements());
-        model.addAttribute("suppliers", suppliers.getSuppliers());
-        return "admin_dashboard/suppliers_dashboard";
-    }
 
     @GetMapping("/suppliers/delete")
     public String deleteSupplier(@RequestParam String supplierId, @RequestParam int currentpage, ModelMap model) {
@@ -157,21 +219,6 @@ public class AdminController {
         }
     }
 ///////////////////////////////////////////////////////
-@GetMapping("/moderators")
-public String moderatorsMainDashboard(ModelMap model) {
-    return this.moderatorsPageDashboard(1, model);
-}
-    @GetMapping("/moderators/{pageNumber}")
-    public String moderatorsPageDashboard(@PathVariable int pageNumber, ModelMap model) {
-        int pageSize = 5;
-        UserPaginatedDTO moderators = this.userService.findPaginated(pageNumber, pageSize, Role.MODERATOR, true);
-
-        model.addAttribute("currentPage", pageNumber);
-        model.addAttribute("totalPages", moderators.getTotalPages());
-        model.addAttribute("totalItems", moderators.getTotalElements());
-        model.addAttribute("moderators", moderators.getClients());
-        return "admin_dashboard/moderators_dashboard";
-    }
     @GetMapping("/moderators/delete")
     public String deleteModerator(@RequestParam String moderatorId, @RequestParam int currentpage, ModelMap model) {
         try {
@@ -193,21 +240,6 @@ public String moderatorsMainDashboard(ModelMap model) {
     }
 
     ////////////////////////////////////////////////////////////
-    @GetMapping("/admins")
-    public String adminsMainDashboard(ModelMap model) {
-        return this.adminsPageDashboard(1, model);
-    }
-    @GetMapping("/admins/{pageNumber}")
-    public String adminsPageDashboard(@PathVariable int pageNumber, ModelMap model) {
-        int pageSize = 5;
-        UserPaginatedDTO admins = this.userService.findPaginated(pageNumber, pageSize, Role.ADMIN, true);
-
-        model.addAttribute("currentPage", pageNumber);
-        model.addAttribute("totalPages", admins.getTotalPages());
-        model.addAttribute("totalItems", admins.getTotalElements());
-        model.addAttribute("admins", admins.getClients());
-        return "admin_dashboard/admins_dashboard";
-    }
     @GetMapping("/admins/delete")
     public String deleteAdmin(@RequestParam String moderatorId, @RequestParam int currentpage, ModelMap model) {
         try {
@@ -243,6 +275,7 @@ public String moderatorsMainDashboard(ModelMap model) {
     public String categories(ModelMap model) {
         List<CategoryInfoDTO> categories = this.categoryService.listAll();
         model.addAttribute("categories", categories);
+        model.put("currentRole", "CATEGORY");
         return "admin_dashboard/categories_dashboard";
     }
 

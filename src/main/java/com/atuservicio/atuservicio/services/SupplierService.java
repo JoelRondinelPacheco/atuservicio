@@ -101,6 +101,7 @@ public class SupplierService implements ISupplierService {
         return suppliersDTO;
     }
 
+    @Override
     public SupplierPaginatedDTO findPaginated(int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
         Page<Supplier> suppliers = this.supplierRepository.findAll(pageable);

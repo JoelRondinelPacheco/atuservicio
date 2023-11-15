@@ -9,9 +9,9 @@
     </header>
         <div class="container">
             <div th:replace="fragments/adminbtns :: adminbtns"></div>
-            <button type="button" class="btn btn-primary"><a class="text-light" th:href="@{/admin/clients/1?active=true}">Ver Activos</a></button>
+            <button type="button" class="btn btn-primary"><a class="text-light text-decoration-none" th:href="@{/admin/clients/1?active=true}">Ver Activos</a></button>
 
-            <button type="button" class="btn btn-primary"><a  class="text-light" th:href="@{/admin/clients/1?active=false}">Ver inactivos</a></button>
+            <button type="button" class="btn btn-primary"><a  class="text-light text-decoration-none" th:href="@{/admin/clients/1?active=false}">Ver inactivos</a></button>
 
             <table class="table">
             <thead>
