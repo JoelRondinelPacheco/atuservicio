@@ -112,6 +112,16 @@ public class SupplierService implements ISupplierService {
         return new SupplierPaginatedDTO(suppliersDTO, suppliers.getTotalPages(), suppliers.getTotalElements());
     }
 
+    public SupplierPaginatedDTO findPaginatedByActive(int pageNumber, int pageSize, Boolean active) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+        Page<Supplier> suppliers = this.supplierRepository.findAllActive(pageable, active);
+        List<SupplierInfoDTO> suppliersDTO = new ArrayList<>();
+        for (Supplier s : suppliers) {
+            suppliersDTO.add(this.createSupplierInfoDTO(s));
+        }
+        return new SupplierPaginatedDTO(suppliersDTO, suppliers.getTotalPages(), suppliers.getTotalElements());
+    }
+
     @Override
     public SupplierInfoDTO edit(EditSupplierDTO supplierDTO) throws MyException {
         System.out.println(supplierDTO.getId());

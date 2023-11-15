@@ -59,21 +59,29 @@ public class AdminController {
 
     @GetMapping("/suppliers")
     public String suppliersMainDashboard(ModelMap model) {
-        return this.supplierPageDashboard(1, model);
+        return this.supplierPageDashboard(1, true, model);
     }
 
     @GetMapping("/suppliers/{pageNumber}")
-    public String supplierPageDashboard(@PathVariable int pageNumber, ModelMap model) {
+    public String supplierPageDashboard(@PathVariable int pageNumber,
+                                        @RequestParam Boolean active,
+                                        ModelMap model) {
         int pageSize = 5;
-        SupplierPaginatedDTO suppliers = this.supplierService.findPaginated(pageNumber, pageSize);
+        SupplierPaginatedDTO suppliers = this.supplierService.findPaginatedByActive(pageNumber, pageSize, active);
 
         model.addAttribute("currentPage", pageNumber);
         model.addAttribute("totalPages", suppliers.getTotalPages());
         model.addAttribute("totalItems", suppliers.getTotalElements());
         model.addAttribute("suppliers", suppliers.getSuppliers());
         model.put("currentRole", "SUPPLIER");
+        if (active) {
+            model.put("active", "active");
+            return "admin_dashboard/suppliers_dashboard";
+        } else {
+            model.put("active", "inactive");
+            return "admin_dashboard/suppliers_dashboard_inactive";
+        }
 
-        return "admin_dashboard/suppliers_dashboard";
     }
 
     @GetMapping("/moderators")
@@ -205,7 +213,7 @@ public class AdminController {
     public String deleteSupplier(@RequestParam String supplierId, @RequestParam int currentpage, ModelMap model) {
         try {
             this.supplierService.delete(supplierId);
-            return this.supplierPageDashboard(currentpage, model);
+            return this.supplierPageDashboard(currentpage, true, model);
         } catch (MyException ex) {
             return "admin_dashboard/suppliers_dashboard";
         }
@@ -215,7 +223,7 @@ public class AdminController {
     public String activateSupplier(@RequestParam String supplierId,  @RequestParam int currentpage, ModelMap model) {
         try {
             this.supplierService.activate(supplierId);
-            return this.supplierPageDashboard(currentpage, model);
+            return this.supplierPageDashboard(currentpage, false, model);
         } catch (MyException ex) {
             return "admin_dashboard/suppliers_dashboard";
         }
