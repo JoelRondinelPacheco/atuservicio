@@ -19,6 +19,7 @@ public class ContractInfoDTO {
     
     private String id;
     private Date createdAt;
+    private Date updatedAt;
     private String description;
     private State state;
     private UserInfoDTO customer;

@@ -17,5 +17,5 @@ public interface ISupplierService {
     String delete(String id) throws MyException;
     String activate(String id) throws MyException;
     SupplierInfoDTO getByEmail(String email) throws MyException;
-    SupplierInfoDTO convertToSupplier(UserInfoDTO customerDTO, CategoryInfoDTO categoryDTO) throws MyException;
+    SupplierInfoDTO convertToSupplier(UserInfoDTO customerDTO, CategoryInfoDTO categoryDTO, String email) throws MyException;
 }
