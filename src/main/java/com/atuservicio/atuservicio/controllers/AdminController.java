@@ -34,10 +34,10 @@ public class AdminController {
 
     @GetMapping("/dashboard")
     public String adminDashboard(ModelMap model) {
-        return this.clientsPaginated(1, true, model);
+        return this.clientsPageDashboard(1, true, model);
     }
     @GetMapping("/clients/{pageNumber}")
-    public String clientsPaginated(@PathVariable int pageNumber, @RequestParam Boolean active, ModelMap model) {
+    public String clientsPageDashboard(@PathVariable int pageNumber, @RequestParam Boolean active, ModelMap model) {
         int pageSize = 5;
         UserPaginatedDTO clients = this.userService.
                 findPaginated(pageNumber, pageSize, Role.CLIENT, active);
@@ -86,39 +86,50 @@ public class AdminController {
 
     @GetMapping("/moderators")
     public String moderatorsMainDashboard(ModelMap model) {
-        return this.moderatorsPageDashboard(1, model);
+        return this.moderatorsPageDashboard(1, true, model);
     }
     @GetMapping("/moderators/{pageNumber}")
-    public String moderatorsPageDashboard(@PathVariable int pageNumber, ModelMap model) {
+    public String moderatorsPageDashboard(@PathVariable int pageNumber, @RequestParam Boolean active, ModelMap model) {
         int pageSize = 5;
-        UserPaginatedDTO moderators = this.userService.findPaginated(pageNumber, pageSize, Role.MODERATOR, true);
+        UserPaginatedDTO moderators = this.userService.findPaginated(pageNumber, pageSize, Role.MODERATOR, active);
 
         model.addAttribute("currentPage", pageNumber);
         model.addAttribute("totalPages", moderators.getTotalPages());
         model.addAttribute("totalItems", moderators.getTotalElements());
         model.addAttribute("moderators", moderators.getClients());
         model.put("currentRole", "MODERATOR");
+        if (active) {
+            model.put("active", "active");
+            return "admin_dashboard/moderators_dashboard";
+        } else {
+            model.put("active", "inactive");
+            return "admin_dashboard/moderators_dashboard_inactive";
+        }
 
-        return "admin_dashboard/moderators_dashboard";
     }
 
 
     @GetMapping("/admins")
     public String adminsMainDashboard(ModelMap model) {
-        return this.adminsPageDashboard(1, model);
+        return this.adminsPageDashboard(1, true, model);
     }
     @GetMapping("/admins/{pageNumber}")
-    public String adminsPageDashboard(@PathVariable int pageNumber, ModelMap model) {
+    public String adminsPageDashboard(@PathVariable int pageNumber, @RequestParam Boolean active, ModelMap model) {
         int pageSize = 5;
-        UserPaginatedDTO admins = this.userService.findPaginated(pageNumber, pageSize, Role.ADMIN, true);
+        UserPaginatedDTO admins = this.userService.findPaginated(pageNumber, pageSize, Role.ADMIN, active);
 
         model.addAttribute("currentPage", pageNumber);
         model.addAttribute("totalPages", admins.getTotalPages());
         model.addAttribute("totalItems", admins.getTotalElements());
         model.addAttribute("admins", admins.getClients());
         model.put("currentRole", "ADMIN");
-
-        return "admin_dashboard/admins_dashboard";
+        if (active) {
+            model.put("active", "active");
+            return "admin_dashboard/admins_dashboard";
+        } else {
+            model.put("active", "inactive");
+            return "admin_dashboard/admins_dashboard_inactive";
+        }
     }
 
     @PostMapping("/clients/search")
@@ -145,10 +156,8 @@ public class AdminController {
     public String deleteUser(@RequestParam String clientId, @RequestParam int currentpage, ModelMap model) {
         try {
             this.userService.delete(clientId);
-            return this.clientsPaginated(currentpage, true, model);
-           /* List<UserInfoDTO> clients = this.userService.getAllUsers();
-            model.addAttribute("clients", clients);
-            return "clients_dashboard";*/
+            model.put("clientDeleted","Cliente dado de baja correctamente");
+            return this.clientsPageDashboard(currentpage, true, model);
         } catch (MyException ex) {
             return "admin_dashboard/clients_dashboard";
         }
@@ -158,41 +167,39 @@ public class AdminController {
     public String activateClient(@RequestParam String clientId, @RequestParam int currentpage, ModelMap model) {
         try {
             this.userService.activate(clientId);
-            return this.clientsPaginated(currentpage, false, model);
-            /*List<UserInfoDTO> clients = this.userService.getAllUsers();
-            model.addAttribute("clients", clients);
-            return "clients_dashboard";*/
+            model.put("clientActivated","Cliente dado de alta correctamente");
+            return this.clientsPageDashboard(currentpage, false, model);
         } catch (MyException ex) {
             return "admin_dashboard/clients_dashboard";
         }
     }
     //CONVERTIR A USER
-    @GetMapping("/role/client/{userId}")
-    public String makeUser(@PathVariable String userId, ModelMap model) {
+    @GetMapping("/role/client/{userId}/{returnTo}")
+    public String makeUser(@PathVariable String userId, @PathVariable String returnTo, @RequestParam int currentpage, ModelMap model) {
         try {
             this.userService.changeRole(userId, Role.CLIENT);
-            return "admin_dashboard/clients_dashboard";
+            return this.returnTo(returnTo, currentpage, model);
         } catch (MyException ex) {
             return null;
         }
     }
 
     //CONVERTIR A MODERADOR
-    @GetMapping("/role/moderator/{userId}")
-    public String makeModerator(@PathVariable String userId, ModelMap model) {
+    @GetMapping("/role/moderator/{userId}/{returnTo}")
+    public String makeModerator(@PathVariable String userId, @PathVariable String returnTo, @RequestParam int currentpage, ModelMap model) {
         try {
             this.userService.changeRole(userId, Role.MODERATOR);
-            return "admin_dashboard/moderators_dashboard";
+            return this.returnTo(returnTo, currentpage, model);
         } catch (MyException ex) {
             return null;
         }
     }
     //CONVERTIR A ADMIN
-    @GetMapping("/role/admin/{userId}")
-    public String makeAdmin(@PathVariable String userId, ModelMap model) {
+    @GetMapping("/role/admin/{userId}/{returnTo}")
+    public String makeAdmin(@PathVariable String userId, @PathVariable String returnTo, @RequestParam int currentpage, ModelMap model) {
         try {
             this.userService.changeRole(userId, Role.ADMIN);
-            return "admin_dashboard/admin_dashboard";
+            return this.returnTo(returnTo, currentpage, model);
         } catch (MyException ex) {
             return null;
         }
@@ -213,6 +220,7 @@ public class AdminController {
     public String deleteSupplier(@RequestParam String supplierId, @RequestParam int currentpage, ModelMap model) {
         try {
             this.supplierService.delete(supplierId);
+            model.put("supplierDeleted","Proveedor dado de baja correctamente");
             return this.supplierPageDashboard(currentpage, true, model);
         } catch (MyException ex) {
             return "admin_dashboard/suppliers_dashboard";
@@ -223,6 +231,7 @@ public class AdminController {
     public String activateSupplier(@RequestParam String supplierId,  @RequestParam int currentpage, ModelMap model) {
         try {
             this.supplierService.activate(supplierId);
+            model.put("supplierActivated","Proveedor dado de alta correctamente");
             return this.supplierPageDashboard(currentpage, false, model);
         } catch (MyException ex) {
             return "admin_dashboard/suppliers_dashboard";
@@ -233,7 +242,8 @@ public class AdminController {
     public String deleteModerator(@RequestParam String moderatorId, @RequestParam int currentpage, ModelMap model) {
         try {
             this.userService.delete(moderatorId);
-            return this.moderatorsPageDashboard(currentpage, model);
+            model.put("moderatorDeleted", "Moderador dado de baja correctamente");
+            return this.moderatorsPageDashboard(currentpage, true, model);
         } catch (MyException ex) {
             return "admin_dashboard/moderators_dashboard";
         }
@@ -243,7 +253,8 @@ public class AdminController {
     public String activateModerator(@RequestParam String moderatorId,  @RequestParam int currentpage, ModelMap model) {
         try {
             this.userService.activate(moderatorId);
-            return this.moderatorsPageDashboard(currentpage, model);
+            model.put("moderatorActivated", "Moderador dado de alta correctamente");
+            return this.moderatorsPageDashboard(currentpage, false, model);
         } catch (MyException ex) {
             return "admin_dashboard/moderators_dashboard";
         }
@@ -251,20 +262,22 @@ public class AdminController {
 
     ////////////////////////////////////////////////////////////
     @GetMapping("/admins/delete")
-    public String deleteAdmin(@RequestParam String moderatorId, @RequestParam int currentpage, ModelMap model) {
+    public String deleteAdmin(@RequestParam String adminId, @RequestParam int currentpage, ModelMap model) {
         try {
-            this.userService.delete(moderatorId);
-            return this.moderatorsPageDashboard(currentpage, model);
+            this.userService.delete(adminId);
+            model.put("adminDeleted", "Administrador dado de baja correctamentte");
+            return this.adminsPageDashboard(currentpage, true, model);
         } catch (MyException ex) {
             return "admin_dashboard/admins_dashboard";
         }
     }
 
     @GetMapping("/admins/activate")
-    public String activateAdmin(@RequestParam String moderatorId,  @RequestParam int currentpage, ModelMap model) {
+    public String activateAdmin(@RequestParam String adminId,  @RequestParam int currentpage, ModelMap model) {
         try {
-            this.userService.activate(moderatorId);
-            return this.moderatorsPageDashboard(currentpage, model);
+            this.userService.activate(adminId);
+            model.put("adminActivated", "Administrador dado de alta correctamentte");
+            return this.adminsPageDashboard(currentpage, false, model);
         } catch (MyException ex) {
             return "admin_dashboard/admins_dashboard";
         }
@@ -294,7 +307,7 @@ public class AdminController {
         try {
             CategoryInfoDTO categoryInfo = this.categoryService.getById(categoryId);
             model.addAttribute("category", categoryInfo);
-            return "edit_category";
+            return "admin_dashboard/edit_category";
 
         } catch (MyException e) {
             throw new RuntimeException(e);
@@ -319,7 +332,7 @@ public class AdminController {
 
     @GetMapping("/category/create")
     public String getCreateCategory() {
-        return "new_category";
+        return "admin_dashboard/new_category";
     }
 
     @PostMapping("/category/create")
@@ -332,5 +345,20 @@ public class AdminController {
             return "new_category";
         }
 
+    }
+
+    private String returnTo(String page, int currentpage, ModelMap model) {
+        switch(page) {
+            case "clients":
+                return this.clientsPageDashboard(currentpage, true, model);
+            case "suppliers":
+                return this.supplierPageDashboard(currentpage, true, model);
+            case "moderators":
+                return this.moderatorsPageDashboard(currentpage, true, model);
+            case "admins":
+                return this.adminsPageDashboard(currentpage, true, model);
+            default:
+                return this.clientsPageDashboard(currentpage, true, model);
+        }
     }
 }

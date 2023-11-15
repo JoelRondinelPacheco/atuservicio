@@ -35,10 +35,10 @@
             <td th:text="${admin.country}"></td>
             <td th:text="${admin.province}"></td>
 
-            <td><a class="btn btn-primary" th:href="@{'/admin/role/client/'+${admin.id} +'/admins?currentpage=' + ${currentPage}}">Client</a></td>
-            <td><a class="btn btn-primary" th:href="@{'/admin/role/moderator/'+${admin.id}+'/admins?currentpage=' + ${currentPage}}">Moderador</a></td>
+            <td><a class="btn btn-outline-secondary">Client</a></td>
+            <td><a class="btn btn-outline-secondary">Moderador</a></td>
             <td>
-                <a class="btn btn-danger"  th:href="@{'/admin/admins/delete?adminId='+${admin.id}+'&'+'currentpage='+${currentPage}}">Dar de Baja</a>
+                <a class="btn btn-success"  th:href="@{'/admin/admins/activate?adminId='+${admin.id}+'&'+'currentpage='+${currentPage}}">Dar de Alta</a>
             </td>
         </tr>
         </tbody>

@@ -193,6 +193,11 @@ public class SupplierService implements ISupplierService {
         throw new MyException("Proveedor no encontrado por email");
     }
 
+    @Override
+    public SupplierInfoDTO convertToSupplier(UserInfoDTO customerDTO, CategoryInfoDTO categoryDTO) throws MyException {
+        return null;
+    }
+
     public List<SupplierInfoDTO> getSearchSuppliers(UserSearchDTO userSearch, String category) throws MyException {
 
         List<SupplierInfoDTO> userInformation = new ArrayList<>();
