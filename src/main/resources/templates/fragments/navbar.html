@@ -14,17 +14,12 @@
             <i class="fa-solid fa-house text-white me-1"></i> Home
           </a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item ">
 
-          <a class="nav-link active dropdown-toggle" aria-current="page" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link active " aria-current="page" href="/#servicios" >
             Servicio
           </a>
-          <ul class="dropdown-menu">
-            <li th:each="category : ${categories}">
-                <a class="dropdown-item" th:text="${category.name}" th:href="@{/searchByCategory/__${category.id}__}"></a>
-            </li>
-            
-          </ul>
+         
         </li>
 
 
@@ -73,7 +68,23 @@
             <i class="fa-regular fa-comments"></i> Contacto
           </a>
         </li>
-
+        <!-- Login -->
+        <li class="nav-item" sec:authorize="not isAuthenticated()">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            href="/">
+            <i class="fa-solid fa-right-to-bracket"></i> Inicio Sesión
+          </a>
+        </li>
+        <li class="nav-item" sec:authorize="not isAuthenticated()">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            href="/">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> Registro
+          </a>
+        </li>
         <!-- Cerrar Sesión -->
         <li class="nav-item" sec:authorize="isAuthenticated()">
           <a
