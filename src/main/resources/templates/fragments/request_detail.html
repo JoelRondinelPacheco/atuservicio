@@ -1,6 +1,6 @@
-<div th:fragment="work_detail" class="container text-center ">
+<div th:fragment="request_detail" class="container text-center ">
   <!-- <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> -->
-
+  <form th:action="@{/contract/send/{idSupplier}(idSupplier=${supplier.id})}" method="POST">
 
   <div class="row align-items-center">
     <div class="col">
@@ -16,13 +16,13 @@
           <p th:text="${supplier.email}" class="card-text">
 
           </p>
-          <p th:text="${supplier.address} + ' ' + ${supplier.address_number}" class="card-text">
-
-          </p>
-          <p th:text="${supplier.city} + ' ' + ${supplier.province}" class="card-text">
-
-          </p>
-
+          <p class="fs-2 fw-semibold" th:text="${supplier.category.name}"></p>
+          <p class="fs-2 fw-semibold"th:text="'$ ' +${service.priceHour} + ' /hora'"></p>
+          <div class="row">
+            <div class="col"><i class="fa-solid fa-location-dot"></i>
+          <p th:text="${supplier.city} + ' ' + ${supplier.province}" class="card-text"></p>
+        </div>
+        </div>  
           <!-- calificaciones -->
           <div class="rating">
             <!-- La calificación se redondea y se convierte en un entero para determinar cuántas estrellas llenar -->
@@ -36,16 +36,13 @@
     <!-- comentario -->
     <div class="col">
       <div data-aos="fade-down" class="card rounded-card shadow-lg p-3 card-color"
-        style="width: 18rem; overflow: hidden">
+        style="width: 25rem; overflow: hidden">
         <!-- Contenedor para la imagen redonda -->
-        <div class="rounded-img-container">
-          <img th:src="@{/image/{imageId}(imageId=${supplier.imageCard})}" class="card-img-top " alt="Imagen Redonda" />
-        </div>
+        
 
         <div class="card-body">
-          <h5 th:text="${supplier.category.name}" class="card-title"></h5>
-          <p class="card-text" th:text="${service.description}">
-          </p>
+          <h5 >Detalle del trabajo a realizar</h5>
+          <textarea name="description" id="" cols="30" rows="10" class="form-control"></textarea>
           <!-- calificaciones -->
           <!-- <p th:text="${supplier.comments.score}" class="card-text">
            
@@ -64,11 +61,11 @@
   
   
         <div class="card-body ">
-          <h5 class="card-title ">Precio x hora</h5>
-          <h3 th:text="'$ '+${service.priceHour}" class="titulo-1"></h3>
+          
           <a th:href="@{/contract/form/__${supplier.id}__}"><button class="btn btn-outline-light w-30 py-2"
-              type="submit">Contactar</button></a>
+              type="submit">Enviar solicitud</button></a>
           <!-- calificaciones -->
+        </form>
           <div class="rating">
   
             <!-- La calificación se redondea y se convierte en un entero para determinar cuántas estrellas llenar -->

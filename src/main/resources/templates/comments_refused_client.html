@@ -9,18 +9,18 @@
 
         <section class="py-6 wwihd text-center fondo-seccion">
 
-            <h1 class="p-3 titulo-hero display-5 fw-bold lh-1 mb-3">Comentario para cancelar</h1>
-                <h1 th:text="${contract.supplier.email}"></h1>
-                <form th:action="@{'/contract/comment/refused/' + ${contract.id}}" method="post">
+            <h1 class="p-3 titulo-hero display-5 fw-bold lh-1 mb-3">Comentario para rechazar</h1>
+            <h1 th:text="${contract.supplier.email}"></h1>
+            <div class="container mt-3">
+                <form th:action="@{'/contract/comment/client/refused/' + ${contract.id}}" method="post">
                     <div class="p-1">
-                        <label for="puntuacion"></label>
+                        <label for="puntuacion">puntuacion</label>
                         <div class="p-1">
-                            <!-- <input type="number" value="0" id="puntuacion" name="score" readonly> /// no se porquie el readonly --> 
-                             <input type="number" id="puntuacion"  value ="0" name="score" required>
+                            <input type="number" id="puntuacion" value ="0" name="score" required>
                             <div class="p-1">
                                 <label for="comment">comentario</label>
                                 <div class="p-1">
-                                      <textarea id="comment" name="content" placeholder= "Escribe tu comentario aquí" required></textarea>
+                                    <textarea id="comment" name="content" placeholder= "Escribe tu comentario aquí" required></textarea>
                                     <div class="p-1">
                                         <input type="submit" value="enviar">
                                         </form>
@@ -29,8 +29,9 @@
                             </div>
                         </div>
                     </div>
-
-
+            </div>
+            <div class="p-5">
+                <div class="p-5">
                     <footer
                         th:replace="fragments/footer :: footer"
                         class="fixed-footer">

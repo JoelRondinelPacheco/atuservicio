@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head"></head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+
+    <section class="py-6 wwihd text-center fondo-seccion">
+        <h1 class="p-3 titulo-hero display-5 fw-bold lh-1 mb-3">Comentario para cancelar</h1>
+        <h1 th:text="${contract.supplier.email}"></h1>
+        <div class="container mt-3">
+            <form th:action="@{'/contract/comment/client/canceled/' + ${contract.id}}" method="post">
+                <div class="p-1">
+                    <label for="puntuacion">Puntuación</label>
+                    <div class="p-1">
+                        <input type="number" id="puntuacion" value="0" name="score" required>
+                    </div>
+                </div>
+                <div class="p-1">
+                    <label for="comment">Comentario</label>
+                    <div class="p-1">
+                        <textarea id="comment" name="content" placeholder="Escribe tu comentario aquí" required></textarea>
+                    </div>
+                </div>
+                <div class="p-1">
+                    <input type="submit" value="Enviar">
+                </div>
+            </form>
+        </div>
+    </section>
+    <footer th:replace="fragments/footer :: footer" class="fixed-footer"></footer>
+</body>
+</html>

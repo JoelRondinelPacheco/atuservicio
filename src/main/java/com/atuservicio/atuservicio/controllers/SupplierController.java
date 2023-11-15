@@ -184,7 +184,7 @@ public class SupplierController {
         List<CategoryInfoDTO> categories = this.categoryService.listAll();
         model.addAttribute("categories", categories);
         model.addAttribute("users", users);
-        model.addAttribute("locationFound", true);
+        model.addAttribute("locationFound", true);  
 
         return "services.html";
     }
@@ -207,7 +207,7 @@ public class SupplierController {
                 model.addAttribute("categories", categories);
 
                 model.addAttribute("locationFound", true);
-                model.addAttribute("suppliers", suppliers);
+                model.addAttribute("users", suppliers);
 
                 return "services.html";
             } catch (MyException ex) {
@@ -357,8 +357,7 @@ public class SupplierController {
             } catch (MyException ex) {
 
             }
-            // TODO codigo innecesario para validar email, rompe el registro y sin esta
-            // parte funciona y valida correctamente el email
+            
         }
 
         if (password.isEmpty() || password == null) {
