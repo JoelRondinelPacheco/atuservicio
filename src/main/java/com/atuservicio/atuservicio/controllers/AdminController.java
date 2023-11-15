@@ -344,7 +344,6 @@ public class AdminController {
             model.put("error", e.getMessage());
             return "new_category";
         }
-
     }
 
     private String returnTo(String page, int currentpage, ModelMap model) {
