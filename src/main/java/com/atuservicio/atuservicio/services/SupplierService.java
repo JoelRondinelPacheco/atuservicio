@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -338,21 +339,39 @@ public class SupplierService implements ISupplierService {
         throw new MyException("Usuario no encontrado");
     }
 
+    // public Page<SupplierInfoDTO> getPageByCategoryAndProvince(String category,
+    // String province, int page, int size)
+    // throws MyException {
+    // Sort sort = Sort.by("province");
+    // Pageable pageable = PageRequest.of(page, size, sort);
+    // Page<SupplierInfoDTO> supplierInfo =
+    // convertPageSupplierToPageSupplierDTO(supplierRepository
+    // .findByCategoryAndProvince(province, category, pageable));
+    // // Page<SupplierInfoDTO> supplierInfo =
+    // //
+    // convertPageSupplierToPageSupplierDTO(supplierRepository.findAll(pageable));
+    // if (supplierInfo.isEmpty()) {
+    // throw new MyException("No se encontró proveedor");
+    // }
+
+    // return supplierInfo;
+
+    // }
+
     public Page<SupplierInfoDTO> getPageByCategoryAndProvince(String category, String province, int page, int size)
             throws MyException {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<SupplierInfoDTO> supplierInfo = convertPageSupplierToPageSupplierDTO(supplierRepository
-                .findByCategoryAndProvince(province, category, pageable));
-        // Page<SupplierInfoDTO> supplierInfo =
-        // convertPageSupplierToPageSupplierDTO(supplierRepository.findAll(pageable));
+        Sort sort = Sort.by("province"); // Ordenar por la propiedad "province"
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<SupplierInfoDTO> supplierInfo = convertPageSupplierToPageSupplierDTO(
+                supplierRepository.findByCategoryAndProvince(category, province, pageable));
+
         if (supplierInfo.isEmpty()) {
             throw new MyException("No se encontró proveedor");
         }
 
         return supplierInfo;
-
     }
-
 
     private Page<SupplierInfoDTO> convertPageSupplierToPageSupplierDTO(Page<Supplier> suppliers) {
         for (Supplier iterable_element : suppliers) {
