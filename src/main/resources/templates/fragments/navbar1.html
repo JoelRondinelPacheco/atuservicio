@@ -77,11 +77,15 @@
               </a>
 
             </li>
+            
+
             <li sec:authorize="hasRole('SUPPLIER')"  class="nav-item">
               <a class="barra-desplegable-menu dropdown-item" th:href="@{/supplier/service}"
                 >Perfil Profesional</a
               >
             </li>
+           
+
             
           </ul>
 
@@ -98,7 +102,7 @@
                 <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesion
               </a>
             </li>
-
+            
 
       </ul>
 

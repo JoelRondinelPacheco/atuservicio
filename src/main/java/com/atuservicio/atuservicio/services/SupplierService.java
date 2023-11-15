@@ -359,25 +359,43 @@ public class SupplierService implements ISupplierService {
         throw new MyException("Usuario no encontrado");
     }
 
+    // public Page<SupplierInfoDTO> getPageByCategoryAndProvince(String category,
+    // String province, int page, int size)
+    // throws MyException {
+    // Sort sort = Sort.by("province");
+    // Pageable pageable = PageRequest.of(page, size, sort);
+    // Page<SupplierInfoDTO> supplierInfo =
+    // convertPageSupplierToPageSupplierDTO(supplierRepository
+    // .findByCategoryAndProvince(province, category, pageable));
+    // // Page<SupplierInfoDTO> supplierInfo =
+    // //
+    // convertPageSupplierToPageSupplierDTO(supplierRepository.findAll(pageable));
+    // if (supplierInfo.isEmpty()) {
+    // throw new MyException("No se encontró proveedor");
+    // }
+
+    // return supplierInfo;
+
+    // }
+
     public Page<SupplierInfoDTO> getPageByCategoryAndProvince(String category, String province, int page, int size)
             throws MyException {
         Pageable pageable = PageRequest.of(page, size);
-        Page<SupplierInfoDTO> supplierInfo = convertPageSupplierToPageSupplierDTO(supplierRepository
-                .findByCategoryAndProvince(province, category, pageable));
-        // Page<SupplierInfoDTO> supplierInfo =
-        // convertPageSupplierToPageSupplierDTO(supplierRepository.findAll(pageable));
+
+        Page<SupplierInfoDTO> supplierInfo = convertPageSupplierToPageSupplierDTO(
+                supplierRepository.findByCategoryAndProvince(category, province, pageable));
+
         if (supplierInfo.isEmpty()) {
             throw new MyException("No se encontró proveedor");
         }
 
         return supplierInfo;
-
     }
-
 
     private Page<SupplierInfoDTO> convertPageSupplierToPageSupplierDTO(Page<Supplier> suppliers) {
         for (Supplier iterable_element : suppliers) {
             System.out.println(iterable_element.getName());
+            System.out.println(iterable_element.getCategory().getName());
         }
         Page<SupplierInfoDTO> supplierInformation = suppliers.map(s -> new SupplierInfoDTO(s.getName(),
                 s.getEmail(),
