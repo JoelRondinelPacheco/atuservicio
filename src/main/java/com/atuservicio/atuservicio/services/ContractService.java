@@ -238,7 +238,7 @@ public class ContractService implements IContractService {
         throw new MyException("Contrato no encontrado");
     }
 
-    private ContractInfoDTO createContractInfoDTO(Contract contract) {
+    public ContractInfoDTO createContractInfoDTO(Contract contract) {
         Boolean hasComments;
 
         if (contract.getComments() == null || contract.getComments().size() == 0) {

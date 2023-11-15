@@ -274,7 +274,9 @@ public class ContractController {
         }
     }
     
-    /*
+    //comments_canceled.html --> vista que contiene el form que impacta a esta ruta 
+    //Comentario del cliente (author) por cancelar la solicitud antes de que
+    //el proveedor (receiver) lo apruebe o rechace. (SIN PUNTUACION/SCORE)
     @PostMapping("/comment/canceled/{contractId}")
     public String clientCommentCanceled(@PathVariable String contractId, @RequestParam String content, ModelMap model) {
         try {
@@ -282,13 +284,16 @@ public class ContractController {
             ContractInfoDTO contractDTO = this.contractService.getById(contractId);
             //Instancio un nuevo comentario y lo persisto en la base de datos
             SaveCommentDTO commentDTO = new SaveCommentDTO(contractDTO, content);
-            CommentInfoDTO c = this.commentService.save(commentDTO);
+            CommentInfoDTO commentSaved = this.commentService.save(commentDTO);
+            
+            model.addAttribute("comment", commentSaved);
+            return this.requestsToSuppliers(model);
             
         } catch (MyException ex) {
+            return "index.html";
         }
-        
     }
-    */
+    
     
     
     
@@ -304,7 +309,7 @@ public class ContractController {
     //COMENTARIOS
     @GetMapping("/comments/{contractId}")
     public String commentsList(@PathVariable String contractId, ModelMap model) {
-        //Recupero los comentarios específicos al contrato mediante su id
+        //Recupero los comentarios específs al contrato mediante su id
         List<Comment> comments = this.commentRepository.findByContractId(contractId);
         model.addAttribute("comments", comments);
         return "comments_list";
