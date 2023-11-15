@@ -16,16 +16,15 @@
                 </div>
             </div>
 
-            <table class="table">
+            <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Nombre</th>
                     <th>Correo Electrónico</th>
                     <th>País</th>
                     <th>Provincia</th>
-                    <th>Usuario activo</th>
-                    <th></th>
-                    <th>Cambiar role</th>
+                    <th colspan="2" class="text-center">Cambiar role</th>
+                    <th>Desactivar</th>
 
 
                 </tr>
@@ -36,17 +35,11 @@
                     <td th:text="${client.email}"></td>
                     <td th:text="${client.country}"></td>
                     <td th:text="${client.province}"></td>
-                    <td th:text="${client.active}"></td>
+                    <td><a class="btn btn-primary" th:href="@{'/admin/role/moderator/'+${client.id}+'/clients?currentpage=' + ${currentPage}}">Moderador</a></td>
+                    <td><a class="btn btn-primary" th:href="@{'/admin/role/admin/'+${client.id}+'/clients?currentpage=' + ${currentPage}}">Adminstrador</a></td>
                     <td>
-                        <div th:unless="${client.active}">
-                            <a class="btn btn-primary" th:href="@{'/admin/clients/activate?clientId='+${client.id}+'&'+'currentpage='+${currentPage}}">Dar de alta</a>
-                        </div>
-                        <div th:if="${client.active}">
-                            <a class="btn btn-primary"  th:href="@{'/admin/clients/delete?clientId='+${client.id}+'&'+'currentpage='+${currentPage}}">Dar de Baja</a>
-                        </div>
+                        <a class="btn btn-danger"  th:href="@{'/admin/clients/delete?clientId='+${client.id}+'&'+'currentpage='+${currentPage}}">Dar de Baja</a>
                     </td>
-                    <td><a class="btn btn-primary" th:href="@{'/admin/role/moderator/'+${client.id}}">Moderador</a></td>
-                    <td><a class="btn btn-primary" th:href="@{'/admin/role/admin/'+${client.id}}">Adminstrador</a></td>
                 </tr>
         </tbody>
     </table>
@@ -62,7 +55,7 @@
                 </span>
                 </div>
                 <div class="col-sm-1">
-                    <a th:if="${currentPage < totalPages}" th:href="@{'/admin/clients/' + ${currentPage + 1}}">Siguiente</a>
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/admin/clients/' + ${currentPage + 1}+ '?active=true}}">Siguiente</a>
                     <span th:unless="${currentPage < totalPages}">Siguiente</span>
                 </div>
             </div>

@@ -9,6 +9,12 @@
 </header>
 <div class="container">
   <div th:replace="fragments/adminbtns :: adminbtns"></div>
+  <div class="text-center">
+    <div class="btn-group">
+      <a class="btn" th:classappend="${active == 'active' ? 'btn-primary active' : 'btn-outline-primary'}" th:href="@{/admin/moderators/1?active=true}">Activos</a></button>
+      <a  class="btn" th:classappend="${active == 'inactive' ? 'btn-primary active' : 'btn-outline-primary'}" th:href="@{/admin/moderators/1?active=false}">Inactivos</a></button>
+    </div>
+  </div>
   <table class="table">
     <thead>
     <tr>
@@ -16,10 +22,8 @@
       <th>Correo Electrónico</th>
       <th>País</th>
       <th>Provincia</th>
-      <th>Usuario activo</th>
-      <th></th>
-      <th>Cambiar role</th>
-
+      <th colspan="2" class="text-center">Cambiar role</th>
+      <th>Desactivar</th>
 
     </tr>
     </thead>
@@ -29,17 +33,11 @@
       <td th:text="${moderator.email}"></td>
       <td th:text="${moderator.country}"></td>
       <td th:text="${moderator.province}"></td>
-      <td th:text="${moderator.active}"></td>
+      <td><a class="btn btn-outline-secondary">Client</a></td>
+      <td><a class="btn btn-outline-secondary">Adminstrador</a></td>
       <td>
-        <div th:unless="${moderator.active}">
-          <a class="btn btn-primary" th:href="@{'/admin/moderators/activate?clientId='+${moderator.id}+'&'+'currentpage='+${currentPage}}">Dar de alta</a>
-        </div>
-        <div th:if="${moderator.active}">
-          <a class="btn btn-primary"  th:href="@{'/admin/moderators/delete?clientId='+${moderator.id}+'&'+'currentpage='+${currentPage}}">Dar de Baja</a>
-        </div>
+        <a class="btn btn-success" th:href="@{'/admin/moderators/activate?moderatorId='+${moderator.id}+'&'+'currentpage='+${currentPage}}">Dar de alta</a>
       </td>
-      <td><a class="btn btn-primary" th:href="@{'/admin/role/client/'+${moderator.id}}">Client</a></td>
-      <td><a class="btn btn-primary" th:href="@{'/admin/role/admin/'+${moderator.id}}">Adminstrador</a></td>
     </tr>
     </tbody>
   </table>
@@ -50,12 +48,12 @@
       </div>
       <div class="col-sm-1">
                 <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                    <a th:if="${currentPage != i}" th:href="@{'/admin/moderators/' + ${i}}">[[${i}]]</a>
+                    <a th:if="${currentPage != i}" th:href="@{'/admin/moderators/' + ${i}+ '?active=false'}">[[${i}]]</a>
                     <a th:unless="${currentPage != i}">[[${i}]]</a>
                 </span>
       </div>
       <div class="col-sm-1">
-        <a th:if="${currentPage < totalPages}" th:href="@{'/admin/moderators/' + ${currentPage + 1}}">Siguiente</a>
+        <a th:if="${currentPage < totalPages}" th:href="@{'/admin/moderators/' + ${currentPage + 1}+ '?active=false'}">Siguiente</a>
         <span th:unless="${currentPage < totalPages}">Siguiente</span>
       </div>
     </div>
