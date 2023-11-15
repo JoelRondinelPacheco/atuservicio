@@ -81,7 +81,7 @@
   font-family: 'PT Sans Narrow', sans-serif;
   color: aliceblue; /* Inicialmente, hacemos el texto transparente */
   font-size: 30px;
-  z-index: 0;
+
 }
 .wwihd section{
   width: 100%;
