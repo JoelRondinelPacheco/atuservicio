@@ -55,8 +55,8 @@
   background-image: url('/img/hero.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  filter: opacity(0.5);
-  z-index: 0;
+
+  
 }
 
 

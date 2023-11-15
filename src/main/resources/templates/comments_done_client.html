@@ -12,7 +12,7 @@
             <h1 class="p-3 titulo-hero display-5 fw-bold lh-1 mb-3">Comentario para trabajo bien hecho</h1>
             <h1 th:text="${contract.supplier.email}"></h1>
             <div class="container mt-3">
-                <form th:action="@{'/contract/comment/accept/' + ${contract.id}}" method="post">
+                <form th:action="@{'/contract/comment/client/done/' + ${contract.id}}" method="post">
                     <label for="puntuacion">Puntuacion</label>
                     <div class="p-1">
                         <input type="number" id="puntuacion"  value ="0" name="score" required>

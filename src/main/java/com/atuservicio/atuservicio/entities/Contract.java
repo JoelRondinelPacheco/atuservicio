@@ -53,6 +53,7 @@ public class Contract extends Base{
     private void prePersist() {
         this.customerDone = false;
         this.supplierDone = false;
+        this.rejectedBudget = false;
     }
     
 }
