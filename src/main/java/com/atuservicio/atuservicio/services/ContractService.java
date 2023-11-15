@@ -178,9 +178,15 @@ public class ContractService implements IContractService {
 
         if (contractOptional.isPresent()) {
             Contract contract = contractOptional.get();
-            if (contract.getState().equals(State.APPROVED_SUPPLIER) || (contract.getState().equals(State.PENDING_COMPLETION) )) {
+            /*Para determinar el motivo de rechazo, se tiene en consideración el estado
+            que tenía el contrato antes de setearlo (VER DIAGRAMA 'STATE OF CONTRACT')*/
+            if (contract.getState().equals(State.APPROVED_SUPPLIER)) {
                 contract.setState(State.REFUSED_CLIENT);
-                //En este  punto puede emitir comentario
+                contract.setRejectedBudget(true);   //motivo de rechazo: presupuesto del proveedor
+            }
+            if (contract.getState().equals(State.PENDING_COMPLETION)) {
+                contract.setState(State.REFUSED_CLIENT);
+                contract.setRejectedBudget(false);  //motivo de rechazo: disconformidad en el trabajo del proveedor
             }
             Contract contractSaved = this.contractRepository.save(contract);
             return this.createContractInfoDTO(contractSaved);
@@ -238,7 +244,7 @@ public class ContractService implements IContractService {
         throw new MyException("Contrato no encontrado");
     }
 
-    private ContractInfoDTO createContractInfoDTO(Contract contract) {
+    public ContractInfoDTO createContractInfoDTO(Contract contract) {
         Boolean hasComments;
 
         if (contract.getComments() == null || contract.getComments().size() == 0) {
@@ -255,6 +261,7 @@ public class ContractService implements IContractService {
                 this.userService.createUserInfoDTO(contract.getCustomer()),
                 this.supplierService.createSupplierInfoDTO(contract.getSupplier()),
                 hasComments,
+                contract.getRejectedBudget(),
                 contract.getEstimatedTime());
 
         return contractinfo;

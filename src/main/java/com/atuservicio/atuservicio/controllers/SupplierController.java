@@ -184,7 +184,7 @@ public class SupplierController {
         List<CategoryInfoDTO> categories = this.categoryService.listAll();
         model.addAttribute("categories", categories);
         model.addAttribute("users", users);
-        model.addAttribute("locationFound", true);
+        model.addAttribute("locationFound", true);  
 
         return "services.html";
     }
