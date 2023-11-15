@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<header>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+</header>
+<main class="container col-4 my-6">
+    <div class="justify-content-center">
+<form
+        th:action="@{/admin/category/edit/{categoryId}(categoryId=${category.id})}"
+        method="POST"
+        enctype="multipart/form-data"
+
+>
+
+<div>
+            <img class="img-fluid mb-3" th:src="@{/image/{imageId}(imageId=${category.image_id})}" alt="">
+</div>
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Cambiar imagen</label>
+            <input class="form-control" type="file" id="formFile" name="image">
+        </div>
+
+
+        <div class="mb-3">
+            <label for="name" class="from-label">Nombre</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    name="name"
+                    th:value="${category.name}"
+                    required
+            />
+        </div>
+
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+</form>
+    </div>
+</main>
+
+<footer
+        th:replace="fragments/footer :: footer"
+        class="fixed-footer"
+></footer>
+</body>
+</html>

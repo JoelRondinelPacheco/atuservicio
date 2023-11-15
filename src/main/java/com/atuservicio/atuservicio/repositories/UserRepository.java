@@ -59,7 +59,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     List<User> findUsersByCountry(@Param("country") String country);
 
     //PAGINATED
-    @Query("SELECT u FROM User u WHERE u.role = :role")
-    Page<User> findByRole(@Param("role") Role role, Pageable pageable);
+    @Query("SELECT u FROM User u WHERE u.role = :role AND u.active = :active")
+    Page<User> findByRole(@Param("role") Role role, @Param("active") Boolean active, Pageable pageable);
 
 }
