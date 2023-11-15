@@ -12,7 +12,7 @@
             <h1 class="p-3 titulo-hero display-5 fw-bold lh-1 mb-3">Comentario para rechazar</h1>
             <h1 th:text="${contract.supplier.email}"></h1>
             <div class="container mt-3">
-                <form th:action="@{'/contract/comment/refused/' + ${contract.id}}" method="post">
+                <form th:action="@{'/contract/comment/client/refused/' + ${contract.id}}" method="post">
                     <div class="p-1">
                         <label for="puntuacion">puntuacion</label>
                         <div class="p-1">
