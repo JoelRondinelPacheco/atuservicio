@@ -1,0 +1,107 @@
+<div
+  th:fragment="work_detail"
+  class="container text-center ">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+  <link th:href="@{/css/comment.css}" rel="stylesheet" />
+  <div class="row align-items-center">
+    <div class="col">
+      <div
+        data-aos="fade-down"
+        class="card rounded-card shadow-lg p-3 card-color"
+        style="width: 18rem; overflow: hidden">
+        <!-- Contenedor para la imagen redonda -->
+        <div class="rounded-img-container">
+          <img
+            th:src="@{/image/{imageId}(imageId=${supplier.image})}"
+            class="card-img-top "
+            alt="Imagen Redonda" />
+        </div>
+
+        <div class="card-body">
+          <h5 th:text="${supplier.name}" class="card-title"></h5>
+          <p th:text="${supplier.email}" class="card-text">
+           
+          </p>
+          <p th:text="${supplier.address} + ' ' + ${supplier.address_number}" class="card-text">
+           
+          </p>
+          <p th:text="${supplier.city} + ' ' + ${supplier.province}" class="card-text">
+           
+          </p>
+        
+          <!-- calificaciones -->
+          <div class="rating">
+            <!-- La calificación se redondea y se convierte en un entero para determinar cuántas estrellas llenar -->
+            <!-- <th:block th:each="star : ${#numbers.sequence(1, calificacion)}">
+              <span>☆</span>
+            </th:block> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- comentario -->
+    <div class="col">
+      <div
+        data-aos="fade-down"
+        class="card rounded-card shadow-lg p-3 card-color"
+        style="width: 18rem; overflow: hidden">
+        <!-- Contenedor para la imagen redonda -->
+        <div class="rounded-img-container">
+          <img
+            th:src="@{/image/{imageId}(imageId=${supplier.imageCard})}"
+            class="card-img-top "
+            alt="Imagen Redonda" />
+        </div>
+
+        <div class="card-body">
+          <h5 th:text="${supplier.category.name}"class="card-title"></h5>
+          <p class="card-text"
+            th:text="${service.description}"
+            >
+          </p>
+          <!-- calificaciones -->
+          <!-- <p th:text="${supplier.comments.score}" class="card-text">
+           
+          </p>  -->
+          
+            <!-- La calificación se redondea y se convierte en un entero para determinar cuántas estrellas llenar -->
+            <!-- <th:block th:each="star : ${#numbers.sequence(1, calificacion)}">
+              <span>☆</span>
+            </th:block> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- comentario -->
+    <div class="col">
+      <div
+        data-aos="fade-left"
+        class="card rounded-card shadow-lg p-3 card-color"
+        style="width: 18rem; overflow: hidden">
+        <!-- Contenedor para la imagen redonda -->
+      
+
+        <div class="card-body ">
+          <h5 class="card-title">Precio x hora</h5>
+          <h3 th:text="'$ '+${service.priceHour}" class="display-5 precio"></h3>
+          <a th:href="@{/contract/form/__${supplier.id}__}"><button class="btn btn-outline-light w-30 py-2" type="submit">Contactar</button></a>
+          <!-- calificaciones -->
+          <div class="rating">
+           
+            <!-- La calificación se redondea y se convierte en un entero para determinar cuántas estrellas llenar -->
+            <!-- <th:block th:each="star : ${#numbers.sequence(1, calificacion)}">
+              <span>☆</span>
+            </th:block> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- comentario -->
+  </div>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+
+</div>

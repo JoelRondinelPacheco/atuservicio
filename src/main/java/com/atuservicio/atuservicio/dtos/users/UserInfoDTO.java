@@ -31,7 +31,7 @@ public class UserInfoDTO extends UserDTO {
             String city, String province, String country, String postal_code, String id, Boolean active) {
         super(name, email);
         this.id = id;
-        this.image = image;
+        this.image = image; 
         this.role = role;
         this.active = active;
         this.city = city;
