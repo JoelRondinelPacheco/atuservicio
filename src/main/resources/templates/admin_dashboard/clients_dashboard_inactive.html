@@ -9,9 +9,12 @@
     </header>
         <div class="container">
             <div th:replace="fragments/adminbtns :: adminbtns"></div>
-            <button type="button" class="btn btn-primary"><a class="text-light" th:href="@{/admin/clients/1?active=true}">Ver Activos</a></button>
-
-            <button type="button" class="btn btn-primary"><a  class="text-light" th:href="@{/admin/clients/1?active=false}">Ver inactivos</a></button>
+<div class="text-center">
+            <div class="btn-group">
+                <a class="btn" th:classappend="${active == 'active' ? 'btn-primary active' : 'btn-outline-primary'}" th:href="@{/admin/clients/1?active=true}">Activos</a></button>
+                <a  class="btn" th:classappend="${active == 'inactive' ? 'btn-primary active' : 'btn-outline-primary'}" th:href="@{/admin/clients/1?active=false}">Inactivos</a></button>
+            </div>
+</div>
         <table class="table">
             <thead>
                 <tr>

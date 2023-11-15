@@ -49,8 +49,10 @@ public class AdminController {
         model.addAttribute("clients", clients.getClients());
         model.put("currentRole", "CLIENT");
         if (active) {
+            model.put("active", "active");
             return "admin_dashboard/clients_dashboard";
         } else {
+            model.put("active", "inactive");
             return "admin_dashboard/clients_dashboard_inactive";
         }
     }
