@@ -70,6 +70,12 @@ public class CommentService implements ICommentService{
                 receiver = this.getUserById(commentDTO.getContract().getSupplier().getId());
                 comment.setScore(commentDTO.getScore());
                 break;
+            case DONE_SUPPLIER:
+                //Si el proveedor da por finalizado el trabajo: author=supplier; receiver=customer
+                author = this.getUserById(commentDTO.getContract().getSupplier().getId());
+                receiver = this.getUserById(commentDTO.getContract().getCustomer().getId());
+                comment.setScore(commentDTO.getScore());
+                break;
             default:
                 author = null;
                 receiver = null;
