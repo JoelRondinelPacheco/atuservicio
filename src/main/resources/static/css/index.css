@@ -79,7 +79,7 @@
 .titulo-1 {
   position: absolute;
   font-family: 'PT Sans Narrow', sans-serif;
-  color: aliceblue; /* Inicialmente, hacemos el texto transparente */
+  color: rgb(255, 255, 255); 
   font-size: 30px;
 
 }
