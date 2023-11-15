@@ -12,12 +12,7 @@
   <div class="contenedor-general ">
 
 
-    <!-- <div class="container contenedor-modal">
-      <button class="btn btn-primary boton-buscar" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
-        Buscar proveedores
-      </button>
-
+    <div class="container contenedor-modal">
       <div class="offcanvas offcanvas-start titulo-frame-proveedores" data-bs-backdrop="static" tabindex="-1"
         id="staticBackdrop" aria-labelledby="staticBackdropLabel">
         <div class="offcanvas-header">
@@ -73,59 +68,41 @@
                 <img th:src="@{/img/logo.webp}" alt="logo" class="img-modal" />
 
 
-    <div th:if="${error != null}" class="card text-white bg-warning mb-3 mensajeError mt-5">
-      <div class="card-body">
-        <h5 class="card-title" th:text="${error}"></h5>
-      </div>
-    </div>
+                <div th:if="${error != null}" class="card text-white bg-warning mb-3 mensajeError mt-5">
+                  <div class="card-body">
+                    <h5 class="card-title" th:text="${error}"></h5>
+                  </div>
+                </div>
 
-    <section id="servicios" class="py-5 fondo-seccion text-center">
-        <h1 class="display-4  titulo-experiencia-usuario">Servicios</h1>
-        <div th:replace="fragments/services-card:: services-card"></div>
-    </section> -->
 
-    <div class="row row-cols-4 px-5 card-group">
-      <div th:if="${locationFound}" class="col mt-5" th:each="user : ${users}">
-        <div class="card h-100">
-          <img th:src="@{/image/{imageCard}(imageCard=${user.imageCard})}" class="card-img-top" alt="Servicio" />
-          <div class="card-body">
-            <h5 class="card-title text-truncate" th:text="${user.name}">
-              Nombre
-            </h5>
-            <p id="fondo" class="card-text text-truncate" th:text="${user.category.name}">
-              Categoria
-            </p>
-            <form class="d-flex justify-content-center" sec:authorize="isAuthenticated()"
-              th:action="@{'/supplier/workPreview/' + ${user.id}}">
-              <button class="boton-card-detail boton-ver-mas">
-                Ver mas...
-              </button>
+              </div>
+              <button type="submit" class="btn btn-primary"> Buscar</button>
             </form>
           </div>
         </div>
       </div>
+      <button class="btn btn-primary boton-buscar" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+        Buscar proveedores
+      </button>
     </div>
   </div>
 
 
 
 
-      <div th:if="${error != null}" class="card text-white bg-warning mb-3 mensajeError mt-5">
-        <div class="card-body">
-          <h5 class="card-title" th:text="${error}"></h5>
-        </div>
-      </div>
+  <div th:if="${error != null}" class="card text-white bg-warning mb-3 mensajeError mt-5">
+    <div class="card-body">
+      <h5 class="card-title" th:text="${error}"></h5>
+    </div>
+  </div>
 
-    <section id="servicios" class="py-5 fondo-seccion text-center ">
-      <div class="contenedor-titulo ">
-        <h1 class="display-4  titulo-1">Proveedores</h1>
-      </div>
-      <div  th:replace="fragments/suppliers-card:: suppliers-card"></div>
-    </section>
-
-  
-
-
+  <section id="servicios" class="py-5 fondo-seccion text-center ">
+    <div class="contenedor-titulo ">
+      <h1 class="display-4  titulo-1">Proveedores</h1>
+    </div>
+    <div th:replace="fragments/suppliers-card:: suppliers-card"></div>
+  </section>
   </div>
 
 </body>
