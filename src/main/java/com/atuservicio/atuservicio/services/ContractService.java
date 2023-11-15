@@ -34,21 +34,22 @@ public class ContractService implements IContractService {
 
     @Autowired
     private SupplierService supplierService;
-
+    
+    //EL CLIENTE ENVÍA LA SOLICITUD AL PROVEEDOR
     @Override
-    public ContractInfoDTO save(SaveContractDTO requestDTO) throws MyException {
+    public ContractInfoDTO save(SaveContractDTO contractDTO) throws MyException {
 
         User customer;
         Supplier supplier;
 
-        Optional<User> userOptional = userRepository.findById(requestDTO.getCustomer().getId());
+        Optional<User> userOptional = userRepository.findById(contractDTO.getCustomer().getId());
         if (userOptional.isPresent()) {
             customer = userOptional.get();
         } else {
             throw new MyException("Usuario no encontrado");
         }
 
-        Optional<Supplier> supplierOptional = supplierRepository.findById(requestDTO.getSupplier().getId());
+        Optional<Supplier> supplierOptional = supplierRepository.findById(contractDTO.getSupplier().getId());
         if (supplierOptional.isPresent()) {
             supplier = supplierOptional.get();
         } else {
@@ -58,13 +59,13 @@ public class ContractService implements IContractService {
         Contract contract = new Contract();
         contract.setCustomer(customer);
         contract.setSupplier(supplier);
-        contract.setDescription(requestDTO.getDescription());
+        contract.setDescription(contractDTO.getDescription());
         contract.setState(State.PENDING_APPROVAL);
 
 
         Contract contractSaved = this.contractRepository.save(contract);
 
-        return this.createContractInfoDTO(contractSaved);
+        return this.createContractInfoDTO(contractSaved);  //linea 212
     }
 
     @Override
@@ -94,13 +95,10 @@ public class ContractService implements IContractService {
 
     @Override
     public List<ContractInfoDTO> getByUserId(String id) throws MyException {
-        System.out.println("Ingreso al servicio de busquda por idUsuario " + id);
         List<Contract> contracts = this.contractRepository.findByCustomerId(id);
-        System.out.println("Recuperé las solicitudes");
         List<ContractInfoDTO> requestsInfo = new ArrayList<>();
         for (Contract r : contracts) {
             ContractInfoDTO rInfo = this.createContractInfoDTO(r);
-            System.out.println(r.getDescription());
             requestsInfo.add(rInfo);
         }
         return requestsInfo;
@@ -118,27 +116,30 @@ public class ContractService implements IContractService {
         }
         return requestsInfo;
     }
-
+    
+    //El PROVEEDOR ACEPTA LA SOLICITUD DEL CLIENTE ENVIANDO UN TIEMPO ESTIMADO (COTIZA)
     @Override
-    public ContractInfoDTO acceptSupplier(ContractInfoDTO requestDTO) throws MyException {
+    public ContractInfoDTO acceptSupplier(ContractInfoDTO contractDTO) throws MyException {
         
-        Optional<Contract> requestOptional = this.contractRepository.findById(requestDTO.getId());
+        Optional<Contract> contractOptional = this.contractRepository.findById(contractDTO.getId());
         
-        if (requestOptional.isPresent()) {
-            Contract contract = requestOptional.get();
+        if (contractOptional.isPresent()) {
+            Contract contract = contractOptional.get();
             if (contract.getState().equals(State.PENDING_APPROVAL)) {
-                contract.setState(State.APPROVED);
-                contract.setEstimatedTime(requestDTO.getEstimatedTime());
+                contract.setState(State.APPROVED_SUPPLIER);
+                contract.setEstimatedTime(contractDTO.getEstimatedTime());
             }
             Contract contractSaved = this.contractRepository.save(contract);
-            return this.createContractInfoDTO(contractSaved);
+            return this.createContractInfoDTO(contractSaved);  //linea 212
         }
         throw new MyException("Solicitud no encontrada");
     }
-
-    public ContractInfoDTO declineSupplier(ContractInfoDTO requestDTO) throws MyException {
+    
+    //El PROVEEDOR RECHAZA LA SOLICITUD DEL CLIENTE
+    @Override
+    public ContractInfoDTO declineSupplier(ContractInfoDTO contractDTO) throws MyException {
         
-        Optional<Contract> contractOptional = this.contractRepository.findById(requestDTO.getId());
+        Optional<Contract> contractOptional = this.contractRepository.findById(contractDTO.getId());
         
         if (contractOptional.isPresent()) {
             Contract contract = contractOptional.get();
@@ -150,7 +151,26 @@ public class ContractService implements IContractService {
         }
         throw new MyException("Solicitud no encontrada");
     }
-
+    
+    //EL CLIENTE ACEPTA LA COTIZACION DEL PROVEEDOR
+    @Override
+    public ContractInfoDTO approveBudgetClient(ContractInfoDTO contractDTO) throws MyException {
+        
+        Optional<Contract> contractOptional = this.contractRepository.findById(contractDTO.getId());
+        
+        if (contractOptional.isPresent()) {
+            Contract contract = contractOptional.get();
+            if (contract.getState().equals(State.APPROVED_SUPPLIER)) {
+                contract.setState(State.PENDING_COMPLETION);
+            }
+            Contract contractSaved = this.contractRepository.save(contract);
+            return this.createContractInfoDTO(contractSaved);
+        }
+        throw new MyException("Solicitud no encontrada");
+    }
+    
+    //1. EL CLIENTE RECHAZA EL SERVICIO COTIZADO POR EL PROVEEDOR
+    //2. EL CLIENTE QUEDA DISCONFORME CON EL TRABAJO REALIZADO POR EL PROVEEDOR
     @Override
     public ContractInfoDTO declineClient(String contractId) throws MyException {
 
@@ -158,7 +178,7 @@ public class ContractService implements IContractService {
 
         if (contractOptional.isPresent()) {
             Contract contract = contractOptional.get();
-            if (contract.getState().equals(State.APPROVED) || (contract.getState().equals(State.PENDING_APPROVAL) )) {
+            if (contract.getState().equals(State.APPROVED_SUPPLIER) || (contract.getState().equals(State.PENDING_COMPLETION) )) {
                 contract.setState(State.REFUSED_CLIENT);
                 //En este  punto puede emitir comentario
             }
@@ -167,7 +187,8 @@ public class ContractService implements IContractService {
         }
         throw new MyException("Solicitud no encontrada");
     }
-
+    
+    //EL CLIENTE CANCELA LA SOLICITUD QUE HIZO ANTES DE QUE EL PRROVEEDOR LA ACEPTE O RECHACE
     @Override
     public ContractInfoDTO cancelClient(String contractId) throws MyException {
 
@@ -175,20 +196,24 @@ public class ContractService implements IContractService {
 
         if (contractOptional.isPresent()) {
             Contract contract = contractOptional.get();
-            if (contract.getState().equals(State.APPROVED) || (contract.getState().equals(State.PENDING_APPROVAL) )) {
+            if (contract.getState().equals(State.PENDING_APPROVAL)) {
                 contract.setState(State.CANCELED_CLIENT);
                 //En este  punto puede emitir comentario
             }
             Contract contractSaved = this.contractRepository.save(contract);
-            return this.createContractInfoDTO(contractSaved);
+            return this.createContractInfoDTO(contractSaved); //linea 212
         }
         throw new MyException("Solicitud no encontrada");
     }
+    
+    //EL CLIENTE CONSIDERA FINALIZADO EL TRABAJO DEL PROVEEDOR Y QUEDA CONFORME
     @Override
     public ContractInfoDTO clientDone(String contractId) throws MyException {
         Contract contract = this.getContractById(contractId);
         contract.setCustomerDone(true);
-        contract.setState(State.DONE);
+        if (contract.getState().equals(State.PENDING_COMPLETION)) {
+            contract.setState(State.DONE_CLIENT);
+        }
         Contract contractDone = this.contractRepository.save(contract);
         return createContractInfoDTO(contractDone);
     }
@@ -197,7 +222,9 @@ public class ContractService implements IContractService {
     public ContractInfoDTO supplierDone(String contractId) throws MyException {
         Contract contract = this.getContractById(contractId);
         contract.setSupplierDone(true);
-        contract.setState(State.DONE);
+        if (contract.getState().equals(State.PENDING_COMPLETION)) {
+            contract.setState(State.DONE_SUPPLIER);
+        }
         Contract contractDone = this.contractRepository.save(contract);
         return createContractInfoDTO(contractDone);
     }
@@ -219,9 +246,10 @@ public class ContractService implements IContractService {
         } else {
             hasComments = true;
         }
-        ContractInfoDTO requestinfo = new ContractInfoDTO(
+        ContractInfoDTO contractinfo = new ContractInfoDTO(
                 contract.getId(),
                 contract.getCreatedAt(),
+                contract.getUpdatedAt(),
                 contract.getDescription(),
                 contract.getState(),
                 this.userService.createUserInfoDTO(contract.getCustomer()),
@@ -229,7 +257,7 @@ public class ContractService implements IContractService {
                 hasComments,
                 contract.getEstimatedTime());
 
-        return requestinfo;
+        return contractinfo;
     }
 
     private Contract getContractById(String id) throws MyException {
@@ -239,5 +267,7 @@ public class ContractService implements IContractService {
         }
         throw new MyException("Contrato no encontrado");
     }
+
+    
 
 }

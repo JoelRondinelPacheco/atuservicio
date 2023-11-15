@@ -102,9 +102,20 @@ public class SupplierService implements ISupplierService {
         return suppliersDTO;
     }
 
+    @Override
     public SupplierPaginatedDTO findPaginated(int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
         Page<Supplier> suppliers = this.supplierRepository.findAll(pageable);
+        List<SupplierInfoDTO> suppliersDTO = new ArrayList<>();
+        for (Supplier s : suppliers) {
+            suppliersDTO.add(this.createSupplierInfoDTO(s));
+        }
+        return new SupplierPaginatedDTO(suppliersDTO, suppliers.getTotalPages(), suppliers.getTotalElements());
+    }
+
+    public SupplierPaginatedDTO findPaginatedByActive(int pageNumber, int pageSize, Boolean active) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+        Page<Supplier> suppliers = this.supplierRepository.findAllActive(pageable, active);
         List<SupplierInfoDTO> suppliersDTO = new ArrayList<>();
         for (Supplier s : suppliers) {
             suppliersDTO.add(this.createSupplierInfoDTO(s));
@@ -183,6 +194,11 @@ public class SupplierService implements ISupplierService {
         throw new MyException("Proveedor no encontrado por email");
     }
 
+    @Override
+    public SupplierInfoDTO convertToSupplier(UserInfoDTO customerDTO, CategoryInfoDTO categoryDTO) throws MyException {
+        return null;
+    }
+
     public List<SupplierInfoDTO> getSearchSuppliers(UserSearchDTO userSearch, String category) throws MyException {
 
         List<SupplierInfoDTO> userInformation = new ArrayList<>();
@@ -224,7 +240,7 @@ public class SupplierService implements ISupplierService {
         return infoSuppliers;
     }
 
-    public ServiceInfoDTO getServiceInfo(String id) throws MyException {
+    public ServiceInfoDTO getServiceInfo(String id) throws MyException {  //cambiar el parámetro a email
         Optional<Supplier> supplierOptional = this.supplierRepository.findByEmailSupplier(id);
         if (supplierOptional.isPresent()) {
             Supplier supplier = supplierOptional.get();
@@ -298,9 +314,9 @@ public class SupplierService implements ISupplierService {
         return new ServiceInfoDTO(supplier.getName(), supplier.getEmail(), supplier.getImageCard().getId(), category,
                 supplier.getDescription(), supplier.getPriceHour(), images);
     }
-
+    
     @Override
-    public SupplierInfoDTO convertToSupplier(UserInfoDTO customerDTO, CategoryInfoDTO categoryDTO) throws MyException {
+    public SupplierInfoDTO convertToSupplier(UserInfoDTO customerDTO, CategoryInfoDTO categoryDTO, String email) throws MyException {
 
         Optional<User> userOptional = this.userRepository.findById(customerDTO.getId());
         if (userOptional.isPresent()) {
@@ -310,7 +326,7 @@ public class SupplierService implements ISupplierService {
             // Se instancia un proveedor con los mismos atributos para persistirlo en la BD
             Supplier supplier = new Supplier();
             supplier.setName(user.getName());
-            supplier.setEmail(user.getEmail());
+            supplier.setEmail(email);   //HABLAR CON EL EQUIPO!
             supplier.setPassword(user.getPassword());
             supplier.setRole(Role.SUPPLIER);
 
@@ -327,12 +343,17 @@ public class SupplierService implements ISupplierService {
             Category category = this.categoryRepository.findById(categoryDTO.getId()).get();
             supplier.setCategory(category);
             supplier.setImageCard(category.getImage());
-            // CONSULTAR: ¿Por qué la imagecard del proveedor toma la imagen de su rubro?
 
-            /*
-             * El precio x hora, la descripción y la gelería de imagenes lo
-             * completa el proveedor en la vista work_edit.html
-             */
+            //CONSULTAR: ¿Por qué la imagecard del proveedor toma la imagen de su rubro?
+            
+            Image image2 = this.imageService.getById("d4fe09fd-56f6-4b55-a1b9-58671d68f1f1");
+            List<Image> images = new ArrayList<>();
+            images.add(image2);
+            supplier.setImageGallery(images);
+            
+            /*El precio x hora, la descripción y la gelería de imagenes lo 
+            completa el proveedor en la vista work_edit.html*/
+
             Supplier supplierSaved = this.supplierRepository.save(supplier);
             return this.createSupplierInfoDTO(supplierSaved);
         }

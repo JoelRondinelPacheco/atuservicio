@@ -4,27 +4,24 @@
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:replace="fragments/head :: head"></head>
 
-    <body>
+    <body class="fondo-seccion " style="background-size: cover; margin-bottom: auto;">
 
         <nav th:replace="fragments/navbar :: navbar"></nav>
 
-        <section class="p-6 wwihd text-center fondo-seccion">
-
-            <div class="container overflow-hidden text-center">
-                <div class="row gy-5">
-                    <div class="col-6">
-                        <div class="p-6">
-                            <h3 class=" titulo-hero display-5 fw-bold lh-1 mb-3">Integrantes</h3>
-                            <h4 class="integrantes">
+        <div class="container  text-center container " >
+            <div class="row mt-5">
+              <div class="col align-self-start">
+                <h3 class=" titulo-hero display-5 mt-5 fw-bold lh-1 mb-3">Integrantes</h3>
+                            <h4 class="integrantes link-underline-none">
                                 <a
-                                    class="lead intro-texto-hero "
+                                    class="lead intro-texto-hero link-underline-none"
                                     href="https://github.com/JoelRondinelPacheco"
                                     target="_blank"
                                     >Randinel Pacheco Joel</a>
                             </h4>
                             <h4 class="integrantes">
                                 <a
-                                    class="lead intro-texto-hero "
+                                    class="lead intro-texto-hero link-underline-none"
                                     href="https://github.com/juan-verdini"
                                     target="_blank"
                                     >Verdini Juan
@@ -32,7 +29,7 @@
                             </h4>
                             <h4 class="integrantes">
                                 <a
-                                    class="lead intro-texto-hero "
+                                    class="lead intro-texto-hero link-underline-none"
                                     href="https://github.com/hernadar"
                                     target="_blank"
                                     >Hernández Darío
@@ -40,21 +37,21 @@
                             </h4>
                             <h4 class="integrantes">
                                 <a
-                                    class="lead intro-texto-hero "
+                                    class="lead intro-texto-hero link-underline-none"
                                     href="https://github.com/Kund097"
                                     target="_blank"
                                     >Vallejos Facundo</a>
                             </h4>
                             <h4 class="integrantes">
                                 <a
-                                    class="lead intro-texto-hero "
+                                    class="lead intro-texto-hero link-underline-none"
                                     href="https://github.com/javote94"
                                     target="_blank">
                                     Rameri Javier</a>
                             </h4>
                             <h4 class="integrantes">
                                 <a
-                                    class="lead intro-texto-hero "
+                                    class="lead intro-texto-hero link-underline-none "
                                     href="https://github.com/sebamacha"
                                     target="_blank"
                                     >Macharette Sebastián
@@ -66,60 +63,57 @@
                             </h4>
                             <h4 class="integrantes">
                                 <a
-                                    class="lead intro-texto-hero "
+                                    class="lead intro-texto-hero link-underline-none"
                                     href="https://github.com/Roan1982"
                                     target="_blank"
                                     >Steklein Roberto
                                 </a>
-                            </h4>
+              </div>
+              <div class="col align-self-center">
+                <h1 class=" titulo-hero display-5 fw-bold lh-1 mb-3">Redes sociales</h1>
+                <br>
+                <a
+                    href="https://www.instagram.com/atuservicioteam"
+                    target="_blank"
+                    class="mr-3 iconos-redes">
+                   <i class="fa-brands fa-instagram fa-beat fa-2xl" style="color: #ffffff;"></i>
+                </a>
+
+                <a
+                    href="https://www.facebook.com/people/Atuservicio/61553224941936/"
+                    target="_blank"
+                    class="mr-3 iconos-redes">
+                    <i class="fa-brands fa-facebook fa-beat fa-2xl" style="color: #ffffff;"></i>
+                </a>
+
+                <a
+                    href="mailto:atuservicioteam@gmail.com"
+                    target="_blank"
+                    class="mr-3 iconos-redes">
+                   <i class="fa-regular fa-envelope fa-beat fa-2xl" style="color: #ffffff;"></i>
+                </a>
+
+                <a
+                    href="https://github.com/JoelRondinelPacheco/atuservicio"
+                    target="_blank"
+                    class="mr-3 iconos-redes">
+                    <i class="fa-brands fa-github fa-beat fa-2xl" style="color: #ffffff;"></i>
+                </a>
+              </div>
+              <div class="col align-self-end">
+                <div class="p-6"  style="height: 80%; width: auto; margin-top:40px">
+                            <img class="redes-img" style="height: 80%; width: auto" src="/img/logo.png" alt="" />
                         </div>
-                    </div>
-                   
-                    <div class="col-6">
-                        <div class="p-6">
-                            <img class="redes-img" src="/img/logo.png" alt="" />
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="p-3">
-                            <h1 class=" titulo-hero display-5 fw-bold lh-1 mb-3">Redes sociales</h1>
-                            <br>
-                            <a
-                                href="https://www.instagram.com/atuservicioteam"
-                                target="_blank"
-                                class="mr-3 iconos-redes">
-                               <i class="fa-brands fa-instagram fa-beat fa-2xl" style="color: #ffffff;"></i>
-                            </a>
-
-                            <a
-                                href="https://www.facebook.com/people/Atuservicio/61553224941936/"
-                                target="_blank"
-                                class="mr-3 iconos-redes">
-                                <i class="fa-brands fa-facebook fa-beat fa-2xl" style="color: #ffffff;"></i>
-                            </a>
-
-                            <a
-                                href="mailto:atuservicioteam@gmail.com"
-                                target="_blank"
-                                class="mr-3 iconos-redes">
-                               <i class="fa-regular fa-envelope fa-beat fa-2xl" style="color: #ffffff;"></i>
-                            </a>
-
-                            <a
-                                href="https://github.com/JoelRondinelPacheco/atuservicio"
-                                target="_blank"
-                                class="mr-3 iconos-redes">
-                                <i class="fa-brands fa-github fa-beat fa-2xl" style="color: #80ffff;"></i>
-                            </a>
-
-                        </div>
-                    </div>
-                </div>
+              </div>
+              <div style="margin-bottom: 70px;">
+                <br>
+                <br>
+              </div>
             </div>
-            <br>
-            <br>
-            <br>
+         
+        
+
+            
 
             <footer
                 th:replace="fragments/footer :: footer"
