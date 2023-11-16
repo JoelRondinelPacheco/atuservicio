@@ -102,7 +102,7 @@
             <!--Si el contrato está pendiente de aprobación por parte del proveedor, el cliente tiene la opción de cancelarlo antes (CANCELED_CLIENT)-->
             <td
               style="background-color: #c0aaca; color: white"
-              th:if="${contract.state.name() =='CANCELED_CLIENT'}">
+              th:if="${contract.state.name() =='CANCELED_CLIENT'} or ${contract.state.name() =='REFUSED_SUPPLIER'} or ${contract.state.name() =='DONE_CLIENT'}">
               -
             </td>
 
