@@ -4,6 +4,12 @@
   font-family: 'PT Sans Narrow', sans-serif;
 }
 
+.contenedor-general{
+  width: 100%;
+  height: 100%;
+  margin-top: 70px;
+
+}
 /* imagen del fonde del hero  */
 
 .fondo-seccion {
@@ -31,11 +37,7 @@
   transition: width 0.5s ease; /* Agrega una transición suave al cambiar el tamaño */
 }
 
-@media (max-width: 768px) {
-  .logo {
-    width: 80px; /* Tamaño para pantallas pequeñas */
-  }
-}
+
 .contenedor-titulo{
   position: relative;
   display: flex;
@@ -45,7 +47,7 @@
   position: absolute;
   font-family: 'PT Sans Narrow', sans-serif;
   color: rgb(255, 255, 255); 
-  font-size: 30px;
+  font-size: 15px;
 
 }
 .wwihd section{
@@ -54,7 +56,6 @@
 }
 
 /* fin fondo seccion */
-
 
 
 /* titulo experiencia de nuestros usuarios */
@@ -100,3 +101,28 @@
   }
 }
 
+@media (max-width: 768px) {
+  .logo {
+    width: 80px; /* Tamaño para pantallas pequeñas */
+  }
+}
+/* Estilo general para la barra de desplazamiento */
+::-webkit-scrollbar {
+  width: 12px; /* Ancho de la barra de desplazamiento */
+}
+
+/* Estilo del "cuerpo" de la barra de desplazamiento */
+::-webkit-scrollbar-track {
+  background-color: #9A76A6; /* Color de fondo de la barra de desplazamiento */
+}
+
+/* Estilo del "pulgar" de la barra de desplazamiento */
+::-webkit-scrollbar-thumb {
+  background-color: #8c519e;  /* Color del pulgar de la barra de desplazamiento */
+  border-radius: 6px; /* Borde redondeado del pulgar */
+}
+
+/* Estilo del "pulgar" de la barra de desplazamiento cuando está en hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #8933a3; /* Color del pulgar de la barra de desplazamiento en hover */
+}

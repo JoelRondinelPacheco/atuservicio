@@ -91,7 +91,6 @@ public class ContractController {
             SaveContractDTO contractDTO = new SaveContractDTO(customerDTO, supplierDTO, description);
             //El contrato se envía a la capa de servicios para inicializar su estado como PENDING_APPROVAL
             ContractInfoDTO c = this.contractService.save(contractDTO);
-            
 
             model.put("exito", "Solicitud enviada al proveedor exitosamente");
             return "index.html";
@@ -147,7 +146,7 @@ public class ContractController {
             ContractInfoDTO contractDTO = this.contractService.getById(contractId);
             //El contrato se envía a la capa de servicios para cambiar su estado a REFUSED_SUPPLIER
             ContractInfoDTO contractDeclined = this.contractService.declineSupplier(contractDTO);
-            
+
             model.addAttribute("contract", contractDeclined);
             return "comments_refused_supplier.html";
 
@@ -166,7 +165,15 @@ public class ContractController {
             //El contrato se envía a la capa de servicios para cambiar su estado a PENDING_COMPLETION
             ContractInfoDTO c = this.contractService.approveBudgetClient(contractDTO);
 
-            return "redirect:/contract/list/suppliers";
+            //Recupero los detalles del usuario cliente logueado
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            UserInfoDTO customerDTO = userService.getSearchEmailUser(auth.getName());
+            //Recupero la lista de solicitudes que realizó el cliente mediante su id
+            List<ContractInfoDTO> contracts = contractService.getByUserId(customerDTO.getId());
+            List<Comment> comments = this.commentRepository.findAll();
+
+            model.addAttribute("contracts", contracts);
+            return "request_to_supplier_list.html";
 
         } catch (MyException ex) {
             model.put("error", ex.getMessage());
@@ -183,7 +190,17 @@ public class ContractController {
             ContractInfoDTO contractDTO = this.contractService.declineClient(contractId);
 
             if (contractDTO.isRejectedBudget()) {
+
+                //Recupero los detalles del usuario cliente logueado
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                UserInfoDTO customerDTO = userService.getSearchEmailUser(auth.getName());
+                //Recupero la lista de solicitudes que realizó el cliente mediante su id
+                List<ContractInfoDTO> contracts = contractService.getByUserId(customerDTO.getId());
+                List<Comment> comments = this.commentRepository.findAll();
+
+                model.addAttribute("contracts", contracts);
                 return "request_to_supplier_list.html";
+
             } else {
                 model.addAttribute("contract", contractDTO);
                 return "comments_refused_client.html";
@@ -226,7 +243,6 @@ public class ContractController {
     }
 
     //----------------------------------1ER COMENTARIO-----------------------------
-    
     //comments_canceled_client.html --> vista que contiene el form que impacta a esta ruta 
     //Comentario del cliente (author) al proveedor (receiver). Sin réplica y sin score (puntuacion)
     @PostMapping("/comment/client/canceled/{contractId}")
@@ -237,13 +253,13 @@ public class ContractController {
             //Instancio un nuevo comentario y lo persisto en la base de datos
             SaveCommentDTO commentDTO = new SaveCommentDTO(contractDTO, content);
             CommentInfoDTO commentSaved = this.commentService.save(commentDTO);
-            
+
             //Recupero los detalles del usuario cliente logueado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             UserInfoDTO customerDTO = userService.getSearchEmailUser(auth.getName());
             //Recupero la lista de solicitudes que realizó el cliente mediante su id
             List<ContractInfoDTO> contracts = contractService.getByUserId(customerDTO.getId());
-            
+
             model.addAttribute("contracts", contracts);
             model.addAttribute("comment", commentSaved);
             return "request_to_supplier_list.html";
@@ -263,17 +279,17 @@ public class ContractController {
             //Instancio un nuevo comentario y lo persisto en la base de datos
             SaveCommentDTO commentDTO = new SaveCommentDTO(contractDTO, content);
             CommentInfoDTO commentSaved = this.commentService.save(commentDTO);
-            
+
             //Recupero los detalles del usuario proveedor logueado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             SupplierInfoDTO supplierDTO = supplierService.getByEmail(auth.getName());
             //Recupero la lista de solicitudes que recibió el proveedor mediante su id
             List<ContractInfoDTO> contracts = contractService.getBySupplierId(supplierDTO.getId());
-            
+
             model.addAttribute("contracts", contracts);
             model.addAttribute("comment", commentSaved);
             return "request_from_customer_list.html";
-            
+
         } catch (MyException ex) {
             return "index.html";
         }
@@ -290,13 +306,13 @@ public class ContractController {
             //Instancio un nuevo comentario y lo persisto en la base de datos
             SaveCommentDTO commentDTO = new SaveCommentDTO(contractDTO, content, score);
             CommentInfoDTO commentSaved = this.commentService.save(commentDTO);
-            
+
             //Recupero los detalles del usuario cliente logueado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             UserInfoDTO customerDTO = userService.getSearchEmailUser(auth.getName());
             //Recupero la lista de solicitudes que realizó el cliente mediante su id
             List<ContractInfoDTO> contracts = contractService.getByUserId(customerDTO.getId());
-            
+
             model.addAttribute("contracts", contracts);
             model.addAttribute("comment", commentSaved);
             return "request_to_supplier_list.html";
@@ -317,13 +333,13 @@ public class ContractController {
             //Instancio un nuevo comentario y lo persisto en la base de datos
             SaveCommentDTO commentDTO = new SaveCommentDTO(contractDTO, content, score);
             CommentInfoDTO commentSaved = this.commentService.save(commentDTO);
-            
+
             //Recupero los detalles del usuario cliente logueado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             UserInfoDTO customerDTO = userService.getSearchEmailUser(auth.getName());
             //Recupero la lista de solicitudes que realizó el cliente mediante su id
             List<ContractInfoDTO> contracts = contractService.getByUserId(customerDTO.getId());
-            
+
             model.addAttribute("contracts", contracts);
             model.addAttribute("comment", commentSaved);
             return "request_to_supplier_list.html";
@@ -345,18 +361,24 @@ public class ContractController {
             SaveCommentDTO commentDTO = new SaveCommentDTO(contractDTO, content, score);
             CommentInfoDTO commentSaved = this.commentService.save(commentDTO);
             
+            //Recupero los detalles del usuario proveedor logueado
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            SupplierInfoDTO supplierDTO = supplierService.getByEmail(auth.getName());
+            //Recupero la lista de solicitudes que recibió el proveedor mediante su id
+            List<ContractInfoDTO> contracts = contractService.getBySupplierId(supplierDTO.getId());
+
+            model.addAttribute("contracts", contracts);
             model.addAttribute("comment", commentSaved);
-            return this.requestsFromCustomers(model);
-            
+            return "request_from_customer_list.html";
+
         } catch (MyException ex) {
             return "index.html";
         }
     }
-    
+
     //----------------------------RESPUESTA DEL PROVEEDOR-----------------------------
     /*POR ESCASEZ DE TIEMPO, EN LOS SIGUIENTES MÉTODOS TRATAMOS CON LAS ENTIDADES
     ORIGINALES Y LOS REPOSITORIOS DIRECTAMENTE*/
-    
     //comments_refused_client.html --> vista que contiene el form que impacta a esta ruta
     //El proveedor (author) responde el comentario negativo del cliente (receiver).
     @PostMapping("/response/supplier/refused/{contractId}")
@@ -366,25 +388,24 @@ public class ContractController {
             Contract contract = this.contractService.getFullContractById(contractId);
             User author = this.userService.getUserById(contract.getSupplier().getId());
             User receiver = this.userService.getUserById(contract.getCustomer().getId());
-            
+
             Comment comment = new Comment();
             comment.setAuthor(author);
             comment.setReceiver(receiver);
             comment.setContract(contract);
             comment.setContent(content);
             comment.setScore(score);
-            
+
             Comment commentSaved = this.commentRepository.save(comment);
-            
+
             model.addAttribute("comment", commentSaved);
             return this.requestsFromCustomers(model);
-            
+
         } catch (MyException ex) {
             return "index.html";
         }
     }
-    
-    
+
     //comments_done_client.html --> vista que contiene el form que impacta a esta ruta
     //El proveedor (author) responde el comentario positivo del cliente (receiver).
     @PostMapping("/response/supplier/done/{contractId}")
@@ -394,28 +415,51 @@ public class ContractController {
             Contract contract = this.contractService.getFullContractById(contractId);
             User author = this.userService.getUserById(contract.getSupplier().getId());
             User receiver = this.userService.getUserById(contract.getCustomer().getId());
-            
+
             Comment comment = new Comment();
             comment.setAuthor(author);
             comment.setReceiver(receiver);
             comment.setContract(contract);
             comment.setContent(content);
             comment.setScore(score);
-            
+
             Comment commentSaved = this.commentRepository.save(comment);
-            
+
             model.addAttribute("comment", commentSaved);
             return this.requestsFromCustomers(model);
-            
+
         } catch (MyException ex) {
             return "index.html";
         }
-    
+
     }
-    
+
     //----------------------------RESPUESTA DEL CLIENTE-----------------------------
     //comments_done_supplier.html' -->  vista que contiene el form que impacta a esta ruta
     //El cliente (author) responde el comentario del proveedor (receiver) que dio por finalizado el trabajo.
+    @GetMapping("/response/client/done/{contractId}")
+    public String clientResponseDoneToSupplier(@PathVariable String contractId,
+            ModelMap model) {
+        try {
+            Contract contract = this.contractService.getFullContractById(contractId);
+            User author = this.userService.getUserById(contract.getCustomer().getId());
+            User receiver = this.userService.getUserById(contract.getSupplier().getId());
+
+            List <CommentInfoDTO> comments = commentService.findByContracId(contractId);
+                     
+            
+        
+
+           model.addAttribute("comments", comments);
+           return this.requestsToSuppliers(model);
+
+        } catch (MyException ex) {
+            return "index.html";
+        }
+
+    }
+    
+    
     @PostMapping("/response/client/done/{contractId}")
     public String clientResponseDone(@PathVariable String contractId,
             @RequestParam String content, @RequestParam Double score, ModelMap model) {
@@ -423,35 +467,26 @@ public class ContractController {
             Contract contract = this.contractService.getFullContractById(contractId);
             User author = this.userService.getUserById(contract.getCustomer().getId());
             User receiver = this.userService.getUserById(contract.getSupplier().getId());
-            
+
             Comment comment = new Comment();
             comment.setAuthor(author);
             comment.setReceiver(receiver);
             comment.setContract(contract);
             comment.setContent(content);
             comment.setScore(score);
-            
+
             Comment commentSaved = this.commentRepository.save(comment);
-            
+
             model.addAttribute("comment", commentSaved);
             return this.requestsToSuppliers(model);
-            
-            
+
         } catch (MyException ex) {
             return "index.html";
         }
-    
+
     }
-    
-    /*
-    // DESPUES DEL RECHAZO DEL CLIENTE, EL SUPPLIER PODRIA RESPONDER EL COMENTARIO (RECLAMO)
-    @GetMapping("/replica/{contractId}")
-    public String responseSupplier(@PathVariable String contractId) {
-        // Comentario que le dejo el cliente
-        return null;
-    }
-    */
-    
+
+    //--------------------VER COMENTARIOS DE UN CONTRATO ESPECÍFICO-----------------------------
     @GetMapping("/comments/{contractId}")
     public String commentsList(@PathVariable String contractId, ModelMap model) {
         //Recupero los comentarios específicos al contrato mediante su id
@@ -468,8 +503,6 @@ public class ContractController {
         model.put("contractId", contractId);
         return "comments_supplier_list";
     }
-
-    
 
     //------------------------------LISTA DE SOLICITUDES------------------------------
     //LISTAR LAS SOLICITUDES A PROVEEDORES GENERADAS POR EL CLIENTE LOGUEADO
