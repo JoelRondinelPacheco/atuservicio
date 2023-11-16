@@ -44,7 +44,7 @@
           class="py-5 text-center"
           style="margin-bottom: 40px">
           <div class="contenedor-titulo" style="margin-bottom: 120px">
-            <h1 style="font-size: 60px;" class="display-4 titulo-1">Proveedores</h1>
+            <h1 style="font-size: 60px; margin-top: 30px;" class="display-4 titulo-1">Proveedores</h1>
           </div>
           <div th:replace="fragments/suppliers-card:: suppliers-card"></div>
         </section>
@@ -57,7 +57,8 @@
         tabindex="-1"
         id="staticBackdrop"
         aria-labelledby="staticBackdropLabel">
-        <div class="offcanvas-header">
+        <div class="offcanvas-header"
+        style="background-color: #c0aaca;">
           <h5
             class="offcanvas-title titulo-frame-proveedores"
             id="staticBackdropLabel">
@@ -71,9 +72,9 @@
               aria-label="Close"></button>
           </div>
         </div>
-        <div class="offcanvas-body">
+        <div style="background-color: #c0aaca;" class="offcanvas-body">
           <div>
-            <h1 class="mb-4"></h1>
+            <h1 class=" mb-4"></h1>
             <form th:action="@{/supplier/services}" method="post" class="">
               <div class="input-group mb-4">
                 <h3>Por ubicación</h3>
@@ -141,10 +142,10 @@
               </div>
 
               <div class="col-12 mt-3 d-flex justify-content-center">
-                <img
+                <!-- <img
                   th:src="@{/img/logo.png}"
-                  alt="logo"
-                  class="img-modal w-50" />
+                  alt="logo" -->
+                  <!-- class="img-modal w-5" /> -->
 
                 <div
                   th:if="${error != null}"
