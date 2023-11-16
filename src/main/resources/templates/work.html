@@ -20,7 +20,7 @@
       <!-- <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> -->
       <!-- <form th:action="@{/supplier/}" method="GET"> -->
 
-      <div class="row align-items-center ">
+      <div class="row align-items-center">
         <div class="col">
           <div data-aos="fade-down" class="card rounded-card shadow-lg p-3 card-color"
             style="width: 18rem; overflow: hidden">
@@ -96,31 +96,33 @@
       </div>
     </div>
 
-   
+    <div class="container text-center">
+      <h1 class="text-light">Fotos de tus proyectos</h1>
+    </div>
     <div class="container p-5">
-      <div class="container text-center">
-        <h5 class="text-light">Fotos de tus proyectos</h5>
-      </div>
+
       <div id="carouselExample" class="carousel slide " style="max-width: 700px; margin: auto;">
         <div class="carousel-inner ">
           <div th:each="image, imageStart : ${service.imageGallery}"
-               th:class="${imageStart.index == 0 ? 'carousel-item active' : 'carousel-item'}">
-            <img th:src="@{'/image/' + ${image}}" class="d-block w-100 img-fluid card rounded-card shadow-lg p-3 card-color" alt="Imagen" style="max-height: 400px;" />
+            th:class="${imageStart.index == 0 ? 'carousel-item active' : 'carousel-item'}">
+            <img th:src="@{'/image/' + ${image}}"
+              class="d-block w-100 img-fluid card rounded-card shadow-lg p-3 card-color" alt="Imagen"
+              style="max-height: 500px;" />
           </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <button class="carousel-control-prev rounded-5" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Anterior</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <button class="carousel-control-next rounded-5" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Siguiente</span>
         </button>
       </div>
-      
+
     </div>
- 
-    
+
+
 
 
     <footer th:replace="fragments/footer :: footer"></footer>
@@ -133,4 +135,3 @@
 </body>
 
 </html>
-
