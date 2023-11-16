@@ -1,22 +1,167 @@
 <!DOCTYPE html>
 
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-  <head th:replace="fragments/head :: head"></head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-  <nav th:replace="fragments/navbar :: navbar"></nav>
-  <link th:href="@{/css/comment.css}" rel="stylesheet" />
+<head th:replace="fragments/head :: head"></head>
 
-<body>
 
-  <div class="contenedor-general fondo-seccion">
 
-    <div class="container">
-      <button class="btn btn-outline-light btn-lg px-4 me-md-2 mt-5" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
-        Buscar proveedores
-      </button>
+  <body style=" background-image: url('/img/hero.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;">
+   
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+      <!-- <div
+        th:if="${error != null}"
+        class="card text-white bg-warning mb-3 mensajeError mt-5">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${error}"></h5>
+        </div>
+      </div> -->
+
+      <div class="contenedor-general fondo-seccion">
+        <div class="container">
+          <button
+            class="btn btn-outline-light btn-lg px-4 me-md-2 mt-5"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#staticBackdrop"
+            aria-controls="staticBackdrop">
+            Buscar proveedores
+          </button>
+        </div>
+
+        <div
+          th:if="${error != null}"
+          class="card text-white bg-warning mb-3 mensajeError mt-5">
+          <div class="card-body">
+            <h5 class="card-title" th:text="${error}"></h5>
+          </div>
+        </div>
+
+        <section
+          id="servicios"
+          class="py-5 text-center"
+          style="margin-bottom: 40px">
+          <div class="contenedor-titulo" style="margin-bottom: 120px">
+            <h1 style="font-size: 60px; margin-top: 30px;" class="display-4 titulo-1">Proveedores</h1>
+          </div>
+          <div th:replace="fragments/suppliers-card:: suppliers-card"></div>
+        </section>
+      </div>
+
+      <div class="container">
+        <div
+        class="offcanvas offcanvas-start titulo-frame-proveedores fondo-seccion"
+        data-bs-backdrop="static"
+        tabindex="-1"
+        id="staticBackdrop"
+        aria-labelledby="staticBackdropLabel">
+        <div class="offcanvas-header"
+        style="background-color: #c0aaca;">
+          <h5
+            class="offcanvas-title titulo-frame-proveedores"
+            id="staticBackdropLabel">
+            Búsqueda de Proveedores
+          </h5>
+          <div class="container d-flex justify-content-end">
+            <button
+              type="button"
+              class="btn-close cerrar"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"></button>
+          </div>
+        </div>
+        <div style="background-color: #c0aaca;" class="offcanvas-body">
+          <div>
+            <h1 class=" mb-4"></h1>
+            <form th:action="@{/supplier/services}" method="post" class="">
+              <div class="input-group mb-4">
+                <h3>Por ubicación</h3>
+                <br />
+                <div class="col-md-4 w-100">
+                  <label for="country" class="form-label">País:</label>
+                  <select
+                    type="text"
+                    class="form-select fondo"
+                    id="country"
+                    name="country">
+                    <option>Argentina</option>
+                  </select>
+                </div>
+                <div class="col-md-4 w-100">
+                  <label for="province" class="form-label">Provincia:</label>
+                  <select
+                    class="form-control fondo"
+                    id="province"
+                    name="province"></select>
+                </div>
+                <div class="col-md-4 w-100">
+                  <label for="city" class="form-label">Localidad:</label>
+                  <select
+                    class="form-control fondo"
+                    id="city"
+                    name="city"></select>
+                </div>
+                <div class="col-md-4 w-100">
+                  <label for="city" class="form-label"
+                    >Por rubro/categoria</label
+                  >
+                  <select
+                    class="form-control fondo"
+                    id="category"
+                    name="category">
+                    <option value="">Seleccione un rubro...</option>
+                    <option
+                      value=""
+                      th:each="category : ${categories}"
+                      th:text="${category.name}"
+                      th:value="${category.id}"></option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <h3>Por email</h3>
+                <div class="col-md-4 w-100">
+                  <label for="city" class="form-label">Email:</label>
+                  <br />
+                  <input
+                    class="form-control bg-transparent"
+                    id="email"
+                    name="email"
+                    placeholder="email@ejemplo.com" />
+                </div>
+              </div>
+              <div class="container">
+                <button
+                  type="submit"
+                  class="btn btn-outline-light btn-lg px-4 mt-5">
+                  Buscar
+                </button>
+              </div>
+
+              <div class="col-12 mt-3 d-flex justify-content-center">
+                <!-- <img
+                  th:src="@{/img/logo.png}"
+                  alt="logo" -->
+                  <!-- class="img-modal w-5" /> -->
+
+                <div
+                  th:if="${error != null}"
+                  class="card text-white bg-warning mb-3 mensajeError mt-5">
+                  <div class="card-body">
+                    <h5 class="card-title" th:text="${error}"></h5>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+     
+      </div>
+
     </div>
 
     <div th:if="${error != null}" class="card text-white bg-warning mb-3 mensajeError mt-5">
@@ -24,108 +169,9 @@
         <h5 class="card-title" th:text="${error}"></h5>
       </div>
     </div>
-    <div class="contenedor-titulo ">
-      <h1 class="display-4  titulo-1">Proveedores</h1>
-    </div>
-    <section id="servicios" class="py-5 text-center ">
-
-      <div th:replace="fragments/suppliers-card:: suppliers-card"></div>
-    </section>
-  </div>
 
 
+</body>
+<footer th:replace="fragments/footer :: footer"></footer>
 
-
-  <div class="container">
-    <div class="offcanvas offcanvas-start titulo-frame-proveedores fondo-seccion" data-bs-backdrop="static"
-      tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
-      <div class="offcanvas-header">
-
-        <div class="container d-flex justify-content-between">
-          <h6 class="offcanvas-title titulo-frame-proveedores" id="staticBackdropLabel">
-            Búsqueda de Proveedores
-          </h6>
-          <button type="button" class="btn-close cerrar" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-      </div>
-      <div class="offcanvas-body">
-        <div>
-          <h1 class="mb-4"></h1>
-          <form th:action="@{/supplier/services}" method="post" class="">
-            <div class="input-group mb-4">
-              <h3>Por ubicación</h3>
-              <br />
-              <div class="col-md-4 w-100">
-                <label for="country" class="form-label">País:</label>
-                <select type="text" class="form-select fondo" id="country" name="country">
-                  <option>Argentina</option>
-                </select>
-              </div>
-              <div class="col-md-4 w-100">
-                <label for="province" class="form-label">Provincia:</label>
-                <select class="form-control fondo" id="province" name="province"></select>
-              </div>
-              <div class="col-md-4 w-100">
-                <label for="city" class="form-label">Localidad:</label>
-                <select class="form-control fondo" id="city" name="city"></select>
-              </div>
-              <div class="col-md-4 w-100">
-                <label for="city" class="form-label">Por rubro/categoria</label>
-                <select class="form-control fondo" id="category" name="category">
-                  <option value="">Seleccione un rubro...</option>
-                  <option value="" th:each="category : ${categories}" th:text="${category.name}"
-                    th:value="${category.id}"></option>
-                </select>
-              </div>
-            </div>
-
-                <div class="input-group">
-                  <h3>Por email</h3>
-                  <div class="col-md-4 w-100">
-                    <label for="city" class="form-label">Email:</label>
-                    <br />
-                    <input
-                      class="form-control bg-transparent"
-                      id="email"
-                      name="email"
-                      placeholder="email@ejemplo.com" />
-                  </div>
-                </div>
-                <div class="container">
-                  <button
-                    type="submit"
-                    class="btn btn-outline-light btn-lg px-4 mt-5">
-                    Buscar
-                  </button>
-                </div>
-
-                <div class="col-12 mt-3 d-flex justify-content-center">
-                  <img
-                    th:src="@{/img/logo.png}"
-                    alt="logo"
-                    class="img-modal w-50" />
-
-                  <div
-                    th:if="${error != null}"
-                    class="card text-white bg-warning mb-3 mensajeError mt-5">
-                    <div class="card-body">
-                      <h5 class="card-title" th:text="${error}"></h5>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <section id="servicios" class="py-5 fondo-seccion text-center">
-        <div class="contenedor-titulo mb-5">
-          <h1 class="display-4 mb-5 titulo-1">Proveedores</h1>
-        </div>
-        <div th:replace="fragments/suppliers-card:: suppliers-card"></div>
-      </section>
-    </div>
-  </body>
-  <footer th:replace="fragments/footer :: footer"></footer>
 </html>
