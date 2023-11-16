@@ -7,8 +7,8 @@
     <body>
         <nav th:replace="fragments/navbar :: navbar"></nav>
 
-        <div  style="margin-bottom: 500px" class="container mt-6 pt-6">
-            <h1 style="background-color: transparent; color: white">
+        <div style="margin-bottom: 500px" class="container">
+            <h1 style="background-color: transparent; color: white; margin-top: 80px">
                 Lista de solicitudes enviadas
             </h1>
             <table class="table">
@@ -67,61 +67,91 @@
 
                         <!--Comentario-->
                         <!--Si el contrato tiene comentarios-->
-                        <td style="background-color: #c0aaca; color: white" th:if="${contract.hasComment}">
-                            
-                                <a class="btn btn-outline-light btn-lg px-4 me-md-2" th:href="@{'/contract/comments/' + ${contract.id}}">
-                                    Ver  <!--ContractController: linea 432--><!--RETORNA: 'comments_list.html'-->
-                                </a>
-                      
+                        <td
+                            style="background-color: #c0aaca; color: white"
+                            th:if="${contract.hasComment}">
+                            <a
+                                class="btn btn-outline-light btn-lg px-4 me-md-2"
+                                th:href="@{'/contract/comments/' + ${contract.id}}">
+                                Ver
+                                <!--ContractController: linea 432--><!--RETORNA: 'comments_list.html'-->
+                            </a>
                         </td>
                         <!--Si el contrato no tiene comentarios-->
-                        <td style="background-color: #c0aaca; color: white" th:unless="${contract.hasComment}">-</td>
+                        <td
+                            style="background-color: #c0aaca; color: white"
+                            th:unless="${contract.hasComment}">
+                            -
+                        </td>
 
                         <!--Precio estimado-->
-                        <td style="background-color: #c0aaca; color: white"
+                        <td
+                            style="background-color: #c0aaca; color: white"
                             th:if="${contract.estimatedTime != null }"
-                            th:text="${contract.estimatedTime}*${contract.supplier.priceHour}"><!--Tiempo estimado x precio por hora-->
+                            th:text="${contract.estimatedTime}*${contract.supplier.priceHour}">
+                            <!--Tiempo estimado x precio por hora-->
                         </td>
-                        <td style="background-color: #c0aaca; color: white" th:unless="${contract.estimatedTime!= null}">-</td>
-
+                        <td
+                            style="background-color: #c0aaca; color: white"
+                            th:unless="${contract.estimatedTime!= null}">
+                            -
+                        </td>
                         <!--Accion-->
                         <!--Las acciones que puede efectuar el cliente depende del estado del contrato-->
                         <!--Si el contrato está pendiente de aprobación por parte del proveedor, el cliente tiene la opción de cancelarlo antes (CANCELED_CLIENT)-->
-                        <td style="background-color: #c0aaca; color: white" th:if="${contract.state.name() =='CANCELED_CLIENT'}">-</td>
+                        <td
+                            style="background-color: #c0aaca; color: white"
+                            th:if="${contract.state.name() =='CANCELED_CLIENT'}">
+                            -
+                        </td>
                         <td style="background-color: #c0aaca; color: white" th:if="${contract.state.name() =='REFUSED_SUPPLIER'}">-</td>
                         <td style="background-color: #c0aaca; color: white" th:if="${contract.state.name() =='REFUSED_CLIENT'}">-</td>
                         <td style="background-color: #c0aaca; color: white" th:if="${contract.state.name() =='DONE_CLIENT'}">-</td>
-                        
-                        
-                        <td style="background-color: #c0aaca; color: white" th:if="${contract.state.name() =='PENDING_APPROVAL'}">
-                           
-                                <a class="btn btn-outline-light btn-danger btn-lg px-4 me-md-2" th:href="@{'/contract/client/canceled/' + ${contract.id}}">
-                                    Cancelar  <!--ContractController: linea 105--><!--Lo setea a CANCELED_CLIENT-->
-                                </a>
+
+                        <td
+                            style="background-color: #c0aaca; color: white"
+                            th:if="${contract.state.name() =='PENDING_APPROVAL'}">
+                            <a
+                                class="btn btn-outline-light btn-danger btn-lg px-4 me-md-2"
+                                th:href="@{'/contract/client/canceled/' + ${contract.id}}">
+                                Cancelar
+                                <!--ContractController: linea 105--><!--Lo setea a CANCELED_CLIENT-->
+                            </a>
                         </td>
-                        <td style="background-color: #c0aaca; color: white" th:if="${contract.state.name() == 'APPROVED_SUPPLIER'}">
-                            
-                                <a class="btn btn-outline-light btn-success btn-lg px-4 me-md-2" th:href="@{'/contract/client/approveBudget/' + ${contract.id}}">
-                                    Aceptar presupuesto  <!--ContractController: linea 159--><!--Lo setea a PENDING_COMPLETION-->
-                                </a>
-                            
 
-                         
-                                <a class="btn btn-outline-light btn-danger btn-lg px-4 me-md-2" th:href="@{'/contract/client/refused/' + ${contract.id}}">
-                                    Rechazar presupuesto  <!--ContractController: linea 177--><!--Lo setea a REFUSED_CLIENT-->
-                                </a>
+                        <td
+                            style="background-color: #c0aaca; color: white"
+                            th:if="${contract.state.name() == 'APPROVED_SUPPLIER'}">
+                            <a
+                                class="btn btn-outline-light btn-success btn-lg px-4 me-md-2"
+                                th:href="@{'/contract/client/approveBudget/' + ${contract.id}}">
+                                Aceptar presupuesto
+                                <!--ContractController: linea 159--><!--Lo setea a PENDING_COMPLETION-->
+                            </a>
+                            <a
+                                class="btn btn-outline-light btn-danger btn-lg px-4 me-md-2"
+                                th:href="@{'/contract/client/refused/' + ${contract.id}}">
+                                Rechazar presupuesto
+                                <!--ContractController: linea 177--><!--Lo setea a REFUSED_CLIENT-->
+                            </a>
                         </td>
-                        <td style="background-color: #c0aaca; color: white" th:if="${contract.state.name() == 'PENDING_COMPLETION'}">
 
-                                <a class="btn btn-outline-light btn-success btn-lg px-4 me-md-2" th:href="@{'/contract/client/done/' + ${contract.id}}">
-                                    Estoy conforme   <!--ContractController: linea 197--><!--Lo setea a DONE_CLIENT-->
-                                </a>
-                        
 
-                 
-                                <a class="btn btn-outline-light btn-danger btn-lg px-4 me-md-2" th:href="@{'/contract/client/refused/' + ${contract.id}}">
-                                    Estoy disconforme  <!--ContractController: linea 177--><!--Lo setea a REFUSED_CLIENT-->
-                                </a>
+                        <td
+                            style="background-color: #c0aaca; color: white"
+                            th:if="${contract.state.name() == 'PENDING_COMPLETION'}">
+                            <a
+                                class="btn btn-outline-light btn-success btn-lg px-4 me-md-2"
+                                th:href="@{'/contract/client/done/' + ${contract.id}}">
+                                Estoy conforme
+                                <!--ContractController: linea 197--><!--Lo setea a DONE_CLIENT-->
+                            </a>
+                            <a
+                                class="btn btn-outline-light btn-danger btn-lg px-4 me-md-2"
+                                th:href="@{'/contract/client/refused/' + ${contract.id}}">
+                                Estoy disconforme
+                                <!--ContractController: linea 177--><!--Lo setea a REFUSED_CLIENT-->
+                            </a>
                         </td>
                     </tr>
                 </tbody>
@@ -130,4 +160,5 @@
         <!--Footer-->
         <footer th:replace="fragments/footer :: footer"></footer>
     </body>
+
 </html>
