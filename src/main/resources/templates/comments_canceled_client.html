@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="fragments/head :: head"></head>
-<body>
-    <nav th:replace="fragments/navbar :: navbar"></nav>
+    <head th:replace="fragments/head :: head"></head>
+    <link th:href="@{/css/comment.css}" rel="stylesheet" />
+    <body>
+        <nav th:replace="fragments/navbar :: navbar"></nav>
+        <div class="py-6 text-center fondo-seccion">
+            <h1 class="p-3 titulo-hero display-5 fw-bold lh-1 mb-3">Cancelación de solicitud</h1>
+            <h1 th:text="${contract.supplier.email}"></h1>
+            <div class="container mt-3 mb-5">
+                <form th:action="@{'/contract/comment/client/canceled/' + ${contract.id}}" method="post">
+                    <div class="containerComment ">
+                        <div class="p-1 title">
 
-    <section class="py-6 wwihd text-center fondo-seccion">
-        <h1 class="p-3 titulo-hero display-5 fw-bold lh-1 mb-3">Cancelación de solicitud</h1>
-        <h1 th:text="${contract.supplier.email}"></h1>
-        <div class="container mt-3">
-            <form th:action="@{'/contract/comment/client/canceled/' + ${contract.id}}" method="post">
-                <div class="p-1">
-                    <label for="comment">Motivo de la cancelación</label>
-                    <div class="p-1">
-                        <textarea id="comment" name="content" placeholder="Escribe tu comentario aquí" required></textarea>
+                            <div class="m-1">
+                                <label for="comment">Comentario</label>
+                            </div>
+                            <div class="m-2">
+                                <textarea id="comment" name="content" placeholder="Escribe tu comentario aquí" required
+                                          cols="30" rows="10" class="form-control"></textarea>
+                            </div>
+                            <div class="m-2">
+                                <input type="submit" class="btn btn-outline-light btn-lg px-4 me-md-2" value="Enviar">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="p-1">
-                    <input type="submit" value="Enviar">
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </section>
-    <footer th:replace="fragments/footer :: footer" class="fixed-footer"></footer>
-</body>
+        <footer th:replace="fragments/footer :: footer" class="fixed-footer"></footer>
+    </body>
 </html>
