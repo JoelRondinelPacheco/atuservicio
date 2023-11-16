@@ -1,24 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head th:replace="fragments/head :: head"></head>
+  <link th:href="@{/css/comment.css}" rel="stylesheet" />
 
-<head th:replace="fragments/head :: head"></head>
-<link th:href="@{/css/comment.css}" rel="stylesheet" />
-
-<body>
-
+  <body>
     <nav th:replace="fragments/navbar :: navbar"></nav>
 
-
-    <section class="py-5 fondo-seccion text-center ">
-        <div class="contenedor-titulo ">
-        <h1  class="display-4  titulo-1">Solicitud de trabajo</h1>
-        </div>
-        <div th:replace="fragments/request_detail :: request_detail"></div>
-      
-      </section>
-
-
-
+    <section
+      style="margin-top: 35px; margin-bottom: 250px"
+      class="py-5 fondo-seccion text-center">
+      <div class="contenedor-titulo">
+        <h1 class="display-4 titulo-1">Solicitud de trabajo</h1>
+      </div>
+      <div th:replace="fragments/request_detail :: request_detail"></div>
+    </section>
 
     <!-- <div class="container mt-3">
         <form class="form-group" th:action="@{/contract/send/{idSupplier}(idSupplier=${supplier.id})}" method="POST">
@@ -77,7 +74,5 @@
     </div> --->
     <!--Footer-->
     <footer th:replace="fragments/footer :: footer"></footer>
- 
-</body>
-
+  </body>
 </html>
