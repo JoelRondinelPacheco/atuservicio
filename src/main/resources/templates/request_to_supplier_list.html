@@ -88,13 +88,16 @@
                         <!--Las acciones que puede efectuar el cliente depende del estado del contrato-->
                         <!--Si el contrato está pendiente de aprobación por parte del proveedor, el cliente tiene la opción de cancelarlo antes (CANCELED_CLIENT)-->
                         <td style="background-color: #c0aaca; color: white" th:if="${contract.state.name() =='CANCELED_CLIENT'}">-</td>
-                           
+                        <td style="background-color: #c0aaca; color: white" th:if="${contract.state.name() =='REFUSED_SUPPLIER'}">-</td>
+                        <td style="background-color: #c0aaca; color: white" th:if="${contract.state.name() =='REFUSED_CLIENT'}">-</td>
+                        <td style="background-color: #c0aaca; color: white" th:if="${contract.state.name() =='DONE_CLIENT'}">-</td>
+                        
+                        
                         <td style="background-color: #c0aaca; color: white" th:if="${contract.state.name() =='PENDING_APPROVAL'}">
                            
                                 <a class="btn btn-outline-light btn-danger btn-lg px-4 me-md-2" th:href="@{'/contract/client/canceled/' + ${contract.id}}">
                                     Cancelar  <!--ContractController: linea 105--><!--Lo setea a CANCELED_CLIENT-->
                                 </a>
-                          
                         </td>
                         <td style="background-color: #c0aaca; color: white" th:if="${contract.state.name() == 'APPROVED_SUPPLIER'}">
                             
@@ -107,7 +110,6 @@
                                 <a class="btn btn-outline-light btn-danger btn-lg px-4 me-md-2" th:href="@{'/contract/client/refused/' + ${contract.id}}">
                                     Rechazar presupuesto  <!--ContractController: linea 177--><!--Lo setea a REFUSED_CLIENT-->
                                 </a>
-                          
                         </td>
                         <td style="background-color: #c0aaca; color: white" th:if="${contract.state.name() == 'PENDING_COMPLETION'}">
 
@@ -120,7 +122,6 @@
                                 <a class="btn btn-outline-light btn-danger btn-lg px-4 me-md-2" th:href="@{'/contract/client/refused/' + ${contract.id}}">
                                     Estoy disconforme  <!--ContractController: linea 177--><!--Lo setea a REFUSED_CLIENT-->
                                 </a>
-                            
                         </td>
                     </tr>
                 </tbody>
