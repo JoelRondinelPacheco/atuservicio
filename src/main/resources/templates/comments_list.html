@@ -9,18 +9,16 @@
             <h1 class="p-3 titulo-hero display-5 fw-bold lh-1 mb-3"> Lista de comentarios</h1>
             <div class="container mt-3 mb-5">
                 <div th:each="comment : ${comments}">
-                    <form>  
-                        <label for="puntuacion">Puntuacion</label>
-                        <div class="p-1">
-                            <input type="number" id="puntuacion" name="score" th:value="${comment.score}" readonly>
-                            <div class="p-6">
-                                <label for="commentario">comentario</label>
+                  <label>Comentario de: </label>
+                  <span  th:text="${comment.author.name}" style="color:aliceblue" class="title">Comentario de: </span>
+                     
+                            
                                 <div class="p-1">
-                                    <textarea id="commentario" name="content" th:text="${comment.content}" readonly></textarea>      
+                                    <textarea id="commentario" name="content" th:text="${comment.content}"cols="20" rows="10" class="form-control" readonly></textarea>      
                                 </div> 
                             </div>   
                         </div>
-                    </form>  
+                 
                 </div> 
             </div>
         </div>

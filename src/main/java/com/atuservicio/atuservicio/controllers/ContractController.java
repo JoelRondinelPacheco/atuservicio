@@ -437,6 +437,29 @@ public class ContractController {
     //----------------------------RESPUESTA DEL CLIENTE-----------------------------
     //comments_done_supplier.html' -->  vista que contiene el form que impacta a esta ruta
     //El cliente (author) responde el comentario del proveedor (receiver) que dio por finalizado el trabajo.
+    @GetMapping("/response/client/done/{contractId}")
+    public String clientResponseDoneToSupplier(@PathVariable String contractId,
+            ModelMap model) {
+        try {
+            Contract contract = this.contractService.getFullContractById(contractId);
+            User author = this.userService.getUserById(contract.getCustomer().getId());
+            User receiver = this.userService.getUserById(contract.getSupplier().getId());
+
+            List <CommentInfoDTO> comments = commentService.findByContracId(contractId);
+                     
+            
+        
+
+           model.addAttribute("comments", comments);
+           return this.requestsToSuppliers(model);
+
+        } catch (MyException ex) {
+            return "index.html";
+        }
+
+    }
+    
+    
     @PostMapping("/response/client/done/{contractId}")
     public String clientResponseDone(@PathVariable String contractId,
             @RequestParam String content, @RequestParam Double score, ModelMap model) {

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/head :: head"></head>
+<link th:href="@{/css/comment.css}" rel="stylesheet" />
+
+<body>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+
+    <div class="py-6 text-center fondo-seccion">
+
+        <h1 class="p-3 titulo-hero display-5 fw-bold lh-1 mb-3">Servicio finalizado</h1>
+        <h1 th:text="${contract.supplier.email}"></h1>
+        
+        <div class="container mt-3 mb-5">
+            <form th:action="@{'/contract/comment/supplier/done/' + ${contract.id}}" method="post">
+                
+                <div class="containerComment ">
+                    <div class="p-1 deslizable">
+
+                        <label for="customRange1" class="form-label title">Puntuación: </label><span style="color:aliceblue"class="title"
+                            id="score"></span>
+                        <input type="range" min="0" max="5" name="score" class="form-range" id="customRange1">
+
+                    </div>
+                    <div class="p-1 title">
+                        <div class="m-1">
+                            <label for="comment">Comentario</label>
+                        </div>
+                        <div class="m-2">
+                            <textarea id="comment" name="content" placeholder="Escribe tu comentario aquí" required
+                                cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                        <div claas="m-2">
+                            <input type="submit" class="btn btn-outline-light btn-lg px-4 me-md-2" value="Enviar">
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <footer th:replace="fragments/footer :: footer" class="fixed-footer">
+
+</body>
+<script>
+
+    const range = document.querySelector('#customRange1')
+    const time = document.querySelector('#score')
+
+
+    range.addEventListener('input', () => {
+        console.log(range.value)
+        time.textContent = " " + range.value
+
+    })
+</script>
+
+</html>

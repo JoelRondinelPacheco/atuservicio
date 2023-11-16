@@ -1,53 +1,81 @@
 <!DOCTYPE html>
-<html
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace="fragments/head :: head"></head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-    <body>
+<head th:replace="fragments/head :: head"></head>
+<link th:href="@{/css/comment.css}" rel="stylesheet" />
 
-        <nav th:replace="fragments/navbar :: navbar"></nav>
+<body style="
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: url('/img/hero.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+">
 
-        <section class="py-6 wwihd text-center fondo-seccion">
+  <nav th:replace="fragments/navbar :: navbar"></nav>
 
-            <h1 class="p-3 titulo-hero display-5 fw-bold lh-1 mb-3">Lista de comentarios</h1>
-            <div th:each="comment : ${comments}">
-                <form>
-                    <label for="puntuacion">puntuacion</label>
-                    <div class="p-1">
-                        <input type="number" name="score" th:value="${comment.score}" readonly>
-                        <div class="p-1">
-                            <label for="commentario">comentario</label>
-                            <div class="p-1">
-                                <textarea id="commentario" th:text="${comment.content}" readonly></textarea>
-                                </form>
-                            </div>
-                            <div class="container mt-3">
-                                <form th:action="@{'/contract/comments/supplier/response/' + ${contractId}}" method="post">
-                                    <label for="puntuacion">puntuacion</label>
-                                    <div class="p-1">
-                                        <input type="number" value="0" id="puntuacion" name="score" required>
-                                        <div class="p-1">
-                                            <label for="comment">comentario</label>
-                                            <div class="p-1">
-                                                <textarea id="comment" name="content" placeholder= "Escribe tu comentario aquí" required></textarea>
-                                                <div class="p-1">
-                                                    <input type="submit" value="enviar">
-                                                    </form>
+  <section class="py-6 wwihd text-center fondo-seccion">
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
+    <h1 class="p-3 titulo-hero display-5 fw-bold lh-1 mb-3">Lista de comentarios</h1>
+    <div class="container mt-3 mb-5">
+
+      <div th:each="comment : ${comments}">
+        <label>Comentario de: </label>
+        <span th:text="${comment.author.name}" style="color:aliceblue" class="title">Comentario de: </span>
+
+
+        <div class="p-1">
+          <textarea id="commentario" name="content" th:text="${comment.content}" cols="20" rows="10"
+            class="form-control" readonly></textarea>
+        </div>
+
+
+      </div>
+      <form th:action="@{'/contract/response/supplier/done/' + ${contractId}}" method="post">
+
+        <div class="containerComment ">
+          <div class="p-1 deslizable">
+
+            <label for="customRange1" class="form-label title">Puntuación: </label><span style="color:aliceblue"
+              class="title" id="score"></span>
+            <input type="range" min="0" max="5" name="score" class="form-range" id="customRange1">
+
+          </div>
+          <div class="p-1 title">
+            <div class="m-1">
+              <label for="comment">Comentario</label>
+            </div>
+            <div class="m-2">
+              <textarea id="comment" name="content" placeholder="Escribe tu comentario aquí" required cols="30"
+                rows="10" class="form-control"></textarea>
             </div>
 
-            <footer
-                th:replace="fragments/footer :: footer"
-                class="fixed-footer">
+            <div claas="m-2">
+              <input type="submit" class="btn btn-outline-light btn-lg px-4 me-md-2" value="Enviar">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
 
-                </body>
 
-                </html>
+    <footer th:replace="fragments/footer :: footer" class="fixed-footer">
+
+</body>
+<script>
+
+  const range = document.querySelector('#customRange1')
+  const time = document.querySelector('#score')
+
+
+  range.addEventListener('input', () => {
+    console.log(range.value)
+    time.textContent = " " + range.value
+
+  })
+</script>
+
+</html>

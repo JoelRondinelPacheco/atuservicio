@@ -14,6 +14,8 @@ import com.atuservicio.atuservicio.repositories.CommentRepository;
 import com.atuservicio.atuservicio.repositories.ContractRepository;
 import com.atuservicio.atuservicio.repositories.UserRepository;
 import com.atuservicio.atuservicio.services.interfaces.ICommentService;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -121,6 +123,19 @@ public class CommentService implements ICommentService{
                 comment.getRatings());  //List<Qualification>
         
         return commentInfo;
+    }    
+    
+    public List<CommentInfoDTO> findByContracId(String contractId) throws MyException {
+
+        List<Comment> comments = new ArrayList<>();
+        comments = commentRepository.findByContractId(contractId);
+        List<CommentInfoDTO> commentsDTO = new ArrayList<>();
+
+        for (Comment c : comments) {
+            commentsDTO.add(this.createCommentInfoDTO(c));
+        }
+        return commentsDTO;
+
     }
 
 }
