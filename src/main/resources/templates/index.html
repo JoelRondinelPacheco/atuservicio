@@ -6,45 +6,47 @@
 
 <body>
 
+  <nav th:replace="fragments/navbar :: navbar"></nav>
 
-  <div class="contenedor-general">
-    <nav th:replace="fragments/navbar :: navbar"></nav>
-    <!-- hero -->
-
-    <section class="py-6 wwihd text-center fondo-seccion">
+  <section class="py-6 wwihd text-center fondo-seccion">
 
 
-      <div class="container col-xxl-8 px-4 py-5">
-        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-          <div class="col-10 col-sm-8 col-lg-6">
-            <img src="/img/logo.png" class="d-block mx-lg-auto logo img-fluid" alt="Bootstrap Themes" width="700"
-              height="500" loading="lazy" />
-          </div>
-          <div class="col-lg-6" style="color: #ffffff;
-          font-size: 2em;">
-            <h1 class=" titulo-hero display-5 fw-bold lh-1 mb-3">A tu</h1>
-            <h1 class=" titulo-hero display-5 fw-bold lh-3 mb-3">Servicio</h1>
+    <div class="container px-4 py-5">
+      <div class="row flex-lg-row-reverse align-items-center py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+          <img src="/img/logo.png" class="d-block mx-lg-auto logo img-fluid" alt="Bootstrap Themes" width="700"
+            height="500" loading="lazy" />
+        </div>
+        <div class="col-lg-6">
+          <h1 class=" titulo-hero display-5 fw-bold lh-1 mb-3">A tu Servicio</h1>
+          <p class="lead intro-texto-hero ">
+            "Descubre la revolución de servicios en tu hogar: ¡tu plataforma todo en uno! Ofrece o encuentra
+            profesionales para tu domicilio con rapidez, eficacia y profesionalismo. Donde tus necesidades encuentran
+            soluciones, y cada servicio es una experiencia que transforma tu hogar. Tu comodidad y bienestar, nuestra
+            prioridad."
+          </p>
+          <div class="d-flex justify-content-center gap-4">
 
-            <p class="lead intro-texto-hero ">
-              "Descubre la revolución de servicios en tu hogar: ¡tu plataforma todo en uno! Ofrece o encuentra
-              profesionales para tu domicilio con rapidez, eficacia y profesionalismo. Donde tus necesidades encuentran
-              soluciones, y cada servicio es una experiencia que transforma tu hogar. Tu comodidad y bienestar, nuestra
-              prioridad."
-            </p>
-            <div class="d-grid gap-2 d-md-flex justify-content md-start text-center">
-              <!-- login -->
-              <!-- Button trigger modal -->
+            <button type="button" class="btn btn-outline-light btn-lg px-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Inicio sesion </button>
 
-              <div th:replace="fragments/modal-login :: modal-login"></div>
+              <button
+    type="button"
+    class="btn btn-outline-light btn-lg px-4"
+    data-bs-toggle="modal"
+    data-bs-target="#staticBackdrop-registro">
+    Registro
+  </button>
 
-              <div th:replace="fragments/modal-register :: modal-register"></div>
-
-            </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
 
+  <div class="container">
+    <!-- hero -->
 
-    </section>
 
     <section class="py-5 text-center contenedor-experiencia-usuario">
       <h1 class="display-4 titulo-experiencia-usuario">Experiencia de nuestros usuarios...</h1>
@@ -61,6 +63,140 @@
 
     <footer th:replace="fragments/footer :: footer" class="fixed-footer">
   </div>
+
+
+    <!-- Modal Login -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header text-dark">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Iniciar sesion</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body container">
+                  <form th:action="@{perform_login}">
+                      <div class="mb-3">
+                          <label for="email" class="form-label">Email</label>
+                          <input type="email" class="form-control" id="email" name="email"
+                              aria-describedby="emailHelp">
+                      </div>
+                      <div class="mb-3">
+                          <label for="contraseña" class="form-label">Contraseña</label>
+                          <input type="password" class="form-control" id="contraseña" name="password">
+                      </div>
+                      <button type="submit" class="btn btn-primary">Login</button>
+                  </form>
+
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+  <!-- Modal Register -->
+  <div
+    class="modal fade"
+    id="staticBackdrop-registro"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable ">
+      <div class="modal-content">
+        <div class="modal-header color-login-form">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            Registro de Usuario
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"></button>
+        </div>
+        <div class="modal-body color-login-form">
+          <!-- datos para regisrto -->
+          <form action="">
+            <div class="form-floating mx-auto w-70 pb-3">
+              <input
+                type="text"
+                class="form-control custom-bg"
+                id="floatingInput"
+                placeholder="name@example.com" />
+              <label for="floatingInput">Nombre de Usuario</label>
+            </div>
+
+            <div class="form-floating mx-auto w-70 pb-3">
+              <input
+                type="email"
+                class="form-control custom-bg"
+                id="floatingInput"
+                placeholder="name@example.com" />
+              <label for="floatingInput">Email</label>
+            </div>
+            <div class="form-floating mx-auto w-70 pb-3">
+              <input
+                type="password"
+                class="form-control custom-bg"
+                id="floatingPassword"
+                placeholder="Password" />
+              <label for="floatingPassword">Password</label>
+            </div>
+            <div class="form-floating mx-auto w-70 pb-3">
+              <input
+                type="password"
+                class="form-control custom-bg"
+                id="floatingPassword"
+                placeholder="Password2" />
+              <label for="floatingPassword">Confirmar Password</label>
+            </div>
+            <!-- check de ususario -->
+            <div class="contenedor-check color-login-form pb-3">
+              <select
+                class="form-select color-login-form form-select"
+                aria-label="Small select example"
+                id="typeUser"
+                name="typeUser">
+                <option class="color-login-form" value="" selected disabled>
+                  Registrate como...
+                </option>
+                <option class="color-login-form" value="1">Cliente</option>
+                <option class="color-login-form" value="2">Proveedor</option>
+              </select>
+            </div>
+
+           <!-- <div class="contenedor-check color-login-form">
+              <select
+                class="form-select color-login-form form-select"
+                aria-label="Small select example">
+                <option
+                  th:each="category : ${categories}"
+                  th:value="${category.id}"
+                  th:text="${category.name}"
+                  class="color-login-form"></option>
+              </select>
+            </div>-->
+            <button type="button" class="btn btn-outline-light">
+              Registrame
+            </button>
+          </form>
+        </div>
+        <div class="modal-footer" id="color-modal-registro">
+          <button
+            type="button"
+            class="btn btn-outline-light"
+            data-bs-dismiss="modal">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 
 </html>
