@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class SaveSupplierDTO extends SaveUserDTO {
     private String categoryId;
     public SaveSupplierDTO(String name, String email, String password, String password2, String categoryId) {
-        super(name, email);
+        super(name, email, password, password2);
         this.categoryId = categoryId;
     }
 }
