@@ -9,7 +9,7 @@
   height: 100%;
   margin-top: 70px;
 
-
+}
 /* imagen del fonde del hero  */
 
 .fondo-seccion {
@@ -37,11 +37,7 @@
   transition: width 0.5s ease; /* Agrega una transición suave al cambiar el tamaño */
 }
 
-@media (max-width: 768px) {
-  .logo {
-    width: 80px; /* Tamaño para pantallas pequeñas */
-  }
-}
+
 .contenedor-titulo{
   position: relative;
   display: flex;
@@ -60,7 +56,6 @@
 }
 
 /* fin fondo seccion */
-
 
 
 /* titulo experiencia de nuestros usuarios */
@@ -106,3 +101,8 @@
   }
 }
 
+@media (max-width: 768px) {
+  .logo {
+    width: 80px; /* Tamaño para pantallas pequeñas */
+  }
+}
