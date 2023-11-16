@@ -4,10 +4,10 @@
 <head th:replace="fragments/head :: head"></head>
 
 
-<body>
+<body style="background-color: #c0aaca">
 
   <nav th:replace="fragments/navbar :: navbar"></nav>
-
+<main class="pb-6 mb-6">
   <section class="py-6 wwihd text-center fondo-seccion">
 
 
@@ -27,16 +27,14 @@
           </p>
           <div class="d-flex justify-content-center gap-4">
 
-            <button type="button" class="btn btn-outline-light btn-lg px-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button sec:authorize="not isAuthenticated()" type="button" class="btn btn-outline-light btn-lg px-4" data-bs-toggle="modal"
+              data-bs-target="#exampleModal">
               Inicio sesion </button>
 
-              <button
-    type="button"
-    class="btn btn-outline-light btn-lg px-4"
-    data-bs-toggle="modal"
-    data-bs-target="#staticBackdrop-registro">
-    Registro
-  </button>
+            <button  sec:authorize="not isAuthenticated()"  type="button" class="btn btn-outline-light btn-lg px-4" data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop-registro">
+              Registro
+            </button>
 
           </div>
         </div>
@@ -48,117 +46,86 @@
     <!-- hero -->
 
 
-    <section class="py-5 text-center contenedor-experiencia-usuario">
-      <h1 class="display-4 titulo-experiencia-usuario">Experiencia de nuestros usuarios...</h1>
+    <section class="pt-5 pb-3 text-center contenedor-experiencia-usuario">
+      <h1 class="display-4 titulo-experiencia-usuario pb-5">Experiencia de nuestros usuarios...</h1>
       <div th:replace="fragments/comment :: comment"></div>
 
     </section>
 
-    <section id="" class="py-5 contenedor-experiencia-usuario text-center">
+    <section id="" class="py-3 contenedor-experiencia-usuario text-center">
       <h1 class="display-4 titulo-experiencia-usuario">SERVICIOS</h1>
       <div th:replace="fragments/services-card:: services-card"></div>
 
     </section>
 
 
-    <footer th:replace="fragments/footer :: footer" class="fixed-footer">
   </div>
 
 
-    <!-- Modal Login -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-              <div class="modal-header text-dark">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Iniciar sesion</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body container">
-                  <form th:action="@{perform_login}">
-                      <div class="mb-3">
-                          <label for="email" class="form-label">Email</label>
-                          <input type="email" class="form-control" id="email" name="email"
-                              aria-describedby="emailHelp">
-                      </div>
-                      <div class="mb-3">
-                          <label for="contraseña" class="form-label">Contraseña</label>
-                          <input type="password" class="form-control" id="contraseña" name="password">
-                      </div>
-                      <button type="submit" class="btn btn-primary">Login</button>
-                  </form>
+  <!-- Modal Login -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="background-color: #d1c0d8">
+        <div class="modal-header text-dark">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Iniciar sesion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body container">
+          <form th:action="@{/perform_login}" method="post">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="contraseña" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="contraseña" name="password">
+            </div>
+            <button type="submit" class="btn btn-light">Login</button>
+          </form>
 
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              </div>
-          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
       </div>
+    </div>
   </div>
 
 
   <!-- Modal Register -->
-  <div
-    class="modal fade"
-    id="staticBackdrop-registro"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-    tabindex="-1"
-    aria-labelledby="staticBackdropLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable ">
-      <div class="modal-content">
+  <div class="modal fade" id="staticBackdrop-registro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="background-color: #d1c0d8">
         <div class="modal-header color-login-form">
           <h1 class="modal-title fs-5" id="staticBackdropLabel">
             Registro de Usuario
           </h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body color-login-form">
           <!-- datos para regisrto -->
           <form action="">
             <div class="form-floating mx-auto w-70 pb-3">
-              <input
-                type="text"
-                class="form-control custom-bg"
-                id="floatingInput"
-                placeholder="name@example.com" />
+              <input type="text" class="form-control custom-bg" id="floatingInput" placeholder="name@example.com" />
               <label for="floatingInput">Nombre de Usuario</label>
             </div>
 
             <div class="form-floating mx-auto w-70 pb-3">
-              <input
-                type="email"
-                class="form-control custom-bg"
-                id="floatingInput"
-                placeholder="name@example.com" />
+              <input type="email" class="form-control custom-bg" id="floatingInput" placeholder="name@example.com" />
               <label for="floatingInput">Email</label>
             </div>
             <div class="form-floating mx-auto w-70 pb-3">
-              <input
-                type="password"
-                class="form-control custom-bg"
-                id="floatingPassword"
-                placeholder="Password" />
+              <input type="password" class="form-control custom-bg" id="floatingPassword" placeholder="Password" />
               <label for="floatingPassword">Password</label>
             </div>
             <div class="form-floating mx-auto w-70 pb-3">
-              <input
-                type="password"
-                class="form-control custom-bg"
-                id="floatingPassword"
-                placeholder="Password2" />
+              <input type="password" class="form-control custom-bg" id="floatingPassword" placeholder="Password2" />
               <label for="floatingPassword">Confirmar Password</label>
             </div>
             <!-- check de ususario -->
             <div class="contenedor-check color-login-form pb-3">
-              <select
-                class="form-select color-login-form form-select"
-                aria-label="Small select example"
-                id="typeUser"
+              <select class="form-select color-login-form form-select" aria-label="Small select example" id="typeUser"
                 name="typeUser">
                 <option class="color-login-form" value="" selected disabled>
                   Registrate como...
@@ -168,7 +135,7 @@
               </select>
             </div>
 
-           <!-- <div class="contenedor-check color-login-form">
+            <!-- <div class="contenedor-check color-login-form">
               <select
                 class="form-select color-login-form form-select"
                 aria-label="Small select example">
@@ -179,23 +146,21 @@
                   class="color-login-form"></option>
               </select>
             </div>-->
-            <button type="button" class="btn btn-outline-light">
+            <button type="button" class="btn btn-light">
               Registrame
             </button>
           </form>
         </div>
         <div class="modal-footer" id="color-modal-registro">
-          <button
-            type="button"
-            class="btn btn-outline-light"
-            data-bs-dismiss="modal">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Cancelar
           </button>
         </div>
       </div>
     </div>
   </div>
-</div>
+</main>
+  <footer th:replace="fragments/footer :: footer" class="fixed-footer">
 
 </body>
 
