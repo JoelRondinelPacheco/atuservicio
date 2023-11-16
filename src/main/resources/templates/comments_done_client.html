@@ -11,8 +11,10 @@
 
         <h1 class="p-3 titulo-hero display-5 fw-bold lh-1 mb-3">Comentario para trabajo bien hecho</h1>
         <h1 th:text="${contract.supplier.email}"></h1>
+        
         <div class="container mt-3 mb-5">
             <form th:action="@{'/contract/comment/client/done/' + ${contract.id}}" method="post">
+                
                 <div class="containerComment ">
                     <div class="p-1 deslizable">
 
