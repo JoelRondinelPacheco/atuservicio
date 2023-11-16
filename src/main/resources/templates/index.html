@@ -32,7 +32,8 @@
               Inicio sesion </button>
 
             <button  sec:authorize="not isAuthenticated()"  type="button" class="btn btn-outline-light btn-lg px-4" data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop-registro">
+              data-bs-target="#staticBackdrop-registro"
+              id="open-register-btn">
               Registro
             </button>
 
@@ -105,29 +106,29 @@
         </div>
         <div class="modal-body color-login-form">
           <!-- datos para regisrto -->
-          <form action="">
+          <form th:action="@{/client/register}" method = "post" id="register-form">
             <div class="form-floating mx-auto w-70 pb-3">
-              <input type="text" class="form-control custom-bg" id="floatingInput" placeholder="name@example.com" />
-              <label for="floatingInput">Nombre de Usuario</label>
+              <input type="text" class="form-control custom-bg" id="name" placeholder="name@example.com" name="name" />
+              <label for="name">Nombre de Usuario</label>
             </div>
 
             <div class="form-floating mx-auto w-70 pb-3">
-              <input type="email" class="form-control custom-bg" id="floatingInput" placeholder="name@example.com" />
+              <input type="email" class="form-control custom-bg" id="floatingInput" placeholder="name@example.com" name="email" />
               <label for="floatingInput">Email</label>
             </div>
             <div class="form-floating mx-auto w-70 pb-3">
-              <input type="password" class="form-control custom-bg" id="floatingPassword" placeholder="Password" />
-              <label for="floatingPassword">Password</label>
+              <input type="password" class="form-control custom-bg" id="password" placeholder="Password" name="password"/>
+              <label for="password">Password</label>
             </div>
             <div class="form-floating mx-auto w-70 pb-3">
-              <input type="password" class="form-control custom-bg" id="floatingPassword" placeholder="Password2" />
+              <input type="password" class="form-control custom-bg" id="floatingPassword" placeholder="Password2" name="password2" />
               <label for="floatingPassword">Confirmar Password</label>
             </div>
             <!-- check de ususario -->
             <div class="contenedor-check color-login-form pb-3">
               <select class="form-select color-login-form form-select" aria-label="Small select example" id="typeUser"
                 name="typeUser">
-                <option class="color-login-form" value="" selected disabled>
+                <option class="color-login-form" value="0" selected disabled>
                   Registrate como...
                 </option>
                 <option class="color-login-form" value="1">Cliente</option>
@@ -135,24 +136,25 @@
               </select>
             </div>
 
-            <!-- <div class="contenedor-check color-login-form">
+            <div  id="categories-container" style="display: none;">
               <select
                 class="form-select color-login-form form-select"
-                aria-label="Small select example">
+                aria-label="Small select example"
+                name="categoryId">
                 <option
                   th:each="category : ${categories}"
                   th:value="${category.id}"
                   th:text="${category.name}"
                   class="color-login-form"></option>
               </select>
-            </div>-->
-            <button type="button" class="btn btn-light">
+            </div>
+            <button type="submit" class="btn btn-light">
               Registrame
             </button>
           </form>
         </div>
         <div class="modal-footer" id="color-modal-registro">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-register-btn">
             Cancelar
           </button>
         </div>
@@ -160,7 +162,8 @@
     </div>
   </div>
 </main>
-  <footer th:replace="fragments/footer :: footer" class="fixed-footer">
+  <script type="text/javascript" th:src="@{/js/register.js}"></script>
+  <footer th:replace="fragments/footer :: footer" class="fixed-footer"></footer>
 
 </body>
 
