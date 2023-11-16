@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head th:replace="fragments/head :: head"></head>
 
-<head th:replace="fragments/head :: head"></head>
-
-<nav th:replace="fragments/navbar :: navbar"></nav>
-<link th:href="@{/css/comment.css}" rel="stylesheet" />
+  <nav th:replace="fragments/navbar :: navbar"></nav>
+  <link th:href="@{/css/comment.css}" rel="stylesheet" />
 
 <body>
 
@@ -78,44 +79,53 @@
               </div>
             </div>
 
-
-            <div class="input-group ">
-
-              <h3>Por email</h3>
-              <div class="col-md-4 w-100">
-                <label for="city" class="form-label">Email:</label>
-                <br />
-                <input class="form-control bg-transparent" id="email" name="email" placeholder="email@ejemplo.com" />
-              </div>
-            </div>
-            <div class="container">
-              <button type="submit" class="btn btn-outline-light btn-lg px-4 mt-5"> Buscar</button>
-            </div>
-
-            <div class="col-12 mt-3 d-flex justify-content-center">
-              <img th:src="@{/img/logo.png}" alt="logo" class="img-modal w-50" />
-
-
-              <div th:if="${error != null}" class="card text-white bg-warning mb-3 mensajeError mt-5">
-                <div class="card-body">
-                  <h5 class="card-title" th:text="${error}"></h5>
+                <div class="input-group">
+                  <h3>Por email</h3>
+                  <div class="col-md-4 w-100">
+                    <label for="city" class="form-label">Email:</label>
+                    <br />
+                    <input
+                      class="form-control bg-transparent"
+                      id="email"
+                      name="email"
+                      placeholder="email@ejemplo.com" />
+                  </div>
                 </div>
-              </div>
+                <div class="container">
+                  <button
+                    type="submit"
+                    class="btn btn-outline-light btn-lg px-4 mt-5">
+                    Buscar
+                  </button>
+                </div>
 
+                <div class="col-12 mt-3 d-flex justify-content-center">
+                  <img
+                    th:src="@{/img/logo.png}"
+                    alt="logo"
+                    class="img-modal w-50" />
 
+                  <div
+                    th:if="${error != null}"
+                    class="card text-white bg-warning mb-3 mensajeError mt-5">
+                    <div class="card-body">
+                      <h5 class="card-title" th:text="${error}"></h5>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
-
-          </form>
+          </div>
         </div>
       </div>
+
+      <section id="servicios" class="py-5 fondo-seccion text-center">
+        <div class="contenedor-titulo mb-5">
+          <h1 class="display-4 mb-5 titulo-1">Proveedores</h1>
+        </div>
+        <div th:replace="fragments/suppliers-card:: suppliers-card"></div>
+      </section>
     </div>
-
-  </div>
-
-
-</body>
-<footer th:replace="fragments/footer :: footer"></footer>
-
-
-
+  </body>
+  <footer th:replace="fragments/footer :: footer"></footer>
 </html>
