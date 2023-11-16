@@ -78,3 +78,25 @@
   }
 }
 
+.titulo-hero {
+  margin-top: 15px;
+  color: #ffffff;
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-size: 2em;
+  position: relative;
+  display: inline-block;
+  animation: changeColor 4s infinite alternate;
+}
+
+@keyframes changeColor {
+  0% {
+    color: #ffffff; /* Blanco al inicio */
+  }
+  50% {
+    color: #000000; /* Negro a la mitad de la animación */
+  }
+  100% {
+    color: #ffffff; /* Blanco al final */
+  }
+}
+
