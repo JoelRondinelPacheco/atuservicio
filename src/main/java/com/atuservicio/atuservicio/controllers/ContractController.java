@@ -501,7 +501,7 @@ public class ContractController {
         List<Comment> comments = this.commentRepository.findByContractId(contractId);
         model.addAttribute("comments", comments);
         model.put("contractId", contractId);
-        return "comments_supplier_list";
+        return "comments_list";
     }
 
     //------------------------------LISTA DE SOLICITUDES------------------------------
