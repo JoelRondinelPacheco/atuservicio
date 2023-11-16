@@ -333,7 +333,7 @@
                                             th:text="${contract.state}"></td>
                                         <td style="background-color: #c0aaca; color: white;">
                                             <a class="btn btn-outline-light btn-success btn-lg px-4 me-md-2"
-                                                th:href="@{/contract/supplier/decline/__${contract.id}__}">
+                                                th:href="@{/contract/supplier/done/__${contract.id}__}">
                                                 Termine mi trabajo
                                                 <!--ContractController: linea 212--><!--Lo setea a DONE_SUPPLIER-->
                                             </a>
@@ -406,6 +406,7 @@
                                                 th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a>
 
                                         </td>
+                                        <td style="background-color: #c0aaca; color: white;" th:unless="${contract.hasComment}">-</td>
                                     </tr>
                                 </tbody>
                             </table>

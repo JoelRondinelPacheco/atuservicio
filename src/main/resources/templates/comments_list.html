@@ -3,33 +3,27 @@
     xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:replace="fragments/head :: head"></head>
-
     <body>
-
         <nav th:replace="fragments/navbar :: navbar"></nav>
-
-        <section class="py-6 wwihd text-center fondo-seccion">
-
+        <div class="py-6 wwihd text-center fondo-seccion">
             <h1 class="p-3 titulo-hero display-5 fw-bold lh-1 mb-3"> Lista de comentarios</h1>
-            <div th:each="comment : ${comments}">
-                <form>
-                    <label for="puntuacion">Puntuacion</label>
-                    <div class="p-1">
-                        <input type="number" id="puntuacion" name="score" th:value="${comment.score}" readonly>
-                        <div class="p-6">
-                            <label for="commentario">comentario</label>
-                            <div class="p-1">
-                                <textarea id="commentario" name="content" th:text="${comment.content}" readonly></textarea>
-                                </form>
-                            </div>
+            <div class="container mt-3 mb-5">
+                <div th:each="comment : ${comments}">
+                    <form>  
+                        <label for="puntuacion">Puntuacion</label>
+                        <div class="p-1">
+                            <input type="number" id="puntuacion" name="score" th:value="${comment.score}" readonly>
+                            <div class="p-6">
+                                <label for="commentario">comentario</label>
+                                <div class="p-1">
+                                    <textarea id="commentario" name="content" th:text="${comment.content}" readonly></textarea>      
+                                </div> 
+                            </div>   
                         </div>
-                    </div>
+                    </form>  
+                </div> 
             </div>
-            <div class="p-5">
-                <div class="p-5">
-                    <footer
-                        th:replace="fragments/footer :: footer"
-                        class="fixed-footer">
-
-                        </body>
-                        </html>
+        </div>
+        <footer th:replace="fragments/footer :: footer" class="fixed-footer">
+    </body>
+</html>
