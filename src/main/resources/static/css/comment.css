@@ -4,7 +4,7 @@
 
 .rounded-img-container {
   width: 100%; /* Ajusta el tamaño del contenedor de la imagen al 100% de la tarjeta */
-  height: 300px; /* Ajusta el tamaño del contenedor de la imagen según sea necesario */
+  height: 350px; /* Ajusta el tamaño del contenedor de la imagen según sea necesario */
   overflow: hidden;
   margin-top: 20px; 
 }
