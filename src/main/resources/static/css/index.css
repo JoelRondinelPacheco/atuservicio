@@ -1,45 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@700&display=swap');
-
-.bd-placeholder-img {
-  font-size: 1.125rem;
-  text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-
-
-
-@media (min-width: 768px) {
-  .bd-placeholder-img-lg {
-    font-size: 3.5rem;
-  }
-
-}
-@media (max-width: 768px) {
-
-
-  .logo{
-    width: 50px;
-    height: auto;
-  }
-}
-
-
-
-
-
 .letra-estilo-one{
 
   font-family: 'PT Sans Narrow', sans-serif;
 }
+<<<<<<< HEAD
 .contenedor-general{
   width: 100%;
   height: 100%;
   margin-top: 70px;
+=======
+>>>>>>> developer
 
-  align-items: center;
-}
 /* imagen del fonde del hero  */
 
 .fondo-seccion {
@@ -111,6 +82,28 @@
   }
   50% {
     color: aliceblue; /* A la mitad de la animación, el texto es visible */
+  }
+}
+
+.titulo-hero {
+  margin-top: 15px;
+  color: #ffffff;
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-size: 2em;
+  position: relative;
+  display: inline-block;
+  animation: changeColor 4s infinite alternate;
+}
+
+@keyframes changeColor {
+  0% {
+    color: #ffffff; /* Blanco al inicio */
+  }
+  50% {
+    color: #000000; /* Negro a la mitad de la animación */
+  }
+  100% {
+    color: #ffffff; /* Blanco al final */
   }
 }
 
