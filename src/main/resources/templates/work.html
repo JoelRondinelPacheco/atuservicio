@@ -10,97 +10,101 @@
   <header>
     <nav th:replace="fragments/navbar :: navbar"></nav>
   </header>
-
+  
   <!-- Contentedor principal -->
   <div class="container-general fondo-seccion mt-5">
-
-    <div class="container text-center ">
+    <div class="container text-center">
+      <h1 class="text-light">Tu Perfil Profesional</h1>
+    </div>
+    <div class="container text-center pt-3">
       <!-- <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> -->
       <form th:action="@{/#}" method="POST">
-    
-      <div class="row align-items-center">
-        <div class="col">
-          <div data-aos="fade-down" class="card rounded-card shadow-lg p-3 card-color"
-            style="width: 18rem; overflow: hidden">
-            <!-- Contenedor para la imagen redonda -->
-            <div class="rounded-img-container">
-              <img th:src="@{/image/{imageId}(imageId=${supplier.imageCard})}" class="card-img-top " alt="Imagen Redonda" />
-            </div>
-    
-            <div class="card-body">
-              <h5 th:text="${supplier.name}" class="card-title"></h5>
-              <p th:text="${supplier.email}" class="card-text">
-    
-              </p>
-              <p class="fs-2 fw-semibold" th:text="${supplier.category.name}"></p>
-              <p class="fs-2 fw-semibold"th:text="'$ ' +${supplier.priceHour} + ' /hora'"></p>
-              <div class="row">
-                <div class="col"><i class="fa-solid fa-location-dot"></i>
-              <p th:text="${supplier.city} + ' ' + ${supplier.province}" class="card-text"></p>
-            </div>
-            </div>  
-              <!-- calificaciones -->
-              <div class="rating">
-                <!-- La calificación se redondea y se convierte en un entero para determinar cuántas estrellas llenar -->
-                <!-- <th:block th:each="star : ${#numbers.sequence(1, calificacion)}">
+
+        <div class="row align-items-center ">
+          <div class="col">
+            <div data-aos="fade-down" class="card rounded-card shadow-lg p-3 card-color"
+              style="width: 18rem; overflow: hidden">
+              <!-- Contenedor para la imagen redonda -->
+              <div class="rounded-5">
+                <img th:src="@{/image/{imageId}(imageId=${supplier.imageCard})}" class="card-img-top rounded-5"
+                  alt="Imagen" />
+              </div>
+              <div class="card-body text-light">
+                <h5 th:text="'Hola '+${supplier.name}+'!'" class="card-title"></h5>
+                <p th:text="'Email: '+${supplier.email}" class="card-text"></p>
+
+                <p class="fs-2 fw-semibold" th:text="${supplier.category.name}"></p>
+                <p class="fs-2 fw-semibold" th:text="'$ ' +${supplier.priceHour} + ' /hora'"></p>
+                <div class="row">
+                  <div class="col"><i class="fa-solid fa-location-dot"></i>
+                    <p th:text="${supplier.city} + ', ' + ${supplier.province}" class="card-text"></p>
+                  </div>
+                </div>
+                <!-- calificaciones -->
+                <div class="rating">
+                  <!-- La calificación se redondea y se convierte en un entero para determinar cuántas estrellas llenar -->
+                  <!-- <th:block th:each="star : ${#numbers.sequence(1, calificacion)}">
                   <span>☆</span>
                 </th:block> -->
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- comentario -->
-        <div class="col">
-          <div data-aos="fade-down" class="card rounded-card shadow-lg p-3 card-color"
-            style="width: 25rem; overflow: hidden">
-            <!-- Contenedor para la imagen redonda -->
-            
-    
-            <div class="card-body">
-              <h5 >Detalle del trabajo a realizar</h5>
-              <textarea name="description" id="" cols="30" rows="10" class="form-control"></textarea>
-              <!-- calificaciones -->
-              <!-- <p th:text="${supplier.comments.score}" class="card-text">
+          <!-- comentario -->
+          <div class="col">
+            <div data-aos="fade-down" class="card rounded-card shadow-lg p-3 card-color"
+              style="width: 25rem; overflow: hidden">
+              <!-- Contenedor para la imagen redonda -->
+
+
+              <div class="card-body text-light">
+                <h5>Detalle de tus servicios</h5>
+                <p th:value="${service.description}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque
+                  pariatur a aliquam, labore eaque aut
+                  tenetur facere repellendus. Ipsam fugit suscipit ipsa nulla deserunt, repellat consequuntur sunt
+                  molestias hic maiores.</p>
+                <!-- <textarea name="description" id="" cols="30" rows="10" class="form-control"></textarea> -->
+                <!-- calificaciones -->
+                <!-- <p th:text="${supplier.comments.score}" class="card-text">
                
               </p>  -->
-    
-              <!-- La calificación se redondea y se convierte en un entero para determinar cuántas estrellas llenar -->
-              <!-- <th:block th:each="star : ${#numbers.sequence(1, calificacion)}">
-                  <span>☆</span>
-                </th:block> -->
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div data-aos="fade-left" class="card rounded-card shadow-lg p-3 card-color" style="width: 18rem; overflow: hidden">
-            <!-- Contenedor para la imagen redonda -->
-      
-      
-            <div class="card-body ">
-              
-              <a th:href="@{/contract/form/__${supplier.id}__}"><button class="btn btn-outline-light w-30 py-2"
-                  type="submit">Modificar datos</button></a>
-              <!-- calificaciones -->
-            </form>
-              <div class="rating">
-      
+
                 <!-- La calificación se redondea y se convierte en un entero para determinar cuántas estrellas llenar -->
                 <!-- <th:block th:each="star : ${#numbers.sequence(1, calificacion)}">
-                    <span>☆</span>
-                  </th:block> -->
+                  <span>☆</span>
+                </th:block> -->
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <!-- comentario -->
-      
-      <!-- comentario -->
+          <div class="col">
+            <div data-aos="fade-left" class="card rounded-card shadow-lg p-3 card-color"
+              style="width: 18rem; overflow: hidden">
+              <!-- Contenedor para la imagen redonda -->
+
+
+              <div class="card-body ">
+
+                <a th:href="@{/contract/form/__${supplier.id}__}"><button class="btn btn-outline-light w-30 py-2"
+                    type="submit">Modificar datos</button></a>
+                <!-- calificaciones -->
+      </form>
+
     </div>
+
+    <!-- aca va un carrousel con las fotos -->
 
   </div>
 
-  <!-- <div class="container-fluid color">
+
+  <footer th:replace="fragments/footer :: footer"></footer>
+
+
+</body>
+
+</html>
+
+
+<!-- <div class="container-fluid color">
       <div
         id="myCarousel"
         class="carousel carousel-static slide color"
@@ -134,13 +138,6 @@
         </a>
       </div>
     </div> -->
-
-  <footer th:replace="fragments/footer :: footer"></footer>
-
-
-</body>
-
-</html>
 
 <!-- <div class="container color text-center">
   <div class="row row-eq-height align-items-stretch">
