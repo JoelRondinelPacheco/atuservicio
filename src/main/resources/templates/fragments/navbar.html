@@ -1,30 +1,45 @@
-<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark"
-  aria-label="Ninth navbar example">
+<nav
+  th:fragment="navbar"
+  class="navbar navbar-expand-lg navbar-dark bg-dark"
+  aria-label="Ninth navbar example"
+  style="position: fixed; width: 100%; top: 0; z-index: 1000">
   <div class="container-xl">
-    <a class="navbar-brand" href="#">A tu servicio</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07XL"
-      aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
+    <a
+      class="navbar-brand"
+      style="font-style: oblique; font-size: 35px; font-variant: unset"
+      href="#"
+      >A tu servicio</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarsExample07XL"
+      aria-controls="navbarsExample07XL"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarsExample07XL">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 direccion-navbar justify-content-start align-items-start">
+      <ul
+        class="navbar-nav ms-auto mb-2 mb-lg-0 direccion-navbar justify-content-start align-items-start">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">
             <i class="fa-solid fa-house text-white me-1"></i> Home
           </a>
         </li>
-        <li class="nav-item ">
-
-          <a class="nav-link active " aria-current="page" href="/#servicios" >
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/#servicios">
             Servicio
           </a>
-         
         </li>
 
-
         <li class="nav-item">
-          <a class="nav-link active " aria-current="page" th:href="@{'/supplier/services'}">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            th:href="@{'/supplier/services'}">
             <i class="fa-solid fa-truck-field-un"></i> Proveedores
           </a>
         </li>
@@ -40,8 +55,13 @@
 
         <!-- Mi Perfil -->
         <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-          <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown" aria-expanded="false">Mi
-            Perfil</a>
+          <a
+            class="nav-link dropdown-toggle text-white"
+            href="#"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            >Mi Perfil</a
+          >
           <ul class="dropdown-menu">
             <li>
               <a
@@ -52,12 +72,18 @@
             </li>
             <!-- Otros elementos del menú desplegable... -->
             <li sec:authorize="hasAnyRole('CLIENT', 'SUPPLIER')">
-              <a class="barra-desplegable-menu dropdown-item"
-                th:href="${#request.isUserInRole('SUPPLIER') ? '/contract/list/customers' : ( #request.isUserInRole('CLIENT') ? '/contract/list/suppliers' : '#')}">Solicitudes</a>
+              <a
+                class="barra-desplegable-menu dropdown-item"
+                th:href="${#request.isUserInRole('SUPPLIER') ? '/contract/list/customers' : ( #request.isUserInRole('CLIENT') ? '/contract/list/suppliers' : '#')}"
+                >Solicitudes</a
+              >
             </li>
             <li sec:authorize="hasRole('SUPPLIER')">
-              <a class="barra-desplegable-menu dropdown-item" th:href="@{/supplier/service}">Perfil Profecional</a>
-
+              <a
+                class="barra-desplegable-menu dropdown-item"
+                th:href="@{/supplier/service}"
+                >Perfil Profecional</a
+              >
             </li>
           </ul>
         </li>
@@ -70,18 +96,12 @@
         </li>
         <!-- Login -->
         <li class="nav-item" sec:authorize="not isAuthenticated()">
-          <a
-            class="nav-link active"
-            aria-current="page"
-            href="/">
+          <a class="nav-link active" aria-current="page" href="/">
             <i class="fa-solid fa-right-to-bracket"></i> Inicio Sesión
           </a>
         </li>
         <li class="nav-item" sec:authorize="not isAuthenticated()">
-          <a
-            class="nav-link active"
-            aria-current="page"
-            href="/">
+          <a class="nav-link active" aria-current="page" href="/">
             <i class="fa-regular fa-address-card"></i> Registro
           </a>
         </li>
