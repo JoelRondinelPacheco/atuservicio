@@ -75,3 +75,13 @@
 
 /* fin de calificaciones */
 
+
+/*Deslizables */
+
+.conatinerComment{
+  display:  flex;
+  align-items: center;
+}
+.deslizable{
+  width: 30%;
+}

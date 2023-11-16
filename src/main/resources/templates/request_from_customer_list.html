@@ -8,8 +8,8 @@
     <nav th:replace="fragments/navbar :: navbar"></nav>
 
     <div class="container " style="margin-top:100px;">
-        <div class="accordion accordion-flush"  id="accordionFlushExample">
-            <div class="accordion-item m-2 " >
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item m-2 ">
                 <h2 class="accordion-header" id="flush-headingOne">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
@@ -66,9 +66,11 @@
                                         <td style="background-color: #c0aaca; color: white" class="fs-6">
                                             <form class="fs-6"
                                                 th:action="@{/contract/supplier/accept/__${contract.id}__}">
-                                                <label for="customRange1" class="form-label">Tiempo Estimado en horas: </label><span id="time"></span>
-                                                <input type="range" min="0" max="24" name="estimatedTime" class="form-range" id="customRange1">
-                                                
+                                                <label for="customRange1" class="form-label">Tiempo Estimado en horas:
+                                                </label><span id="time"></span>
+                                                <input type="range" min="0" max="24" name="estimatedTime"
+                                                    class="form-range" id="customRange1">
+
                                                 <input type="submit" value="Cotizar"
                                                     class="btn btn-outline-light btn-success btn-lg px-4 me-md-2" /><!--ContractController: linea 120--><!--Lo setea a APPROVED_SUPPLIER-->
                                             </form>
@@ -166,22 +168,29 @@
                             <table class="table table-bordered" style="font-size: 10px">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">Fecha
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">Fecha
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">Nombre
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">Nombre
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">Email
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">Email
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">
                                             Dirección</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">
                                             Descripción</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">Estado
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">Estado
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
-                                    <tr th:each="contract : ${contracts}" th:if="${contract.state.name() == 'APPROVED_SUPPLIER'}">
+                                    <tr th:each="contract : ${contracts}"
+                                        th:if="${contract.state.name() == 'APPROVED_SUPPLIER'}">
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
                                             th:text="${contract.createdAt}"></td>
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
@@ -198,7 +207,7 @@
                                 </tbody>
                             </table>
                         </div>
-                
+
                     </div>
                 </div>
             </div>
@@ -216,24 +225,32 @@
                             <table class="table table-bordered" style="font-size: 10px">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">Fecha
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">Fecha
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">Nombre
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">Nombre
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">Email
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">Email
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">
                                             Dirección</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">
                                             Descripción</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">Estado
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">Estado
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">
                                             Comentario</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
-                                    <tr th:each="contract : ${contracts}" th:if="${contract.state.name() == 'REFUSED_SUPPLIER'}">
+                                    <tr th:each="contract : ${contracts}"
+                                        th:if="${contract.state.name() == 'REFUSED_SUPPLIER'}">
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
                                             th:text="${contract.createdAt}"></td>
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
@@ -246,17 +263,18 @@
                                             th:text="${contract.description}"></td>
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
                                             th:text="${contract.state}"></td>
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6" th:if="${contract.hasComment}">
-                
+                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
+                                            th:if="${contract.hasComment}">
+
                                             <a class="btn btn-outline-light  btn-lg px-4 me-md-2"
                                                 th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a>
-                
+
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                
+
                     </div>
                 </div>
             </div>
@@ -271,28 +289,36 @@
                 <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive"
                     data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
-                        <div id="contractList" >
+                        <div id="contractList">
                             <table class="table table-bordered" style="font-size: 10px">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">Fecha
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">Fecha
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">Nombre
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">Nombre
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">Email
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">Email
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">
                                             Dirección</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">
                                             Descripción</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">Estado
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">Estado
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6" scope="col">Accion
+                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                            scope="col">Accion
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
-                                    <tr th:each="contract : ${contracts}" th:if="${contract.state.name() == 'PENDING_COMPLETION'}">
+                                    <tr th:each="contract : ${contracts}"
+                                        th:if="${contract.state.name() == 'PENDING_COMPLETION'}">
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
                                             th:text="${contract.createdAt}"></td>
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
@@ -305,7 +331,7 @@
                                             th:text="${contract.description}"></td>
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
                                             th:text="${contract.state}"></td>
-                                        <td>
+                                        <td style="background-color: #c0aaca; color: white;">
                                             <a class="btn btn-outline-light btn-success btn-lg px-4 me-md-2"
                                                 th:href="@{/contract/supplier/decline/__${contract.id}__}">
                                                 Termine mi trabajo
@@ -316,7 +342,7 @@
                                 </tbody>
                             </table>
                         </div>
-                
+
                     </div>
                 </div>
             </div>
@@ -330,28 +356,36 @@
                 <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix"
                     data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
-                        <div id="refusedContractList" >
+                        <div id="refusedContractList">
                             <table class="table table-hover" style="font-size: 10px">
                                 <thead style="background-color: transparent" class="thead-dark">
                                     <tr>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">Nombre
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">Nombre
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">Email
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">Email
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">
                                             Dirección</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">Fecha
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">Fecha
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">
                                             Descripción</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">Estado
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">Estado
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">
                                             Comentario</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
-                                    <tr th:each="contract : ${contracts}" th:if="${contract.state.name() == 'REFUSED_CLIENT'}">
+                                    <tr th:each="contract : ${contracts}"
+                                        th:if="${contract.state.name() == 'REFUSED_CLIENT'}">
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6"
                                             th:text="${contract.createdAt}"></td>
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6"
@@ -362,20 +396,21 @@
                                             th:text="${contract.customer.address}"></td>
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6"
                                             th:text="${contract.description}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6" th:text="${contract.state}">
+                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                            th:text="${contract.state}">
                                         </td>
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6"
                                             th:if="${contract.hasComment}">
-                
+
                                             <a class="btn btn-outline-light  btn-lg px-4 me-md-2"
                                                 th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a>
-                
+
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                
+
                     </div>
                 </div>
             </div>
@@ -394,24 +429,32 @@
                             <table class="table table-hover" style="font-size: 10px">
                                 <thead style="background-color: transparent" class="thead-dark">
                                     <tr>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">Nombre
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">Nombre
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">Email
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">Email
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">
                                             Dirección</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">Fecha
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">Fecha
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">
                                             Descripción</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">Estado
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">Estado
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">
                                             Comentario</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
-                                    <tr th:each="contract : ${contracts}" th:if="${contract.state.name() == 'DONE_CLIENT'}">
+                                    <tr th:each="contract : ${contracts}"
+                                        th:if="${contract.state.name() == 'DONE_CLIENT'}">
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6"
                                             th:text="${contract.createdAt}"></td>
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6"
@@ -422,14 +465,19 @@
                                             th:text="${contract.customer.address}"></td>
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6"
                                             th:text="${contract.description}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6" th:text="${contract.state}">
+                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                            th:text="${contract.state}">
                                         </td>
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6"
                                             th:if="${contract.hasComment}">
-                
+
                                             <a class="btn btn-outline-light btn-lg px-4 me-md-2"
                                                 th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a>
-                
+
+                                        </td>
+                                        <td style="background-color: #c0aaca; color: white"
+                                            th:unless="${contract.hasComment}">
+                                            -
                                         </td>
                                     </tr>
                                 </tbody>
@@ -449,28 +497,36 @@
                 <div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingEight"
                     data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
-                        <div id="refusedContractList" >
+                        <div id="refusedContractList">
                             <table class="table table-hover" style="font-size: 10px">
                                 <thead style="background-color: transparent" class="thead-dark">
                                     <tr>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">Nombre
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">Nombre
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">Email
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">Email
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">
                                             Dirección</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">Fecha
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">Fecha
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">
                                             Descripción</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">Estado
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">Estado
                                         </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none" scope="col">
+                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                            scope="col">
                                             Comentario</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
-                                    <tr th:each="contract : ${contracts}" th:if="${contract.state.name() == 'DONE_SUPPLIER'}">
+                                    <tr th:each="contract : ${contracts}"
+                                        th:if="${contract.state.name() == 'DONE_SUPPLIER'}">
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6"
                                             th:text="${contract.createdAt}"></td>
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6"
@@ -481,20 +537,21 @@
                                             th:text="${contract.customer.address}"></td>
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6"
                                             th:text="${contract.description}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6" th:text="${contract.state}">
+                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                            th:text="${contract.state}">
                                         </td>
                                         <td style="background-color: #c0aaca; color: white;" class="fs-6"
                                             th:if="${contract.hasComment}">
-                
+
                                             <a class="btn btn-outline-light btn-lg px-4 me-md-2"
                                                 th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a>
-                
+
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                
+
                     </div>
                 </div>
             </div>
@@ -511,26 +568,26 @@
 
 
 
- 
-        
-       
-        
 
-           </div>
-    <script>
-    
-    const range = document.querySelector('#customRange1')
-    const time = document.querySelector('#time')
 
-   
-    range.addEventListener('input', () => {
-        console.log(range.value)
-    time.textContent = " " + range.value
-   
-})
-    </script>
-   
-    <footer th:replace="fragments/footer :: footer"></footer>
+
+
+
+        </div>
+        <script>
+
+            const range = document.querySelector('#customRange1')
+            const time = document.querySelector('#time')
+
+
+            range.addEventListener('input', () => {
+                console.log(range.value)
+                time.textContent = " " + range.value
+
+            })
+        </script>
+
+        <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 
 </html>
