@@ -23,11 +23,11 @@
         <h5 class="card-title" th:text="${error}"></h5>
       </div>
     </div>
-
+    <div class="contenedor-titulo ">
+      <h1 class="display-4  titulo-1">Proveedores</h1>
+    </div>
     <section id="servicios" class="py-5 text-center ">
-      <div class="contenedor-titulo ">
-        <h1 class="display-4  titulo-1">Proveedores</h1>
-      </div>
+
       <div th:replace="fragments/suppliers-card:: suppliers-card"></div>
     </section>
   </div>
@@ -39,7 +39,7 @@
     <div class="offcanvas offcanvas-start titulo-frame-proveedores fondo-seccion" data-bs-backdrop="static"
       tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
       <div class="offcanvas-header">
-       
+
         <div class="container d-flex justify-content-between">
           <h6 class="offcanvas-title titulo-frame-proveedores" id="staticBackdropLabel">
             Búsqueda de Proveedores
