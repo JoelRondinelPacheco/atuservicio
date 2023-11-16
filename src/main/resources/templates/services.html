@@ -10,24 +10,11 @@
 
   <body>
     <div class="contenedor-general fondo-seccion">
-      <div class="container">
-        <button
-          class="btn btn-outline-light btn-lg px-4 me-md-2"
-          style="margin-top: 90px"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#staticBackdrop"
-          aria-controls="staticBackdrop">
-          Buscar proveedores
-        </button>
-      </div>
-
       <div
         th:if="${error != null}"
         class="card text-white bg-warning mb-3 mensajeError mt-5">
         <div class="card-body">
           <h5 class="card-title" th:text="${error}"></h5>
-          <<<<<<< HEAD
         </div>
       </div>
 
@@ -51,8 +38,11 @@
           </div>
         </div>
 
-        <section id="servicios" class="py-5 text-center">
-          <div class="contenedor-titulo">
+        <section
+          id="servicios"
+          class="py-5 text-center"
+          style="margin-bottom: 40px">
+          <div class="contenedor-titulo" style="margin-bottom: 120px">
             <h1 class="display-4 titulo-1">Proveedores</h1>
           </div>
           <div th:replace="fragments/suppliers-card:: suppliers-card"></div>
@@ -168,13 +158,6 @@
           </div>
         </div>
       </div>
-
-      <section id="servicios" class="py-5 fondo-seccion text-center">
-        <div class="contenedor-titulo mb-5">
-          <h1 class="display-4 mb-5 titulo-1">Proveedores</h1>
-        </div>
-        <div th:replace="fragments/suppliers-card:: suppliers-card"></div>
-      </section>
     </div>
   </body>
   <footer th:replace="fragments/footer :: footer"></footer>

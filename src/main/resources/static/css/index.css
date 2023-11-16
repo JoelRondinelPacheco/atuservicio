@@ -36,6 +36,7 @@
 .contenedor-general{
   width: 100%;
   height: 100%;
+  margin-top: 70px;
 
   align-items: center;
 }
@@ -80,7 +81,7 @@
   position: absolute;
   font-family: 'PT Sans Narrow', sans-serif;
   color: rgb(255, 255, 255); 
-  font-size: 30px;
+  font-size: 15px;
 
 }
 .wwihd section{
