@@ -61,6 +61,7 @@ public class ContractService implements IContractService {
         contract.setSupplier(supplier);
         contract.setDescription(contractDTO.getDescription());
         contract.setState(State.PENDING_APPROVAL);
+        contract.setCantidadComentarios(0);
 
 
         Contract contractSaved = this.contractRepository.save(contract);
@@ -243,6 +244,13 @@ public class ContractService implements IContractService {
         }
         throw new MyException("Contrato no encontrado");
     }
+    
+    @Override
+    public void aumentoCantidadComentarios(ContractInfoDTO contractDTO) throws MyException {
+        Contract contract = getContractById(contractDTO.getId());
+        contract.setCantidadComentarios(contract.getCantidadComentarios() + 1);
+        this.contractRepository.save(contract);
+    }
 
     public ContractInfoDTO createContractInfoDTO(Contract contract) {
         Boolean hasComments;
@@ -262,7 +270,8 @@ public class ContractService implements IContractService {
                 this.supplierService.createSupplierInfoDTO(contract.getSupplier()),
                 hasComments,
                 contract.getRejectedBudget(),
-                contract.getEstimatedTime());
+                contract.getEstimatedTime(),
+                contract.getCantidadComentarios());
 
         return contractinfo;
     }

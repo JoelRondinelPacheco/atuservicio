@@ -7,6 +7,7 @@ package com.atuservicio.atuservicio.controllers;
 
 import com.atuservicio.atuservicio.dtos.LoginPassDTO;
 import com.atuservicio.atuservicio.dtos.categories.CategoryInfoDTO;
+import com.atuservicio.atuservicio.dtos.comments.CommentInfoDTO;
 import com.atuservicio.atuservicio.dtos.services.EditServiceInfoDTO;
 import com.atuservicio.atuservicio.dtos.services.ServiceInfoDTO;
 import com.atuservicio.atuservicio.dtos.suppliers.EditSupplierDTO;
@@ -17,6 +18,7 @@ import com.atuservicio.atuservicio.dtos.users.UserRegisterErrorDTO;
 import com.atuservicio.atuservicio.dtos.users.UserSearchDTO;
 import com.atuservicio.atuservicio.entities.Category;
 import com.atuservicio.atuservicio.exceptions.MyException;
+import com.atuservicio.atuservicio.services.CommentService;
 import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.interfaces.ICategoryService;
 import com.atuservicio.atuservicio.services.interfaces.ISupplierService;
@@ -53,6 +55,8 @@ public class SupplierController {
     ICategoryService categoryService;
     @Autowired
     private PasswordValidator passwordValidator;
+    @Autowired
+    CommentService commentService;
 
     @GetMapping("/register")
     public String register(ModelMap model) {
@@ -250,17 +254,35 @@ public class SupplierController {
 
     @GetMapping("/workPreview/{id}")
     public String workPreview(@PathVariable("id") String id, ModelMap model) throws MyException {
-
+        System.out.println("-----------------------------------entró al preview ----------------------------------------------------------------");
+        List<CommentInfoDTO> comments = commentService.getCommentsToSupplier(id);
         SupplierInfoDTO supplier = supplierService.getById(id);
         String email = supplier.getEmail();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = auth.getName();
         UserInfoDTO user = userService.getSearchEmailUser(userEmail);
         ServiceInfoDTO service = this.supplierService.getServiceInfo(email);
+        model.addAttribute("id", id);
+        model.addAttribute("comments", comments);
         model.addAttribute("user", user);
         model.addAttribute("supplier", supplier);
         model.addAttribute("service", service);
         return "work_user.html";
+    }
+
+    @GetMapping("/comments_list/{id}")
+    public String comments_list(@PathVariable("id") String id, ModelMap model) {
+
+
+
+        List<CommentInfoDTO> comments = commentService.getCommentsToSupplier(id);
+
+        for (CommentInfoDTO c : comments) {
+            System.out.println(c.getContent());
+            System.out.println("asdasdasdasd");
+        }
+        model.addAttribute("comments", comments);
+        return "comments_list.html";
     }
 
     @GetMapping("/service")
@@ -314,12 +336,12 @@ public class SupplierController {
 
     @PostMapping("/convert/{UserId}")
     public String convertToSupplier(@PathVariable("UserId") String UserId, @RequestParam String CategoryId,
-            @RequestParam String email, ModelMap model) {
+            ModelMap model) {
 
         try {
             UserInfoDTO customerDTO = this.userService.getById(UserId);
             CategoryInfoDTO categoryDTO = this.categoryService.getById(CategoryId);
-            SupplierInfoDTO supplierDTO = this.supplierService.convertToSupplier(customerDTO, categoryDTO, email);
+            SupplierInfoDTO supplierDTO = this.supplierService.convertToSupplier(customerDTO, categoryDTO);
 
             ServiceInfoDTO service = this.supplierService.getServiceInfo(supplierDTO.getEmail());
 
