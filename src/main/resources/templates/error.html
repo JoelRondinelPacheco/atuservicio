@@ -1,26 +1,10 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <head th:replace="fragments/head :: head"></head>
-  <body
-    style="
-      margin-top: 70px;
-
-      background-image: url('/img/hero.jpg');
-
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-color: rgba(
-        255,
-        255,
-        255,
-        0.8
-      ); /* Set transparency using rgba values */
-      z-index: -1;
-    ">
-    <nav th:replace="fragments/navbar :: navbar"></nav>
-
+  <body>
+    <header>
+      <nav th:replace="fragments/navbar :: navbar"></nav>
+    </header>
     <div class="container">
       <div
         th:if="${error != null}"
@@ -30,15 +14,7 @@
           <p class="card-text" th:text="${error}"></p>
         </div>
       </div>
-      <h1
-        style="
-          margin-top: 250;
-          font-size: 75px;
-          color: bisque;
-          padding-bottom: 500px;
-        ">
-        SECTOR NO AUTORIZADO
-      </h1>
+<h1>ES LA PAGINA DE ERROR</h1>
       <div
         th:if="${exito != null}"
         class="card text-white bg-success mb-3 mensajeExito">
