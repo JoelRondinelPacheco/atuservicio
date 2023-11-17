@@ -47,7 +47,7 @@ public class User extends Base implements UserDetails {
     
     private String postal_code;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Contract> contracts;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)   //Relación 'uno a muchos' --> un usuario puede escribi muchos comentarios
