@@ -193,7 +193,10 @@ public class SupplierService implements ISupplierService {
         throw new MyException("Proveedor no encontrado por email");
     }
 
-    
+    @Override
+    public SupplierInfoDTO convertToSupplier(UserInfoDTO customerDTO, CategoryInfoDTO categoryDTO) throws MyException {
+        return null;
+    }
 
     public List<SupplierInfoDTO> getSearchSuppliers(UserSearchDTO userSearch, String category) throws MyException {
 
@@ -312,18 +315,17 @@ public class SupplierService implements ISupplierService {
     }
     
     @Override
-    public SupplierInfoDTO convertToSupplier(UserInfoDTO customerDTO, CategoryInfoDTO categoryDTO) throws MyException {
+    public SupplierInfoDTO convertToSupplier(UserInfoDTO customerDTO, CategoryInfoDTO categoryDTO, String email) throws MyException {
 
         Optional<User> userOptional = this.userRepository.findById(customerDTO.getId());
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             // Se da de baja al usuario como cliente y se persiste en la BD
-            //this.userService.delete(user.getId());
-            this.userRepository.delete(user);
+            this.userService.delete(user.getId());
             // Se instancia un proveedor con los mismos atributos para persistirlo en la BD
             Supplier supplier = new Supplier();
             supplier.setName(user.getName());
-            supplier.setEmail(user.getEmail());
+            supplier.setEmail(email);   //HABLAR CON EL EQUIPO!
             supplier.setPassword(user.getPassword());
             supplier.setRole(Role.SUPPLIER);
 
@@ -348,7 +350,7 @@ public class SupplierService implements ISupplierService {
             images.add(image2);
             supplier.setImageGallery(images);
             
-            /*El precio x hora, la descripción lo 
+            /*El precio x hora, la descripción y la gelería de imagenes lo 
             completa el proveedor en la vista work_edit.html*/
 
             Supplier supplierSaved = this.supplierRepository.save(supplier);

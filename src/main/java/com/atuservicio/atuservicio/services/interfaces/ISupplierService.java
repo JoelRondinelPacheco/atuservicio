@@ -22,6 +22,6 @@ public interface ISupplierService {
     SupplierInfoDTO convertToSupplier(UserInfoDTO customerDTO, CategoryInfoDTO categoryDTO) throws MyException;
     SupplierPaginatedDTO findPaginated(int pageNumber, int pageSize);
 
-    
+    SupplierInfoDTO convertToSupplier(UserInfoDTO customerDTO, CategoryInfoDTO categoryDTO, String email) throws MyException;
 
 }

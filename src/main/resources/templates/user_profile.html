@@ -133,6 +133,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 th:value="${category.id}"
                 th:text="${category.name}"></option>
             </select>
+            <label style="color: white" for="email"
+              >CAMBIA DIRECION DE EMAIL</label
+            >
+            <input
+              style="
+                background-color: #d1c0d8;
+                color: white;
+                margin-bottom: 50px;
+                border-radius: 15px;
+              "
+              type="email"
+              id="email"
+              name="email"
+              th:value="${user.email}" />
           </div>
         </form>
 
