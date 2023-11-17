@@ -1,64 +1,142 @@
 <div th:fragment="work_detail" class="container text-center">
   <!-- <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> -->
 
-  <div class="container px-4 text-center">
-    <div class="row gx-5">
-      <div class="col fw-bold" style="font-size: 20px">
-        <div class="p-3">
-          <div class="d-flex flex-column align-items-start">
-            <div
-              class="rounded-img-container"
-              style="width: 170px; height: auto; border-radius: 50px">
-              <img
-                th:src="@{/image/{imageId}(imageId=${supplier.image})}"
-                class="card-img-top"
-                alt="Imagen Redonda" />
-            </div>
+  <div class="">
 
-            <div class="text-start text-white">
-              <h3 th:text="${supplier.name}" class=""></h3>
-              <p th:text="${supplier.email}" class=""></p>
-              <p
-                th:text="${supplier.address} + ' ' + ${supplier.address_number}"
-                class=""></p>
-              <p
-                th:text="${supplier.city} + ' ' + ${supplier.province}"
-                class=""></p>
+    <div class="container text-center">
+      <h1 class="text-light mt-5" th:text="'¡Hola soy '+${supplier.name}+'!'"></h1>
+      <div th:if="${error != null}">
+        <h2 th:text="${error}"></h2>
+      </div>
+    </div>
+    <div th:if="${exito != null}" class="card text-white bg-success mb-3 mensajeExito">
+      <div class="card-body">
+        <h5 class="card-title">Éxito!</h5>
+        <p class="card-text" th:text="${exito}"></p>
+      </div>
+    </div>
+    <div class="container text-center pt-3 pb-4">
+      <!-- <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> -->
+      <!-- <form th:action="@{/supplier/}" method="GET"> -->
+
+      <div class="row align-items-center">
+        <div class="col">
+          <div data-aos="fade-down" class="card rounded-card shadow-lg p-3 card-color w-100"
+            style="width: 18rem; overflow: hidden">
+            <!-- Contenedor para la imagen redonda -->
+            <div class="rounded-5">
+              <img th:src="@{/image/{imageId}(imageId=${supplier.imageCard})}" class="card-img-top rounded-5"
+                alt="Imagen" />
+            </div>
+            <div class="card-body text-light">
+              <h5 th:text="'Hola '+${user.name}+'!'" class="card-title"></h5>
+              <p><strong class="text-light">información del proveedor</strong></p>
+              <p th:text="'Email: '+${supplier.email}" class="card-text"></p>
+
+              <p class="fs-2 fw-semibold" th:text="${supplier.category.name}"></p>
+              <p><strong class="text-light">Precio</strong></p>
+              <h5 class="" th:text="'$ ' +${supplier.priceHour} + ' /hora'"></h5>
+              <div class="row">
+                <div class="col"><i class="fa-solid fa-location-dot"></i>
+                  <p th:text="${supplier.city} + ', ' + ${supplier.province}" class="card-text"></p>
+                </div>
+              </div>
+              <!-- calificaciones -->
+              <div class="rating">
+                <!-- La calificación se redondea y se convierte en un entero para determinar cuántas estrellas llenar -->
+                <!-- <th:block th:each="star : ${#numbers.sequence(1, calificacion)}">
+                  <span>☆</span>
+                </th:block> -->
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        <!-- comentario -->
+        <div class="col">
+          <div data-aos="fade-down" class="card rounded-card shadow-lg p-3 card-color"
+            style="width: 25rem; overflow: hidden">
+            <!-- Contenedor para la imagen redonda -->
 
-      <div class="col">
-        <div class="p-3">
-          <!-- datos profecionales -->
-          <div>
-            <img
-              th:src="@{/image/{imageId}(imageId=${supplier.imageCard})}"
-              class="card-img-top mt-4"
-              alt="Imagen Redonda"
-              style="width: 170px; height: auto; border-radius: 50px" />
-          </div>
 
-          <div class="card-body text-white">
-            <h5 th:text="${supplier.category.name}" class="card-title"></h5>
-            <p class="card-text" th:text="${service.description}"></p>
-            <h5 class="card-title">Precio x hora</h5>
-            <h3 th:text="'$ '+${service.priceHour}" class="h-4"></h3>
+            <div class="card-body text-light">
+              <h5>Descripción del proveedor</h5>
+              <p th:text="${service.description}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque
+                pariatur a aliquam, labore eaque aut
+                tenetur facere repellendus. Ipsam fugit suscipit ipsa nulla deserunt, repellat consequuntur sunt
+                molestias hic maiores.</p>
+              <!-- <textarea name="description" id="" cols="30" rows="10" class="form-control"></textarea> -->
+              <!-- calificaciones -->
+              <!-- <p th:text="${supplier.comments.score}" class="card-text">
+               
+              </p>  -->
+
+              <!-- La calificación se redondea y se convierte en un entero para determinar cuántas estrellas llenar -->
+              <!-- <th:block th:each="star : ${#numbers.sequence(1, calificacion)}">
+                  <span>☆</span>
+                </th:block> -->
+                <a href="#proyectos"> <button class="btn btn-outline-light w-30 py-2">Mis proyectos</button></a>
+            </div>
           </div>
-          <div>
-            <a th:href="@{/contract/form/__${supplier.id}__}"
-              ><button class="btn btn-outline-light w-30 py-2" type="submit">
-                Contactar
-              </button></a
-            >
+        </div>
+        <div class="col">
+          <div data-aos="fade-left" class="card rounded-card shadow-lg p-3 card-color"
+            style="width: 18rem; overflow: hidden">
+            <!-- Contenedor para la imagen redonda -->
+
+
+            <div class="card-body ">
+
+              <a th:href="@{/contract/form/__${supplier.id}__}"><button class="btn btn-outline-light w-30 py-2" type="submit">Contactar</button></a>
+              <!-- calificaciones -->
+              <!-- </form> -->
+
+            </div>
+
           </div>
         </div>
       </div>
     </div>
+
+    <div class="container text-center">
+      <h1 class="text-light" id="proyectos">Fotos de mis proyectos</h1>
+    </div>
+    <div class="container p-5">
+
+      <div id="carouselExample" class="carousel slide " style="max-width: 700px; margin: auto;">
+        <div class="carousel-inner ">
+          <div th:each="image, imageStart : ${service.imageGallery}"
+            th:class="${imageStart.index == 0 ? 'carousel-item active' : 'carousel-item'}">
+            <img th:src="@{'/image/' + ${image}}"
+              class="d-block w-100 img-fluid card rounded-card shadow-lg p-3 card-color" alt="Imagen"
+              style="max-height: 500px;" />
+          </div>
+        </div>
+        <button class="carousel-control-prev rounded-5" type="button" data-bs-target="#carouselExample"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next rounded-5" type="button" data-bs-target="#carouselExample"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+      </div>
+
+    </div>
+
+
+
   </div>
 </div>
 <!-- <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
     AOS.init();
   </script> -->
+ <!-- <div>
+            <a th:href="@{/contract/form/__${supplier.id}__}"
+              ><button class="btn btn-outline-light w-30 py-2" type="submit">
+                Contactar
+              </button></a
+            >
+          </div> -->

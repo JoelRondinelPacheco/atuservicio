@@ -87,7 +87,7 @@ public class SupplierController {
                 return "index.html";
             }
 
-            SaveSupplierDTO user = new SaveSupplierDTO(name, email,  password, password2, categoryId);
+            SaveSupplierDTO user = new SaveSupplierDTO(name, email, password, password2, categoryId);
 
             supplierService.save(user);
             model.put("exito", "usuario registrado correctamente");
@@ -181,7 +181,7 @@ public class SupplierController {
         List<CategoryInfoDTO> categories = this.categoryService.listAll();
         model.addAttribute("categories", categories);
         model.addAttribute("users", users);
-        model.addAttribute("locationFound", true);  
+        model.addAttribute("locationFound", true);
 
         return "services.html";
     }
@@ -290,7 +290,6 @@ public class SupplierController {
     }
 
     @PostMapping("/workEdit")
-
     public String postWorkInfo(@RequestParam String description, @RequestParam Double priceHour,
             @RequestParam(required = false) List<MultipartFile> images,
             @RequestParam(required = false) MultipartFile card,
@@ -303,27 +302,27 @@ public class SupplierController {
                 delete.add("empty");
             }
 
-            ServiceInfoDTO service = this.supplierService
+            supplierService
                     .editServiceInfo(new EditServiceInfoDTO(email, description, priceHour, images, delete, card));
-            model.addAttribute("service", service);
-            model.addAttribute("exito", "Servicio actualizado correctamente");
-            return "work";
+
+            return "redirect:/supplier/service";
         } catch (MyException e) {
-            model.addAttribute("error", "Algo salio mal");
+            model.addAttribute("error", "Algo salio mal " + e.getMessage());
             return this.workEdit(model);
         }
     }
 
     @PostMapping("/convert/{UserId}")
-    public String convertToSupplier(@PathVariable("UserId") String UserId, @RequestParam String CategoryId, @RequestParam String email, ModelMap model) {
+    public String convertToSupplier(@PathVariable("UserId") String UserId, @RequestParam String CategoryId,
+            @RequestParam String email, ModelMap model) {
 
         try {
             UserInfoDTO customerDTO = this.userService.getById(UserId);
             CategoryInfoDTO categoryDTO = this.categoryService.getById(CategoryId);
             SupplierInfoDTO supplierDTO = this.supplierService.convertToSupplier(customerDTO, categoryDTO, email);
-            
+
             ServiceInfoDTO service = this.supplierService.getServiceInfo(supplierDTO.getEmail());
-            
+
             model.addAttribute("service", service);
             model.put("exito", "Has cambiado tu cuenta a proveedor exitosamente");
             return "work_edit.html";
@@ -354,7 +353,7 @@ public class SupplierController {
             } catch (MyException ex) {
 
             }
-            
+
         }
 
         if (password.isEmpty() || password == null) {

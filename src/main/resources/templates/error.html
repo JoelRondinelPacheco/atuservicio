@@ -20,6 +20,7 @@
       z-index: -1;
     ">
     <nav th:replace="fragments/navbar :: navbar"></nav>
+
     <div class="container">
       <div
         th:if="${error != null}"
@@ -47,5 +48,6 @@
         </div>
       </div>
     </div>
+    <footer th:replace="fragments/footer :: footer"></footer>
   </body>
 </html>
