@@ -13,8 +13,18 @@
 
   <!-- Contentedor principal -->
   <div class="container-general fondo-seccion pt-5 pb-5">
+
     <div class="container text-center">
       <h1 class="text-light mt-5">Tu Perfil Profesional</h1>
+      <div th:if="${error != null}">
+        <h2 th:text="${error}"></h2>
+      </div>
+    </div>
+    <div th:if="${exito != null}" class="card text-white bg-success mb-3 mensajeExito">
+      <div class="card-body">
+        <h5 class="card-title">Éxito!</h5>
+        <p class="card-text" th:text="${exito}"></p>
+      </div>
     </div>
     <div class="container text-center pt-3 pb-4">
       <!-- <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> -->
@@ -59,7 +69,7 @@
 
             <div class="card-body text-light">
               <h5>Detalle de tus servicios</h5>
-              <p th:value="${service.description}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque
+              <p th:text="${service.description}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque
                 pariatur a aliquam, labore eaque aut
                 tenetur facere repellendus. Ipsam fugit suscipit ipsa nulla deserunt, repellat consequuntur sunt
                 molestias hic maiores.</p>
@@ -110,11 +120,13 @@
               style="max-height: 500px;" />
           </div>
         </div>
-        <button class="carousel-control-prev rounded-5" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <button class="carousel-control-prev rounded-5" type="button" data-bs-target="#carouselExample"
+          data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Anterior</span>
         </button>
-        <button class="carousel-control-next rounded-5" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <button class="carousel-control-next rounded-5" type="button" data-bs-target="#carouselExample"
+          data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Siguiente</span>
         </button>
@@ -124,11 +136,8 @@
 
 
 
-
-    <footer th:replace="fragments/footer :: footer"></footer>
-
   </div>
-
+  <footer th:replace="fragments/footer :: footer"></footer>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
     crossorigin="anonymous"></script>

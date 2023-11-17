@@ -9,11 +9,14 @@
 
     <div class="container " style="margin-top:100px;">
         <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item m-2 ">
+            <div class="accordion-item m-2 mb-3">
                 <h2 class="accordion-header" id="flush-headingOne">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                         Solicitudes pendientes
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${pendingApproval}">
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
                     </button>
                 </h2>
                 <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
@@ -91,12 +94,13 @@
                     </div>
                 </div>
             </div>
-            <div class="accordion-item m-2">
+            <div class="accordion-item m-2 mb-3">
                 <h2 class="accordion-header" id="flush-headingTwo">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                        Solicitudes canceladas por el cliente
-                    </button>
+                        data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">Solicitudes canceladas por el cliente
+                            <span class=" position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${refusedClient}">
+    <span class="visually-hidden">unread messages</span>
+
                 </h2>
                 <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
                     data-bs-parent="#accordionFlushExample">
@@ -154,11 +158,14 @@
                     </div>
                 </div>
             </div>
-            <div class="accordion-item m-2">
+            <div class="accordion-item m-2 mb-3">
                 <h2 class="accordion-header" id="flush-headingThree">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                         Solicitudas que has aprobado
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${approvedSupplier}">
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
                     </button>
                 </h2>
                 <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
@@ -211,11 +218,14 @@
                     </div>
                 </div>
             </div>
-            <div class="accordion-item m-2">
+            <div class="accordion-item m-2 mb-3">
                 <h2 class="accordion-header" id="flush-headingFour">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
                         Solicitudas que has rechazado
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${refusedSupplier}">
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
                     </button>
                 </h2>
                 <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour"
@@ -279,11 +289,14 @@
                 </div>
             </div>
 
-            <div class="accordion-item m-2">
+            <div class="accordion-item m-2 mb-3">
                 <h2 class="accordion-header" id="flush-headingFive">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
                         Tareas en proceso
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${pendingCompletion}">
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
                     </button>
                 </h2>
                 <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive"
@@ -346,11 +359,14 @@
                     </div>
                 </div>
             </div>
-            <div class="accordion-item m-2">
+            <div class="accordion-item m-2 mb-3">
                 <h2 class="accordion-header" id="flush-headingSix">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
                         Solicitudes rechazadas por el cliente (No aceptó la cotización / Disconformidad ante el trabajo)
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${refusedClient}">
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
                     </button>
                 </h2>
                 <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix"
@@ -416,11 +432,14 @@
                 </div>
             </div>
 
-            <div class="accordion-item m-2">
+            <div class="accordion-item m-2 mb-3">
                 <h2 class="accordion-header" id="flush-headingSeven">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
                         Tareas finalizadas de forma óptima (por el cliente)
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${doneClient}">
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
                     </button>
                 </h2>
                 <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven"
@@ -488,11 +507,14 @@
                 </div>
             </div>
 
-            <div class="accordion-item m-2">
+            <div class="accordion-item m-2 mb-3">
                 <h2 class="accordion-header" id="flush-headingEight">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
                         Tareas finalizadas de forma óptima (por vos)
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${doneSupplier}">
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
                     </button>
                 </h2>
                 <div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingEight"

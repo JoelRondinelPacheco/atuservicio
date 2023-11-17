@@ -7,14 +7,14 @@
     <header>
         <nav th:replace="fragments/navbar :: navbar"></nav>
     </header>
-        <div class="container">
-            <div th:replace="fragments/adminbtns :: adminbtns"></div>
-<div class="text-center">
+    <div class="container mt-6 pt-6">
+        <div th:replace="fragments/adminbtns :: adminbtns"></div>
+        <div class="text-center">
             <div class="btn-group">
                 <a class="btn" th:classappend="${active == 'active' ? 'btn-primary active' : 'btn-outline-primary'}" th:href="@{/admin/clients/1?active=true}">Activos</a></button>
                 <a  class="btn" th:classappend="${active == 'inactive' ? 'btn-primary active' : 'btn-outline-primary'}" th:href="@{/admin/clients/1?active=false}">Inactivos</a></button>
             </div>
-</div>
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -40,8 +40,8 @@
                         <a class="btn btn-success" th:href="@{'/admin/clients/activate?clientId='+${client.id}+'&'+'currentpage='+${currentPage}}">Dar de alta</a>
                     </td>
                 </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
         <div th:if="${totalPages > 1}">
             <div class="row col-sm-10">
                 <div class="col-sm-2">
@@ -59,13 +59,13 @@
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="/js/search.js"></script>
-        <footer th:replace="fragments/footer :: footer"></footer>
-    </body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/js/search.js"></script>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</body>
 
 </html>

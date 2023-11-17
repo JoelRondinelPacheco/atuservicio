@@ -30,7 +30,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     ">
     <nav th:replace="fragments/navbar :: navbar"></nav>
 
-    <div style="margin-top: 35px" class="profile">
+    <div style="margin-top: 65px" class="profile">
       <div class="row">
         <div
           th:if="${updated != null}"
@@ -92,7 +92,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
               <div class="col-6">
                 <div class="p-3">
                   <img
-                    style="border-radius: 50px; height: 150px; width: 150px"
+                    style="border-radius: 50px"
                     th:src="@{/image/{imageId}(imageId=${user.image})}"
                     alt="" />
                   <form

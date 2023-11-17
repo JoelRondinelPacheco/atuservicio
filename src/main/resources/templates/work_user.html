@@ -6,7 +6,7 @@
   <link th:href="@{/css/comment.css}" rel="stylesheet" />
 
   <body>
-  <div class="contenedor-general">
+  <div class="contenedor-general fondo-seccion">
       <nav th:replace="fragments/navbar :: navbar"></nav>
 
 
@@ -15,9 +15,7 @@
  
 
 <section class="py-5 fondo-seccion text-center " style="margin-top: 70px;">
-  <div class="contenedor-titulo ">
-  <h1 style="font-size: 50px;" th:text="'Hola, soy ' + ${supplier.name}" class="display-4  titulo-1"></h1>
-  </div>
+  
   <div style="margin-top: 90px;" th:replace="fragments/work_detail :: work_detail"></div>
   <br>
   <br>
