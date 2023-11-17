@@ -10,6 +10,7 @@ import com.atuservicio.atuservicio.dtos.users.UserInfoDTO;
 import com.atuservicio.atuservicio.entities.Comment;
 import com.atuservicio.atuservicio.entities.Contract;
 import com.atuservicio.atuservicio.entities.User;
+import com.atuservicio.atuservicio.enums.State;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.repositories.CommentRepository;
 import com.atuservicio.atuservicio.services.CommentService;
@@ -538,6 +539,50 @@ public class ContractController {
             //Recupero la lista de solicitudes que recibió el proveedor mediante su id
             List<ContractInfoDTO> contracts = contractService.getBySupplierId(supplierDTO.getId());
 
+            Integer pendingApproval = 0;
+            Integer refusedSupplier = 0;
+            Integer approvedSupplier = 0;
+            Integer refusedClient = 0;
+            Integer canceledClient = 0;
+            Integer doneClient = 0;
+            Integer doneSupplier = 0;
+            Integer pendingCompletion = 0;
+            for(ContractInfoDTO c : contracts) {
+                switch (c.getState()) {
+                    case PENDING_APPROVAL:
+                        pendingApproval += 1;
+                        break;
+                    case REFUSED_SUPPLIER:
+                        refusedSupplier += 1;
+                        break;
+                        case APPROVED_SUPPLIER:
+                            approvedSupplier += 1;
+                            break;
+                            case REFUSED_CLIENT:
+                                refusedClient += 1;
+                                break;
+                            case CANCELED_CLIENT:
+                                canceledClient += 1;
+                                break;
+                            case DONE_CLIENT:
+                                doneClient += 1;
+                                break;
+                            case DONE_SUPPLIER:
+                                doneSupplier += 1;
+                                break;
+                            case PENDING_COMPLETION:
+                                pendingCompletion += 1;
+                }
+            }
+
+            model.addAttribute("pendingApproval", pendingApproval);
+            model.addAttribute("refusedSupplier", refusedSupplier );
+            model.addAttribute("approvedSupplier",approvedSupplier );
+            model.addAttribute("refusedClient",refusedClient );
+            model.addAttribute("canceledClient",canceledClient );
+            model.addAttribute("doneClient",doneClient );
+            model.addAttribute("doneSupplier",doneSupplier);
+            model.addAttribute("pendingCompletion",pendingCompletion);
             model.addAttribute("contracts", contracts);
 
             return "request_from_customer_list.html";
