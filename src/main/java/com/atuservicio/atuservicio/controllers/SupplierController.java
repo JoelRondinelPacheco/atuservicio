@@ -69,8 +69,6 @@ public class SupplierController {
             @RequestParam(required = false) String password, @RequestParam(required = false) String password2,
             @RequestParam(required = false) String categoryId,
             ModelMap model) throws MyException {
-
-        System.out.println("rubro:" + categoryId);
         try {
 
             List<UserRegisterErrorDTO> errors = validar(name, email, password,
@@ -86,7 +84,7 @@ public class SupplierController {
 
                 model.addAttribute("categories", categories);
 
-                return "register_supplier.html";
+                return "index.html";
             }
 
             SaveSupplierDTO user = new SaveSupplierDTO(name, email, password, password2, categoryId);
