@@ -1,616 +1,641 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-    class="fondo-seccion">
+      class="fondo-seccion">
 
-<head th:replace="fragments/head :: head"></head>
+    <head th:replace="fragments/head :: head"></head>
 
-<body>
-    <nav th:replace="fragments/navbar :: navbar"></nav>
+    <body>
+        <nav th:replace="fragments/navbar :: navbar"></nav>
 
-    <div class="container " style="margin-top:100px;">
-        <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item m-2 mb-3">
-                <h2 class="accordion-header" id="flush-headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        Solicitudes pendientes
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${pendingApproval}">
-                            <span class="visually-hidden">unread messages</span>
-                        </span>
-                    </button>
-                </h2>
-                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <div id="pendingApprovalContractList">
-                            <table class="table table-striped" style="background-color: transparent; font-size: 10px">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
-                                            Nombre
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
-                                            Email
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
-                                            Fecha
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
-                                            Dirección</th>
-                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
-                                            Descripción</th>
-                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
-                                            Estado
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
-                                            Aprobar
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
-                                            Rechazar</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr th:each="contract : ${contracts}"
-                                        th:if="${contract.state.name() == 'PENDING_APPROVAL'}">
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
-                                            th:text="${contract.createdAt}"></td>
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
-                                            th:text="${contract.customer.name}"></td>
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
-                                            th:text="${contract.customer.email}"></td>
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
-                                            th:text="${contract.customer.address}"></td>
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
-                                            th:text="${contract.description}"></td>
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
-                                            th:text="${contract.state}">
-                                        </td>
-                                        <!--Aprobar-->
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6">
-                                            <form class="fs-6"
-                                                th:action="@{/contract/supplier/accept/__${contract.id}__}">
-                                                <label for="customRange1" class="form-label">Tiempo Estimado en horas:
-                                                </label><span id="time"></span>
-                                                <input type="range" min="0" max="24" name="estimatedTime"
-                                                    class="form-range" id="customRange1">
+        <div class="container " style="margin-top:100px;">
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item m-2 mb-3">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            Solicitudes pendientes
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${pendingApproval}">
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div id="pendingApprovalContractList">
+                                <table class="table table-striped" style="background-color: transparent; font-size: 10px">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
+                                                Nombre
+                                            </th>
+                                            <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
+                                                Email
+                                            </th>
+                                            <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
+                                                Fecha
+                                            </th>
+                                            <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
+                                                Dirección</th>
+                                            <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
+                                                Descripción</th>
+                                            <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
+                                                Estado
+                                            </th>
+                                            <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
+                                                Aprobar
+                                            </th>
+                                            <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
+                                                Rechazar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider">
+                                        <tr th:each="contract : ${contracts}"
+                                            th:if="${contract.state.name() == 'PENDING_APPROVAL'}">
+                                            <td style="background-color: #c0aaca; color: white" class="fs-6"
+                                                th:text="${contract.createdAt}"></td>
+                                            <td style="background-color: #c0aaca; color: white" class="fs-6"
+                                                th:text="${contract.customer.name}"></td>
+                                            <td style="background-color: #c0aaca; color: white" class="fs-6"
+                                                th:text="${contract.customer.email}"></td>
+                                            <td style="background-color: #c0aaca; color: white" class="fs-6"
+                                                th:text="${contract.customer.address}"></td>
+                                            <td style="background-color: #c0aaca; color: white" class="fs-6"
+                                                th:text="${contract.description}"></td>
+                                            <td style="background-color: #c0aaca; color: white" class="fs-6"
+                                                th:text="${contract.state}">
+                                            </td>
+                                            <!--Aprobar-->
+                                            <td style="background-color: #c0aaca; color: white" class="fs-6">
+                                                <form class="fs-6"
+                                                      th:action="@{/contract/supplier/accept/__${contract.id}__}">
+                                                    <label for="customRange1" class="form-label">Tiempo Estimado en horas:
+                                                    </label><span id="time"></span>
+                                                    <input type="range" min="0" max="24" name="estimatedTime"
+                                                           class="form-range" id="customRange1">
 
-                                                <input type="submit" value="Cotizar"
-                                                    class="btn btn-outline-light btn-success btn-lg px-4 me-md-2" /><!--ContractController: linea 120--><!--Lo setea a APPROVED_SUPPLIER-->
-                                            </form>
-                                        </td>
-                                        <!--Rechazar-->
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6">
-                                            <a class="btn btn-outline-light btn-danger btn-lg px-4 me-md-2"
-                                                th:href="@{/contract/supplier/decline/__${contract.id}__}">
-                                                Rechazar
-                                                <!--ContractController: linea 141--><!--Lo setea a REFUSED_SUPPLIER-->
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                                    <input type="submit" value="Cotizar"
+                                                           class="btn btn-outline-light btn-success btn-lg px-4 me-md-2" /><!--ContractController: linea 120--><!--Lo setea a APPROVED_SUPPLIER-->
+                                                </form>
+                                            </td>
+                                            <!--Rechazar-->
+                                            <td style="background-color: #c0aaca; color: white" class="fs-6">
+                                                <a class="btn btn-outline-light btn-danger btn-lg px-4 me-md-2"
+                                                   th:href="@{/contract/supplier/decline/__${contract.id}__}">
+                                                    Rechazar
+                                                    <!--ContractController: linea 141--><!--Lo setea a REFUSED_SUPPLIER-->
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
-
                     </div>
                 </div>
-            </div>
-            <div class="accordion-item m-2 mb-3">
-                <h2 class="accordion-header" id="flush-headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">Solicitudes canceladas por el cliente
+                <div class="accordion-item m-2 mb-3">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">Solicitudes canceladas por el cliente
                             <span class=" position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${refusedClient}">
-    <span class="visually-hidden">unread messages</span>
+                                <span class="visually-hidden">unread messages</span>
 
-                </h2>
-                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <div id="canceledContractList">
-                            <table class="table table-hover" style="font-size: 10px">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
-                                            Fecha
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
-                                            Nombre
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
-                                            Email
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
-                                            Dirección</th>
-                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
-                                            Descripción</th>
-                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
-                                            Estado
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
-                                            Comentario</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr th:each="contract : ${contracts}"
-                                        th:if="${contract.state.name() == 'CANCELED_CLIENT'}">
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
-                                            th:text="${contract.createdAt}"></td>
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
-                                            th:text="${contract.customer.name}"></td>
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
-                                            th:text="${contract.customer.email}"></td>
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
-                                            th:text="${contract.customer.address}"></td>
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
-                                            th:text="${contract.description}"></td>
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
-                                            th:text="${contract.state}"></td>
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
-                                            th:if="${contract.hasComment}">
+                                </h2>
+                                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                                     data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div id="canceledContractList">
+                                            <table class="table table-hover" style="font-size: 10px">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
+                                                            Fecha
+                                                        </th>
+                                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
+                                                            Nombre
+                                                        </th>
+                                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
+                                                            Email
+                                                        </th>
+                                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
+                                                            Dirección</th>
+                                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
+                                                            Descripción</th>
+                                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
+                                                            Estado
+                                                        </th>
+                                                        <th style="background-color: #c0aaca; color: white" class="fs-6" scope="col">
+                                                            Comentario</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-group-divider">
+                                                    <tr th:each="contract : ${contracts}"
+                                                        th:if="${contract.state.name() == 'CANCELED_CLIENT'}">
+                                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
+                                                            th:text="${contract.createdAt}"></td>
+                                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
+                                                            th:text="${contract.customer.name}"></td>
+                                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
+                                                            th:text="${contract.customer.email}"></td>
+                                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
+                                                            th:text="${contract.customer.address}"></td>
+                                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
+                                                            th:text="${contract.description}"></td>
+                                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
+                                                            th:text="${contract.state}"></td>
+                                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
+                                                            th:if="${contract.hasComment}">
 
-                                            <a class="btn btn-outline-light btn-lg px-4 me-md-2"
-                                                th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a>
+                                                            <a class="btn btn-outline-light btn-lg px-4 me-md-2"
+                                                               th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a>
 
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item m-2 mb-3">
-                <h2 class="accordion-header" id="flush-headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                        Solicitudas que has aprobado
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${approvedSupplier}">
-                            <span class="visually-hidden">unread messages</span>
-                        </span>
-                    </button>
-                </h2>
-                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <div id="contractList">
-                            <table class="table table-bordered" style="font-size: 10px">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">Fecha
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">Nombre
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">Email
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">
-                                            Dirección</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">
-                                            Descripción</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">Estado
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr th:each="contract : ${contracts}"
-                                        th:if="${contract.state.name() == 'APPROVED_SUPPLIER'}">
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.createdAt}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.customer.name}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.customer.email}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.customer.address}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.description}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.state}"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="accordion-item m-2 mb-3">
+                                    <h2 class="accordion-header" id="flush-headingThree">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                            Solicitudas que has aprobado
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${approvedSupplier}">
+                                                <span class="visually-hidden">unread messages</span>
+                                            </span>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                                         data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div id="contractList">
+                                                <table class="table table-bordered" style="font-size: 10px">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">Fecha
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">Nombre
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">Email
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">
+                                                                Dirección</th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">
+                                                                Descripción</th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">Estado
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="table-group-divider">
+                                                        <tr th:each="contract : ${contracts}"
+                                                            th:if="${contract.state.name() == 'APPROVED_SUPPLIER'}">
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.createdAt}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.customer.name}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.customer.email}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.customer.address}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.description}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.state}"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item m-2 mb-3">
-                <h2 class="accordion-header" id="flush-headingFour">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                        Solicitudas que has rechazado
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${refusedSupplier}">
-                            <span class="visually-hidden">unread messages</span>
-                        </span>
-                    </button>
-                </h2>
-                <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <div id="contractList">
-                            <table class="table table-bordered" style="font-size: 10px">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">Fecha
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">Nombre
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">Email
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">
-                                            Dirección</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">
-                                            Descripción</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">Estado
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">
-                                            Comentario</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr th:each="contract : ${contracts}"
-                                        th:if="${contract.state.name() == 'REFUSED_SUPPLIER'}">
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.createdAt}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.customer.name}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.customer.email}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.customer.address}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.description}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.state}"></td>
-                                        <td style="background-color: #c0aaca; color: white" class="fs-6"
-                                            th:if="${contract.hasComment}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item m-2 mb-3">
+                                    <h2 class="accordion-header" id="flush-headingFour">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                            Solicitudas que has rechazado
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${refusedSupplier}">
+                                                <span class="visually-hidden">unread messages</span>
+                                            </span>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour"
+                                         data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div id="contractList">
+                                                <table class="table table-bordered" style="font-size: 10px">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">Fecha
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">Nombre
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">Email
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">
+                                                                Dirección</th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">
+                                                                Descripción</th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">Estado
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">
+                                                                Comentario</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="table-group-divider">
+                                                        <tr th:each="contract : ${contracts}"
+                                                            th:if="${contract.state.name() == 'REFUSED_SUPPLIER'}">
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.createdAt}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.customer.name}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.customer.email}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.customer.address}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.description}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.state}"></td>
+                                                            <td style="background-color: #c0aaca; color: white" class="fs-6"
+                                                                th:if="${contract.hasComment}">
 
-                                            <a class="btn btn-outline-light  btn-lg px-4 me-md-2"
-                                                th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a>
+                                                                <a class="btn btn-outline-light  btn-lg px-4 me-md-2"
+                                                                   th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a>
 
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
-                    </div>
-                </div>
-            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-            <div class="accordion-item m-2 mb-3">
-                <h2 class="accordion-header" id="flush-headingFive">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                        Tareas en proceso
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${pendingCompletion}">
-                            <span class="visually-hidden">unread messages</span>
-                        </span>
-                    </button>
-                </h2>
-                <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <div id="contractList">
-                            <table class="table table-bordered" style="font-size: 10px">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">Fecha
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">Nombre
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">Email
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">
-                                            Dirección</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">
-                                            Descripción</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">Estado
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
-                                            scope="col">Accion
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr th:each="contract : ${contracts}"
-                                        th:if="${contract.state.name() == 'PENDING_COMPLETION'}">
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.createdAt}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.customer.name}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.customer.email}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.customer.address}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.description}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            th:text="${contract.state}"></td>
-                                        <td style="background-color: #c0aaca; color: white;">
-                                            <a class="btn btn-outline-light btn-success btn-lg px-4 me-md-2"
-                                                th:href="@{/contract/supplier/done/__${contract.id}__}">
-                                                Termine mi trabajo
-                                                <!--ContractController: linea 212--><!--Lo setea a DONE_SUPPLIER-->
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                <div class="accordion-item m-2 mb-3">
+                                    <h2 class="accordion-header" id="flush-headingFive">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                                            Tareas en proceso
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${pendingCompletion}">
+                                                <span class="visually-hidden">unread messages</span>
+                                            </span>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive"
+                                         data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div id="contractList">
+                                                <table class="table table-bordered" style="font-size: 10px">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">Fecha
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">Nombre
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">Email
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">
+                                                                Dirección</th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">
+                                                                Descripción</th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">Estado
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="shadow-none fs-6"
+                                                                scope="col">Accion
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="table-group-divider">
+                                                        <tr th:each="contract : ${contracts}"
+                                                            th:if="${contract.state.name() == 'PENDING_COMPLETION'}">
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.createdAt}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.customer.name}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.customer.email}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.customer.address}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.description}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                th:text="${contract.state}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;">
+                                                                <a class="btn btn-outline-light btn-success btn-lg px-4 me-md-2"
+                                                                   th:href="@{/contract/supplier/done/__${contract.id}__}">
+                                                                    Termine mi trabajo
+                                                                    <!--ContractController: linea 212--><!--Lo setea a DONE_SUPPLIER-->
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item m-2 mb-3">
-                <h2 class="accordion-header" id="flush-headingSix">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
-                        Solicitudes rechazadas por el cliente (No aceptó la cotización / Disconformidad ante el trabajo)
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${refusedClient}">
-                            <span class="visually-hidden">unread messages</span>
-                        </span>
-                    </button>
-                </h2>
-                <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <div id="refusedContractList">
-                            <table class="table table-hover" style="font-size: 10px">
-                                <thead style="background-color: transparent" class="thead-dark">
-                                    <tr>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">Nombre
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">Email
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">
-                                            Dirección</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">Fecha
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">
-                                            Descripción</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">Estado
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">
-                                            Comentario</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr th:each="contract : ${contracts}"
-                                        th:if="${contract.state.name() == 'REFUSED_CLIENT'}">
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.createdAt}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.customer.name}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.customer.email}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.customer.address}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.description}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.state}">
-                                        </td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:if="${contract.hasComment}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item m-2 mb-3">
+                                    <h2 class="accordion-header" id="flush-headingSix">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                                            Solicitudes rechazadas por el cliente (No aceptó la cotización / Disconformidad ante el trabajo)
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${refusedClient}">
+                                                <span class="visually-hidden">unread messages</span>
+                                            </span>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix"
+                                         data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div id="refusedContractList">
+                                                <table class="table table-hover" style="font-size: 10px">
+                                                    <thead style="background-color: transparent" class="thead-dark">
+                                                        <tr>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">Nombre
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">Email
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">
+                                                                Dirección</th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">Fecha
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">
+                                                                Descripción</th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">Estado
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">
+                                                                Comentario</th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">
+                                                                Respuesta</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="table-group-divider">
+                                                        <tr th:each="contract : ${contracts}"
+                                                            th:if="${contract.state.name() == 'REFUSED_CLIENT'}">
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.createdAt}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.customer.name}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.customer.email}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.customer.address}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.description}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.state}">
+                                                            </td>
 
-                                            <a class="btn btn-outline-light  btn-lg px-4 me-md-2"
-                                                th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:if="${contract.hasComment}">
+                                                                <a class="btn btn-outline-light  btn-lg px-4 me-md-2"
+                                                                   th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a>
+                                                            </td>
+                                                            <td style="background-color: #c0aaca; color: white;" th:unless="${contract.hasComment}">-</td>
 
-                                        </td>
-                                        <td style="background-color: #c0aaca; color: white;" th:unless="${contract.hasComment}">-</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:if="${contract.cantidadComentarios == 1}">
+                                                                <a class="btn btn-outline-light  btn-lg px-4 me-md-2"
+                                                                   th:href="@{'/contract/response/supplier/' + ${contract.id}}">Responder</a>
+                                                            </td>
+                                                            <td style="background-color: #c0aaca; color: white"
+                                                                th:unless="${contract.cantidadComentarios == 1}">
+                                                                -
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
-                    </div>
-                </div>
-            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-            <div class="accordion-item m-2 mb-3">
-                <h2 class="accordion-header" id="flush-headingSeven">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
-                        Tareas finalizadas de forma óptima (por el cliente)
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${doneClient}">
-                            <span class="visually-hidden">unread messages</span>
-                        </span>
-                    </button>
-                </h2>
-                <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <div id="refusedContractList">
-                            <table class="table table-hover" style="font-size: 10px">
-                                <thead style="background-color: transparent" class="thead-dark">
-                                    <tr>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">Nombre
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">Email
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">
-                                            Dirección</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">Fecha
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">
-                                            Descripción</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">Estado
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">
-                                            Comentario</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr th:each="contract : ${contracts}"
-                                        th:if="${contract.state.name() == 'DONE_CLIENT'}">
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.createdAt}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.customer.name}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.customer.email}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.customer.address}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.description}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.state}">
-                                        </td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:if="${contract.hasComment}">
+                                <div class="accordion-item m-2 mb-3">
+                                    <h2 class="accordion-header" id="flush-headingSeven">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+                                            Tareas finalizadas de forma óptima (por el cliente)
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${doneClient}">
+                                                <span class="visually-hidden">unread messages</span>
+                                            </span>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven"
+                                         data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div id="refusedContractList">
+                                                <table class="table table-hover" style="font-size: 10px">
+                                                    <thead style="background-color: transparent" class="thead-dark">
+                                                        <tr>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">Nombre
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">Email
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">
+                                                                Dirección</th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">Fecha
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">
+                                                                Descripción</th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">Estado
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">
+                                                                Comentario</th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">
+                                                                Respuesta</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="table-group-divider">
+                                                        <tr th:each="contract : ${contracts}"
+                                                            th:if="${contract.state.name() == 'DONE_CLIENT'}">
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.createdAt}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.customer.name}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.customer.email}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.customer.address}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.description}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.state}">
+                                                            </td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:if="${contract.hasComment}">
 
-                                            <a class="btn btn-outline-light btn-lg px-4 me-md-2"
-                                                th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a>
+                                                                <a class="btn btn-outline-light btn-lg px-4 me-md-2"
+                                                                   th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a>
 
-                                        </td>
-                                        <td style="background-color: #c0aaca; color: white"
-                                            th:unless="${contract.hasComment}">
-                                            -
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                                            </td>
+                                                            <td style="background-color: #c0aaca; color: white"
+                                                                th:unless="${contract.hasComment}">
+                                                                -
+                                                            </td>
+                                                            
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:if="${contract.cantidadComentarios == 1}">
+                                                                <a class="btn btn-outline-light  btn-lg px-4 me-md-2"
+                                                                   th:href="@{'/contract/response/supplier/' + ${contract.id}}">Responder</a>
+                                                            </td>
+                                                            <td style="background-color: #c0aaca; color: white"
+                                                                th:unless="${contract.cantidadComentarios == 1}">
+                                                                -
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-            <div class="accordion-item m-2 mb-3">
-                <h2 class="accordion-header" id="flush-headingEight">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
-                        Tareas finalizadas de forma óptima (por vos)
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${doneSupplier}">
-                            <span class="visually-hidden">unread messages</span>
-                        </span>
-                    </button>
-                </h2>
-                <div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingEight"
-                    data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <div id="refusedContractList">
-                            <table class="table table-hover" style="font-size: 10px">
-                                <thead style="background-color: transparent" class="thead-dark">
-                                    <tr>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">Nombre
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">Email
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">
-                                            Dirección</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">Fecha
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">
-                                            Descripción</th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">Estado
-                                        </th>
-                                        <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
-                                            scope="col">
-                                            Comentario</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr th:each="contract : ${contracts}"
-                                        th:if="${contract.state.name() == 'DONE_SUPPLIER'}">
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.createdAt}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.customer.name}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.customer.email}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.customer.address}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.description}"></td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:text="${contract.state}">
-                                        </td>
-                                        <td style="background-color: #c0aaca; color: white;" class="fs-6"
-                                            th:if="${contract.hasComment}">
+                                <div class="accordion-item m-2 mb-3">
+                                    <h2 class="accordion-header" id="flush-headingEight">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
+                                            Tareas finalizadas de forma óptima (por vos)
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${doneSupplier}">
+                                                <span class="visually-hidden">unread messages</span>
+                                            </span>
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingEight"
+                                         data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div id="refusedContractList">
+                                                <table class="table table-hover" style="font-size: 10px">
+                                                    <thead style="background-color: transparent" class="thead-dark">
+                                                        <tr>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">Nombre
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">Email
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">
+                                                                Dirección</th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">Fecha
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">
+                                                                Descripción</th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">Estado
+                                                            </th>
+                                                            <th style="background-color: #c0aaca; color: white;" class="fs-6 shadow-none"
+                                                                scope="col">
+                                                                Comentario</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="table-group-divider">
+                                                        <tr th:each="contract : ${contracts}"
+                                                            th:if="${contract.state.name() == 'DONE_SUPPLIER'}">
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.createdAt}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.customer.name}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.customer.email}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.customer.address}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.description}"></td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:text="${contract.state}">
+                                                            </td>
+                                                            <td style="background-color: #c0aaca; color: white;" class="fs-6"
+                                                                th:if="${contract.hasComment}">
 
-                                            <a class="btn btn-outline-light btn-lg px-4 me-md-2"
-                                                th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a>
+                                                                <a class="btn btn-outline-light btn-lg px-4 me-md-2"
+                                                                   th:href="@{'/contract/comments/supplier/' + ${contract.id}}">Ver</a>
 
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
 
-    </div>
+                                </div>
 
-    <div class="container text-center fs-6 mt-3 mb-5 pb-5">
-        <div class="row g-2">
-
-
-
-
-
-
-
-
-
-
-
-
-        </div>
-        <script>
-
-            const range = document.querySelector('#customRange1')
-            const time = document.querySelector('#time')
+                                <div class="container text-center fs-6 mt-3 mb-5 pb-5">
+                                    <div class="row g-2">
 
 
-            range.addEventListener('input', () => {
-                console.log(range.value)
-                time.textContent = " " + range.value
 
-            })
-        </script>
 
-        <footer th:replace="fragments/footer :: footer"></footer>
-</body>
 
-</html>
+
+
+
+
+
+
+
+                                    </div>
+                                    <script>
+
+                                        const range = document.querySelector('#customRange1')
+                                        const time = document.querySelector('#time')
+
+
+                                        range.addEventListener('input', () => {
+                                        console.log(range.value)
+                                        time.textContent = " " + range.value
+
+                                        })
+                                    </script>
+
+                                    <footer th:replace="fragments/footer :: footer"></footer>
+                                    </body>
+
+                                    </html>

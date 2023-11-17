@@ -23,7 +23,7 @@ public class Supplier extends User {
     @JoinColumn(name = "category_id")
     private Category category;  //rubro
     
-    @OneToMany(mappedBy = "supplier")
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
     private List<Contract> contractsAsSupplier;
 
 
