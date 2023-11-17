@@ -14,7 +14,7 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                         Solicitudes pendientes
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${pendingApproval}">
+                        <span th:if="${pendingApproval!= 0}" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${pendingApproval}">
                             <span class="visually-hidden">unread messages</span>
                         </span>
                     </button>
@@ -98,7 +98,7 @@
                 <h2 class="accordion-header" id="flush-headingTwo">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">Solicitudes canceladas por el cliente
-                            <span class=" position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${refusedClient}">
+                            <span th:if="${refusedClient!= 0}" class=" position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${refusedClient}">
     <span class="visually-hidden">unread messages</span>
 
                 </h2>
@@ -163,7 +163,7 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                         Solicitudas que has aprobado
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${approvedSupplier}">
+                        <span th:if="${approvedSupplier!= 0}" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${approvedSupplier}">
                             <span class="visually-hidden">unread messages</span>
                         </span>
                     </button>
@@ -223,7 +223,7 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
                         Solicitudas que has rechazado
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${refusedSupplier}">
+                        <span th:if="${refusedSupplier!= 0}" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${refusedSupplier}">
                             <span class="visually-hidden">unread messages</span>
                         </span>
                     </button>
@@ -294,7 +294,7 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
                         Tareas en proceso
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${pendingCompletion}">
+                        <span th:if="${pendingCompletion!= 0}" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${pendingCompletion}">
                             <span class="visually-hidden">unread messages</span>
                         </span>
                     </button>
@@ -364,7 +364,7 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
                         Solicitudes rechazadas por el cliente (No aceptó la cotización / Disconformidad ante el trabajo)
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${refusedClient}">
+                        <span th:if="${refusedClient!= 0}" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${refusedClient}">
                             <span class="visually-hidden">unread messages</span>
                         </span>
                     </button>
@@ -437,7 +437,7 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
                         Tareas finalizadas de forma óptima (por el cliente)
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${doneClient}">
+                        <span th:if="${doneClient!= 0}" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${doneClient}">
                             <span class="visually-hidden">unread messages</span>
                         </span>
                     </button>
@@ -512,7 +512,7 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
                         Tareas finalizadas de forma óptima (por vos)
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${doneSupplier}">
+                        <span th:if="${doneSupplier!= 0}" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${doneSupplier}">
                             <span class="visually-hidden">unread messages</span>
                         </span>
                     </button>
