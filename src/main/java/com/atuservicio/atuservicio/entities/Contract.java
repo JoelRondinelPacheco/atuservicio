@@ -25,6 +25,7 @@ public class Contract extends Base{
     Boolean customerDone;
     Boolean supplierDone;
     Boolean rejectedBudget;
+    Integer cantidadComentarios = 0;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

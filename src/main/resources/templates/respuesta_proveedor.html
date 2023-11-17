@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="fragments/head :: head"></head>
+    <body>
+        <nav th:replace="fragments/navbar :: navbar"></nav>
+        <div class="py-6 wwihd text-center fondo-seccion">
+            <h1 class="p-3 titulo-hero display-5 fw-bold lh-1 mb-3">Devuelva una respuesta al cliente</h1>
+            <div class="container mt-3 mb-5">
+                <div th:each="comment : ${comments}">
+                    <label>Comentario de: </label>
+                    <span th:text="${comment.author.name}" style="color:aliceblue" class="title">Comentario de: </span>
+                    <div class="p-1">
+                        <textarea id="commentario" name="content" th:text="${comment.content}" cols="20" rows="10"
+                                  class="form-control" style="
+                                  border-radius: 25px;
+                                  color: white;
+                                  background-color: #b29cb8;
+                                  font-style: oblique;
+                                  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman',
+                                  serif;
+                                  " readonly></textarea>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <form th:action="@{'/contract/response/supplier/' + ${contractId}}" method="post">
+                    <div class="containerComment ">
+                        <div class="p-1 deslizable">
+
+                            <label for="customRange1" class="form-label title">Puntuación: </label>
+                            <span style="color:aliceblue" class="title" id="score"></span>
+                            <input type="range" min="0" max="5" name="score" class="form-range" id="customRange1">
+
+                        </div>
+                        <div class="p-1 title">
+                            <div class="m-1">
+                                <label for="comment">Su respuesta</label>
+                            </div>
+                            <div class="m-2">
+                                <textarea id="comment" name="content" placeholder="Escribe tu comentario aquí" required
+                                          cols="30" rows="10" class="form-control" style="
+                                          border-radius: 25px;
+                                          color: white;
+                                          background-color: #b29cb8;
+                                          font-style: oblique;
+                                          font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman',
+                                          serif;
+                                          "></textarea>
+                            </div>
+                            <div claas="m-2">
+                                <input type="submit" class="btn btn-outline-light btn-lg px-4 me-md-2" value="Enviar">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <footer th:replace="fragments/footer :: footer" class="fixed-footer">
+    </body>
+</html>

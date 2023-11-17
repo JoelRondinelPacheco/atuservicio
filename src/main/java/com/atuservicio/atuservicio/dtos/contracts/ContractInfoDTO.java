@@ -27,4 +27,5 @@ public class ContractInfoDTO {
     private boolean hasComment;
     private boolean rejectedBudget;
     private Double estimatedTime;
+    private Integer cantidadComentarios;
 }

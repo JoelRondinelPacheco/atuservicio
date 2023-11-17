@@ -13,6 +13,7 @@ import com.atuservicio.atuservicio.entities.User;
 import com.atuservicio.atuservicio.enums.State;
 import com.atuservicio.atuservicio.exceptions.MyException;
 import com.atuservicio.atuservicio.repositories.CommentRepository;
+import com.atuservicio.atuservicio.repositories.ContractRepository;
 import com.atuservicio.atuservicio.services.CommentService;
 import com.atuservicio.atuservicio.services.SupplierService;
 import com.atuservicio.atuservicio.services.interfaces.IContractService;
@@ -49,7 +50,10 @@ public class ContractController {
 
     @Autowired
     private CommentService commentService;
-
+    
+    @Autowired
+    private ContractRepository contractRepository;
+    
     //EL CLIENTE PRESIONA EL BOTON 'CONTACTAR'
     @GetMapping("/form/{id}")
     public String requestForm(@PathVariable("id") String id, ModelMap model) {
@@ -304,16 +308,17 @@ public class ContractController {
         try {
             //Recupero el contrato de la base de datos
             ContractInfoDTO contractDTO = this.contractService.getById(contractId);
+            this.contractService.aumentoCantidadComentarios(contractDTO);
             //Instancio un nuevo comentario y lo persisto en la base de datos
             SaveCommentDTO commentDTO = new SaveCommentDTO(contractDTO, content, score);
             CommentInfoDTO commentSaved = this.commentService.save(commentDTO);
-
+            
             //Recupero los detalles del usuario cliente logueado
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             UserInfoDTO customerDTO = userService.getSearchEmailUser(auth.getName());
             //Recupero la lista de solicitudes que realizó el cliente mediante su id
             List<ContractInfoDTO> contracts = contractService.getByUserId(customerDTO.getId());
-
+            
             model.addAttribute("contracts", contracts);
             model.addAttribute("comment", commentSaved);
             return "request_to_supplier_list.html";
@@ -331,6 +336,7 @@ public class ContractController {
         try {
             //Recupero el contrato de la base de datos
             ContractInfoDTO contractDTO = this.contractService.getById(contractId);
+            this.contractService.aumentoCantidadComentarios(contractDTO);
             //Instancio un nuevo comentario y lo persisto en la base de datos
             SaveCommentDTO commentDTO = new SaveCommentDTO(contractDTO, content, score);
             CommentInfoDTO commentSaved = this.commentService.save(commentDTO);
@@ -377,12 +383,24 @@ public class ContractController {
         }
     }
 
-    //----------------------------RESPUESTA DEL PROVEEDOR-----------------------------
-    /*POR ESCASEZ DE TIEMPO, EN LOS SIGUIENTES MÉTODOS TRATAMOS CON LAS ENTIDADES
-    ORIGINALES Y LOS REPOSITORIOS DIRECTAMENTE*/
-    //comments_refused_client.html --> vista que contiene el form que impacta a esta ruta
-    //El proveedor (author) responde el comentario negativo del cliente (receiver).
-    @PostMapping("/response/supplier/refused/{contractId}")
+    //----------------------------RESPUESTAS DEL PROVEEDOR-----------------------------
+    
+    //Botón 'Responder' --> el proveedor (author) responde el comentario del cliente (receiver).
+    @GetMapping("/response/supplier/{contractId}")
+    public String supplierResponseRefused(@PathVariable String contractId, ModelMap model){
+        try {
+            List <CommentInfoDTO> comments = commentService.findByContracId(contractId);
+            
+            model.addAttribute("comments", comments);
+            model.addAttribute("contractId", contractId);
+            return "respuesta_proveedor.html";
+            
+        } catch (MyException ex) {
+            return "index.html";
+        }
+    }
+    
+    @PostMapping("/response/supplier/{contractId}")
     public String supplierResponseRefused(@PathVariable String contractId,
             @RequestParam String content, @RequestParam Double score, ModelMap model) {
         try {
@@ -398,7 +416,10 @@ public class ContractController {
             comment.setScore(score);
 
             Comment commentSaved = this.commentRepository.save(comment);
-
+            
+            ContractInfoDTO contractDTO = this.contractService.getById(contractId);
+            this.contractService.aumentoCantidadComentarios(contractDTO);
+             
             model.addAttribute("comment", commentSaved);
             return this.requestsFromCustomers(model);
 
@@ -406,8 +427,7 @@ public class ContractController {
             return "index.html";
         }
     }
-
-    //comments_done_client.html --> vista que contiene el form que impacta a esta ruta
+/*
     //El proveedor (author) responde el comentario positivo del cliente (receiver).
     @PostMapping("/response/supplier/done/{contractId}")
     public String supplierResponseDone(@PathVariable String contractId,
@@ -434,9 +454,9 @@ public class ContractController {
         }
 
     }
-
+*/
     //----------------------------RESPUESTA DEL CLIENTE-----------------------------
-    //comments_done_supplier.html' -->  vista que contiene el form que impacta a esta ruta
+  
     //El cliente (author) responde el comentario del proveedor (receiver) que dio por finalizado el trabajo.
     @GetMapping("/response/client/done/{contractId}")
     public String clientResponseDoneToSupplier(@PathVariable String contractId,
@@ -502,7 +522,7 @@ public class ContractController {
         List<Comment> comments = this.commentRepository.findByContractId(contractId);
         model.addAttribute("comments", comments);
         model.put("contractId", contractId);
-        return "comments_supplier_list";
+        return "comments_list";
     }
 
     //------------------------------LISTA DE SOLICITUDES------------------------------
@@ -538,7 +558,7 @@ public class ContractController {
             SupplierInfoDTO supplierDTO = supplierService.getByEmail(auth.getName());
             //Recupero la lista de solicitudes que recibió el proveedor mediante su id
             List<ContractInfoDTO> contracts = contractService.getBySupplierId(supplierDTO.getId());
-
+            
             Integer pendingApproval = 0;
             Integer refusedSupplier = 0;
             Integer approvedSupplier = 0;
@@ -584,7 +604,7 @@ public class ContractController {
             model.addAttribute("doneSupplier",doneSupplier);
             model.addAttribute("pendingCompletion",pendingCompletion);
             model.addAttribute("contracts", contracts);
-
+            
             return "request_from_customer_list.html";
 
         } catch (MyException ex) {
