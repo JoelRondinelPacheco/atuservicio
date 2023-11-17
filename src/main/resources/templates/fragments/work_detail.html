@@ -74,7 +74,7 @@
               <!-- <th:block th:each="star : ${#numbers.sequence(1, calificacion)}">
                   <span>☆</span>
                 </th:block> -->
-                <a href="#proyectos"> <button class="btn btn-outline-light w-30 py-2">Mis proyectos</button></a>
+              <a href="#proyectos"> <button class="btn btn-outline-light w-30 py-2">Mis proyectos</button></a>
             </div>
           </div>
         </div>
@@ -86,10 +86,16 @@
 
             <div class="card-body ">
 
-              <a th:href="@{/contract/form/__${supplier.id}__}"><button class="btn btn-outline-light w-30 py-2" type="submit">Contactar</button></a>
+              <a th:href="@{/contract/form/__${supplier.id}__}"><button class="btn btn-outline-light w-30 py-2"
+                  type="submit">Contactar</button></a>
               <!-- calificaciones -->
               <!-- </form> -->
 
+
+            </div>
+            <div class="card-body">
+              <a th:href="@{#comments}" class=""><button class="btn btn-outline-light w-30 py-2">Opiniones de otros
+                  usuarios</button></a>
             </div>
 
           </div>
@@ -97,8 +103,8 @@
       </div>
     </div>
 
-    <div class="container text-center">
-      <h1 class="text-light" id="proyectos">Fotos de mis proyectos</h1>
+    <div class="container text-center" id="proyectos">
+      <h1 class="text-light">Fotos de mis proyectos</h1>
     </div>
     <div class="container p-5">
 
@@ -124,16 +130,68 @@
       </div>
 
     </div>
+    <!-- <div class="container mb-5" id="comments">
+      <div class="card bg-transparent text-light">
+        <div class="card-header">
+          Comentarios
+        </div>
+        <div class="card-body">
+          <ul class="list-group text-start">
+            <div sec:authorize="hasRole('MODERATOR')">
+              <input name="idSupplier" value="${id}" hidden>
+              <a th:href="@{/moderator/deleteComment/__${comment.id}__}">
+                Borrar comentario
+              </a>
+            </div>
+            <div class="list-group-item bg-transparent text-light" th:each="comment : ${comments}"
+              th:text="${comment.author.name} +': '+${comment.content}">
+              
+            </div>
 
 
+            
+          </ul>
+        </div>
+      </div>
+    </div> -->
 
+    <div th:if="${comments != null}" class="py-6 wwihd text-center"  id="comments">
+      <h1 class="p-3 titulo-hero display-5 fw-bold lh-1 mb-3"> Lista de comentarios</h1>
+      <div class="container mt-3 mb-5">
+
+        <div  th:each="comment : ${comments}">
+          <label>Comentario de: </label>
+          <span th:text="${comment.author.name}" style="color:aliceblue" class="title">Comentario de: </span>
+          <div class="p-1">
+            <textarea id="commentario" name="content" th:text="${comment.content}" cols="20" rows="10"
+              class="form-control" style="
+                            border-radius: 25px;
+                            color: white;
+                            background-color: #b29cb8;
+                            font-style: oblique;
+                            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman',
+                            serif;
+                            " readonly></textarea>
+            <div sec:authorize="hasRole('MODERATOR')">
+              <form th:action="@{/moderator/deleteComment/__${comment.id}__}" method="POST">
+                <input name="idSupplier" th:value="${id}" hidden>
+                <!-- <a th:href="@{/moderator/deleteComment/__${comment.id}__}"> -->
+                  <button type="submit" class="btn btn-outline-light w-30 py-2">Borrar comentario</button>
+                <!-- </a> -->
+              </form>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-<!-- <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <!-- <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
     AOS.init();
   </script> -->
- <!-- <div>
+  <!-- <div>
             <a th:href="@{/contract/form/__${supplier.id}__}"
               ><button class="btn btn-outline-light w-30 py-2" type="submit">
                 Contactar
