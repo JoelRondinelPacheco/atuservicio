@@ -36,7 +36,7 @@
                     <td><a class="btn btn-primary" th:href="@{'/admin/role/moderator/'+${client.id}+'/clients?currentpage=' + ${currentPage}}">Moderador</a></td>
                     <td><a class="btn btn-primary" th:href="@{'/admin/role/admin/'+${client.id}+'/clients?currentpage=' + ${currentPage}}">Adminstrador</a></td>
                     <td>
-                        <a class="btn btn-danger"  th:href="@{'/admin/clients/delete?clientId='+${client.id}+'&'+'currentpage='+${currentPage}}">Dar de Baja</a>
+                        <a class="btn btn-danger"   th:href="@{'/admin/clients/delete?clientId='+${client.id}+'&'+'currentpage='+${currentPage}}">Dar de Baja</a>
                     </td>
                 </tr>
             </tbody>
