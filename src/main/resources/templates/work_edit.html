@@ -143,8 +143,8 @@
             <h5>Ingrese su descripción</h5>
             <div class="form-floating">
 
-              <textarea class="form-control bg-transparent w-100" id="descripcion" name="description"
-                th:text="${service.description}" style="height: 100px" ></textarea>
+              <textarea class="form-control bg-transparent w-100 text-light" id="descripcion" name="description"
+                th:text="${service.description}" style="height: 100px"></textarea>
 
             </div>
             <div class="col-md-2 mb-2">
@@ -166,26 +166,30 @@
             <p id="num-of-files" class="fs-4">Imagenes nuevas</p>
           </div>
         </div>
-        <input class="form-control" type="file" id="file-input" accept="image/jpeg" name="images" onchange="preview()"
-          multiple style="display: none;">
-        <div id="images" class="container d-flex flex-row"></div>
+        <div class="container d-flex flex-row d-flex justify-content-center card-color">
+          <input class="form-control" type="file" id="file-input" accept="image/jpeg" name="images" onchange="preview()"
+            multiple style="display: none;">
+          <div id="images" class="row card-color"></div>
+        </div>
+
         <div class="container text-center">
           <p id="num-of-files" class="fs-4">Imagenes existentes</p>
         </div>
-        <div class="container d-flex flex-row d-flex justify-content-center">
-
-          <div th:each="image : ${service.imageGallery}" class="m-2">
-            <div class="card mb-3" style="width: 18rem;">
-              <img th:src="@{'/image/' + ${image}}" class="card-img-top" alt="Imagen existente"
-                style="height: 200px; object-fit: cover;">
+    
+        <div class="container d-flex flex-wrap justify-content-center">
+          <div th:each="image : ${service.imageGallery}" class="card-color mb-3">
+            <div class="card card-color" style="width: 18rem; margin-right: 15px; margin-bottom: 15px;">
+              <img th:src="@{'/image/' + ${image}}" class="card-img-top" alt="Imagen existente" style="height: 200px; object-fit: cover;">
               <div class="card-body card-color">
                 <input type="checkbox" name="delete" th:value="${image}" class="form-check-input">
-                <label class="form-check-label">Eliminar</label>
+                <label class="form-check-label text-light">Eliminar</label>
               </div>
             </div>
           </div>
-
         </div>
+        
+
+
         <div class="container text-center pt-5">
           <button type="submit" class="btn btn-outline-light w-30 py-2 w-50">Guardar</button>
         </div>
